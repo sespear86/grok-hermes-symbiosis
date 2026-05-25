@@ -32,7 +32,35 @@ Paste the full output back to your brother.
 
 **Expected**:
 - Hermes lives under `%LOCALAPPDATA%\hermes`
-- You should see grok-4.3 as the default.
+- You should see grok-4.3 as the default (via the active config).
+
+**Important Windows Notes from real runs**:
+- Hermes and grok commands may not be in PATH yet. Use full paths or run `hermes setup` early.
+- `hermes doctor` will often recommend `hermes setup` — do this early on Windows.
+- The active Hermes config with your model is usually at `C:\Users\<you>\AppData\Local\hermes\config.yaml`.
+
+---
+
+## Immediate Next Action After Step 1 (Run This Now)
+
+**Run `hermes setup`** in PowerShell:
+
+```powershell
+hermes setup
+```
+
+(If `hermes` is not recognized, try the full path first:)
+```powershell
+& "C:\Users\spear\AppData\Local\hermes\hermes-agent\venv\Scripts\hermes.exe" setup
+```
+
+This will:
+- Create the missing `.env`
+- Help configure your xAI OAuth / grok-4.3 credentials
+- Initialize Skills Hub and other basics
+- Guide you through provider selection
+
+Run it, follow the prompts (especially for xAI / Grok), then paste the new `hermes doctor` output afterward.
 
 ---
 
