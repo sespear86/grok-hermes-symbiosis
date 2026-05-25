@@ -38,6 +38,7 @@ Paste the full output back to your brother.
 - Hermes and grok commands may not be in PATH yet. Use full paths or run `hermes setup` early.
 - `hermes doctor` will often recommend `hermes setup` — do this early on Windows.
 - The active Hermes config with your model is usually at `C:\Users\<you>\AppData\Local\hermes\config.yaml`.
+- **Critical**: If you are running commands inside the Grok Build TUI harness, it is non-interactive (no TTY). This blocks `hermes model` (OAuth browser login) and setup wizards. You **must** open a normal PowerShell window outside of Grok Build to complete authentication.
 
 ---
 
