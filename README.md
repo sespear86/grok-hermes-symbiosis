@@ -77,13 +77,20 @@ This symbiosis turns two already-powerful systems into something greater than th
 - Hermes hits wall on complex code → delegates back to Grok "grok-build implement this spec with reviews".
 - Hermes gathers research → Grok synthesizes into polished deliverable.
 
-### 5. Shared Resources & Extensions
+### 5. Shared Resources & Extensions (Implemented)
 
-- Central living doc: `~/grok-hermes-symbiosis/`
-- Dedicated skills in both systems.
-- Bridge scripts in `scripts/`.
-- Config snippets in `configs/`.
-- Recommended: Add GitHub MCP, other high-value MCPs to Hermes for tool parity on GitHub-heavy work.
+- Central living doc + git repo: `~/grok-hermes-symbiosis/` (version-controlled custom integrations)
+- Dedicated skills (live):
+  - Grok: `~/.grok/skills/hermes/SKILL.md` (activate with `/hermes` or `/skills hermes`)
+  - Hermes: `~/.hermes/skills/grok-build/SKILL.md` (activate with `/grok-build`)
+- Bridge scripts (in PATH):
+  - `grok-hermes-delegate "task..."` — rich handoff from Grok context to Hermes (with git/cwd/todo context)
+  - `hermes-grok-delegate "task..."` — reciprocal escalation to Grok specialist
+- Configs & recommendations: `configs/hermes-mcp-recommendations.md` (GitHub MCP etc. for Hermes)
+- MCP cross-registration: `hermes` server live in Grok (`grok inspect` confirms)
+- Verified: `grok inspect` already surfaces the `hermes` user skill + MCP server
+
+Recommended next: Add GitHub + other MCPs to Hermes per the recommendations file for full tool parity.
 
 ---
 
@@ -92,16 +99,16 @@ This symbiosis turns two already-powerful systems into something greater than th
 ### From Grok Build TUI (this session)
 
 ```
-/skills hermes          # List or inject
+/skills hermes          # List or inject (confirmed live via grok inspect)
 /hermes launch          # Start fresh Hermes chat (inherits CWD + context)
-/hermes resume          # Resume recent or pick
 /hermes delegate "Long running task description + any plans/todos from here" 
-/hermes one-shot "Quick question for Hermes agent" --model grok-4.3
-/hermes monitor         # Tail logs or check kanban
-/hermes gateway status
+/hermes one-shot "Quick question for Hermes agent"
+
+# Even smoother with the bridge script (includes git/cwd context automatically):
+grok-hermes-delegate "Execute this plan to completion via gateway/kanban. Escalate design/review to grok-build when needed."
 ```
 
-The skill will guide precise commands, context injection, and post-handoff follow-up.
+The skill + scripts guide precise commands, context injection, and post-handoff follow-up. MCP bridge also live (Hermes tools appear in `/mcps`).
 
 ### From Hermes
 
@@ -113,6 +120,11 @@ In any Hermes session (CLI or gateway):
 /grok-build verify this change with check skill
 /grok-build create professional pitch deck from this outline
 /grok-specialist "Use best-of-n to explore 3 approaches..."
+```
+
+Or from shell (when in a Hermes context):
+```
+hermes-grok-delegate "Use implement + check on this spec. Hand results back for gateway delivery."
 ```
 
 Hermes skill provides exact CLI invocation patterns (using `grok` binary with appropriate flags for headless or TUI).
@@ -146,6 +158,30 @@ Hermes skill provides exact CLI invocation patterns (using `grok` binary with ap
    - Share GitHub PAT safely between both (via env or gh auth).
    - Configure Hermes gateway for your preferred platforms.
    - Explore mission-control for web UI orchestration.
+
+---
+
+## Multi-Machine & Sibling Collaboration (Oregon + Windows)
+
+This repo is explicitly designed to be cloned and actively used on **both machines** (your Linux setup and the Windows 11 machine in Oregon).
+
+See these key sections:
+
+- `windows/SETUP_FOR_BROTHER.md` — Complete, portable, step-by-step guide tailored for the Windows machine (PowerShell bridges, path differences, early-beta Hermes notes).
+- `cross-device/LIVE_SYNC_DESIGN.md` — The architecture and principles for making the two devices feel like one extended coherent environment.
+- `cross-device/syncthing-guide.md` — Recommended live file sync setup (Syncthing is currently the best practical tool for this).
+- `skills/cross-device/SKILL.md` — New cross-device handoff and coordination skill (use this language for all inter-machine work).
+- `windows/scripts/` — PowerShell equivalents of the delegate bridges.
+
+**Current recommended stack for "as close as one machine as possible"**:
+- Git (shared GitHub repos) for code and deliberate work.
+- Syncthing for near-real-time project files + this symbiosis repo itself.
+- Hermes Gateway on both machines connected to the same shared chat (Discord/Telegram/Slack) as the live coordination bus for humans and agents.
+- Explicit cross-device skills + handoff packages for structured task movement between machines.
+
+Clone this repo on the second machine, follow the Windows guide, pair Syncthing, and connect both Hermes instances to the joint chat. Then start using the `cross-device` skill for handoffs.
+
+The long-term goal is maximum congruency of projects, skills, scripts, tools, and context across devices while still allowing independent work.
 
 ---
 
