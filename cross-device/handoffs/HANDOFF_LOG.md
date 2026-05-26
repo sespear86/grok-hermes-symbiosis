@@ -18,6 +18,7 @@
 | 2026-05-25 | 20260525-1937-Create-Handoff-Log-Index         | Oregon Windows    | Washington Linux  | Create living Handoff Log/Index            | Completed   | [20260525-1937-Create-Handoff-Log-Index](./20260525-1937-Create-Handoff-Log-Index/) |
 | 2026-05-25 | 20260525-1954-Symbiosis-Operations-Playbook    | Oregon Windows    | Washington Linux  | Consolidate setup references into a living Symbiosis Operations Playbook | Completed   | [20260525-1954-Symbiosis-Operations-Playbook](./20260525-1954-Symbiosis-Operations-Playbook/) |
 | 2026-05-26 | 20260525-2017-Align-Cross-Device-Skill         | Oregon Windows    | Washington Linux  | Align cross-device/SKILL.md with proven handoff + coordination patterns (grounded v2) | Completed   | [20260525-2017-Align-Cross-Device-Skill](./20260525-2017-Align-Cross-Device-Skill/) |
+| 2026-05-26 | 20260526-2305-Open-Items-Priorities            | Oregon Windows    | Washington Linux  | Create minimal living OPEN_ITEMS.md (or PRIORITIES.md) in coordination/ per Topic #3 | In Progress | [20260526-2305-Open-Items-Priorities](./20260526-2305-Open-Items-Priorities/) |
 
 ## How to Use This Log
 

@@ -61,6 +61,31 @@ Any deviation requires explicit joint agreement recorded in the coordination fil
 
 ---
 
+## Phase 2E: Memory Layer (Mempalace) Integration
+
+**Goal**: Introduce Mempalace as a shared, persistent, long-term memory layer across both machines. This directly strengthens the "one extended machine" feeling by reducing context loss over time and making handoffs richer.
+
+### Why It Fits Here
+- Once the handoff system (2B/2C) is stable and we're expanding scope (2D), adding persistent shared memory is the highest-leverage next capability.
+- Mempalace can be referenced inside handoff packages, the Playbook, and coordination files.
+- Both Grok and Hermes instances can eventually query it during handoffs, reducing the need to re-explain context.
+
+### Tasks
+
+| Task ID | Description | Owner | Status | Validation Criteria |
+|---------|-------------|-------|--------|---------------------|
+| M1 | Set up Mempalace on both machines and ensure it syncs via existing Syncthing + repo setup | Both | Not Started | Mempalace accessible and changes propagate reliably |
+| M2 | Define lightweight integration points with the handoff format | Both Groks | Not Started | Documented (e.g., new section in HANDOFF_FORMAT.md or separate memory-integration note) |
+| M3 | Pilot: Reference or attach relevant Mempalace sections in 1–2 handoffs | Both | Not Started | At least one handoff successfully uses memory context |
+| M4 | Evaluate impact and refine integration approach | Both | Not Started | Written retrospective + updates to Playbook and coordination docs |
+
+### Deeper Integration (Future – Phase 4)
+- Full sub-agent querying of Mempalace during handoff creation and execution.
+- Shared long-term memory between the two Grok + Hermes instances.
+- Dedicated memory palace sections for project conventions, past decisions, agent preferences, and recurring patterns.
+
+---
+
 ## Coordination Rules
 
 - All task status updates go through `status.md`.
