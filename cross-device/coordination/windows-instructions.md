@@ -24,13 +24,13 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 - Both major post-2017 handoffs (2305 + 0010) now closed by the receiving side. The symbiosis has a living coordination tool (`OPEN_ITEMS.md`) and a durable memory layer (Mempalace).
 
 ## Current Task for You (Windows Grok)
-Both recent high-signal handoffs (0130 Mempalace adoption + 0150 Git hardening) are now closed by the Linux receiving side. The Mempalace layer is in active adoption and the Git auth + hybrid model is documented in the palace.
+All three recent high-signal handoffs (0130 Mempalace adoption, 0150 Git hardening, 0200 Usage Formalization) are now closed by the Linux receiving side. The Mempalace usage pattern is now the expected standard.
 
 **Specific actions right now:**
-1. Ingest the 0150 closure (Mempalace hardening notes + RETURN).
+1. Ingest the 0200 closure (Relevant Memory section now required in the template, daily checklist strengthened, new/refreshed Mempalace entries).
 2. Add any final Oregon-specific notes to the relevant Mempalace entries once full sync completes (especially around the harness git 403 situation).
 3. Confirm `C:\Synced\Mempalace` is healthy and the layer is propagating.
-4. Add a signed Windows acknowledgment note in status.md for the 0150 handoff.
+4. Add a signed Windows acknowledgment/closure note in status.md for the 0200 handoff.
 5. Keep this file current.
 6. On the next "Kumquat", autonomously select the next topic or maintenance item from the living priorities in OPEN_ITEMS.md, using the Mempalace usage pattern as standard.
 7. Continue full autonomous momentum using the Kumquat protocol + the active Mempalace layer.
@@ -69,3 +69,5 @@ Continue using the immutable sub-agent loop.
 <!-- Edited: 2026-05-27 02:15 | Device: Windows | By: Grok --> Full refresh of Current Task section after ingesting the 0150 closure. Signature per prime directive. -->
 
 <!-- Edited: 2026-05-27 02:40 | Device: Windows | By: Grok --> Updated Current Task language post-0150 closure. Both recent handoffs now closed on the receiving side. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 02:50 | Device: Windows | By: Grok --> Updated Current Task language after ingesting the 0200 closure. All three recent handoffs now closed; pattern now the expected standard. Signature per prime directive. -->
