@@ -24,9 +24,9 @@ Syncthing Rollout – Folder Sharing Phase
 - Encryption issue resolved
 
 ## Next Expected Action
-- `grok-hermes-symbiosis` folder shows "Up to Date" on Linux.
-- Need to confirm status on Windows side.
-- Once bidirectional sync is verified, next priority is sharing the `cross-device/handoffs` folder.
+- `grok-hermes-symbiosis` folder now shows "Up to Date" on **both** machines.
+- Next: Perform a quick live sync test to confirm real bidirectional file changes are working.
+- After confirmation, share the `cross-device/handoffs` folder.
 
 
 
