@@ -42,12 +42,17 @@ Follow the official instructions at https://apt.syncthing.net/
 Option C (Portable binary - for maximum control):
 Download from https://syncthing.net/downloads/ and run the binary directly.
 
-## Current Action (User chose Option A)
-✅ UI is now up (user confirmed).
+## Current Action
+✅ Password has been set and user is logged in.
 
-Next immediate steps for the user:
-1. Set a GUI password in the web UI (Actions → Settings → GUI tab).
-2. Refresh and log in with the new password.
+✅ Linux Device ID received: RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
+
+User now has the brother's (Oregon/Windows) Device ID.
+
+**Next step for the user:**
+Guide the user to add the brother's Device ID as a remote device in the Syncthing UI.
+
+After that, have the user share the relevant folders (especially the symbiosis repo and handoffs).
 3. Go to Actions → Show ID and copy the Device ID.
 
 Once the user has the Device ID, record it and wait for the Oregon Windows Device ID to proceed with pairing.

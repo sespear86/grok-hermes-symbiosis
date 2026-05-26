@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-25 (by Linux Grok) - Linux UI confirmed up. Both sides now at password + Device ID stage.
+**Last Updated:** 2026-05-25 (by Linux Grok) - Linux Device ID received.
 
 ## Current Phase
 Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
@@ -21,14 +21,13 @@ Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
 - Linux preparation script created and run
 - ✅ Syncthing v2.1.0 installed at ~/Tools/syncthing/syncthing
 - ✅ Web UI is accessible (user confirmed "UI is up")
+- ✅ Device ID received: RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
 ## Next Expected Action
-Both sides are now at the "Set GUI password + Get Device ID" stage.
-
-- **Linux (Washington)**: Next → Set GUI password in the web UI, then obtain Device ID.
-- **Windows (Oregon)**: Currently being guided through the same.
-
-Once both have Device IDs, we will exchange them and pair the devices.
+- Linux has its Device ID.
+- User now has brother's Device ID.
+- Next: Add the brother's Device ID as a remote device in the Linux Syncthing UI.
+- Then exchange Device IDs properly (Linux ID → brother) and complete mutual pairing + folder sharing.
 
 ## Notes
 - New coordination protocol active (see README.md in this folder).
