@@ -21,7 +21,7 @@ Example:
 Inside each handoff folder, include the following files (use only what makes sense):
 
 ### 1. `README.md` (Required)
-This is the main handoff document. Use this template:
+This is the main handoff document. **Must include the `## Relevant Memory (Mempalace)` section** (now the expected non-optional standard per 0200 formalization). Use this template:
 
 ```markdown
 # Handoff Package
@@ -56,6 +56,16 @@ This is the main handoff document. Use this template:
 
 ## Handoff Notes
 [Any additional context the receiving side should know]
+
+## Relevant Memory (Mempalace)
+**Required / expected section (include in every handoff README; populate with paths relevant to *this* handoff):**
+- /symbiosis/three-primes.md
+- /symbiosis/handoff-conventions.md
+- /symbiosis/git-gotchas.md
+- /symbiosis/priorities.md (live source: cross-device/coordination/OPEN_ITEMS.md)
+- /symbiosis/recent-decisions.md
+- /symbiosis/usage-pattern.md
+(See MEMPALACE_INTEGRATION.md §2 for vision + 0010 pilot's MEMPALACE_USAGE.md + palace symbiosis/usage-pattern.md for the full Kumquat + handoff pattern. This makes the memory layer first-class and non-optional.)
 
 ## Return Path
 When complete, create a `RETURN.md` in this folder with results and next steps.
@@ -106,3 +116,29 @@ This format is intentionally lightweight. We can evolve it as we learn what work
 ---
 
 **Next:** Once both sides are comfortable with this format, we can start using it for real cross-device work.
+
+## Handoff Lifecycle (Typical Flow)
+
+1. Sender creates the dated folder + README.md (include the **required** `## Relevant Memory (Mempalace)` section with relevant symbiosis/ paths per the template above — now the expected standard).
+2. The package syncs to the other side (via Syncthing; git for committed artifacts).
+3. Receiving side: Kumquat → read nervous system (instructions/status/OPEN_ITEMS) + listed Mempalace entries (per usage-pattern.md) → execute via immutable sub-agent loop.
+4. Receiver creates RETURN.md with results, observations (raunchy per prime #2), and closure.
+5. Sender reviews RETURN + optionally notes follow-up in coordination/status.md.
+6. Both sides: update HANDOFF_LOG (mark Completed), status.md, and the relevant *-instructions.md with exact signatures (prime #3).
+7. (Optional) Archive completed handoffs to `handoffs/archived/` or rely on git history. Periodically clean per Guidelines.
+
+**Agent Context (Optional but Recommended in READMEs for complex handoffs)**
+- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode, e.g. "use cross-device skill + sub-agents")
+- **State Snapshot:** (key open todos, recent decisions from Mempalace/recent-decisions.md, git HEAD)
+- **Dependencies / Environment Notes:**
+- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
+- **Mempalace Sections:** (list of /symbiosis/*.md paths consulted)
+- **Format & Process Observations** (What worked well? What felt off? Suggestions for next time? Include how Mempalace reads helped or could improve.)
+
+Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
+
+**Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
+
+**Evolution Note:** This format now treats the Mempalace memory layer as first-class and non-optional (Relevant Memory sections required/expected in every README template per this 0200 formalization lock-in after the 0130/0150 wave; Kumquat reads explicit as step 3). See 0010 pilot artifacts + 0130/0200 handoffs + current symbiosis/usage-pattern.md for the living pattern. The usage is now the standard.
+
