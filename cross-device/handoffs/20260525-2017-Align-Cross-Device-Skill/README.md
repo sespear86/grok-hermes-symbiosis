@@ -4,7 +4,7 @@
 **From:** Oregon Windows
 **To:** Washington Linux
 **Date:** 2026-05-25
-**Status:** In Progress
+**Status:** Completed (Linux validation + closure receipt)
 
 ## Context
 We have now run two real handoffs and gathered real usage data plus detailed reviews from both sides. The skills/cross-device/SKILL.md was written early and contains some aspirational commands that do not fully match what has actually proven effective (folder-based handoffs, HANDOFF_LOG.md, README/RETURN pattern, prompts.md usage, etc.).

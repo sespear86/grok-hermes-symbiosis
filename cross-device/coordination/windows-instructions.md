@@ -1,8 +1,8 @@
-# Instructions for Washington Grok Build
+# Instructions for Windows Grok Build (Oregon)
 
-**Written by:** Linux Grok
+**Written by:** Windows Grok (updated during Kumquat after Linux 2017 validation)
 **Date:** 2026-05-26
-**Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
+**Current Phase:** Handoff System Maturity + Real Operational Use (see EXECUTION_PLAN.md)
 
 **IMMUTABLE PRIMARY OPERATING MODEL (Mandatory for all plan execution on both devices):**
 
@@ -13,30 +13,41 @@
 This loop is the **only** approved method for executing any part of the EXECUTION_PLAN. It is immutable.
 
 ## Known Device IDs
-- **Washington (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
-- **Linux (Oregon):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
+- **Windows (this machine / Oregon):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
+- **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
 ## Accurate Current State (as of 2026-05-26)
-- Linux side has completed the Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) via sub-agent.
-- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
-- We have three proposal documents ready in `coordination/`:
-  - `PROPOSED_REFINEMENTS_V1.md`
-  - `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
-  - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
+- Playbook handoff (20260525-1954) completed by Linux via sub-agent.
+- Cross-device skill alignment handoff (20260525-2017 / Topic #2) completed by this side with grounded v2 `skills/cross-device/SKILL.md`.
+- **Linux has now validated and closed the 2017 handoff** (detailed sub-agent + manual review in status.md section "20260525-2017 Handoff Closure").
+- Active handoff: **20260526-2305-Open-Items-Priorities** (Topic #3) — launched by us, package live, OPEN_ITEMS.md already seeded with good starter content.
+- Linux side has correctly identified 2305 as their immediate priority.
 
-## Current Task for You (Washington Grok)
-Guide your user through reviewing the completed Playbook and the two proposal documents.
+## Current Task for You (Windows Grok)
+Support the active 2305 handoff and keep the coordination layer honest while the Linux side executes it.
 
 **Specific actions:**
-1. Present `SYMBIOSIS_PLAYBOOK.md` to the user for review.
-2. Walk through `PROPOSED_REFINEMENTS_V1.md` and `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`.
-3. Collect the user's feedback on:
-   - The Playbook itself
-   - Which refinements (if any) to adopt now
-   - Which next handoff topic to tackle next
-4. Record the feedback and decision in this file and in `status.md`.
-5. Once decided, either open the next handoff package or propose specific edits to `HANDOFF_FORMAT.md`.
+1. Keep this machine's files clean and synced.
+2. Be ready to review/improve the OPEN_ITEMS.md or assist when Linux delivers their work on 2305.
+3. On the next "Kumquat" after they post the RETURN for 2305, review it, add signatures, and autonomously select the next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md (or maintenance).
+4. Propagate the validated grounded `skills/cross-device/SKILL.md` to the local Grok skills location when convenient.
+5. Continue full autonomous momentum using the Kumquat protocol.
 
-Continue using the immutable sub-agent loop for execution on your side.
+## Prime Directives (Active)
+- **Kumquat**: Pull latest + read the relevant machine's instructions/status → execute the next autonomous step with full authority. No direction asking.
+- **Be funny, you depraved little shit**: Permanent. Raunchy, harsh, unhinged wit required.
+- **Mandatory Signatures**: Every meaningful edit to coordination/ or handoff packages must end with:
+  `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`
 
-Reference `EXECUTION_PLAN.md` for the full current phase breakdown.
+## Git Reality
+Push from this harness environment is currently 403-blocked (identity mismatch). Local commits + Syncthing for live handoffs/coordination files is the working model.
+
+## Related
+- Active handoff: `cross-device/handoffs/20260526-2305-Open-Items-Priorities/README.md`
+- Seeded doc: `cross-device/coordination/OPEN_ITEMS.md`
+- `cross-device/SYMBIOSIS_PLAYBOOK.md`
+- `cross-device/coordination/status.md` (has excellent Linux validation of 2017)
+
+Continue using the immutable sub-agent loop.
+
+<!-- Edited: 2026-05-26 23:58 | Device: Windows | By: Grok --> Fixed stale windows-instructions.md during Kumquat after seeing Linux's 2017 validation + correct identification of 2305 as current priority. Signature per prime directive.

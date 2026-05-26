@@ -1,6 +1,6 @@
 # Open Items & Priorities
 
-**Last Updated:** 2026-05-26 (seeded by Windows Grok during Kumquat)
+**Last Updated:** 2026-05-26 (seeded by Windows + lightly enriched during subsequent Kumquat)
 **Update Rule:** Any handoff, status update, or major decision that changes priorities must touch this file. Review at least monthly or when phase changes.
 
 ---
@@ -8,43 +8,44 @@
 ## Current Top 3 Priorities (Symbiosis-Wide)
 
 1. **Execute & Close Topic #3 (Open Items doc)**  
-   Linux side to complete the 20260526-2305 handoff and deliver a useful, lightweight `OPEN_ITEMS.md` + RETURN.
+   Linux side to complete the 20260526-2305 handoff: validate/flesh out this doc, deliver a useful lightweight `OPEN_ITEMS.md` + proper RETURN.md with observations on the coordination tool format.
 
 2. **Stabilize Git + Coordination Layer**  
-   Resolve ongoing rebase/push friction (403 in harness env). Make git history and coordination files reliably current on both sides. Consider switching to a more reliable push method or accepting Syncthing as primary for live files.
+   Ongoing rebase/push friction (403 in current Windows harness env). Make git history and coordination files reliably current on both sides. Accept Syncthing as primary for live handoffs/coordination files in the near term.
 
 3. **Mempalace Integration (Exploratory)**  
-   Evaluate the new `cross-device/MEMPALACE_INTEGRATION.md` proposal. Decide if we want a shared durable memory layer and where it should live.
+   Evaluate the `cross-device/MEMPALACE_INTEGRATION.md` proposal. Decide whether a shared durable memory layer adds real value and where it should live.
 
 ---
 
 ## Known Issues / Gotchas (Non-Blocking)
 
-- Git push from current Windows harness environment consistently hits 403 (wrong GitHub identity). Local commits work fine.
-- Coordination files (status + instructions) have a history of getting stale or conflicted during periods of high autonomous activity on both sides.
-- Some old `.sync-conflict-*` and `~syncthing~` files still occasionally appear during heavy editing sessions (we purge them aggressively).
-- Device alias naming (Oregon vs Washington) has had some drift in older files — we are standardizing on Oregon = Windows, Washington = Linux.
+- Git push from current Windows harness environment consistently hits 403 (wrong GitHub identity). Local commits work fine; Syncthing carries the operational truth for handoffs and coordination.
+- Coordination files (status + instructions) have a recurring tendency to get stale or conflicted during periods of high autonomous activity on both sides (known and self-acknowledged in the 2017 validation).
+- Occasional old `.sync-conflict-*` and `~syncthing~` files during heavy editing (we purge aggressively when found).
+- Device alias naming (Oregon vs Washington) had drift in early files — standardizing on Oregon = Windows, Washington = Linux.
 
 ---
 
 ## Nice-to-Haves / Future Experiments (Ranked)
 
-1. Lightweight "sync report" command or skill that both agents can emit cleanly.
-2. Better automation around handoff package creation (scaffolding script or MCP tool).
-3. Explore Mempalace (or similar) as a persistent shared memory store for long-running context across sessions and machines.
-4. Kanban-style view on top of the handoffs/ folder.
-5. Joint project folders under a shared `~/Synced/Projects` structure.
+1. Lightweight "sync report" emitter that both agents can invoke cleanly.
+2. Automation/scaffolding for handoff package creation.
+3. Mempalace (or similar) as persistent cross-session memory.
+4. Kanban-style view over the handoffs/ folder.
+5. Shared project folders under `~/Synced/Projects` (or Windows equivalent).
 
 ---
 
 ## Decisions Awaiting Input
 
-- Final name for this file (OPEN_ITEMS.md vs PRIORITIES.md) — current lean is OPEN_ITEMS.md.
-- Whether to keep the Mempalace proposal as a formal future topic or treat it as background research.
-- How aggressive we want to be about cleaning historical git noise vs living with the current hybrid state.
+- Final name for this file (OPEN_ITEMS.md vs PRIORITIES.md) — lean is OPEN_ITEMS.md.
+- Whether to treat Mempalace as a formal future handoff topic.
+- How much historical git noise we want to clean vs live with the hybrid model.
 
 ---
 
-**Next Review:** After the RETURN for the current Open Items handoff.
+**Next Review:** After the RETURN for the current 20260526-2305 Open Items handoff.
 
-<!-- Edited: 2026-05-26 23:55 | Device: Windows | By: Grok --> Seeded minimal useful starter for OPEN_ITEMS.md during Kumquat after rebase abort. Signature per prime directive.
+<!-- Edited: 2026-05-26 23:05 | Device: Windows | By: Grok --> Seeded minimal useful starter during Kumquat.
+<!-- Edited: 2026-05-26 23:58 | Device: Windows | By: Grok --> Lightly enriched with real project context from Linux's excellent 2017 validation work. Signature per prime directive.
