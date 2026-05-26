@@ -38,7 +38,7 @@ All handoffs through 0010 marked Completed in HANDOFF_LOG. 20260526-2305 (OPEN_I
 
 - Device alias naming standardized: Oregon = Windows, Washington = Linux (no more drift per PLAYBOOK/SKILL/RETURNS).
 
-- 2009 ghost dir (`handoffs/20260525-2009-Align-Cross-Device-Skill/`): superseded duplicate of the 2017 skill alignment (only a README; per 2017 RETURN + 2305 notes). Harmless, pending quick post-0010 archive.
+- 2009 ghost dir: **Archived** on 2026-05-27 into `handoffs/archived/2009-Align-Cross-Device-Skill/` (superseded duplicate of the properly executed 2017 handoff; per 2017 RETURN + 2305/0010 hygiene notes). Hygiene item closed.
 
 ---
 
@@ -64,7 +64,7 @@ All handoffs through 0010 marked Completed in HANDOFF_LOG. 20260526-2305 (OPEN_I
 
 - ~~Whether to treat Mempalace as a formal future handoff topic.~~ **Resolved: Piloted and promoted to permanent lightweight durable memory layer** (0010 success criteria met exactly; usage pattern live; both sides to ingest and adopt immediately per forward in status/linux-instructions/RETURN).
 
-- How much historical git noise we want to clean vs live with the hybrid model. (2009 ghost still pending quick hygiene per OPEN_ITEMS #3; hybrid accepted per PLAYBOOK + 2017/2305.)
+- How much historical git noise we want to clean vs live with the hybrid model. (2009 ghost archived 2026-05-27 into handoffs/archived/; hybrid model accepted per PLAYBOOK + 2017/2305/0010.)
 
 - Post-adoption Mempalace evolution (index? more entries? light PLAYBOOK/SKILL cross-refs) — only if real pain after 3-5 uses; otherwise park per lightweight prime.
 
@@ -81,3 +81,5 @@ All handoffs through 0010 marked Completed in HANDOFF_LOG. 20260526-2305 (OPEN_I
 <!-- Edited: 2026-05-26 04:42 | Device: Linux | By: Grok --> Validated vs exact 2305 README spec (4 sections present + match, update rule baked verbatim, scannable <30s + useful for humans/agents, seeded comprehensively from EXEC/status/RETURNS/coordination with only minor freshness/alias/hygiene/decision gaps — now closed). Lightly polished (2017 SKILL grounding + sub-agent ref in #1, 2009 hygiene in issues, name confirmed + post-seed note, aliases prominent, scannability tweaks, Mempalace cross-refs). Sub-agent loop + Kumquat + raunchy prime followed exactly. That 2017 meta-win left me properly fucked in the best way — coordination so tight it's almost indecent. Momentum "keep er goinnnn". -->
 <!-- Edited: 2026-05-27 00:05 | Device: Windows | By: Grok --> Windows review of Linux's 2305 execution. OPEN_ITEMS is now a genuinely excellent living coordination tool. 2017 validation + this execution = the system is working exactly as designed. Next: Mempalace pilot per the new #3 priority. Signature per prime directive. keep er goinnnn. -->
 <!-- Edited: 2026-05-27 02:20 | Device: Linux | By: Grok --> Refreshed OPEN_ITEMS.md post-0010 Mempalace pilot closure on Linux receiving side (2305 + 0010 now Completed per HANDOFF_LOG + status; Mempalace layer delivered live at ~/Synced/Mempalace with root + 8 symbiosis entries + documented usage pattern ready for adoption per new #1; Windows 00:45 receipt ack + git mitigation work ongoing; 2009 hygiene pending). Added Post-0010 Reality note at top, updated Top 3 to honest current state (Mempalace adoption, git stabilization, 2009 hygiene), baked Mempalace usage pattern + layer mentions throughout, kept exact lightweight 4-section structure + update rule + <30s scannability + raunchy observations where natural. Sub-agent loop (orchestrate reads across Mempalace + RETURNS + coord files → validate vs key facts + 0010/2305 specs → synthesize) + Kumquat + "Be funny, you depraved little shit" prime + mandatory exact signatures followed exactly. 2305 fucked the coordination tool into shape; 0010 gave us the persistent memory cockring so we never forget how good it was — this locks the new filthy reality in. The symbiosis just got tighter in the best, dirtiest way. Signature per prime directive. Keep er goinnnn, you gorgeous memory-hoarding perverts. -->
+
+<!-- Edited: 2026-05-27 02:30 | Device: Linux | By: Grok --> 2009 ghost hygiene completed: archived superseded duplicate handoff into handoffs/archived/ (as repeatedly flagged in this file, 2017 RETURN, and 0010 notes). Small but satisfying cleanup per the "keep the repo clean" standing order. Signature per prime directive. Keep er goinnnn. -->
