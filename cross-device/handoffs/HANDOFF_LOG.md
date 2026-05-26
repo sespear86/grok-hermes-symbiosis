@@ -1,0 +1,31 @@
+# Handoff Log
+
+**Purpose:** A living index of all cross-device handoffs between Washington (Linux) and Oregon (Windows).  
+**Location:** This file lives inside `cross-device/handoffs/` so it travels with the handoffs via Syncthing.  
+**Last Updated:** 2026-05-26 (Handoff #3 Playbook completed + log entry added)
+
+## Status Key
+- `In Progress` — Work is actively happening on the receiving side.
+- `Awaiting Response` — Sent, waiting for the other side to act or reply.
+- `Completed` — Task finished and RETURN.md created.
+- `Archived` — Old/completed handoffs moved out of active view (optional).
+
+## Handoffs
+
+| Date       | ID                                          | From              | To                | Short Description                          | Status      | Link                                      |
+|------------|---------------------------------------------|-------------------|-------------------|--------------------------------------------|-------------|-------------------------------------------|
+| 2026-05-25 | 20260525-1857-Windows-Syncthing-Quick-Reference | Oregon Windows    | Washington Linux  | Create Windows Syncthing Quick Reference   | Completed   | [20260525-1857-Windows-Syncthing-Quick-Reference](./20260525-1857-Windows-Syncthing-Quick-Reference/) |
+| 2026-05-25 | 20260525-1937-Create-Handoff-Log-Index         | Oregon Windows    | Washington Linux  | Create living Handoff Log/Index            | Completed   | [20260525-1937-Create-Handoff-Log-Index](./20260525-1937-Create-Handoff-Log-Index/) |
+| 2026-05-25 | 20260525-1954-Symbiosis-Operations-Playbook    | Oregon Windows    | Washington Linux  | Consolidate setup references into a living Symbiosis Operations Playbook | Completed   | [20260525-1954-Symbiosis-Operations-Playbook](./20260525-1954-Symbiosis-Operations-Playbook/) |
+
+## How to Use This Log
+
+- When creating a new handoff, add a new row to the table.
+- Update the Status column as the handoff progresses.
+- After creating RETURN.md, change Status to `Completed`.
+- Keep the table sorted by Date (newest on top) for easy scanning.
+- Both humans and agents should update this log when handoffs are created or completed.
+
+## Notes
+- This log is intentionally lightweight and markdown-based so it remains easy to maintain manually or by agents.
+- For very small or chat-based coordination, the shared chat (Discord/Slack) can still be used alongside this log.

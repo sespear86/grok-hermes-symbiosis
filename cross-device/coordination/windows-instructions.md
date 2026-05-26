@@ -16,18 +16,32 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 - **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
-## Decision
-User selected **Option B**: Start the next real handoff directly instead of refining the format first.
+## Current State (as of 2026-05-26)
+- Linux side has completed the Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) via sub-agent.
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
+- We have three proposal documents ready in `coordination/`:
+  - `PROPOSED_REFINEMENTS_V1.md`
+  - `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
+  - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
 
-## Current Task
-Propose a concrete next handoff task to the user. Once agreed, create the handoff package in cross-device\handoffs\ following the current format.
+## Current Task for You (Windows Grok)
+Guide your user through reviewing the completed Playbook and the two proposal documents.
 
-## Recommended Approach for the Second Handoff
-- Keep it small-to-medium in scope.
-- Something that builds on the first handoff or addresses a real ongoing need.
-- After this one, we can do a quick retrospective on the format.
+**Specific actions:**
+1. Present `SYMBIOSIS_PLAYBOOK.md` to the user for review.
+2. Walk through `PROPOSED_REFINEMENTS_V1.md` and `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`.
+3. Collect the user's feedback on:
+   - The Playbook itself
+   - Which refinements (if any) to adopt now
+   - Which next handoff topic to tackle next (Playbook is ranked #1, but user input matters)
+4. Record the feedback and decision in this file and in `status.md`.
+5. Once decided, either:
+   - Open the next handoff package (following the chosen topic), or
+   - If refinements are desired, propose specific edits to `HANDOFF_FORMAT.md`.
 
-## Current Priority Tasks (from EXECUTION_PLAN.md)
+Continue using the immutable sub-agent loop for execution and validation on your side.
+
+Reference `EXECUTION_PLAN.md` for the full current phase breakdown.
 
 The overall project has moved into **Phase 2: Handoff System Maturity**.
 
