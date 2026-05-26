@@ -18,6 +18,14 @@
 4. Execute via **immutable sub-agent loop** (orchestrate tools across devices/files → validate → repeat). Crank raunchy humor per prime #2. Append **exact mandatory signature** on every edit (prime #3).
 5. On completion of handoff/major task: RETURN.md + updates to HANDOFF_LOG + status + instructions (with sigs + filth). Touch OPEN_ITEMS if priorities moved.
 
+**Mempalace in Daily Kumquat Checklist (Post-0200 Formalization — Quick Reference, now the expected standard):**
+- Pull/sync first (git + Syncthing for Mempalace layer).
+- Read nervous system: linux-instructions.md (or windows) + status.md + OPEN_ITEMS.md (skim Top 3/Issues).
+- **Ingest Mempalace (mandatory step 3):** Read relevant `~/Synced/Mempalace/symbiosis/` entries (core: three-primes, handoff-conventions, priorities, recent-decisions, playbook-location; + git-gotchas/device-ids if relevant; grep as needed). Non-negotiable.
+- Execute (sub-agent loop + raunchy prime #2 + exact sigs).
+- Close loop (RETURN + 3-file signed updates if handoff).
+- For handoffs: always include `## Relevant Memory (Mempalace)` section in README (per updated HANDOFF_FORMAT.md).
+
 ### When Creating a Handoff (Sender Side)
 - In the `README.md`, add a `## Relevant Memory (Mempalace)` section listing key paths (example from proposal):
   ```markdown
