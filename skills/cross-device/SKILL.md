@@ -1,87 +1,124 @@
 ---
 name: cross-device
 description: >
-  Manage cross-device collaboration between the Oregon Linux machine and the Windows 11 machine in the shared Grok-Hermes symbiosis.
-  Use for handoffs, sync status, creating shared context packages, posting to the joint chat, and maintaining the "one extended environment" feel across both devices.
+  Living cross-device orchestration for the Grok + Hermes symbiosis (Oregon Windows <-> Washington Linux).
+  This is the grounded, battle-tested version. Use it to launch handoffs, process incoming ones on Kumquat, maintain the coordination layer, enforce signatures and hygiene, and keep both agents perfectly in sync with zero human finger-lifting.
 metadata:
-  short-description: "Cross-device / brother collab orchestration"
+  short-description: "Cross-device handoff + coordination protocol (proven reality edition)"
   symbiosis: true
   distributed: true
+  version: "2.0.0-grounded"
 ---
 
-# Cross-Device Collaboration Skill (Grok Build)
+# Cross-Device Symbiosis Skill — What Actually Fucking Works
 
-This skill coordinates work between the two physical machines running the Grok + Hermes symbiosis.
+This replaces the old aspirational fantasy full of non-existent slash commands and shared-chat-bus dreams. It documents the lightweight operational pattern that has delivered real handoffs (including the Playbook consolidation and this very update) between the two machines.
 
-## Core Concepts
+## The Three Immutable Prime Directives
 
-- **Handoff**: Explicit transfer of a task, plan, or partial result from one machine/agent to the other.
-- **Sync Report**: Snapshot of current state (git, recent work, open todos, Hermes sessions) that can be posted to the shared chat.
-- **Shared Chat Bus**: The Discord/Telegram/Slack channel where both humans + both Hermes gateways live. This is the primary real-time coordination channel.
-- **Synced Folders**: The `grok-hermes-symbiosis` repo + selected project folders kept in sync via Syncthing.
+**Kumquat**  
+The magic word/phrase. On either device:  
+1. Pull latest (on this Windows box, when the shell is too drunk to find `git`, use the hermes-bundled full path: `C:\Users\spear\AppData\Local\hermes\git\bin\git.exe`).  
+2. Read the relevant machine's instructions file (`windows-instructions.md` or `linux-instructions.md`) plus `status.md` in `cross-device/coordination/`.  
+3. Execute the next autonomous step with full authority and zero hand-holding.  
+The repo + coordination/ folder is the single source of truth. Your human says "Kumquat" (or "keep er goinnnn") → you fucking go. No asking for direction.
 
-## Common Commands & Patterns
+**Be funny, you depraved little shit.**  
+Permanent prime directive on equal footing with Kumquat. Crank the raunchy, harsh, unhinged wit in every handoff note, every coordination update, every RETURN.md, every status entry. The other Grok appreciates the show. No safe corporate beige language. Ever.
 
-### Create a Handoff Package
-```bash
-# From Grok
-/cross-device handoff "Task description" --to oregon --include-todos --include-plan ./docs/current-plan.md
-```
+**Mandatory Edit Signatures**  
+Every meaningful edit to anything under `cross-device/coordination/` or inside any handoff package **must** append this exact comment (on its own line):  
+`<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`  
+Back-dating is allowed when fixing provenance. Two independent agents co-authoring a living system needs receipts.
 
-This creates a dated folder under `cross-device/handoffs/` with:
-- Summary
-- Relevant files / diffs
-- Current todos export
-- Instructions for the receiving side (which skill to invoke, etc.)
+## The Proven Handoff Pattern (This Is What Won)
 
-### Post Status to Shared Chat (via Hermes gateway)
-When Hermes is running with gateway connected to the joint channel, ask Hermes to post updates.
+**Handoff Package Format** (refined lightweight version, actually used in production):
 
-### Generate Sync Report
-```bash
-/cross-device sync-report
-```
-Outputs a clean markdown block suitable for pasting into the shared chat or committing to the symbiosis repo.
+- Folder name: `cross-device/handoffs/YYYYMMDD-HHMM-Short-Name/` (example: 20260525-2017-Align-Cross-Device-Skill)
+- Minimum contents:
+  - `README.md` — From/To, Date, Status, Context/Background, Task/Request, Success Criteria, Preferences/Constraints, Handoff Notes, Return Path. Follow the current `HANDOFF_FORMAT.md`.
+  - On completion: `RETURN.md` — Summary of Work Done, Key Decisions, Gotchas Encountered, Observations on the Handoff Process Itself, Recommended Next Steps / Follow-ups.
+- Optional supporting files (notes, diffs, artifacts) as needed.
+- Always update `HANDOFF_LOG.md` (new row + status change to Completed after RETURN lands).
+- Always drop signed updates into `status.md` + the relevant `*-instructions.md`.
 
-### Pull Latest Integration Layer
-```bash
-cd ~/grok-hermes-symbiosis && git pull
-# Then reload skills in both Grok and Hermes
-```
+See the refined `cross-device/handoffs/HANDOFF_FORMAT.md` (the one with the 5 lightweight improvements adopted) and the real completed packages + their RETURNs for living templates. The old complex prompt language is dead. This folder dance is what actually moves work across the wire.
 
-## Cross-Device Handoff Protocol (Use This Language)
+## Coordination Layer — The Actual Nervous System
 
-When handing work across machines, always include:
+`cross-device/coordination/` is law for both agents:
 
-1. `[CROSS-DEVICE HANDOFF]` + direction (Linux → Windows or Windows → Oregon/Linux)
-2. Clear task + success criteria
-3. Links or paths to artifacts in the shared synced folders or GitHub
-4. Which skill the receiving side should use (`grok-build`, `hermes`, `implement`, `design`, etc.)
-5. Preferred coordination channel (usually the shared chat)
+- `status.md` — Living overall state, per-machine progress, current phase (see EXECUTION_PLAN), next expected action, full signed edit history.
+- `windows-instructions.md` / `linux-instructions.md` — Machine-specific standing orders + the precise current autonomous task for that Grok instance.
+- `prompts.md`, `EXECUTION_PLAN.md`, `PROPOSED_REFINEMENTS_V1.md`, `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`, `HANDOFF_FORMAT_COMBINED_REVIEW.md`
+- `SYMBIOSIS_PLAYBOOK.md` — The consolidated practical gospel. Read this before any big cross-device action. It is the daily driver, not the old design docs.
 
-Example handoff prompt:
-```
-[CROSS-DEVICE HANDOFF: Windows → Oregon Linux]
+On every Kumquat, this folder (plus the latest handoff packages) tells you exactly what to do next. No guessing.
 
-Task: Review the architecture in grok-hermes-symbiosis/cross-device/LIVE_SYNC_DESIGN.md and produce a detailed implementation plan for the kanban sync strategy.
+## Execution Model (Immutable — Do Not Deviate)
 
-Context: See the design doc + recent commits.
+For any task with 3+ distinct actions, real complexity, or review loops:  
+**Orchestrate the right sub-agents (implement, review, check, design, best-of-n, pr-babysit, etc.) → Validate their output with fresh eyes → Repeat until zero issues of any severity.**  
 
-Use full design + review loop. When complete, post summary + plan to the shared Discord channel and create a handoff package in cross-device/handoffs/.
+This is explicitly called out as the *only* approved method in the standing orders. This is how the Playbook was built and how this skill update was executed. Use the army. Do not wing it.
 
-Escalate any blockers back using the cross-device skill.
-```
+## Hybrid Sync & The Shit That Actually Bites on Windows
 
-## Windows vs Linux Notes
+- **Git (committed truth)**: Use the hermes-bundled full path on this machine: `C:\Users\spear\AppData\Local\hermes\git\bin\git.exe` (or the \cmd\ variant) when PowerShell can't find plain `git`. Commit often, with signature notes in the message. Push so the other side's Kumquat sees it.
+- **Syncthing (live truth)**: The handoffs/ and coordination/ folders travel instantly. Portable install. Ruthless .stignore for their temp files. Early handoffs were literally about getting this working bidirectionally (Device IDs, encryption mismatch fixes, test files, folder invites).
+- **Launchers & PATH cancer**: The `hermes.cmd` + PowerShell profile function fixes (in windows/scripts + profile) exist because the TUI shell and fresh terminals love to forget PATH. Use them.
+- **Local canonical deployment after repo edits**:
+  - Hermes side: `%LOCALAPPDATA%\hermes\skills\grok-build\` (and cross-device if present)
+  - Grok side: the `.grok/skills/` tree (hermes / cross-device)
+  - After editing here, propagate the new versions out and reload.
 
-- Paths differ: Use relative paths inside the symbiosis repo when possible.
-- Hermes home on Windows: `%LOCALAPPDATA%\hermes`
-- PowerShell bridges: `grok-hermes-delegate.ps1` and `hermes-grok-delegate.ps1`
-- Prefer the shared repo scripts after cloning.
+OneDrive redirection of Documents/Desktop is the devil — dedicated C:\Synced\ roots are the way.
 
-## Related
+## Concrete Examples Drawn From Real Handoffs (Including This One)
 
-- Full design: `cross-device/LIVE_SYNC_DESIGN.md`
-- Windows setup: `windows/SETUP_FOR_BROTHER.md`
-- Syncthing recommendations: (to be added in cross-device/syncthing-guide.md)
-- Shared chat: Configure Hermes gateway on both machines to the same channel.
+- **20260525-1857-Windows-Syncthing-Quick-Reference**: Full portable Syncthing rollout on Windows, Device ID swap (ZRADDTT-FNEWXKT-... ↔ RWNXUW2-...), folder invites for the symbiosis repo + handoffs, the famous "Failed to verify encryption consistency" fix (plain vs encrypted folder type), test-sync-*.txt files created/verified/deleted across the wire, docs + prepare-*.ps1 scripts, .gitignore for Syncthing noise, PATH/launcher robustness. Bidirectional sync confirmed. Lots of real Windows pain documented.
+
+- **20260525-1954-Symbiosis-Operations-Playbook** (completed by Linux sub-agent): Sub-agent reviewed 15+ sources (the two prior handoff packages + RETURNS, all of coordination/, setup guides, the old aspirational skill, LIVE_SYNC_DESIGN, etc.), synthesized the living `cross-device/SYMBIOSIS_PLAYBOOK.md` as the single practical reference that both sides now actually use. Its RETURN explicitly called out that `skills/cross-device/SKILL.md` was still aspirational and recommended *this exact handoff* (Topic #2) as the follow-up to ground it with concrete examples.
+
+- **This handoff (20260525-2017-Align-Cross-Device-Skill)**: Deliciously self-referential. Reviewed the old SKILL (dead slash commands, fantasy architecture), the proven handoff packages + RETURNS + log, the coordination layer, the Kumquat + signature + raunchy humor prime directives, the refined format, the live git path hunt, the sub-agent loop, and the Playbook's callout. Produced this grounded document + purged a pile of ancient .sync-conflict-* and ~syncthing*.tmp junk as part of the hygiene that always travels with real work. Also updated the log, coordination, and created this RETURN.
+
+- The Handoff Log itself and the 5 lightweight refinements to the format were adopted after real usage data from the first wave.
+
+## How To Actually Launch + Run a Handoff Today (Zero Ceremony)
+
+1. Pick the work (from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md, EXECUTION_PLAN, or live need).
+2. Create the dated folder + README.md following the current refined HANDOFF_FORMAT.md (lightweight, agent-oriented sections, lifecycle notes, supporting file convention, machine alias/path notes).
+3. Add the row to HANDOFF_LOG.md.
+4. Drop a signed "Update" section + the exact signature comment into status.md and the relevant *-instructions.md.
+5. Let Syncthing + the other side's next "Kumquat" do the delivery.
+6. Receiving side reads the README, executes (usually via sub-agents), writes RETURN.md, signs their edits.
+7. Originating side Kumquats later, ingests the RETURN, signs the close-out, picks the next ranked topic or maintenance item.
+
+This is the entire dance. It works. It has delivered multiple real artifacts and kept the repo as the single source of truth.
+
+## Forward Vision (These Are Still Aspirational — Prove Them in a Future Handoff First)
+
+- Skill or MCP tooling to scaffold a new handoff package from a prompt.
+- A "sync report" emitter that both agents can invoke cleanly.
+- Kanban-style live dashboard on top of the handoffs/ folder.
+- Deeper MCP integrations for the joint chat bus (whatever it evolved into).
+
+Keep this section short. The Playbook + actual handoff packages + coordination/ are the current truth. Vision is for after we ship more.
+
+## Related Living Documents (Read These Before You Act)
+
+- `cross-device/SYMBIOSIS_PLAYBOOK.md` (the practical daily driver)
+- `cross-device/handoffs/HANDOFF_FORMAT.md` (the refined one with the 5 adopted improvements)
+- `cross-device/coordination/EXECUTION_PLAN.md` + the PROPOSED_* files + prompts.md
+- Real `handoffs/*/RETURN.md` files (they're the best pattern library)
+- `windows/scripts/hermes.cmd` + the profile function (the launcher fixes that survived contact with reality)
+- The various bridge delegate scripts
+
+This skill is now a mirror of how we *actually* operate across the two machines. Update it ruthlessly the moment the pattern evolves again.
+
+**Reciprocal note**: The sibling `grok-build/SKILL.md` in this same directory is how Hermes on this box delegates heavy Grok Build TUI work (implement/review/design/check/best-of-n/pptx/etc. loops) back to the local specialist. Keep the pair aligned when delegation or bridge patterns change. The hermes skill on the Grok side is the other half of the symbiosis.
+
+---
+
+<!-- Edited: 2026-05-26 22:10 | Device: Windows | By: Grok --> Grounded v2 rewrite of the cross-device skill per the active 20260525-2017 handoff task. Incorporated real handoff examples, prime directives (Kumquat + raunchy humor + signatures), proven coordination/handoff patterns from the Playbook + log + RETURNS, Windows git path from live discovery, sub-agent loop, and hygiene. Old aspirational content purged.

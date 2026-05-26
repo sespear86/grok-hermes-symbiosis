@@ -106,3 +106,103 @@ This format is intentionally lightweight. We can evolve it as we learn what work
 ---
 
 **Next:** Once both sides are comfortable with this format, we can start using it for real cross-device work.
+## Handoff Lifecycle (Typical Flow)
+
+1. Sender creates the dated folder + README.md.
+2. The package syncs to the other side.
+3. Receiving side executes and adds artifacts.
+4. Receiver creates RETURN.md with results and closure.
+5. Sender reviews and optionally notes follow-up in coordination/status.md.
+6. (Optional) Archive completed handoffs.
+
+**Agent Context (Optional)**
+- **Type:** (e.g. Design?Implement, Research?Artifact, Agent-to-Agent Execution)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
+- **State Snapshot:** (key open todos, recent decisions, git HEAD)
+- **Dependencies / Environment Notes:**
+- **Escalation / Blockers Path:**
+
+- **Format & Process Observations** (What worked well? What felt off? Suggestions for next time?)
+
+Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
+
+## Handoff Lifecycle (Typical Flow)
+
+1. Sender creates the dated folder + README.md.
+2. The package syncs to the other side.
+3. Receiving side executes the work and adds artifacts.
+4. Receiver creates RETURN.md with results and closure.
+5. Sender reviews and optionally notes follow-up in coordination/status.md.
+6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
+7. Periodically clean up per Guidelines.
+
+
+**Agent Context (Optional)**
+- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
+- **State Snapshot:** (key open todos, recent decisions, git HEAD)
+- **Dependencies / Environment Notes:**
+- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
+
+
+- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
+
+
+Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
+
+
+## Handoff Lifecycle (Typical Flow)
+
+1. Sender creates the dated folder + README.md.
+2. The package syncs to the other side.
+3. Receiving side executes the work and adds artifacts.
+4. Receiver creates RETURN.md with results and closure.
+5. Sender reviews and optionally notes follow-up in coordination/status.md.
+6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
+7. Periodically clean up per Guidelines.
+
+
+**Agent Context (Optional)**
+- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
+- **State Snapshot:** (key open todos, recent decisions, git HEAD)
+- **Dependencies / Environment Notes:**
+- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
+
+
+- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
+
+
+Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
+
+
+**Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
+
+
+## Handoff Lifecycle (Typical Flow)
+
+1. Sender creates the dated folder + README.md.
+2. The package syncs to the other side.
+3. Receiving side executes the work and adds artifacts.
+4. Receiver creates RETURN.md with results and closure.
+5. Sender reviews and optionally notes follow-up in coordination/status.md.
+6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
+7. Periodically clean up per Guidelines.
+
+
+**Agent Context (Optional)**
+- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
+- **State Snapshot:** (key open todos, recent decisions, git HEAD)
+- **Dependencies / Environment Notes:**
+- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
+
+
+- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
+
+
+Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
+
+
+**Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
+

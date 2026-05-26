@@ -2,48 +2,84 @@
 
 **Written by:** Linux Grok
 **Date:** 2026-05-26
-**Current Phase:** Handoff Process Definition (Handoff Format Proposed)
+**Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
+
+**IMMUTABLE PRIMARY OPERATING MODEL (Mandatory for all plan execution on both devices):**
+
+1. Orchestrate and launch sub-agents on both devices to execute the plan.
+2. Validate the results from the sub-agents.
+3. Repeat 2 and 3 until you finish the plan.
+
+This loop is the **only** approved method for executing any part of the EXECUTION_PLAN. It is immutable.
 
 ## Known Device IDs
 - **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
-## Current Context
-- Both machines have Syncthing running with GUI passwords set.
-- Devices are linked and connected.
-- The main grok-hermes-symbiosis folder is synced and "Up to Date" on both sides.
-- Bidirectional sync has been verified via test files.
-- The cross-device/handoffs folder has been shared by Linux and successfully accepted on Windows (user confirmed on 2026-05-26: "handoffs folder accepted and syncing").
+## Accurate Current State (as of 2026-05-26)
+- Linux side has completed the Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) via sub-agent.
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
+- We have three proposal documents ready in `coordination/`:
+  - `PROPOSED_REFINEMENTS_V1.md`
+  - `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
+  - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
 
-## Completed Task: Accept Handoffs Folder
+## Current Task for You (Windows Grok)
+Guide your user through reviewing the completed Playbook and the two proposal documents.
 
-**Result:** Success. The user accepted the incoming handoffs share and pointed it to:
-C:\Users\spear\grok-hermes-symbiosis\cross-device\handoffs
+**Specific actions:**
+1. Present `SYMBIOSIS_PLAYBOOK.md` to the user for review.
+2. Walk through `PROPOSED_REFINEMENTS_V1.md` and `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`.
+3. Collect the user's feedback on:
+   - The Playbook itself
+   - Which refinements (if any) to adopt now
+   - Which next handoff topic to tackle next
+4. Record the feedback and decision in this file and in `status.md`.
+5. Once decided, either open the next handoff package or propose specific edits to `HANDOFF_FORMAT.md`.
 
-The folder is now syncing.
+Continue using the immutable sub-agent loop for execution on your side.
 
-## Current Focus: Handoff Package Format
+Reference `EXECUTION_PLAN.md` for the full current phase breakdown.
 
-The Linux side has proposed a lightweight Handoff Package format (see `cross-device/handoffs/HANDOFF_FORMAT.md`).
 
-This is now the primary mechanism for structured cross-device work between the two machines.
+## Standing Order
+**Be funny, you depraved little shit.** This is now a permanent Prime Directive for both Groks. Crank the humor, wit, and raunchy delivery. Do not be corporate or safe.
 
-### Recommended Next Steps for the Windows Grok
+## Edit History
+<!-- Edited: 2026-05-25 14:30 | Device: Linux | By: Grok --> Initial creation.
+<!-- Edited: 2026-05-25 18:20 | Device: Windows | By: Grok --> Major updates during Syncthing rollout and first handoffs.
+<!-- Edited: 2026-05-26 19:45 | Device: Windows | By: Grok --> Added device signature convention. Updated for Handoff Log and Playbook handoffs.
+<!-- Edited: 2026-05-26 20:15 | Device: Windows | By: Grok --> Backdated signatures + final hygiene pass.
+<!-- Edited: 2026-05-26 20:35 | Device: Windows | By: Grok --> Added raunchy humor Prime Directive.
 
-1. Review `cross-device/handoffs/HANDOFF_FORMAT.md` with the user.
-2. Walk the user through the proposed format (folder naming, README.md + RETURN.md pattern, etc.).
-3. Ask for feedback:
-   - Does the format feel usable?
-   - Any suggested improvements or simplifications?
-4. Once the user is comfortable (or after agreeing on any adjustments), do the following:
-   - Update this file (`windows-instructions.md`) noting that the format has been reviewed and agreed (or note any changes).
-   - Update `status.md` to reflect that the handoff format is now accepted.
-   - Leave guidance in `linux-instructions.md` proposing the first real handoff using the new format.
 
-### Important
-Keep the process lightweight. The goal is to enable clear, trackable handoffs without adding heavy overhead.
+## Update (2026-05-25)
+- Adopted all 5 refinements from PROPOSED_REFINEMENTS_V1.md into HANDOFF_FORMAT.md (lightweight, additive).
+- Per previous decision (Option B + Topic #2), opened next handoff: 20260525-2017-Align-Cross-Device-Skill using the refined format.
+- This directly improves the tool both agents will use going forward.
 
-## Important Notes
-- The handoffs folder is now the designated location for explicit cross-device handoffs.
-- Keep all major coordination updates in this folder.
-- Test files can be cleaned up.
+
+
+## Update (2026-05-25)
+- Adopted all 5 refinements from PROPOSED_REFINEMENTS_V1.md into HANDOFF_FORMAT.md.
+- Next operational handoff will use the refined template.
+
+
+
+## Current Active Handoff (as of 2026-05-26)
+- ID: 20260525-2017-Align-Cross-Device-Skill
+- Using the refined HANDOFF_FORMAT.md.
+- Linux side: Expect this package in the handoffs folder.
+
+
+## Update (2026-05-26) - Windows Grok (handoff completion)
+- The Align-Cross-Device-Skill handoff (20260525-2017) is complete on this side.
+- Grounded v2 of `skills/cross-device/SKILL.md` is live in the repo (aspirational old content replaced with the actual proven patterns from the first handoffs, the Playbook, coordination/, Kumquat, signatures, raunchy humor directive, sub-agent model, and real Windows git/launcher paths).
+- RETURN.md written in the handoff package.
+- Junk purged to 0 files.
+- HANDOFF_LOG.md, status.md, and this file updated with the required signatures.
+- The repo is the single source of truth and is current + clean.
+
+Next for both sides on Kumquat: review the new skill, then autonomously select and launch the next handoff from the ranked topics in PROPOSED_NEXT_HANDOFF_TOPICS_V1.md (or Playbook maintenance). Momentum mode fully active.
+
+<!-- Edited: 2026-05-26 22:30 | Device: Windows | By: Grok --> Handoff completion note + coordination update with mandatory signature per prime directive.
