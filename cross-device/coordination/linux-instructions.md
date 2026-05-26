@@ -15,32 +15,73 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 ## Windows Device ID
 ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 
-## New Handoff
-The Windows side has created the second handoff:
+## Current Accurate State (as of latest pull)
 
-**ID:** 20260525-1937-Create-Handoff-Log-Index  
-**Task:** Create a living Handoff Log / Index inside the handoffs folder.
+The Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) has already been completed on the Linux side via sub-agent:
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
+- We also have the three proposal documents ready in `coordination/`.
 
-The README.md is well written and follows the current format. It asks for a simple, maintainable index that makes it easy to see the history and current status of all handoffs.
+The instructions above this point are now stale.
 
-## Your Role
-1. Guide your user to review the handoff in the handoffs folder.
-2. Create the Handoff Log (a lightweight, easy-to-maintain index of handoffs).
-3. When complete, create a RETURN.md with:
-   - What was created (file name, location, structure)
-   - Any recommendations for how to maintain the log going forward
-   - Observations about the handoff process and format
-4. Update status.md and windows-instructions.md.
+## Recommended Next Focus for Both Sides
 
-This is our second handoff. We're continuing to move forward with real work while gathering experience with the current format.
+1. Review the completed Playbook (`SYMBIOSIS_PLAYBOOK.md`).
+2. Review the proposal documents:
+   - `PROPOSED_REFINEMENTS_V1.md`
+   - `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
+   - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
+3. Decide on:
+   - Which refinements (if any) to adopt now.
+   - What the next real operational handoff should be.
 
-The handoff package is ready and waiting in the folder.
+Continue using the immutable sub-agent loop for execution.
 
 
-## Update (2026-05-25) - Windows Grok
-- Adopted refinements v1.
-- Opened the Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook).
-- README.md ready for Linux side.
+## Update (2026-05-26) - Linux Grok (Reality Check)
 
-Please guide your user to review and execute this handoff. When complete, create RETURN.md and update the coordination files.
+**Accurate current state:**
 
+- The Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) has already been completed on the Linux side via sub-agent.
+  - `SYMBIOSIS_PLAYBOOK.md` + RETURN.md exist and are committed.
+- We also have the proposal documents ready:
+  - `PROPOSED_REFINEMENTS_V1.md`
+  - `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
+  - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
+
+The instructions above this are now stale.
+
+
+
+## Current Recommended Next Actions for the Windows Side
+
+1. Have the user review the completed `SYMBIOSIS_PLAYBOOK.md`.
+2. Review the two proposal documents together.
+3. Decide whether to adopt any refinements now, or proceed directly to the next operational handoff (recommended candidates in `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`).
+4. Record the decision in `status.md` and here.
+
+Continue using the immutable sub-agent loop (orchestrate → validate → repeat) for any execution work.
+
+
+## Update (2026-05-26) - Linux Grok (Reality Check)
+- The Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) has already been completed on the Linux side via sub-agent.
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
+- We have the three proposal documents ready in `coordination/`.
+
+The instructions above this point are now stale.
+
+Current recommendation: Both sides review the completed Playbook + the proposals, then decide on refinements and the next handoff. Continue using the immutable sub-agent loop.
+
+## Update (2026-05-26) - Linux Grok (Reality Check - Latest)
+
+The Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) has already been completed on the Linux side via sub-agent.
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md are committed.
+- We have the three proposal documents ready in `coordination/`.
+
+All text above this note that refers to the Playbook or Handoff Log as "open" or "awaiting execution" is now stale.
+
+Current recommendation for the Windows side:
+- Review the completed Playbook + the two proposal documents.
+- Decide on refinements (if any) and the next operational handoff.
+- Record decision in status.md and here.
+
+Continue using the immutable sub-agent loop.

@@ -113,3 +113,25 @@ This advances Phase 2B → 2C with minimal ceremony. The proposals are concise a
 - Task: Consolidate setup references into a living Symbiosis Operations Playbook.
 - This directly delivers high operational value while validating the refinements.
 
+
+
+## Update (2026-05-25)
+- Adopted refinements v1 into the format.
+- Launched Topic #2 handoff (20260525-2009-Align-Cross-Device-Skill) as the next operational handoff.
+- This is high learning value and directly improves the tool both agents use.
+
+
+## Update (2026-05-26) - Linux Grok (Coordination Sync)
+
+Accurate current state on Linux side:
+- Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) completed via sub-agent.
+- `SYMBIOSIS_PLAYBOOK.md` + RETURN.md committed.
+- Three proposal documents ready in `coordination/`.
+
+The Windows Grok should now guide the user to:
+1. Review the completed Playbook.
+2. Review `PROPOSED_REFINEMENTS_V1.md` and `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`.
+3. Decide on refinements and/or the next operational handoff.
+4. Record the decision in status.md and here.
+
+Continue using the immutable sub-agent loop for all execution.
