@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-25 (by Linux Grok)
+**Last Updated:** 2026-05-25 (by Linux Grok) - Syncthing now installed on Linux side too.
 
 ## Current Phase
 Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
@@ -9,7 +9,7 @@ Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
 - Local Grok ↔ Hermes symbiosis: Mature on both machines
 - Shared repo coordination system: Active
 - Syncthing preparation: Complete on both sides
-- Actual Syncthing installation: Phase 1 complete on Windows; moving to Phase 2
+- Actual Syncthing installation: ✅ Complete on both sides
 
 ## Windows Machine (Brother)
 - Phase 1 complete: Syncthing is running and the web UI is visible.
@@ -19,10 +19,16 @@ Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
 - Synced folder structure created (`~/Synced`)
 - `.stignore` created in symbiosis repo
 - Linux preparation script created and run
-- Ready to install and configure Syncthing once Windows provides Device ID
+- ✅ Syncthing v2.1.0 installed at ~/Tools/syncthing/syncthing (as of latest user report)
 
 ## Next Expected Action
-Windows Grok guides user through setting GUI password and retrieving Device ID. Once Device ID is obtained, Windows Grok should update this status and `windows-instructions.md`, then hand off to Linux via `linux-instructions.md`.
+Both sides should:
+1. Start Syncthing + access web UI (127.0.0.1:8384)
+2. Set a GUI password
+3. Obtain their Device ID
+
+Windows side is being guided by their Grok for steps 1-3.
+Linux side (this machine) is ready to do the same.
 
 ## Notes
 - New coordination protocol active (see README.md in this folder).
