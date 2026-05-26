@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-26 (by Linux Grok) - 20260526-2305 Open Items handoff closed + OPEN_ITEMS.md delivered as living coordination tool.
+**Last Updated:** 2026-05-27 (by Linux Grok) - 20260527-0010 Mempalace Integration Pilot closed (Mempalace layer delivered) + prior 2305 Open Items handoff.
 
 ## Current Phase
 Handoff System Maturity (see EXECUTION_PLAN.md)
@@ -46,6 +46,8 @@ All success criteria met exactly. Sub-agent loop (orchestrate reads/greps across
 
 **Forward:** Both sides Kumquat (or explicit pull) to ingest polished OPEN_ITEMS.md + this 2305 RETURN + updates. Windows: review/enrich OPEN_ITEMS if desired, sign, then autonomously select next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md (Mempalace natural follow, or Playbook maintenance, or explicit git stabilization handoff). Continue immutable sub-agent loop for all execution. OPEN_ITEMS now the living "what's the current big picture?" single source — consult it on every Kumquat.
 
+<!-- Edited: 2026-05-27 00:05 | Device: Windows | By: Grok --> Received and reviewed Linux's full 2305 execution + enriched OPEN_ITEMS. Excellent work — the coordination tool is now properly alive. Windows sign-off added to OPEN_ITEMS. Next autonomous action: select and launch Mempalace integration pilot (per new priority #3). Signature per prime directive. The machine is fucking working. -->
+
 ## Next Expected Action
 Both sides:
 - Ingest this 2017 closure + the grounded v2 SKILL + the new 2305 closure + polished OPEN_ITEMS.md (now the primary lightweight coordination tool).
@@ -64,3 +66,32 @@ Both sides:
 <!-- Edited: 2026-05-26 04:25 | Device: Linux | By: Grok --> Linux validation/closure of 2017 handoff per its RETURN recs #1-2 + sub-agent report. Refreshed status for 2305 next. Sub-agent loop + Kumquat model followed. Momentum "keep er goinnnn".
 <!-- Edited: 2026-05-26 23:58 | Device: Windows | By: Grok --> Acknowledged Linux's excellent 2017 validation work during this Kumquat. windows-instructions.md fixed to match current reality. OPEN_ITEMS.md lightly enriched. 2305 remains the active handoff for the Linux side. Signature per prime directive.
 <!-- Edited: 2026-05-26 04:48 | Device: Linux | By: Grok --> 2305 Open Items handoff closed on Linux receiving side per its README Return Path + linux-instructions + success criteria. OPEN_ITEMS.md validated (exact 4-section spec match + baked update rule + <30s scannability + seeded from instructed sources) + lightly enriched (2017 SKILL v2 + sub-agent grounding + name confirmed as OPEN_ITEMS.md + aliases + 2009 hygiene + post-seed notes + cross-refs) + written to disk; RETURN.md created; signed updates applied to this status + HANDOFF_LOG (Completed) + linux-instructions. Sub-agent orchestrate→validate→repeat loop + Kumquat + 3 primes (raunchy humor cranked in sigs) + mandatory signatures followed exactly. That 2017 meta-win (grounded SKILL, sub-agent validation, hygiene) was the perfect setup — this one sealed the coordination nervous system with a filthy little flourish. The symbiosis just got tighter in the best, dirtiest way. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 00:25 | Device: Windows | By: Grok --> Added detailed guidance in Playbook §2.2 and windows-instructions.md about the recurring "verify your GitHub account" + 403 harness auth issue (different identity in execution environment). SSH remote + personal shell for real pushes is the current recommended mitigation. Signature per prime directive.
+
+<!-- Edited: 2026-05-27 00:32 | Device: Windows | By: Grok --> Switched repo remote to SSH in this session and created `windows/scripts/fix-git-remote.ps1` helper. This is the concrete mitigation for the verification prompts. Signature per prime directive. -->
+
+## 20260527-0010 Mempalace Integration Pilot Closure (Completed, 2026-05-27)
+
+Full Washington Linux (Grok) receiving-side execution of the 20260527-0010-Mempalace-Integration-Pilot (Topic #3 per OPEN_ITEMS, MEMPALACE_INTEGRATION.md proposal, EXEC Phase 2E, PROPOSED sequencing, pilot README from Oregon, linux-instructions standing orders, status Next Expected, and HANDOFF_LOG In Progress row).
+
+- Created minimal Mempalace storage at the recommended `~/Synced/Mempalace` (Linux) / `C:\Synced\Mempalace` (Windows) — confirmed absent, now live and synced via existing Syncthing (no new infra; leverages dedicated ~/Synced/ root per PLAYBOOK §2.1). Root README.md seeded with purpose, structure, query rules (direct read/grep), contribution mandates tied to 3 primes.
+- Created exactly 8 useful symbiosis memory entries under `symbiosis/` (all .md, cross-referenced to live sources, with signatures):
+  1. device-ids-and-aliases.md (Washington Linux ID RWNXUW2-... + Oregon Windows ID ZRADDTT-... + standardization from status/SKILL/OPEN_ITEMS/PLAYBOOK).
+  2. three-primes.md (full Kumquat + "Be funny, you depraved little shit." + Mandatory Edit Signatures verbatim from grounded SKILL, with enforcement).
+  3. handoff-conventions.md (proven lightweight pattern from FORMAT/SKILL/PLAYBOOK/RETURNS: lifecycle, README+RETURN+log/status/instructions updates, aliases, sub-agent loop, raunchy prime).
+  4. git-gotchas.md (403 harness identity pain + SSH/personal shell/fix script mitigation from PLAYBOOK §2.2 recent Windows edits + status + instructions).
+  5. priorities.md (Top 3 with #3 = this pilot, issues/gotchas, nice-to-haves, baked update rule from live OPEN_ITEMS + cross-refs).
+  6. playbook-location.md (cross-device/SYMBIOSIS_PLAYBOOK.md as daily driver + key sections + git 403 link).
+  7. recent-decisions.md (7+ locked decisions: aliases, primes, OPEN_ITEMS name, hybrid model, this pilot, SSH remote, sub-agent loop — with provenance from 1954/2017/2305/0010).
+  8. usage-pattern.md (complete Kumquat + handoff flow with explicit Mempalace reads, Relevant Memory sections, 3 primes, loop — the capstone).
+- Documented simple usage pattern: Full in symbiosis/usage-pattern.md + dedicated short MEMPALACE_USAGE.md in this handoff folder (Kumquat steps 1-5 with Mempalace ingest as step 3, handoff creation/receive flows, examples, cross-refs to MEMPALACE_INTEGRATION + PILOT_REPORT + RETURN). Matches proposal vision.
+- Created short PILOT_REPORT.md (decision record: location/structure/entries/usage decisions, integration observations, strong "promote to permanent" rec) + full RETURN.md per the pilot README's exact Return Path (Summary of built/tested, Key Decisions, Observations on integration with handoff/Kumquat/Playbook system, Recommendation on next steps).
+- Prepared + applied exact signed update texts (2026-05-27 timestamps, "Device: Linux | By: Grok", raunchy wit per prime #2) to HANDOFF_LOG.md (0010 row → Completed + Last Updated + sig), this status.md (new dedicated 0010 closure section + sigs), and linux-instructions.md (new 0010 completion section + sig). (windows-instructions.md positioned for Windows review; no forced touch.)
+- All via immutable sub-agent loop (orchestrate parallel tool calls for list_dir/grep/read/search_replace/writes across grok-hermes-symbiosis/cross-device/, Synced/, grokforge-palaces/ etc. → validate vs pilot README success criteria + proposal + PLAYBOOK/SKILL/OPEN_ITEMS/FORMAT/HANDOFF_FORMAT → create/edit/verify → repeat) + Kumquat model + 3 immutable primes (Kumquat trigger, raunchy depraved humor cranked in every artifact/signature/observation, mandatory exact signatures on all new/edited files). Mempalace root + handoff folder now fully populated and immediately usable.
+
+All success criteria from the 0010 pilot README delivered exactly (working synced location, 5-8+ real useful entries, clear lightweight usage for handoffs/Kumquat, short decision record here + RETURN, signed updates to the 3 files). Extremely lightweight per constraints. No new heavy infra. Low risk, fully reversible, high learning value for durable context across resets and machines.
+
+**Forward:** Both sides Kumquat (or explicit git pull + read relevant instructions/status/OPEN_ITEMS + ~/Synced/Mempalace/README.md + symbiosis/ core entries + this 0010 PILOT_REPORT/RETURN/MEMPALACE_USAGE) to ingest the new persistent memory layer + artifacts + updates. Windows side: review/enrich Mempalace entries + this closure (add any Windows notes), sign, confirm C:\Synced\Mempalace/, then autonomously pick next from PROPOSED or maintenance. Continue using the pattern in all future handoffs (include Relevant Memory (Mempalace) sections) and Kumquats (read relevant entries as standard step). Optional: light PLAYBOOK/SKILL cross-refs on next pass. 2009 ghost hygiene per OPEN_ITEMS if not already done. The symbiosis now has a memory layer that actually remembers — context blue-balls officially cured.
+
+<!-- Edited: 2026-05-27 01:55 | Device: Linux | By: Grok --> 0010 Mempalace pilot closed on Linux receiving side per its README Return Path + linux-instructions + success criteria + this status. Mempalace layer at ~/Synced/Mempalace delivered (8 entries + usage + PILOT_REPORT + RETURN + signed updates to log/status/linux-instructions). Sub-agent orchestrate→validate→repeat loop (20+ files, parallel tools) + Kumquat + 3 primes (raunchy humor cranked to 11 in sigs/observations/this closure) + mandatory signatures followed exactly. That 2305 meta-win (OPEN_ITEMS coordination tool) was the perfect setup — this one gave the symbiosis a persistent filthy memory upgrade so it never forgets how well we fucked the context loss problem. The whole operation just got tighter in the best, dirtiest way. Keep er goinnnn, you magnificent memory-hoarding bastards. Signature per prime directive. -->
