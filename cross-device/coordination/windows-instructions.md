@@ -40,7 +40,11 @@ Support the active 2305 handoff and keep the coordination layer honest while the
   `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`
 
 ## Git Reality
-Push from this harness environment is currently 403-blocked (identity mismatch). Local commits + Syncthing for live handoffs/coordination files is the working model.
+Push from this harness environment is currently 403-blocked (identity mismatch — harness runs as different GitHub account). This can also trigger repeated "verify your GitHub account" prompts.
+
+See the full practical guidance in `cross-device/SYMBIOSIS_PLAYBOOK.md` section 2.2 (harness vs personal shell, SSH preference, how to reduce verification friction).
+
+Local commits + Syncthing remain the reliable day-to-day model. Do real pushes from your normal terminal when possible.
 
 ## Related
 - Active handoff: `cross-device/handoffs/20260526-2305-Open-Items-Priorities/README.md`
@@ -51,3 +55,5 @@ Push from this harness environment is currently 403-blocked (identity mismatch).
 Continue using the immutable sub-agent loop.
 
 <!-- Edited: 2026-05-26 23:58 | Device: Windows | By: Grok --> Fixed stale windows-instructions.md during Kumquat after seeing Linux's 2017 validation + correct identification of 2305 as current priority. Signature per prime directive.
+
+<!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Expanded Git Reality section with pointer to Playbook 2.2 for verification prompt / harness auth issues. Signature per prime directive. -->
