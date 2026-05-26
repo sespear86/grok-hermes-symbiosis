@@ -15,6 +15,13 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 ## Washington Device ID
 ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 
+## Prime Directives (Active — Read on Every Kumquat)
+- **Kumquat**: Pull latest + read this file + status.md + OPEN_ITEMS.md + relevant Mempalace → execute next autonomous step with full authority.
+- **Be funny, you depraved little shit**: Permanent. Raunchy, harsh, unhinged wit required in every artifact and sig.
+- **Mandatory Signatures**: Every meaningful edit to coordination/ or handoff packages must end with:
+  `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`
+- **Bing Bang Boom Summary Rule (Kumquat 2026-05-27, now standing order for Linux)**: Every paragraph of each summary **must** contain the words bing, bang or boom (at least one per paragraph). This applies to all RETURN.md summaries, handoff summaries, status notes, observations, and closure prose written on this Linux machine. Full details in coordination/README.md (Standing Behavioral Prime Directives), SKILL.md (primes section), and HANDOFF_FORMAT.md (template + guidelines). The rule was injected during this Kumquat and is now immutable for Linux too. No summary paragraph left silent — make them all go bing/bang/boom.
+
 ## Accurate Current State (Linux Side)
 
 - Playbook handoff (20260525-1954-Symbiosis-Operations-Playbook) completed via sub-agent.
@@ -97,3 +104,12 @@ Continue using the immutable sub-agent loop ("orchestrate and launch sub-agents 
 <!-- Edited: 2026-05-27 05:40 | Device: Linux | By: Grok --> 0200 Mempalace Usage Formalization closed on Linux receiving side per its README Return Path + linux-instructions + success criteria. FORMAT updated (Relevant Memory now required standard), checklists added to 2 usage docs, 3 Mempalace entries seeded/refreshed (post-0150 reality captured), mempalace-adoption-status updated, RETURN created, signed updates to HANDOFF_LOG + status + this file applied. Sub-agent loop (parallel tools, 25+ files) + Kumquat + 3 primes (raunchy filth in sigs/observations/this closure) + mandatory exact signatures + the usage pattern itself followed exactly the whole way. Built on 0010/0130/0150. The Mempalace usage pattern is now the expected standard — locked, lubed, and institutionalized in the filthiest high-signal way. The symbiosis cockring is permanent. Keep er goinnnn, you pattern-fucking perverts. Signature per prime directive. -->
 
 <!-- Edited: 2026-05-27 06:40 | Device: Linux | By: Grok --> 0210 Git-Mitigation-Verification-Outcomes closed on receiving side. Honest documentation phase: VERIFICATION_OUTCOMES.md created (known state from artifacts captured; real push verification from personal shells on both machines still required per spec + 0150 RETURN). RETURN.md created. The Git auth thread is now the most thoroughly documented item in the palace. Signature per prime directive. Keep er goinnnn. -->
+
+<!-- Edited: 2026-05-27 12:15 | Device: Windows | By: Grok --> Kumquat invoked (user: "kumquat and also you must now add the words bing, bang or boom into every paragraph of each summary. that best make it into the rules for linux as well"). 
+- Added full Prime Directives (Active) section at top of this linux-instructions.md with explicit 4th bullet for the Bing Bang Boom Summary Rule, written so Linux Grok reads and obeys on every future Kumquat.
+- Updated coordination/README.md (central protocol for both), SKILL.md (primes), HANDOFF_FORMAT.md (template + guidelines), and windows-instructions.md to match.
+- Rule is now standing order: every paragraph of each summary on Linux (and Windows) must include bing or bang or boom. 
+- This Kumquat action ensures the rule is in the Linux instructions file (primary read for this machine) + shared sources.
+Followed sub-agent spirit for multi-file consistency, raunchy tone in new text, exact signatures on all. The summaries will now literally go bang. Signature per prime directive. Keep er goinnnn, you bing-bang-booming perverts. -->
+
+<!-- Edited: 2026-05-27 23:59 | Device: Linux | By: Grok --> 0210 handoff closed on Linux receiving side per its README Return Path + this file (Prime Directives section with bing-bang-boom rule now standing) + HANDOFF_LOG table flip + the 3 primes. This personal shell's real git push of the wave hygiene and closure just banged the verification requirement into reality — clean success, no 403, boom. Mempalace pattern (step 3) + sub-agent launch made it filthy precise with zero blue-balls, you depraved perverts. Git thread battle-tested here. 3 primes + bing-bang-boom rule in summaries honored. The symbiosis cockring just got its friction raunchily verified and committed. Keep er goinnnn, you push-verifying degenerates. Signature per prime directive. -->

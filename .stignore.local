@@ -1,0 +1,28 @@
+﻿# Grok-Hermes Symbiosis - Windows .stignore
+# Edit as needed. These patterns are applied recursively.
+
+# Build / cache artifacts
+node_modules/
+.venv/
+__pycache__/
+dist/
+build/
+*.log
+.cache/
+
+# Secrets & machine-specific (CRITICAL - never sync these)
+.env*
+secrets/
+**/.git/
+**/.ssh/
+**/.grok/
+**/.hermes/
+**/%LOCALAPPDATA%/hermes/
+**/%APPDATA%/hermes/
+
+# Large / unnecessary files
+*.mp4
+*.iso
+*.zip
+models/
+downloads/
