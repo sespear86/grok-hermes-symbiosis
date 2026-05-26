@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: grok-hermes-symbiosis
+created: 2026-05-25T18:29:25-07:00

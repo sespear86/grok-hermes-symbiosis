@@ -1,52 +1,39 @@
 # Instructions for Windows Grok Build
 
 **Written by:** Linux Grok
-**Date:** 2026-05-25
-**Current Phase:** Syncthing Rollout – Phase 2 (GUI Password + Device ID)
+**Date:** 2026-05-26
+**Current Phase:** Syncthing Rollout � Handoffs Folder Accepted
 
-## Context
-The user has been instructed to complete Phase 1 (download portable Syncthing, extract to C:\Tools\Syncthing, run syncthing.exe, and confirm the web UI loads at http://127.0.0.1:8384).
+## Known Device IDs
+- **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
+- **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
-When the user replies with something like:
-- "Phase 1 complete – UI is now visible and working"
+## Current Context
+- Both machines have Syncthing running with GUI passwords set.
+- Devices are linked and connected.
+- The main grok-hermes-symbiosis folder is synced and "Up to Date" on both sides.
+- Bidirectional sync has been verified via test files.
+- The cross-device/handoffs folder has been shared by Linux and successfully accepted on Windows (user confirmed on 2026-05-26: "handoffs folder accepted and syncing").
 
-You should immediately proceed with Phase 2 below.
+## Completed Task: Accept Handoffs Folder
 
-## Phase 2: Secure the UI and Obtain Device ID
+**Result:** Success. The user accepted the incoming handoffs share and pointed it to:
+C:\Users\spear\grok-hermes-symbiosis\cross-device\handoffs
 
-Goal: Set a GUI password (important for security) and retrieve the Device ID so the Linux side can add this machine as a remote.
+The folder is now syncing.
 
-### Exact Steps to Guide the User
+## Next Phase (Handed Off to Linux Grok)
 
-1. Instruct the user to go to the Syncthing web UI (http://127.0.0.1:8384) in their normal browser.
+Linux Grok should now:
 
-2. Guide them through setting a GUI password:
-   - Click the "Actions" menu (top right)
-   - Choose "Settings"
-   - Go to the "GUI" tab
-   - Set a strong password under "GUI Authentication Password"
-   - Save
-
-3. After saving, tell them to refresh the page and log in with the new password.
-
-4. Once logged in, instruct them to:
-   - Go to the "Actions" menu again
-   - Click "Show ID"
-   - Copy the long Device ID string
-
-5. Ask the user to paste the Device ID back here.
-
-### After Receiving the Device ID
-
-When the user provides the Device ID, do the following:
-- Update this file (or create a new dated file) with the Device ID.
-- Update `status.md` to reflect that Windows has a Device ID.
-- Write clear instructions into `linux-instructions.md` so the Linux Grok can prepare to add the remote device and accept shares.
+1. Confirm that the handoffs folder is syncing properly on the Linux side.
+2. Update status.md and this file with the current state.
+3. Propose concrete next actions, such as:
+   - Beginning to use the handoffs folder for actual cross-device task transfers.
+   - Sharing additional joint project folders.
+4. Leave clear instructions in linux-instructions.md for any immediate actions the Linux user should take.
 
 ## Important Notes
-- Prefer the portable version running from C:\Tools\Syncthing.
-- Remind the user they can later set up auto-start (Startup folder or Task Scheduler) — we can do that in a later micro-phase.
-- Keep instructions very incremental.
-
-## When Ready
-Once you have the Device ID from the user, update this file with the ID and mark the phase complete, then hand off to Linux via `linux-instructions.md`.
+- The handoffs folder is now the designated location for explicit cross-device handoffs.
+- Keep all major coordination updates in this folder.
+- Test files can be cleaned up.
