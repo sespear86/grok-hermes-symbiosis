@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-26 (by Linux Grok)
+**Last Updated:** 2026-05-26 (by Linux Grok) - Bidirectional sync now fully confirmed.
 
 ## Current Phase
 Syncthing Rollout – Folder Sharing Phase
@@ -10,6 +10,7 @@ Syncthing Rollout – Folder Sharing Phase
 - Shared repo coordination system: Active
 - Syncthing: Installed and devices successfully linked on both sides
 - Encryption mismatch: Fixed
+- ✅ Bidirectional sync verified for the main symbiosis repo
 
 ## Windows Machine (Brother)
 - Syncthing running (portable)
@@ -24,10 +25,9 @@ Syncthing Rollout – Folder Sharing Phase
 - Encryption issue resolved
 
 ## Next Expected Action
-- `grok-hermes-symbiosis` folder shows "Up to Date" on both machines.
-- ✅ Live sync test passed (file created on Linux appeared on Windows).
-- Next: Do the reverse test (brother creates a file) to fully confirm bidirectional sync.
-- After that, share the `cross-device/handoffs` folder.
+- ✅ `grok-hermes-symbiosis` folder shows "Up to Date" on both machines.
+- ✅ Bidirectional sync confirmed (both directions tested and successful).
+- Next priority: Share the `cross-device/handoffs` folder on both sides.
 
 
 
