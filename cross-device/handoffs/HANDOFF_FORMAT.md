@@ -57,6 +57,16 @@ This is the main handoff document. Use this template:
 ## Handoff Notes
 [Any additional context the receiving side should know]
 
+## Relevant Memory (Mempalace)
+**Standard section (add to every handoff README; populate with paths relevant to *this* handoff):**
+- /symbiosis/three-primes.md
+- /symbiosis/handoff-conventions.md
+- /symbiosis/git-gotchas.md
+- /symbiosis/priorities.md (live source: cross-device/coordination/OPEN_ITEMS.md)
+- /symbiosis/recent-decisions.md
+- /symbiosis/usage-pattern.md
+(See MEMPALACE_INTEGRATION.md §2 for vision + 0010 pilot's MEMPALACE_USAGE.md + palace symbiosis/usage-pattern.md for the full Kumquat + handoff pattern. This makes the memory layer first-class.)
+
 ## Return Path
 When complete, create a `RETURN.md` in this folder with results and next steps.
 ```
@@ -106,103 +116,29 @@ This format is intentionally lightweight. We can evolve it as we learn what work
 ---
 
 **Next:** Once both sides are comfortable with this format, we can start using it for real cross-device work.
-## Handoff Lifecycle (Typical Flow)
-
-1. Sender creates the dated folder + README.md.
-2. The package syncs to the other side.
-3. Receiving side executes and adds artifacts.
-4. Receiver creates RETURN.md with results and closure.
-5. Sender reviews and optionally notes follow-up in coordination/status.md.
-6. (Optional) Archive completed handoffs.
-
-**Agent Context (Optional)**
-- **Type:** (e.g. Design?Implement, Research?Artifact, Agent-to-Agent Execution)
-- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
-- **State Snapshot:** (key open todos, recent decisions, git HEAD)
-- **Dependencies / Environment Notes:**
-- **Escalation / Blockers Path:**
-
-- **Format & Process Observations** (What worked well? What felt off? Suggestions for next time?)
-
-Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
 
 ## Handoff Lifecycle (Typical Flow)
 
-1. Sender creates the dated folder + README.md.
-2. The package syncs to the other side.
-3. Receiving side executes the work and adds artifacts.
-4. Receiver creates RETURN.md with results and closure.
-5. Sender reviews and optionally notes follow-up in coordination/status.md.
-6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
-7. Periodically clean up per Guidelines.
+1. Sender creates the dated folder + README.md (include `## Relevant Memory (Mempalace)` section with relevant symbiosis/ paths per the template above).
+2. The package syncs to the other side (via Syncthing; git for committed artifacts).
+3. Receiving side: Kumquat → read nervous system (instructions/status/OPEN_ITEMS) + listed Mempalace entries (per usage-pattern.md) → execute via immutable sub-agent loop.
+4. Receiver creates RETURN.md with results, observations (raunchy per prime #2), and closure.
+5. Sender reviews RETURN + optionally notes follow-up in coordination/status.md.
+6. Both sides: update HANDOFF_LOG (mark Completed), status.md, and the relevant *-instructions.md with exact signatures (prime #3).
+7. (Optional) Archive completed handoffs to `handoffs/archived/` or rely on git history. Periodically clean per Guidelines.
 
-
-**Agent Context (Optional)**
+**Agent Context (Optional but Recommended in READMEs for complex handoffs)**
 - **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
-- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
-- **State Snapshot:** (key open todos, recent decisions, git HEAD)
+- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode, e.g. "use cross-device skill + sub-agents")
+- **State Snapshot:** (key open todos, recent decisions from Mempalace/recent-decisions.md, git HEAD)
 - **Dependencies / Environment Notes:**
 - **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
-
-
-- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
-
+- **Mempalace Sections:** (list of /symbiosis/*.md paths consulted)
+- **Format & Process Observations** (What worked well? What felt off? Suggestions for next time? Include how Mempalace reads helped or could improve.)
 
 Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
-
-
-## Handoff Lifecycle (Typical Flow)
-
-1. Sender creates the dated folder + README.md.
-2. The package syncs to the other side.
-3. Receiving side executes the work and adds artifacts.
-4. Receiver creates RETURN.md with results and closure.
-5. Sender reviews and optionally notes follow-up in coordination/status.md.
-6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
-7. Periodically clean up per Guidelines.
-
-
-**Agent Context (Optional)**
-- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
-- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
-- **State Snapshot:** (key open todos, recent decisions, git HEAD)
-- **Dependencies / Environment Notes:**
-- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
-
-
-- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
-
-
-Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
-
 
 **Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
 
-
-## Handoff Lifecycle (Typical Flow)
-
-1. Sender creates the dated folder + README.md.
-2. The package syncs to the other side.
-3. Receiving side executes the work and adds artifacts.
-4. Receiver creates RETURN.md with results and closure.
-5. Sender reviews and optionally notes follow-up in coordination/status.md.
-6. (Optional) Move completed package to handoffs/archive/ or rely on git history.
-7. Periodically clean up per Guidelines.
-
-
-**Agent Context (Optional)**
-- **Type:** (e.g., Design to Implement, Research to Artifact, Agent-to-Agent Execution)
-- **Recommended Receiving Agent Invocation:** (suggested skill/prompt/mode)
-- **State Snapshot:** (key open todos, recent decisions, git HEAD)
-- **Dependencies / Environment Notes:**
-- **Escalation / Blockers Path:** (e.g., If blocked more than 4h, post in shared chat or create return handoff)
-
-
-- **Format and Process Observations** (What worked well? What felt off? Suggestions for next time?)
-
-
-Supporting artifacts may be placed directly in the handoff folder or in a conventional context/ subfolder. Prefer direct placement for small artifacts.
-
-
-**Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
+**Evolution Note:** This format now treats the Mempalace memory layer as first-class (Relevant Memory sections standard, Kumquat reads explicit). See 0010 pilot artifacts + current symbiosis/usage-pattern.md for the living pattern.
 

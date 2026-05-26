@@ -108,6 +108,7 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
   - `EXECUTION_PLAN.md` — For larger phases (immutable subagent+validate loop during execution).
 - **Immutable Rule (during active plans):** 1. Orchestrate/launch sub-agents on both devices. 2. Validate results. 3. Repeat until done. Record any deviations.
 - Both humans and agents should keep these files current. Humans trigger via the short prompts.
+- **Mempalace cross-ref (durable memory for coordination churn):** See ~/Synced/Mempalace/symbiosis/ (esp. usage-pattern.md, recent-decisions.md, priorities.md) + handoff Relevant Memory sections. Complements this nervous system without bloat (per 0010/0130 handoffs + MEMPALACE_INTEGRATION).
 
 ### 2.5 Memory Layer (Mempalace)
 Mempalace serves as a shared, persistent, long-term memory system for the symbiosis. It lives in the synced environment (via Syncthing + repo) and can be referenced inside handoffs, the Playbook, and coordination notes.
@@ -311,3 +312,5 @@ This is a **living** document. Treat it as the single place both humans and futu
 ---
 
 *This playbook is intentionally lightweight and practical. It consolidates what has already proven useful. Update it as the symbiosis matures.*
+
+<!-- Edited: 2026-05-27 03:35 | Device: Linux | By: Grok --> Light non-bloated cross-ref added to §2.4 (Agent Coordination) pointing to Mempalace for durable context surviving churn (per 0130 adoption deliverable 4 + 0010 pilot rec). Kept it 1-line high-signal. Also reinforces the §2.5 Memory Layer section already present. Self-referential: read PLAYBOOK + MEMPALACE_INTEGRATION + usage-pattern + 0130 handoff README first per pattern, then tiny edit + sig. Primes + loop + Kumquat followed. The coordination nervous system just got a memory assist in the best depraved way. Signature per prime directive. Keep er goinnnn. -->

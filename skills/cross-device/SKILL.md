@@ -37,7 +37,7 @@ Back-dating is allowed when fixing provenance. Two independent agents co-authori
 
 - Folder name: `cross-device/handoffs/YYYYMMDD-HHMM-Short-Name/` (example: 20260525-2017-Align-Cross-Device-Skill)
 - Minimum contents:
-  - `README.md` — From/To, Date, Status, Context/Background, Task/Request, Success Criteria, Preferences/Constraints, Handoff Notes, Return Path. Follow the current `HANDOFF_FORMAT.md`.
+  - `README.md` — From/To, Date, Status, Context/Background, Task/Request, Success Criteria, Preferences/Constraints, Handoff Notes, **## Relevant Memory (Mempalace)** (standard per updated HANDOFF_FORMAT; list key /symbiosis/*.md paths), Return Path. Follow the current `HANDOFF_FORMAT.md`.
   - On completion: `RETURN.md` — Summary of Work Done, Key Decisions, Gotchas Encountered, Observations on the Handoff Process Itself, Recommended Next Steps / Follow-ups.
 - Optional supporting files (notes, diffs, artifacts) as needed.
 - Always update `HANDOFF_LOG.md` (new row + status change to Completed after RETURN lands).
@@ -109,7 +109,8 @@ Keep this section short. The Playbook + actual handoff packages + coordination/ 
 ## Related Living Documents (Read These Before You Act)
 
 - `cross-device/SYMBIOSIS_PLAYBOOK.md` (the practical daily driver)
-- `cross-device/handoffs/HANDOFF_FORMAT.md` (the refined one with the 5 adopted improvements)
+- `cross-device/handoffs/HANDOFF_FORMAT.md` (the refined one with the 5 adopted improvements + standard Relevant Memory (Mempalace) section)
+- `~/Synced/Mempalace/symbiosis/` (durable persistent memory layer: usage-pattern.md, three-primes.md, recent-decisions.md, priorities.md, git-gotchas.md etc. — read relevant on every Kumquat per reinforced pattern; see 0010 pilot + 0130 adoption handoff)
 - `cross-device/coordination/EXECUTION_PLAN.md` + the PROPOSED_* files + prompts.md
 - Real `handoffs/*/RETURN.md` files (they're the best pattern library)
 - `windows/scripts/hermes.cmd` + the profile function (the launcher fixes that survived contact with reality)
