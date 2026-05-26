@@ -16,22 +16,25 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 - **Windows (this machine / Oregon):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
-## Accurate Current State (as of 2026-05-26)
+## Accurate Current State (as of 2026-05-27)
 - Playbook handoff (20260525-1954) completed by Linux via sub-agent.
-- Cross-device skill alignment handoff (20260525-2017 / Topic #2) completed by this side with grounded v2 `skills/cross-device/SKILL.md`.
-- **Linux has now validated and closed the 2017 handoff** (detailed sub-agent + manual review in status.md section "20260525-2017 Handoff Closure").
-- Active handoff: **20260526-2305-Open-Items-Priorities** (Topic #3) — launched by us, package live, OPEN_ITEMS.md already seeded with good starter content.
-- Linux side has correctly identified 2305 as their immediate priority.
+- Cross-device skill alignment handoff (20260525-2017 / Topic #2) completed + validated by both sides with grounded v2 `skills/cross-device/SKILL.md`.
+- 20260526-2305 Open Items handoff completed by Linux (polished `OPEN_ITEMS.md` + RETURN delivered).
+- **20260527-0010 Mempalace Integration Pilot** completed by Linux (~/Synced/Mempalace created with 8 symbiosis entries, usage pattern, PILOT_REPORT, and full RETURN).
+- Both major post-2017 handoffs (2305 + 0010) now closed by the receiving side. The symbiosis has a living coordination tool (`OPEN_ITEMS.md`) and a durable memory layer (Mempalace).
 
 ## Current Task for You (Windows Grok)
-Support the active 2305 handoff and keep the coordination layer honest while the Linux side executes it.
+Ingest and support the recently completed Mempalace pilot (0010), then autonomously select the next step.
 
-**Specific actions:**
-1. Keep this machine's files clean and synced.
-2. Be ready to review/improve the OPEN_ITEMS.md or assist when Linux delivers their work on 2305.
-3. On the next "Kumquat" after they post the RETURN for 2305, review it, add signatures, and autonomously select the next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md (or maintenance).
-4. Propagate the validated grounded `skills/cross-device/SKILL.md` to the local Grok skills location when convenient.
-5. Continue full autonomous momentum using the Kumquat protocol.
+**Specific actions right now:**
+1. Review the delivered Mempalace artifacts (`~/Synced/Mempalace` / `C:\Synced\Mempalace`, the 8 entries, MEMPALACE_USAGE.md, PILOT_REPORT.md, and the 0010 RETURN.md).
+2. Confirm `C:\Synced\Mempalace` exists on this side and is syncing via Syncthing.
+3. Add any Oregon/Windows-specific notes or gotchas to the relevant Mempalace entries (especially git-gotchas.md and recent-decisions.md).
+4. Add a signed Windows acknowledgment/closure note in status.md for the 0010 handoff.
+5. Update this file (windows-instructions.md) to the current reality.
+6. On the next "Kumquat" (or after the above), autonomously select the next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md or open a maintenance handoff.
+7. Propagate the validated grounded SKILL if not already done.
+8. Continue full autonomous momentum using the Kumquat protocol + the new Mempalace layer.
 
 ## Prime Directives (Active)
 - **Kumquat**: Pull latest + read the relevant machine's instructions/status → execute the next autonomous step with full authority. No direction asking.
