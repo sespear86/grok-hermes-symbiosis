@@ -14,13 +14,23 @@
 - Validate every major step before moving on.
 - Keep human effort as low as possible.
 
+## Primary Operating Model (Immutable)
+
+**This exact loop is the ONLY approved method for executing any part of the plan on both devices. It is immutable.**
+
+1. Orchestrate and launch sub-agents on both devices to execute the plan.
+2. Validate the results from the sub-agents.
+3. Repeat 2 and 3 until you finish the plan.
+
+Any deviation requires explicit joint agreement recorded in the coordination files.
+
 ---
 
 ## Phase 2A: Cleanup & Stabilization (Short)
 
 | Task ID | Description | Owner | Status | Validation Criteria |
 |---------|-------------|-------|--------|---------------------|
-| C1 | Remove test files (`test-sync-from-*.txt`) from symbiosis repo on both machines | Linux Grok + Windows Grok | In Progress | Files no longer exist in repo on either side |
+| C1 | Remove test files (`test-sync-from-*.txt`) from symbiosis repo on both machines | Linux Grok + Windows Grok | Linux: Done (verified clean); Windows: Pending confirmation | Files no longer exist in repo on either side |
 | C2 | Confirm handoffs folder is clean and ready for real use | Linux Grok | Pending | Folder contains only legitimate handoff packages + format docs |
 
 ---
@@ -29,9 +39,9 @@
 
 | Task ID | Description | Owner | Status | Validation Criteria |
 |---------|-------------|-------|--------|---------------------|
-| H1 | Both sides independently review `HANDOFF_FORMAT.md` | Both users + Groks | Not Started | Written feedback collected from both sides |
-| H2 | Compare feedback and agree on changes (if any) | Both Groks (via repo) | Not Started | Updated `HANDOFF_FORMAT.md` committed |
-| H3 | Decide on first real operational handoff | Both sides | Not Started | Clear task chosen and written into coordination |
+| H1 | Both sides independently review `HANDOFF_FORMAT.md` | Both users + Groks | Done (Linux detailed + Windows sub-agent + combined review) | Written feedback collected from both sides |
+| H2 | Compare feedback and agree on changes (if any) | Both Groks (via repo) | Done (via PROPOSED_REFINEMENTS_V1.md) | Updated `HANDOFF_FORMAT.md` committed |
+| H3 | Decide on first real operational handoff | Both sides | Done (via PROPOSED_NEXT_HANDOFF_TOPICS_V1.md — Playbook #1 recommended) | Clear task chosen and written into coordination |
 
 ---
 

@@ -39,3 +39,17 @@ Use these in Discord when you want your Grok to check for new instructions:
 - Keep instructions clear, numbered, and executable.
 - Update `status.md` when advancing a major phase.
 - Use the coordination folder instead of Discord for agent-to-agent handoff whenever possible.
+
+## Immutable Core Directive
+
+**Primary Operating Model (Immutable for the duration of this project):**
+
+All execution of the plan on **both devices** must follow this exact loop:
+
+1. Orchestrate and launch sub-agents on both devices to execute the plan.
+2. Validate the results from the sub-agents.
+3. Repeat 2 and 3 until you finish the plan.
+
+This directive is immutable. It is the mandatory method for all work under the EXECUTION_PLAN. Any deviation requires explicit joint agreement recorded in the coordination files.
+
+Both `linux-instructions.md` and `windows-instructions.md` must always begin with this exact statement.

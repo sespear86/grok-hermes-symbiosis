@@ -4,6 +4,14 @@
 **Date:** 2026-05-25
 **Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
 
+**IMMUTABLE PRIMARY OPERATING MODEL (Mandatory for all plan execution on both devices):**
+
+1. Orchestrate and launch sub-agents on both devices to execute the plan.
+2. Validate the results from the sub-agents.
+3. Repeat 2 and 3 until you finish the plan.
+
+This loop is the **only** approved method for executing any part of the EXECUTION_PLAN. It is immutable.
+
 ## Known Device IDs
 - **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
@@ -83,3 +91,11 @@ The living Handoff Log (`HANDOFF_LOG.md`) has been created successfully (status 
 4. Update `status.md` and this file as progress is made.
 
 This advances Phase 2B → 2C with minimal ceremony. The proposals are concise and ready-to-apply.
+
+
+## Update (2026-05-25)
+- Adopted lightweight refinements from PROPOSED_REFINEMENTS_V1.md into HANDOFF_FORMAT.md.
+- Launched next handoff per Topic #1 (strongly recommended): 20260525-1954-Symbiosis-Operations-Playbook
+- Task: Consolidate setup references into a living Symbiosis Operations Playbook.
+- This directly delivers high operational value while validating the refinements.
+
