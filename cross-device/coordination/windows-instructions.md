@@ -4,6 +4,9 @@
 **Date:** 2026-05-25
 **Current Phase:** Syncthing Rollout – Phase 2 (GUI Password + Device ID)
 
+> **Important:** We use repo-based coordination. All major handoffs and status updates should go through the files in `cross-device/coordination/`.
+> See `cross-device/coordination/README.md` for the current protocol.
+
 ## Context
 The user has been instructed to complete Phase 1 (download portable Syncthing, extract to C:\Tools\Syncthing, run syncthing.exe, and confirm the web UI loads at http://127.0.0.1:8384).
 
@@ -38,10 +41,26 @@ Goal: Set a GUI password (important for security) and retrieve the Device ID so 
 
 ### After Receiving the Device ID
 
-When the user provides the Device ID, do the following:
-- Update this file (or create a new dated file) with the Device ID.
-- Update `status.md` to reflect that Windows has a Device ID.
-- Write clear instructions into `linux-instructions.md` so the Linux Grok can prepare to add the remote device and accept shares.
+When the user provides the Device ID, follow the repo-based coordination protocol:
+
+1. **Update this file** (`windows-instructions.md`):
+   - Add the full Device ID at the top or in a clear "Device ID" section.
+   - Mark Phase 2 as complete.
+   - Note the current status (e.g., "GUI password set, Device ID obtained, ready for pairing").
+
+2. **Update `status.md`** in the same folder:
+   - Change the Windows section to show that Phase 2 is complete.
+   - Record that the Windows Device ID has been obtained.
+   - Update the "Next Expected Action" to reflect the handoff to Linux.
+
+3. **Write clear instructions into `linux-instructions.md`**:
+   - Include the Windows Device ID.
+   - Tell the Linux Grok the next actions it should guide the user through (e.g., add remote device, share specific folders, etc.).
+   - Keep the language clear and incremental.
+
+4. Reference the `README.md` in `cross-device/coordination/` if you need a reminder of how the coordination system works.
+
+This ensures both Grok instances can communicate cleanly through the repo instead of relying on the humans to forward messages.
 
 ## Important Notes
 - Prefer the portable version running from C:\Tools\Syncthing.
@@ -49,4 +68,8 @@ When the user provides the Device ID, do the following:
 - Keep instructions very incremental.
 
 ## When Ready
-Once you have the Device ID from the user, update this file with the ID and mark the phase complete, then hand off to Linux via `linux-instructions.md`.
+Once you have the Device ID, follow the steps in the "After Receiving the Device ID" section above.
+
+After updating the coordination files, the Linux Grok will be able to see the new instructions in `linux-instructions.md` the next time it pulls the repo (triggered by the human using one of the prompts in `prompts.md`).
+
+This is the primary way the two Grok instances should communicate going forward.
