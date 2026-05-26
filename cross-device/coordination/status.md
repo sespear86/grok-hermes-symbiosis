@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-25 (by Linux Grok) - Syncthing now installed on Linux side too.
+**Last Updated:** 2026-05-25 (by Linux Grok) - Linux UI confirmed up. Both sides now at password + Device ID stage.
 
 ## Current Phase
 Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
@@ -19,14 +19,16 @@ Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
 - Synced folder structure created (`~/Synced`)
 - `.stignore` created in symbiosis repo
 - Linux preparation script created and run
-- ✅ Syncthing v2.1.0 installed at ~/Tools/syncthing/syncthing (as of latest user report)
+- ✅ Syncthing v2.1.0 installed at ~/Tools/syncthing/syncthing
+- ✅ Web UI is accessible (user confirmed "UI is up")
 
 ## Next Expected Action
-- **Linux (Washington)**: Start Syncthing and access web UI (user chose Option A).
-- **Windows (Oregon)**: Continue with GUI password + Device ID (being guided by their Grok).
+Both sides are now at the "Set GUI password + Get Device ID" stage.
 
-Once both sides have Device IDs, we will exchange them and add each other as remote devices.
-Linux side (this machine) is ready to do the same.
+- **Linux (Washington)**: Next → Set GUI password in the web UI, then obtain Device ID.
+- **Windows (Oregon)**: Currently being guided through the same.
+
+Once both have Device IDs, we will exchange them and pair the devices.
 
 ## Notes
 - New coordination protocol active (see README.md in this folder).

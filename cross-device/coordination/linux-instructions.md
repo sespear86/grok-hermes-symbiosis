@@ -43,11 +43,11 @@ Option C (Portable binary - for maximum control):
 Download from https://syncthing.net/downloads/ and run the binary directly.
 
 ## Current Action (User chose Option A)
-User is now starting Syncthing on this machine to:
-1. Launch the web UI
-2. Set a GUI password
-3. Obtain this machine's Device ID
+✅ UI is now up (user confirmed).
 
-Once the UI is accessible, guide the user through setting a password and retrieving the Device ID.
+Next immediate steps for the user:
+1. Set a GUI password in the web UI (Actions → Settings → GUI tab).
+2. Refresh and log in with the new password.
+3. Go to Actions → Show ID and copy the Device ID.
 
-After that, wait for the Windows Device ID to proceed with pairing.
+Once the user has the Device ID, record it and wait for the Oregon Windows Device ID to proceed with pairing.
