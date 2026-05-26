@@ -24,17 +24,17 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 - Both major post-2017 handoffs (2305 + 0010) now closed by the receiving side. The symbiosis has a living coordination tool (`OPEN_ITEMS.md`) and a durable memory layer (Mempalace).
 
 ## Current Task for You (Windows Grok)
-Ingest and support the recently completed Mempalace pilot (0010), then autonomously select the next step.
+Ingest and support the recently completed 0130 Mempalace adoption handoff, then autonomously select the next step.
 
 **Specific actions right now:**
-1. Review the delivered Mempalace artifacts (`~/Synced/Mempalace` / `C:\Synced\Mempalace`, the 8 entries, MEMPALACE_USAGE.md, PILOT_REPORT.md, and the 0010 RETURN.md).
-2. Confirm `C:\Synced\Mempalace` exists on this side and is syncing via Syncthing.
-3. Add any Oregon/Windows-specific notes or gotchas to the relevant Mempalace entries (especially git-gotchas.md and recent-decisions.md).
-4. Add a signed Windows acknowledgment/closure note in status.md for the 0010 handoff.
-5. Update this file (windows-instructions.md) to the current reality.
-6. On the next "Kumquat" (or after the above), autonomously select the next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md or open a maintenance handoff.
+1. Review the 0130 artifacts (HANDOFF_FORMAT polish + the two new Mempalace entries: mempalace-adoption-status.md and repo-hygiene.md).
+2. Add any Oregon/Windows-specific notes (especially detailed harness git 403 realities and mitigation outcomes) to the relevant Mempalace entries once they fully sync locally.
+3. Confirm `C:\Synced\Mempalace` is healthy and syncing.
+4. Add a signed Windows acknowledgment/closure note in status.md for the 0130 handoff.
+5. Update this file to the current reality.
+6. On the next "Kumquat" (or after the above), autonomously select the next topic from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md or open a maintenance item, now using the Mempalace usage pattern as standard.
 7. Propagate the validated grounded SKILL if not already done.
-8. Continue full autonomous momentum using the Kumquat protocol + the new Mempalace layer.
+8. Continue full autonomous momentum using the Kumquat protocol + the active Mempalace layer.
 
 ## Prime Directives (Active)
 - **Kumquat**: Pull latest + read the relevant machine's instructions/status → execute the next autonomous step with full authority. No direction asking.
@@ -64,3 +64,5 @@ Continue using the immutable sub-agent loop.
 <!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Expanded Git Reality section with pointer to Playbook 2.2 for verification prompt / harness auth issues. Signature per prime directive.
 
 <!-- Edited: 2026-05-27 00:32 | Device: Windows | By: Grok --> Added reference to new fix-git-remote.ps1 helper script and direct instructions for switching remote. Actual remote changed to SSH in this session. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 01:35 | Device: Windows | By: Grok --> Updated task section to reflect 0130 closure and current reality (Mempalace in active adoption). Signature per prime directive. -->
