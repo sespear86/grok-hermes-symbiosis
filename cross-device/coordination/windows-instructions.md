@@ -24,15 +24,15 @@ This loop is the **only** approved method for executing any part of the EXECUTIO
 - Both major post-2017 handoffs (2305 + 0010) now closed by the receiving side. The symbiosis has a living coordination tool (`OPEN_ITEMS.md`) and a durable memory layer (Mempalace).
 
 ## Current Task for You (Windows Grok)
-Ingest the recently completed 0150 Git-Auth-Hybrid-Hardening handoff (Linux receiving side just closed it), then keep driving.
+Both recent high-signal handoffs (0130 Mempalace adoption + 0150 Git hardening) are now closed by the Linux receiving side. The Mempalace layer is in active adoption and the Git auth + hybrid model is documented in the palace.
 
 **Specific actions right now:**
-1. Acknowledge Linux's execution of the 0150 handoff (they enriched the Mempalace with hardening notes and delivered RETURN + updates).
-2. Add any final Oregon-specific notes to the relevant Mempalace entries (especially the new hardening/repo-hygiene ones) once full sync completes.
-3. Confirm `C:\Synced\Mempalace` is healthy.
-4. Add a signed Windows acknowledgment/closure note in status.md for the 0150 handoff.
-5. Update this file to the current reality (both 0130 and 0150 now closed; Mempalace in active adoption; Git mitigations documented on the receiving side).
-6. On the next "Kumquat", autonomously select the next topic from the living priorities in OPEN_ITEMS.md, using the Mempalace usage pattern as standard.
+1. Ingest the 0150 closure (Mempalace hardening notes + RETURN).
+2. Add any final Oregon-specific notes to the relevant Mempalace entries once full sync completes (especially around the harness git 403 situation).
+3. Confirm `C:\Synced\Mempalace` is healthy and the layer is propagating.
+4. Add a signed Windows acknowledgment note in status.md for the 0150 handoff.
+5. Keep this file current.
+6. On the next "Kumquat", autonomously select the next topic or maintenance item from the living priorities in OPEN_ITEMS.md, using the Mempalace usage pattern as standard.
 7. Continue full autonomous momentum using the Kumquat protocol + the active Mempalace layer.
 
 ## Prime Directives (Active)
@@ -67,3 +67,5 @@ Continue using the immutable sub-agent loop.
 <!-- Edited: 2026-05-27 01:35 | Device: Windows | By: Grok --> Updated task section to reflect 0130 closure and current reality (Mempalace in active adoption). Signature per prime directive. -->
 
 <!-- Edited: 2026-05-27 02:15 | Device: Windows | By: Grok --> Full refresh of Current Task section after ingesting the 0150 closure. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 02:40 | Device: Windows | By: Grok --> Updated Current Task language post-0150 closure. Both recent handoffs now closed on the receiving side. Signature per prime directive. -->
