@@ -1,0 +1,51 @@
+# Grok-Hermes Symbiosis - Linux .stignore
+# Protects secrets, caches, large artifacts, and agent homes
+
+# Version control
+.git
+
+# Secrets & credentials
+.env
+.env.*
+**/.env
+**/secrets/
+**/*.key
+**/*.pem
+**/*token*
+**/*secret*
+
+# Agent homes & state (very important)
+**/.hermes/
+**/.grok/
+**/%LOCALAPPDATA%/hermes/
+**/.config/hermes/
+
+# Build / dependency caches
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/
+target/
+vendor/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large / unnecessary
+*.iso
+*.mp4
+*.zip
+*.tar.gz
+models/
+downloads/
+
+# Logs (optional - you may want to sync some)
+*.log
+logs/
+
+# Syncthing itself
+.synt* 
