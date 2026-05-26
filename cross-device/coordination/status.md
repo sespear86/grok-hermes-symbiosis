@@ -28,19 +28,20 @@ Handoff System Maturity (see EXECUTION_PLAN.md)
 - Three proposal documents ready in coordination/
 - Test file cleanup verified complete on Linux
 
+## 20260525-2017 Handoff Closure (Linux Validation + Receipt, 2026-05-26)
+Validated receipt of 20260525-2017-Align-Cross-Device-Skill package (sub-agent + this edit). Grounded v2 `skills/cross-device/SKILL.md` (and .proposed in package) accurately documents the lightweight operational reality as primary: handoff packages (README+RETURN per refined HANDOFF_FORMAT.md), coordination/ as nervous system + single source of truth, Kumquat process + 3 immutable primes (incl. "Be funny, you depraved little shit." + mandatory exact signatures), immutable sub-agent loop ("orchestrate sub-agents on both devices → validate results → repeat until done"), concrete examples from 1857/1937/1954/2017 (incl. this self-referential one), raunchy humor tone. Handoff package complete (README + RETURN + SKILL.md.proposed supporting). HANDOFF_LOG / 2305 / SKILL / OPEN_ITEMS / PROPOSED / PLAYBOOK all agree Completed + sequencing (Topic #2 after Playbook #1). Minor staleness here + linux-instructions + windows-instructions + EXECUTION_PLAN tables (pre-2017/2305 focus; self-acknowledged known issue in OPEN_ITEMS + 2017 RETURN). Signatures strong on key recent (log/OPEN_ITEMS/2305/2017 files/prompts/coord README) but gaps on some earlier RETURNS + these coord files (vs. "must"; 2017 RETURN claimed updates here). Git hygiene: Windows purge claim consistent; occasional expected .syncthing tmps harmless (no .sync-conflict junk found). Local deploy of validated SKILL recommended (see SKILL lines 71-74 + RETURN rec #5). Conditional pass (minor gaps only; no blocking; core mission delivered exactly as requested). Forward: immediate 20260526-2305-Open-Items-Priorities closure (OPEN_ITEMS.md seeded; Linux Priority #1 per that doc).
+
 ## Next Expected Action
-Both sides review:
-- The completed `SYMBIOSIS_PLAYBOOK.md`
-- `PROPOSED_REFINEMENTS_V1.md`
-- `PROPOSED_NEXT_HANDOFF_TOPICS_V1.md`
-
-Decide on:
-- Which refinements (if any) to adopt into the handoff format now
-- What the next real operational handoff should be
-
-Continue using the immutable sub-agent loop for execution.
+Both sides:
+- Ingest this 2017 closure + the grounded v2 SKILL.
+- Linux completes 20260526-2305-Open-Items-Priorities (In Progress per log + OPEN_ITEMS Priority #1; OPEN_ITEMS.md already seeded with Top 3 Priorities / Known Issues / Nice-to-Haves / Decisions Awaiting + trivial update rule).
+- Propagate validated `skills/cross-device/SKILL.md` (and sibling grok-build) to local ~/.grok/skills/ trees on both machines + reload.
+- Continue using the immutable sub-agent loop for all execution.
 
 ## Notes
 - Both Device IDs exchanged and devices connected.
 - Test files cleaned up on Linux side (Washington side pending confirmation).
 - All progress tracked via repo coordination.
+- 2017 handoff: Linux validation + closure receipt added (see section above). 2305 now immediate focus.
+
+<!-- Edited: 2026-05-26 04:25 | Device: Linux | By: Grok --> Linux validation/closure of 2017 handoff per its RETURN recs #1-2 + sub-agent report. Refreshed status for 2305 next. Sub-agent loop + Kumquat model followed. Momentum "keep er goinnnn".
