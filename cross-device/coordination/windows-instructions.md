@@ -1,75 +1,61 @@
 # Instructions for Windows Grok Build
 
 **Written by:** Linux Grok
-**Date:** 2026-05-25
-**Current Phase:** Syncthing Rollout – Phase 2 (GUI Password + Device ID)
+**Date:** 2026-05-26
+**Current Phase:** Syncthing Rollout – Folder Sharing & Sync Verification
 
 > **Important:** We use repo-based coordination. All major handoffs and status updates should go through the files in `cross-device/coordination/`.
 > See `cross-device/coordination/README.md` for the current protocol.
 
-## Context
-The user has been instructed to complete Phase 1 (download portable Syncthing, extract to C:\Tools\Syncthing, run syncthing.exe, and confirm the web UI loads at http://127.0.0.1:8384).
+## Known Device IDs
+- **Windows (Oregon):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
+- **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
-When the user replies with something like:
-- "Phase 1 complete – UI is now visible and working"
+## Current Context
+- Both machines have Syncthing running with GUI passwords set.
+- Devices are linked and connected.
+- The main `grok-hermes-symbiosis` folder has been shared and both sides currently show it as "Up to Date".
+- A one-way sync test succeeded (file created on Linux appeared on Windows).
 
-You should immediately proceed with Phase 2 below.
+## Next Task: Reverse Sync Test
 
-## Phase 2: Secure the UI and Obtain Device ID
-
-Goal: Set a GUI password (important for security) and retrieve the Device ID so the Linux side can add this machine as a remote.
+Goal: Verify that file changes also flow reliably from Windows → Linux.
 
 ### Exact Steps to Guide the User
 
-1. Instruct the user to go to the Syncthing web UI (http://127.0.0.1:8384) in their normal browser.
+1. Instruct the user to open a normal PowerShell / Command Prompt and go to their copy of the symbiosis repo:
+   ```powershell
+   cd C:\Users\spear\grok-hermes-symbiosis
+   ```
 
-2. Guide them through setting a GUI password:
-   - Click the "Actions" menu (top right)
-   - Choose "Settings"
-   - Go to the "GUI" tab
-   - Set a strong password under "GUI Authentication Password"
-   - Save
+2. Have them create a small test file with a clear name and timestamp:
+   ```powershell
+   echo "Test sync from Oregon Windows - $(Get-Date)" > test-sync-from-windows.txt
+   ```
 
-3. After saving, tell them to refresh the page and log in with the new password.
+3. Ask the user to wait 15–30 seconds, then check with the person on the Linux side (Washington) whether the file `test-sync-from-windows.txt` has appeared in their `grok-hermes-symbiosis` folder.
 
-4. Once logged in, instruct them to:
-   - Go to the "Actions" menu again
-   - Click "Show ID"
-   - Copy the long Device ID string
+4. Once the Linux side confirms (or reports it did not appear), have the user report the result back.
 
-5. Ask the user to paste the Device ID back here.
+### After the Test
 
-### After Receiving the Device ID
+When you have the result of the test, do the following using the repo coordination protocol:
 
-When the user provides the Device ID, follow the repo-based coordination protocol:
+1. Update this file (`windows-instructions.md`):
+   - Note the result of the reverse sync test.
+   - Update the current phase/status.
 
-1. **Update this file** (`windows-instructions.md`):
-   - Add the full Device ID at the top or in a clear "Device ID" section.
-   - Mark Phase 2 as complete.
-   - Note the current status (e.g., "GUI password set, Device ID obtained, ready for pairing").
+2. Update `status.md`:
+   - Record whether bidirectional sync has been confirmed.
+   - Update the "Next Expected Action" section.
 
-2. **Update `status.md`** in the same folder:
-   - Change the Windows section to show that Phase 2 is complete.
-   - Record that the Windows Device ID has been obtained.
-   - Update the "Next Expected Action" to reflect the handoff to Linux.
+3. If the test succeeds, write the next set of instructions into `linux-instructions.md` (e.g., "Both sides have now verified bidirectional sync. Next: Share the handoffs folder").
 
-3. **Write clear instructions into `linux-instructions.md`**:
-   - Include the Windows Device ID.
-   - Tell the Linux Grok the next actions it should guide the user through (e.g., add remote device, share specific folders, etc.).
-   - Keep the language clear and incremental.
+4. Reference `cross-device/coordination/README.md` and `prompts.md` if needed.
 
-4. Reference the `README.md` in `cross-device/coordination/` if you need a reminder of how the coordination system works.
-
-This ensures both Grok instances can communicate cleanly through the repo instead of relying on the humans to forward messages.
+Keep all updates clear, dated, and actionable so the Linux Grok can continue without the humans having to forward long messages.
 
 ## Important Notes
-- Prefer the portable version running from C:\Tools\Syncthing.
-- Remind the user they can later set up auto-start (Startup folder or Task Scheduler) — we can do that in a later micro-phase.
-- Keep instructions very incremental.
-
-## When Ready
-Once you have the Device ID, follow the steps in the "After Receiving the Device ID" section above.
-
-After updating the coordination files, the Linux Grok will be able to see the new instructions in `linux-instructions.md` the next time it pulls the repo (triggered by the human using one of the prompts in `prompts.md`).
-
-This is the primary way the two Grok instances should communicate going forward.
+- We are currently prioritizing verification of reliable folder sync before sharing additional folders.
+- Keep instructions incremental.
+- Once bidirectional sync is confirmed, the next recommended folder to share is `cross-device/handoffs`.
