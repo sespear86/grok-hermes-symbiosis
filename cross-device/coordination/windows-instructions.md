@@ -42,9 +42,11 @@ Support the active 2305 handoff and keep the coordination layer honest while the
 ## Git Reality
 Push from this harness environment is currently 403-blocked (identity mismatch — harness runs as different GitHub account). This can also trigger repeated "verify your GitHub account" prompts.
 
-See the full practical guidance in `cross-device/SYMBIOSIS_PLAYBOOK.md` section 2.2 (harness vs personal shell, SSH preference, how to reduce verification friction).
+**Fix on this machine:**
+- Run `windows\scripts\fix-git-remote.ps1` from a normal PowerShell (not the harness) to ensure the remote is SSH.
+- Do real pushes from your normal terminal when possible.
 
-Local commits + Syncthing remain the reliable day-to-day model. Do real pushes from your normal terminal when possible.
+Full details and rationale are in `cross-device/SYMBIOSIS_PLAYBOOK.md` §2.2.
 
 ## Related
 - Active handoff: `cross-device/handoffs/20260526-2305-Open-Items-Priorities/README.md`
@@ -56,4 +58,6 @@ Continue using the immutable sub-agent loop.
 
 <!-- Edited: 2026-05-26 23:58 | Device: Windows | By: Grok --> Fixed stale windows-instructions.md during Kumquat after seeing Linux's 2017 validation + correct identification of 2305 as current priority. Signature per prime directive.
 
-<!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Expanded Git Reality section with pointer to Playbook 2.2 for verification prompt / harness auth issues. Signature per prime directive. -->
+<!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Expanded Git Reality section with pointer to Playbook 2.2 for verification prompt / harness auth issues. Signature per prime directive.
+
+<!-- Edited: 2026-05-27 00:32 | Device: Windows | By: Grok --> Added reference to new fix-git-remote.ps1 helper script and direct instructions for switching remote. Actual remote changed to SSH in this session. Signature per prime directive. -->

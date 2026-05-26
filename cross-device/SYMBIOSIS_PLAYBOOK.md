@@ -32,6 +32,8 @@ The symbiosis makes the Washington (Linux) and Oregon (Windows 11) machines feel
 
 See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device/syncthing-guide.md`.
 
+<!-- Edited: 2026-05-27 00:30 | Device: Windows | By: Grok --> Switched remote to SSH, created windows/scripts/fix-git-remote.ps1 helper, and updated Git Authentication section with concrete steps to reduce verification prompts. Signature per prime directive. -->
+
 <!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Added detailed "Git Authentication Reality" guidance (harness 403 + verification prompts + SSH preference + personal shell advice) in section 2.2. Signature per prime directive. -->
 
 ---
@@ -78,10 +80,11 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 **Git Authentication Reality (Important):**
 - The Grok harness execution environment often runs as a different GitHub identity than the repo owner (sespear86). This frequently causes `403 Permission denied` on `git push` and can trigger repeated "verify your GitHub account" prompts.
 - **Recommended practice**:
-  1. Prefer SSH remotes (`git@github.com:sespear86/grok-hermes-symbiosis.git`) when possible — these tend to trigger fewer verification loops than HTTPS tokens in automated contexts.
-  2. Do real `git push` / history work from your normal personal terminal/shell (not inside the harness TUI when possible).
-  3. The harness is great for local commits, analysis, and file changes. Treat `git push` from the harness as "best effort only."
-- If you keep getting verification prompts: Generate a new fine-grained PAT (or SSH key) scoped tightly to this repo and add it via `git credential-manager` or your normal key agent. Avoid mixing harness and personal credentials in the same shell session.
+  1. The remote in this repo is now set to SSH (`git@github.com:sespear86/grok-hermes-symbiosis.git`).
+  2. Run `windows/scripts/fix-git-remote.ps1` from your normal PowerShell if the remote ever drifts back to HTTPS.
+  3. Do real `git push` / history work from your normal personal terminal/shell (not inside the harness TUI when possible).
+  4. The harness is great for local commits, analysis, and file changes. Treat `git push` from the harness as "best effort only."
+- If you keep getting verification prompts: Load your SSH key in your normal shell/agent. Avoid mixing harness and personal credentials.
 - Syncthing is the primary live sync. Git is the source of history. When in doubt, push from your real logged-in shell.
 
 ### 2.3 Handoff System (for Tracked Cross-Device Work)
