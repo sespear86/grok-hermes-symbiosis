@@ -22,12 +22,10 @@ Syncthing Rollout – Phase 2 (Windows) – GUI Password + Device ID
 - ✅ Syncthing v2.1.0 installed at ~/Tools/syncthing/syncthing (as of latest user report)
 
 ## Next Expected Action
-Both sides should:
-1. Start Syncthing + access web UI (127.0.0.1:8384)
-2. Set a GUI password
-3. Obtain their Device ID
+- **Linux (Washington)**: Start Syncthing and access web UI (user chose Option A).
+- **Windows (Oregon)**: Continue with GUI password + Device ID (being guided by their Grok).
 
-Windows side is being guided by their Grok for steps 1-3.
+Once both sides have Device IDs, we will exchange them and add each other as remote devices.
 Linux side (this machine) is ready to do the same.
 
 ## Notes

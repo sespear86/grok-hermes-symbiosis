@@ -42,9 +42,12 @@ Follow the official instructions at https://apt.syncthing.net/
 Option C (Portable binary - for maximum control):
 Download from https://syncthing.net/downloads/ and run the binary directly.
 
-## Current Action
-No immediate action required until the Windows Device ID is received.
+## Current Action (User chose Option A)
+User is now starting Syncthing on this machine to:
+1. Launch the web UI
+2. Set a GUI password
+3. Obtain this machine's Device ID
 
-However, you may proactively prepare by having the installation commands ready and ensuring `~/Synced` is clean.
+Once the UI is accessible, guide the user through setting a password and retrieving the Device ID.
 
-Monitor `status.md` and `windows-instructions.md` for the Device ID.
+After that, wait for the Windows Device ID to proceed with pairing.
