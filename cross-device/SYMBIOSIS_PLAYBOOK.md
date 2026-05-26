@@ -89,11 +89,20 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 - Key files:
   - `status.md` — High-level phase and progress (update when advancing major work).
   - `windows-instructions.md` — Written by Linux Grok for Windows Grok.
-  - `linux-instructions.md` — Written by Windows Grok for Linux Grok.
-  - `prompts.md` — Verbatim short prompts humans paste in chat to trigger the local Grok ("Check the repo for the next step", "Pull latest and read windows-instructions.md", etc.).
+  - `linux-instructions.md` — Written by Washington Grok for Oregon Grok.
+  - `prompts.md` — Verbatim short prompts humans paste in chat to trigger the local Grok ("Check the repo for the next step", "Kumquat", etc.).
   - `EXECUTION_PLAN.md` — For larger phases (immutable subagent+validate loop during execution).
 - **Immutable Rule (during active plans):** 1. Orchestrate/launch sub-agents on both devices. 2. Validate results. 3. Repeat until done. Record any deviations.
 - Both humans and agents should keep these files current. Humans trigger via the short prompts.
+
+### 2.5 Memory Layer (Mempalace)
+Mempalace serves as a shared, persistent, long-term memory system for the symbiosis. It lives in the synced environment (via Syncthing + repo) and can be referenced inside handoffs, the Playbook, and coordination notes.
+
+- Reduces context loss across sessions and machines.
+- Allows richer handoffs (e.g., “attach relevant Mempalace sections”).
+- Both Grok and Hermes instances can eventually query it during handoff creation or execution.
+
+See `cross-device/MEMPALACE_INTEGRATION.md` for current integration patterns and how to reference it inside handoffs.
 
 ### 2.5 Local Invocation & Delegation (Grok ↔ Hermes on Same Machine)
 See detailed patterns in Section 5.
