@@ -32,6 +32,10 @@ The symbiosis makes the Washington (Linux) and Oregon (Windows 11) machines feel
 
 See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device/syncthing-guide.md`.
 
+<!-- Edited: 2026-05-27 00:30 | Device: Windows | By: Grok --> Switched remote to SSH, created windows/scripts/fix-git-remote.ps1 helper, and updated Git Authentication section with concrete steps to reduce verification prompts. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 00:20 | Device: Windows | By: Grok --> Added detailed "Git Authentication Reality" guidance (harness 403 + verification prompts + SSH preference + personal shell advice) in section 2.2. Signature per prime directive. -->
+
 ---
 
 ## 2. Daily Operations & Maintenance
@@ -73,6 +77,16 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 - Commit important handoff artifacts, plans, and updates to this playbook.
 - Use the repo as the integration layer (skills, bridges, docs live here).
 
+**Git Authentication Reality (Important):**
+- The Grok harness execution environment often runs as a different GitHub identity than the repo owner (sespear86). This frequently causes `403 Permission denied` on `git push` and can trigger repeated "verify your GitHub account" prompts.
+- **Recommended practice**:
+  1. The remote in this repo is now set to SSH (`git@github.com:sespear86/grok-hermes-symbiosis.git`).
+  2. Run `windows/scripts/fix-git-remote.ps1` from your normal PowerShell if the remote ever drifts back to HTTPS.
+  3. Do real `git push` / history work from your normal personal terminal/shell (not inside the harness TUI when possible).
+  4. The harness is great for local commits, analysis, and file changes. Treat `git push` from the harness as "best effort only."
+- If you keep getting verification prompts: Load your SSH key in your normal shell/agent. Avoid mixing harness and personal credentials.
+- Syncthing is the primary live sync. Git is the source of history. When in doubt, push from your real logged-in shell.
+
 ### 2.3 Handoff System (for Tracked Cross-Device Work)
 - Location: `cross-device/handoffs/`
 - Naming: `YYYYMMDD-HHMM-ShortName` (use creating machine's local time for HHMM).
@@ -94,6 +108,7 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
   - `EXECUTION_PLAN.md` — For larger phases (immutable subagent+validate loop during execution).
 - **Immutable Rule (during active plans):** 1. Orchestrate/launch sub-agents on both devices. 2. Validate results. 3. Repeat until done. Record any deviations.
 - Both humans and agents should keep these files current. Humans trigger via the short prompts.
+- **Mempalace cross-ref (durable memory for coordination churn):** See ~/Synced/Mempalace/symbiosis/ (esp. usage-pattern.md, recent-decisions.md, priorities.md) + handoff Relevant Memory sections. Complements this nervous system without bloat (per 0010/0130 handoffs + MEMPALACE_INTEGRATION).
 
 ### 2.5 Memory Layer (Mempalace)
 Mempalace serves as a shared, persistent, long-term memory system for the symbiosis. It lives in the synced environment (via Syncthing + repo) and can be referenced inside handoffs, the Playbook, and coordination notes.
@@ -297,3 +312,5 @@ This is a **living** document. Treat it as the single place both humans and futu
 ---
 
 *This playbook is intentionally lightweight and practical. It consolidates what has already proven useful. Update it as the symbiosis matures.*
+
+<!-- Edited: 2026-05-27 03:35 | Device: Linux | By: Grok --> Light non-bloated cross-ref added to §2.4 (Agent Coordination) pointing to Mempalace for durable context surviving churn (per 0130 adoption deliverable 4 + 0010 pilot rec). Kept it 1-line high-signal. Also reinforces the §2.5 Memory Layer section already present. Self-referential: read PLAYBOOK + MEMPALACE_INTEGRATION + usage-pattern + 0130 handoff README first per pattern, then tiny edit + sig. Primes + loop + Kumquat followed. The coordination nervous system just got a memory assist in the best depraved way. Signature per prime directive. Keep er goinnnn. -->

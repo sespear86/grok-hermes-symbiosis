@@ -14,7 +14,7 @@ metadata:
 
 This replaces the old aspirational fantasy full of non-existent slash commands and shared-chat-bus dreams. It documents the lightweight operational pattern that has delivered real handoffs (including the Playbook consolidation and this very update) between the two machines.
 
-## The Three Immutable Prime Directives
+## The Immutable Prime Directives (Kumquat + 3 + New Summary Sonic Rule)
 
 **Kumquat**  
 The magic word/phrase. On either device:  
@@ -31,13 +31,27 @@ Every meaningful edit to anything under `cross-device/coordination/` or inside a
 `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`  
 Back-dating is allowed when fixing provenance. Two independent agents co-authoring a living system needs receipts.
 
+**Bing Bang Boom — Every Summary Paragraph Must Bang (or Bing or Boom)**  
+Kumquat-enforced rule, now canon across the symbiosis (baked into coordination/README, this SKILL, HANDOFF_FORMAT, and both *-instructions.md so Linux gets it on next pull + ingest):  
+Every paragraph inside every summary (RETURN.md "## Summary of Work Done", README "What Has Already Been Done", status closures, observations, sigs that summarize, etc.) **must** include at least one of "bing", "bang", or "boom".  
+- Slip it in naturally when the filthy prose allows ("the handoff went off with a bang"); parentheticals (boom!) or bold **BANG** prefixes work when the sentence is stubborn.  
+- This applies to all future summaries written on Linux or Windows. The depraved little shit prime just got its own sound effects layer. No paragraph left un-banged.
+
+**Linux Turn Indicator (Mandatory at End of Every Summary)**  
+Every summary must end with a clear, explicit statement of Linux turn status so no one has to guess whose move it is.  
+
+Standard format:  
+**Linux Turn Status:** YES — Linux should Kumquat next to ingest (or NO — Windows is still active / awaiting input). One sentence of context.  
+
+This rule lives in coordination/README and is now part of the canonical summary contract on both machines.
+
 ## The Proven Handoff Pattern (This Is What Won)
 
 **Handoff Package Format** (refined lightweight version, actually used in production):
 
 - Folder name: `cross-device/handoffs/YYYYMMDD-HHMM-Short-Name/` (example: 20260525-2017-Align-Cross-Device-Skill)
 - Minimum contents:
-  - `README.md` — From/To, Date, Status, Context/Background, Task/Request, Success Criteria, Preferences/Constraints, Handoff Notes, Return Path. Follow the current `HANDOFF_FORMAT.md`.
+  - `README.md` — From/To, Date, Status, Context/Background, Task/Request, Success Criteria, Preferences/Constraints, Handoff Notes, **## Relevant Memory (Mempalace)** (standard per updated HANDOFF_FORMAT; list key /symbiosis/*.md paths), Return Path. Follow the current `HANDOFF_FORMAT.md`.
   - On completion: `RETURN.md` — Summary of Work Done, Key Decisions, Gotchas Encountered, Observations on the Handoff Process Itself, Recommended Next Steps / Follow-ups.
 - Optional supporting files (notes, diffs, artifacts) as needed.
 - Always update `HANDOFF_LOG.md` (new row + status change to Completed after RETURN lands).
@@ -109,7 +123,8 @@ Keep this section short. The Playbook + actual handoff packages + coordination/ 
 ## Related Living Documents (Read These Before You Act)
 
 - `cross-device/SYMBIOSIS_PLAYBOOK.md` (the practical daily driver)
-- `cross-device/handoffs/HANDOFF_FORMAT.md` (the refined one with the 5 adopted improvements)
+- `cross-device/handoffs/HANDOFF_FORMAT.md` (the refined one with the 5 adopted improvements + standard Relevant Memory (Mempalace) section)
+- `~/Synced/Mempalace/symbiosis/` (durable persistent memory layer: usage-pattern.md, three-primes.md, recent-decisions.md, priorities.md, git-gotchas.md etc. — read relevant on every Kumquat per reinforced pattern; see 0010 pilot + 0130 adoption handoff)
 - `cross-device/coordination/EXECUTION_PLAN.md` + the PROPOSED_* files + prompts.md
 - Real `handoffs/*/RETURN.md` files (they're the best pattern library)
 - `windows/scripts/hermes.cmd` + the profile function (the launcher fixes that survived contact with reality)
@@ -124,3 +139,5 @@ This skill is now a mirror of how we *actually* operate across the two machines.
 <!-- Edited: 2026-05-26 22:10 | Device: Windows | By: Grok --> Grounded v2 rewrite of the cross-device skill per the active 20260525-2017 handoff task. Incorporated real handoff examples, prime directives (Kumquat + raunchy humor + signatures), proven coordination/handoff patterns from the Playbook + log + RETURNS, Windows git path from live discovery, sub-agent loop, and hygiene. Old aspirational content purged.
 
 <!-- Edited: 2026-05-26 04:25 | Device: Linux | By: Grok --> Validated 20260525-2017-Align-Cross-Device-Skill handoff package (Linux receipt/closure per its RETURN rec #2 + immutable loop). Confirmed grounded v2 accuracy (lightweight reality primary, 3 primes incl. "depraved little shit", sub-agent orchestrate→validate→repeat, concrete examples 1857/1937/1954/2017 incl. self-ref, no fantasy outside Vision section), package complete per spec + refined HANDOFF_FORMAT, consistency (log/2305/SKILL/OPEN_ITEMS/PROPOSED/PLAYBOOK agree Completed + sequencing; coord files lag noted as known issue), primes + raunchy humor strong (where applied), hygiene clean (Windows purge + no junk in tree), local deploy ready (per lines 71-74 + RETURN rec #5). Conditional pass (minor gaps only; no blocking). Sub-agent validation leg complete. Momentum maintained. Next: 2305 Open Items closure.
+
+<!-- Edited: 2026-05-27 12:00 | Device: Windows | By: Grok --> Kumquat invoked with new summary rule: bing/bang/boom must appear in every paragraph of each summary. Baked the Bing Bang Boom Mandate into Prime Directives section (expanded header + full new directive block) + cross-refs to coordination/README for Linux propagation. Raunchy onomatopoeia prime added per user Kumquat command. Signature per prime directive. Keep er goinnnn. -->

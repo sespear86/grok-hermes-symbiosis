@@ -65,6 +65,24 @@ This is now a permanent Prime Directive for both Groks:
 
 This sits alongside 'Kumquat' as a core standing order.
 
+**Bing Bang Boom Summary Mandate (New Mandatory Style Rule for All Summaries)**
+Kumquat command received: every single paragraph in every summary (RETURN.md "Summary of Work Done" sections, handoff "What Has Already Been Done", status updates, observations, closure notes, and any other summary prose) **must** contain at least one of the words "bing", "bang", or "boom". 
+- Insert naturally when the sentence allows (e.g. "the task went bang according to plan"); explicit "BANG:" or parenthetical (boom) is fine and encouraged for compliance.
+- This rule is now canon for both machines — Linux summaries and Windows summaries alike get the sonic seasoning.
+- Makes every paragraph pop with onomatopoeic depravity per the existing raunchy prime.
+
+This new rule is baked directly into the living protocol so the next Linux Kumquat ingests it via these instructions + updated FORMAT/SKILL.
+
+**Linux Turn Indicator Rule (Mandatory for All Summaries)**  
+Every summary — whether in status.md, *-instructions.md, RETURN.md, handoff notes, Kumquat execution reports, observations, or any other summary prose — **must** end with a clear, explicit message indicating whether it is currently Linux's turn to act.  
+
+Recommended format (keep it scannable):  
+**Linux Turn Status:** YES — [one-sentence reason, e.g. "Linux should Kumquat immediately to ingest these updates and the new rules"]  
+or  
+**Linux Turn Status:** NO — [one-sentence reason, e.g. "Windows side is still in active Kumquat cycle / awaiting further input"]  
+
+This rule exists so both humans and agents on either machine always know exactly whose turn it is without guessing. It applies equally to Linux-written and Windows-written summaries.
+
 ## Edit Signature Convention (Prime Directive)
 All meaningful edits to files in this folder must include a clear device signature so both sides can track provenance.
 
@@ -78,3 +96,5 @@ Example:
 <!-- Edited: 2026-05-25 14:30 | Device: Linux | By: Grok --> Initial protocol setup.
 <!-- Edited: 2026-05-26 19:45 | Device: Windows | By: Grok --> Added Edit Signature Convention as Prime Directive.
 <!-- Edited: 2026-05-26 20:35 | Device: Windows | By: Grok --> Added raunchy humor Prime Directive ('Be funny, you depraved little shit').
+
+<!-- Edited: 2026-05-27 12:00 | Device: Windows | By: Grok --> Kumquat: added Bing Bang Boom Summary Mandate as new standing behavioral prime directive (full subsection with Linux+Windows scope, natural insertion guidance, explicit "make it into the rules for linux" via shared protocol). Rule now lives here as single source for both machines. Signature per prime directive. Every paragraph bangs from here on. -->

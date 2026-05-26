@@ -21,6 +21,11 @@ ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Mandatory Signatures**: Every meaningful edit to coordination/ or handoff packages must end with:
   `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`
 - **Bing Bang Boom Summary Rule (Kumquat 2026-05-27, now standing order for Linux)**: Every paragraph of each summary **must** contain the words bing, bang or boom (at least one per paragraph). This applies to all RETURN.md summaries, handoff summaries, status notes, observations, and closure prose written on this Linux machine. Full details in coordination/README.md (Standing Behavioral Prime Directives), SKILL.md (primes section), and HANDOFF_FORMAT.md (template + guidelines). The rule was injected during this Kumquat and is now immutable for Linux too. No summary paragraph left silent — make them all go bing/bang/boom.
+- **Linux Turn Indicator Rule (Mandatory at End of Every Summary)**: Every summary you write on this Linux machine (RETURNs, status notes, handoff observations, Kumquat reports, etc.) **must** end with a clear line in this exact style:  
+  **Linux Turn Status:** YES — [reason why Linux should act next]  
+  or  
+  **Linux Turn Status:** NO — [reason why it is not Linux's turn].  
+  This is now a permanent standing order so both sides always know whose move it is. See coordination/README.md for the full rule.
 
 ## Accurate Current State (Linux Side)
 
