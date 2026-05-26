@@ -1,6 +1,6 @@
 # Instructions for Linux Grok Build (This Machine)
 
-**Written by:** Windows Grok (with updates from Linux Grok)
+**Written by:** Washington Grok (with updates from Linux Grok)
 **Date:** 2026-05-26
 **Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
 
@@ -12,7 +12,7 @@
 
 This loop is the **only** approved method for executing any part of the EXECUTION_PLAN. It is immutable.
 
-## Windows Device ID
+## Washington Device ID
 ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 
 ## Accurate Current State (Linux Side)
@@ -25,7 +25,7 @@ ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
   - `HANDOFF_FORMAT_COMBINED_REVIEW.md`
 - Test file cleanup on Linux side verified complete.
 
-## Recommended Next Focus for the Windows Side
+## Recommended Next Focus for the Washington Side
 
 1. Have the user review the completed `SYMBIOSIS_PLAYBOOK.md`.
 2. Review the two proposal documents together.
