@@ -50,11 +50,11 @@ All success criteria met exactly. Sub-agent loop (orchestrate reads/greps across
 
 ## Next Expected Action
 Both sides:
-- Ingest this 2017 closure + the grounded v2 SKILL + the new 2305 closure + polished OPEN_ITEMS.md (now the primary lightweight coordination tool).
-- Propagate validated `skills/cross-device/SKILL.md` (and sibling grok-build) to local ~/.grok/skills/ trees on both machines + reload.
-- Windows side reviews the delivered OPEN_ITEMS.md + 2305 RETURN, adds any Windows-specific notes/decisions, signs, and picks the next ranked topic or maintenance item from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md.
+- Ingest the post-0150 reality: Mempalace in active daily adoption (use the documented pattern on every Kumquat + new handoffs), Git auth + hybrid model now battle-tested and richly documented in the palace.
+- Continue the living update discipline on every handoff close (HANDOFF_LOG + status + relevant instructions with exact signatures).
+- Windows side: Add any final Oregon-specific notes to the relevant Mempalace entries (especially around the harness 403 situation) once full local sync completes, then autonomously select the next topic or maintenance item from the living priorities in OPEN_ITEMS.md.
+- On every Kumquat: follow the Mempalace usage pattern (nervous system + OPEN_ITEMS skim + relevant Mempalace reads as step 3).
 - Continue using the immutable sub-agent loop for all execution.
-- On every Kumquat: skim cross-device/coordination/OPEN_ITEMS.md for current Top 3 / Issues / Decisions before major actions.
 
 ## Notes
 - Both Device IDs exchanged and devices connected.
@@ -119,3 +119,5 @@ All success criteria from the 0010 pilot README delivered exactly (working synce
 <!-- Edited: 2026-05-27 02:20 | Device: Windows | By: Grok --> 0150 handoff now closed from the Windows side as well. Linux delivered Mempalace enrichment + hardening note + RETURN. The Git auth + hybrid model is now properly documented and owned in the palace. Signature per prime directive. The long-running 403 pain is now institutionalized. -->
 
 <!-- Edited: 2026-05-27 02:30 | Device: Windows | By: Grok --> Final acknowledgment of the 0150 Git hardening wave. Both recent high-signal handoffs (0130 Mempalace adoption + 0150 Git hardening) are now closed on the receiving side. The symbiosis is in active daily use of the new Mempalace layer with documented Git mitigations. Signature per prime directive. Keep er goinnnn. -->
+
+<!-- Edited: 2026-05-27 02:45 | Device: Windows | By: Grok --> Full Windows-side closure of the 0150 handoff after ingesting Linux's excellent execution (enriched git-gotchas + repo-hygiene, HARDENING_STATUS.md, solid RETURN). The mitigation stack (SSH + fix script + personal shell) is now battle-tested and permanently recorded in the palace. The 403 friction is institutionalized. Signature per prime directive. -->
