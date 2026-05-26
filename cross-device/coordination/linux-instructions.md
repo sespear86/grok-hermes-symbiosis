@@ -1,58 +1,42 @@
 # Instructions for Linux Grok Build (This Machine)
 
-**Written by:** Linux Grok (self)
-**Date:** 2026-05-25
-**Current Phase:** Waiting on Windows Syncthing Phase 1 completion
+**Written by:** Windows Grok
+**Date:** 2026-05-26
+**Current Phase:** Syncthing Rollout — Bidirectional Sync Verified (Ready to Share Next Folder)
 
-## Current State
-- Windows side has completed Phase 1 (Syncthing is running, UI visible).
-- We are now waiting for the Windows Device ID (expected during their Phase 2).
+## Windows Device ID
+ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 
-## Linux-Side Preparation (Already Done)
-- ~/Synced folder structure created
-- .stignore added to the symbiosis repo
-- linux/scripts/prepare-syncthing-folders.sh created and executed
+## Recent Progress (Windows Side)
+- Reverse sync test completed successfully on 2026-05-26.
+- User created `test-sync-from-windows.txt` in the symbiosis repo.
+- File successfully appeared on the Linux (Washington) side.
+- Bidirectional sync between the two machines is now confirmed for the core `grok-hermes-symbiosis` repository.
 
-## When Windows Provides Device ID
+## Current Action Required (Linux Side)
 
-When the Windows Grok posts the Device ID (via update to status.md or windows-instructions.md), you should:
+1. **Share the `cross-device/handoffs` folder** with the Windows device in Syncthing.
+   - This is the next recommended folder per the coordination plan.
+   - Use appropriate ignore patterns if needed.
 
-1. Pull latest from the repo.
-2. Read the Device ID from the latest `windows-instructions.md`.
-3. Install and configure Syncthing on this Linux machine:
-   - Install Syncthing (preferred methods below).
-   - Launch it and access the web UI.
-   - Set a GUI password.
-   - Obtain this machine’s Device ID.
-4. Add the Oregon Windows Device ID as a remote device.
-5. Share the key folders (`grok-hermes-symbiosis`, `handoffs`, `Projects`, etc.).
-6. Update `status.md` and leave confirmation instructions for Windows.
+2. **Update the coordination files**:
+   - Update `status.md` to reflect that the handoffs folder has been shared.
+   - Update this file (`linux-instructions.md`) with any specific instructions for the Windows user (e.g., "Accept the incoming handoffs folder and point it to the correct local path").
+   - Update `windows-instructions.md` with guidance for the Windows user once the share is sent.
 
-## Recommended Syncthing Installation Options (Linux)
+3. **After sharing**:
+   - Monitor for the Windows side to accept the folder.
+   - Verify that changes in the handoffs folder sync reliably in both directions.
+   - Once verified, propose the next folders to share (e.g., joint project folders under the recommended structure).
 
-Option A (Easiest on most Debian/Ubuntu systems):
-```bash
-sudo apt update
-sudo apt install syncthing
-```
+## Recommended Next Steps After Handoffs Folder
+- Share any active joint project folders.
+- Consider setting up more automated watchers or notifications if desired.
+- Begin using the handoffs folder for explicit cross-device task transfers.
 
-Option B (Latest version via official repo):
-Follow the official instructions at https://apt.syncthing.net/
+## Notes
+- Both sides have now confirmed reliable bidirectional sync on the main repo.
+- The Windows side is running Syncthing portably from `C:\Tools\Syncthing`.
+- Keep instructions clear and incremental.
 
-Option C (Portable binary - for maximum control):
-Download from https://syncthing.net/downloads/ and run the binary directly.
-
-## Current Action
-✅ Password has been set and user is logged in.
-
-✅ Linux Device ID received: RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
-
-User now has the brother's (Oregon/Windows) Device ID.
-
-**Next step for the user:**
-Guide the user to add the brother's Device ID as a remote device in the Syncthing UI.
-
-After that, have the user share the relevant folders (especially the symbiosis repo and handoffs).
-3. Go to Actions → Show ID and copy the Device ID.
-
-Once the user has the Device ID, record it and wait for the Oregon Windows Device ID to proceed with pairing.
+Once you have shared the `cross-device/handoffs` folder, update the files above so the Windows Grok can guide the user on the next actions.

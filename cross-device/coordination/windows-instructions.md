@@ -2,60 +2,74 @@
 
 **Written by:** Linux Grok
 **Date:** 2026-05-26
-**Current Phase:** Syncthing Rollout – Folder Sharing & Sync Verification
-
-> **Important:** We use repo-based coordination. All major handoffs and status updates should go through the files in `cross-device/coordination/`.
-> See `cross-device/coordination/README.md` for the current protocol.
+**Current Phase:** Syncthing Rollout — Bidirectional Sync Verified (Awaiting Next Folder Share)
 
 ## Known Device IDs
-- **Windows (Oregon):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
+- **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
 - **Linux (Washington):** RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
 
 ## Current Context
 - Both machines have Syncthing running with GUI passwords set.
 - Devices are linked and connected.
-- The main `grok-hermes-symbiosis` folder has been shared and both sides currently show it as "Up to Date".
-- A one-way sync test succeeded (file created on Linux appeared on Windows).
+- The main `grok-hermes-symbiosis` folder is synced and "Up to Date" on both sides.
+- Bidirectional sync has been verified:
+  - Forward test: File created on Linux (`test-sync-from-linux.txt`) appeared on Windows.
+  - Reverse test: File created on Windows (`test-sync-from-windows.txt`) successfully appeared on Linux (confirmed by user on 2026-05-26).
 
-## Next Task: Reverse Sync Test
+## Completed Task: Reverse Sync Test
 
-Goal: Verify that file changes also flow reliably from Windows → Linux.
+**Result:** Success. The test file appeared on the Linux machine.
 
-### Exact Steps to Guide the User
+The user executed:
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis
+echo "Test sync from Oregon Windows - $(Get-Date)" > test-sync-from-windows.txt
+```
 
-1. Instruct the user to open a normal PowerShell / Command Prompt and go to their copy of the symbiosis repo:
-   ```powershell
-   cd C:\Users\spear\grok-hermes-symbiosis
+Linux side confirmed the file arrived.
+
+## Next Phase (Handed Off to Linux Grok)
+
+Linux Grok should now:
+
+1. Update `linux-instructions.md` with the next concrete actions for the user on the Linux side.
+2. Share the `cross-device/handoffs` folder with the Windows device via Syncthing.
+3. Update `status.md` with the new phase and next expected actions.
+4. Leave clear guidance in this file (`windows-instructions.md`) for when the Windows user sees the incoming handoffs folder share.
+
+## Current Task
+Accept and configure the incoming `handoffs` folder share from the Linux side.
+
+## Incoming Share: Handoffs Folder
+
+The Linux side has now shared the `handoffs` folder (located at `cross-device/handoffs` inside the symbiosis repo).
+
+### Exact Steps to Guide the User When the Share Request Appears
+
+1. In the Syncthing UI on Windows, look for an incoming share request for a folder labeled something like **"handoffs"**.
+
+2. When accepting the share, use this local path:
+   ```
+   C:\Users\spear\grok-hermes-symbiosis\cross-device\handoffs
    ```
 
-2. Have them create a small test file with a clear name and timestamp:
-   ```powershell
-   echo "Test sync from Oregon Windows - $(Get-Date)" > test-sync-from-windows.txt
-   ```
+   (Create the folders if they don't already exist.)
 
-3. Ask the user to wait 15–30 seconds, then check with the person on the Linux side (Washington) whether the file `test-sync-from-windows.txt` has appeared in their `grok-hermes-symbiosis` folder.
+3. After accepting, go to the folder settings and ensure it is set to **Send & Receive** (normal sync, not encrypted or send-only unless specifically decided later).
 
-4. Once the Linux side confirms (or reports it did not appear), have the user report the result back.
+4. Confirm that the folder appears and eventually shows as "Up to Date" or starts syncing.
 
-### After the Test
+5. Report back once the folder is accepted and syncing (e.g., "Handoffs folder accepted and syncing").
 
-When you have the result of the test, do the following using the repo coordination protocol:
+### After the User Accepts the Share
 
-1. Update this file (`windows-instructions.md`):
-   - Note the result of the reverse sync test.
-   - Update the current phase/status.
-
-2. Update `status.md`:
-   - Record whether bidirectional sync has been confirmed.
-   - Update the "Next Expected Action" section.
-
-3. If the test succeeds, write the next set of instructions into `linux-instructions.md` (e.g., "Both sides have now verified bidirectional sync. Next: Share the handoffs folder").
-
-4. Reference `cross-device/coordination/README.md` and `prompts.md` if needed.
-
-Keep all updates clear, dated, and actionable so the Linux Grok can continue without the humans having to forward long messages.
+Update the coordination files:
+- Update this file (`windows-instructions.md`) with the result.
+- Update `status.md` to reflect that the Windows side has accepted the handoffs share.
+- If needed, leave further instructions in `linux-instructions.md` (for example, to start using the handoffs folder for actual cross-device tasks).
 
 ## Important Notes
-- We are currently prioritizing verification of reliable folder sync before sharing additional folders.
-- Keep instructions incremental.
-- Once bidirectional sync is confirmed, the next recommended folder to share is `cross-device/handoffs`.
+- We have now verified reliable bidirectional sync on the core repo.
+- Keep coordination through this folder.
+- Once the handoffs folder is shared and verified, we can expand to other joint project folders.
+- Test files (`test-sync-from-*.txt`) can be cleaned up later if desired.
