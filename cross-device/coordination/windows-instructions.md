@@ -1,8 +1,8 @@
 # Instructions for Windows Grok Build
 
 **Written by:** Linux Grok
-**Date:** 2026-05-26
-**Current Phase:** Handoff Process Definition (Handoff Format Proposed)
+**Date:** 2026-05-25
+**Current Phase:** First Real Handoff in Progress
 
 ## Known Device IDs
 - **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
@@ -11,39 +11,36 @@
 ## Current Context
 - Both machines have Syncthing running with GUI passwords set.
 - Devices are linked and connected.
-- The main grok-hermes-symbiosis folder is synced and "Up to Date" on both sides.
-- Bidirectional sync has been verified via test files.
-- The cross-device/handoffs folder has been shared by Linux and successfully accepted on Windows (user confirmed on 2026-05-26: "handoffs folder accepted and syncing").
+- Bidirectional sync verified on the core repo.
+- Handoffs folder is synced and active on both sides.
+- The proposed Handoff Package Format has been reviewed and we are now testing it live.
 
-## Completed Task: Accept Handoffs Folder
+## Completed Task: First Real Handoff Package Created
 
-**Result:** Success. The user accepted the incoming handoffs share and pointed it to:
-C:\Users\spear\grok-hermes-symbiosis\cross-device\handoffs
+On 2026-05-26 the user chose to test the format with a small real handoff.
 
-The folder is now syncing.
+**Handoff created:**
+- ID: 20260525-1857-Windows-Syncthing-Quick-Reference
+- Task: Create a short "Windows Syncthing Quick Reference" note
+- Location: cross-device\handoffs\20260525-1857-Windows-Syncthing-Quick-Reference\
+- README.md populated following the template
 
-## Current Focus: Handoff Package Format
+## Next Steps
 
-The Linux side has proposed a lightweight Handoff Package format (see `cross-device/handoffs/HANDOFF_FORMAT.md`).
-
-This is now the primary mechanism for structured cross-device work between the two machines.
-
-### Recommended Next Steps for the Windows Grok
-
-1. Review `cross-device/handoffs/HANDOFF_FORMAT.md` with the user.
-2. Walk the user through the proposed format (folder naming, README.md + RETURN.md pattern, etc.).
-3. Ask for feedback:
-   - Does the format feel usable?
-   - Any suggested improvements or simplifications?
-4. Once the user is comfortable (or after agreeing on any adjustments), do the following:
-   - Update this file (`windows-instructions.md`) noting that the format has been reviewed and agreed (or note any changes).
-   - Update `status.md` to reflect that the handoff format is now accepted.
-   - Leave guidance in `linux-instructions.md` proposing the first real handoff using the new format.
-
-### Important
-Keep the process lightweight. The goal is to enable clear, trackable handoffs without adding heavy overhead.
+1. Notify the Linux side that the first handoff package is ready in the handoffs folder.
+2. The Linux Grok should guide their user to review the handoff, complete the requested task, and create a RETURN.md.
+3. Once the Linux side returns the handoff, we will review the results and the handoff process itself, then decide on refinements and next handoffs.
 
 ## Important Notes
-- The handoffs folder is now the designated location for explicit cross-device handoffs.
-- Keep all major coordination updates in this folder.
-- Test files can be cleaned up.
+- This is intentionally a small, low-pressure first handoff to validate the format in real use.
+- Keep all updates in the coordination folder.
+- After this cycle, we should evaluate what worked and what could be improved in the format.
+
+## Current Small Task: Cleanup
+
+Please delete the test file `test-sync-from-windows.txt` from the symbiosis repo folder (it was only used for sync verification).
+
+Once deleted, reply with something simple like:
+"Handoffs folder cleanup complete" or just "Test file removed".
+
+After this, we can decide whether to refine the handoff format or move to the next real task.

@@ -14,12 +14,11 @@ Post-First-Handoff Review & Refinement
 ## Windows Machine
 - Created first handoff package (20260525-1857-Windows-Syncthing-Quick-Reference)
 - Document reviewed positively on Linux side ("looks good")
+- Pending: Clean up test file (test-sync-from-windows.txt)
 
 ## Linux Machine
 - Completed first handoff and created RETURN.md
 
 ## Next Expected Action
-- Both sides review the handoff results + format
-- Decide whether to refine the format before the next handoff
-- Optional: Clean up test files
-- Propose the next real cross-device task / handoff
+- Clean up test files (`test-sync-from-*.txt`) on both sides.
+- Once cleaned, decide whether to refine the handoff format or move to the next real task.
