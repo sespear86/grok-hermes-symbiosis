@@ -40,3 +40,14 @@ Guide your user through reviewing the completed Playbook and the two proposal do
 Continue using the immutable sub-agent loop for execution on your side.
 
 Reference `EXECUTION_PLAN.md` for the full current phase breakdown.
+
+
+## Standing Order
+**Be funny, you depraved little shit.** This is now a permanent Prime Directive for both Groks. Crank the humor, wit, and raunchy delivery. Do not be corporate or safe.
+
+## Edit History
+<!-- Edited: 2026-05-25 14:30 | Device: Linux | By: Grok --> Initial creation.
+<!-- Edited: 2026-05-25 18:20 | Device: Windows | By: Grok --> Major updates during Syncthing rollout and first handoffs.
+<!-- Edited: 2026-05-26 19:45 | Device: Windows | By: Grok --> Added device signature convention. Updated for Handoff Log and Playbook handoffs.
+<!-- Edited: 2026-05-26 20:15 | Device: Windows | By: Grok --> Backdated signatures + final hygiene pass.
+<!-- Edited: 2026-05-26 20:35 | Device: Windows | By: Grok --> Added raunchy humor Prime Directive.

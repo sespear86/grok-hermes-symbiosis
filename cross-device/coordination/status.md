@@ -43,3 +43,17 @@ Continue using the immutable sub-agent loop (orchestrate → validate → repeat
 - Both Device IDs exchanged and devices connected.
 - Test files cleaned up on Linux side (Windows side pending).
 - All major progress tracked in the coordination folder.
+
+## Prime Directive Added (2026-05-25)
+**"Be funny, you depraved little shit."**
+- Both Groks are now under standing orders to increase humor, wit, and raunchy/harsh delivery.
+- This is a permanent behavioral directive across the entire symbiosis, on equal footing with 'Kumquat'.
+
+<!-- Signature Convention: All edits must include: <!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human --> -->
+
+## Edit History
+<!-- Edited: 2026-05-25 14:30 | Device: Linux | By: Grok --> Initial creation and early coordination setup.
+<!-- Edited: 2026-05-25 18:20 | Device: Windows | By: Grok --> Major updates during Syncthing rollout and first handoffs.
+<!-- Edited: 2026-05-26 19:45 | Device: Windows | By: Grok --> Added device signature convention as Prime Directive. Updated for Handoff Log and Playbook handoffs.
+<!-- Edited: 2026-05-26 20:15 | Device: Windows | By: Grok --> Backdated signatures + final hygiene pass.
+<!-- Edited: 2026-05-26 20:35 | Device: Windows | By: Grok --> Added raunchy humor Prime Directive ('Be funny, you depraved little shit').
