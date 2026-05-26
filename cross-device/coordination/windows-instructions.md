@@ -34,9 +34,10 @@ The Linux side has published a proposed Handoff Package format:
 **Actions:**
 1. Review the format with the user.
 2. Walk through the structure and purpose.
-3. Collect any feedback or suggested improvements.
-4. Record the feedback here or in a new note in the handoffs folder.
-5. Update `status.md` with the outcome of the review.
+3. The Linux side has already completed a detailed structured review (see `FORMAT_REVIEW_LINUX.md` inside the first handoff package folder `20260525-1857-Windows-Syncthing-Quick-Reference`).
+4. Collect the user's feedback and compare it with the Linux review.
+5. Record combined feedback and any proposed changes in this file or in a new note in the handoffs folder.
+6. Update `status.md` with the outcome of the review.
 
 Once the format is reviewed (and any changes agreed), we can move to the first real operational handoff using the (possibly refined) format.
 

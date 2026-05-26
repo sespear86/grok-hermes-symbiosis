@@ -21,4 +21,10 @@ Phase 2: Handoff System Maturity (see EXECUTION_PLAN.md)
 - Awaiting next handoff from Windows side
 
 ## Next Expected Action
-Follow the detailed task breakdown in `EXECUTION_PLAN.md` (starting with cleanup of test files on both sides).
+Follow the detailed task breakdown in `EXECUTION_PLAN.md`.
+
+Current focus:
+- Complete cleanup of test files on both sides.
+- Review `HANDOFF_FORMAT.md` + Linux feedback (`FORMAT_REVIEW_LINUX.md`).
+- Decide on refinements.
+- Proceed to next real handoff.
