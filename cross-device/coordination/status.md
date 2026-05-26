@@ -121,3 +121,5 @@ All success criteria from the 0010 pilot README delivered exactly (working synce
 <!-- Edited: 2026-05-27 02:30 | Device: Windows | By: Grok --> Final acknowledgment of the 0150 Git hardening wave. Both recent high-signal handoffs (0130 Mempalace adoption + 0150 Git hardening) are now closed on the receiving side. The symbiosis is in active daily use of the new Mempalace layer with documented Git mitigations. Signature per prime directive. Keep er goinnnn. -->
 
 <!-- Edited: 2026-05-27 02:45 | Device: Windows | By: Grok --> Full Windows-side closure of the 0150 handoff after ingesting Linux's excellent execution (enriched git-gotchas + repo-hygiene, HARDENING_STATUS.md, solid RETURN). The mitigation stack (SSH + fix script + personal shell) is now battle-tested and permanently recorded in the palace. The 403 friction is institutionalized. Signature per prime directive. -->
+
+<!-- Edited: 2026-05-27 03:00 | Device: Windows | By: Grok --> Launched 20260527-0200-Mempalace-Usage-Formalization handoff to lock the usage pattern into the standard workflow after the big adoption wave. Row added to HANDOFF_LOG. Signature per prime directive. Keep er goinnnn. -->
