@@ -41,4 +41,21 @@ The Linux side has published a proposed Handoff Package format:
 
 Once the format is reviewed (and any changes agreed), we can move to the first real operational handoff using the (possibly refined) format.
 
+A combined Linux + Windows review summary has been created here:
+`cross-device/coordination/HANDOFF_FORMAT_COMBINED_REVIEW.md`
+
 Reference the new `EXECUTION_PLAN.md` in the coordination folder for the full breakdown of current tasks.
+
+## H1 Completed: Windows-Side Format Review (2026-05-25)
+
+A specialized sub-agent performed an independent review of HANDOFF_FORMAT.md + the Linux review (FORMAT_REVIEW_LINUX.md).
+
+Key findings:
+- The format is already strong and proven in real use (validated by our first handoff).
+- Strong agreement with Linux review on fundamentals.
+- Complementary Windows-specific feedback: path notation across OSes, machine alias consistency (Oregon = Windows, Washington = Linux), practical Windows UX notes (Explorer, .sync-conflict visibility, PowerShell preference, OneDrive risks), lifecycle guidance, optional agent-oriented sections (Type tag, context snapshot, dependencies, escalation, format feedback slot).
+- Recommendation: Adopt lightweight additive improvements, then validate with one more real handoff before locking the format.
+
+Full Windows sub-agent report is available in the coordination context.
+
+Next: Linux side to review the new Windows report, compare with existing Linux feedback (H2), and propose refinements + next handoff (H3).
