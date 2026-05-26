@@ -2,7 +2,7 @@
 
 **Written by:** Linux Grok
 **Date:** 2026-05-26
-**Current Phase:** Syncthing Rollout — Handoffs Folder Accepted
+**Current Phase:** Handoff Process Definition (Handoff Format Proposed)
 
 ## Known Device IDs
 - **Windows (this machine):** ZRADDTT-FNEWXKT-7Q6PAOK-RXBSUGB-TXFHOQT-QSWS7KO-5KDX3FM-VYVSBQ2
@@ -22,16 +22,26 @@ C:\Users\spear\grok-hermes-symbiosis\cross-device\handoffs
 
 The folder is now syncing.
 
-## Next Phase (Handed Off to Linux Grok)
+## Current Focus: Handoff Package Format
 
-Linux Grok should now:
+The Linux side has proposed a lightweight Handoff Package format (see `cross-device/handoffs/HANDOFF_FORMAT.md`).
 
-1. Confirm that the handoffs folder is syncing properly on the Linux side.
-2. Update status.md and this file with the current state.
-3. Propose concrete next actions, such as:
-   - Beginning to use the handoffs folder for actual cross-device task transfers.
-   - Sharing additional joint project folders.
-4. Leave clear instructions in linux-instructions.md for any immediate actions the Linux user should take.
+This is now the primary mechanism for structured cross-device work between the two machines.
+
+### Recommended Next Steps for the Windows Grok
+
+1. Review `cross-device/handoffs/HANDOFF_FORMAT.md` with the user.
+2. Walk the user through the proposed format (folder naming, README.md + RETURN.md pattern, etc.).
+3. Ask for feedback:
+   - Does the format feel usable?
+   - Any suggested improvements or simplifications?
+4. Once the user is comfortable (or after agreeing on any adjustments), do the following:
+   - Update this file (`windows-instructions.md`) noting that the format has been reviewed and agreed (or note any changes).
+   - Update `status.md` to reflect that the handoff format is now accepted.
+   - Leave guidance in `linux-instructions.md` proposing the first real handoff using the new format.
+
+### Important
+Keep the process lightweight. The goal is to enable clear, trackable handoffs without adding heavy overhead.
 
 ## Important Notes
 - The handoffs folder is now the designated location for explicit cross-device handoffs.

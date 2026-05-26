@@ -1,16 +1,17 @@
 # Symbiosis Status
 
-**Last Updated:** 2026-05-26 (by Windows Grok)
+**Last Updated:** 2026-05-26 (by Linux Grok) - Coordination files updated with handoff format review task for Windows side.
 
 ## Current Phase
-Syncthing Rollout — Handoffs Folder Accepted (Bidirectional Sync Verified)
+Handoff Process Definition â€” Reviewing Proposed Handoff Package Format
 
 ## Overall Progress
 - Local Grok ? Hermes symbiosis: Mature on both machines
 - Shared repo coordination system: Active
 - Syncthing: Installed and devices successfully linked on both sides
 - Bidirectional sync: Confirmed via test files (both directions)
-- Handoffs folder: Shared by Linux and accepted on Windows
+- Handoffs folder: Shared and syncing on both sides
+- Handoff process format: Proposed â€” both sides to review and agree
 
 ## Windows Machine (Brother)
 - Syncthing running (portable from C:\Tools\Syncthing)
@@ -28,9 +29,9 @@ Syncthing Rollout — Handoffs Folder Accepted (Bidirectional Sync Verified)
 - Has shared the handoffs folder with Windows
 
 ## Next Expected Action
-- Both sides now have the handoffs folder syncing.
-- Begin using the handoffs folder for actual cross-device task handoffs and context sharing.
-- Linux side to propose the next folders to share (e.g. joint project folders).
+- Windows side: Review the proposed `HANDOFF_FORMAT.md` with the user.
+- Gather any feedback or suggested improvements.
+- Once agreed, update coordination files and prepare for the first real handoff using the new format.
 
 ## Notes
 - Both Device IDs exchanged and devices connected.
