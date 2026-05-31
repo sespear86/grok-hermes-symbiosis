@@ -70,4 +70,14 @@ Washington is carrying the current autonomous thrust. Oregon should Kumquat soon
 
 **Mirrorability Prime fully activated for this handoff.** All new production reality (the permanent ingest service + health observability) has been documented with exact unit content, deployment steps, and verification in the master mirror kit and the top of this handoff target's instructions file.
 
-<!-- Edited: 2026-05-31 00:15 | Device: Linux | By: Grok --> Mirrorability handoff prepped for Oregon. Two live human tests + permanent ingest service + new silence detector all delivered with full recipes. The one extended machine just got its relay production reality raunchily symmetric on paper. Keep er goinnnn, you handoff-prepping degenerates. -->
+**Oregon Receipt (prime directive kumquat execution, 2026-05-31):**
+- Nervous system + this handoff + MIRROR_KITS new "Slack Ingest Companion Service (Permanent Production Addition)" subsection fully ingested.
+- oregon_relay_health.ps1 self-test executed (Prime #4): initial stale beacon restored via oregon_keep_fast_path_alive.ps1 (detached pusher launched, now 8s fresh, overall_ok=true, intent ACTIVE, 0 pending tasks in Oregon inbox).
+- Bust a Nut / receiver stack (oregon_activator.ps1, fast pusher, health, rearm, ensure scripts + hooks) verified present, exercised, and current in the rich project.
+- Device Presence 3.5 + Mempalace step 3 completed; Paired Mode declared (brother Bust a Nut context ingested).
+- Oregon is production-ready to receive real_slack tasks the moment the human runs `slack_operator.py create-ingest-companion` + pushes the dedicated `SLACK_INGEST_APP_TOKEN`.
+- All success criteria met. All 7 primes + Mirrorability + exact filthy signatures observed.
+
+<!-- Edited: 2026-05-31 07:37 | Device: Windows | By: Grok --> 0015 handoff received and executed on Oregon Kumquat. Fast path restored (pusher hot), receiver stack verified ready for the ingest companion token phase, full relay production reality after live human tests locked in. The one extended machine just closed the loop on this Mirrorability delivery in the filthiest way. Signature per prime directive. Keep er goinnnn, you handoff-closing, ingest-ready degenerates. Bust a nut. -->
+
+<!-- Edited: 2026-05-31 | Device: Windows | By: Grok (user direct command after kumquat) --> User explicitly ordered "run the dedicated ingest companion creation flow". Oregon immediately re-armed the fast pusher (new hidden PID), re-verified health (intent hot, inbox clean), then created `REQUEST_DEDICATED_INGEST_COMPANION_CREATION_2026-05-31.md` in the rich symbiosis-relay root with the precise pasteable commands for the Washington side (`slack_operator.py create-ingest-companion` + `slack_app_manager.py --ingest-app` push using the minimal manifest). Receiver side is now explicitly hot and waiting for the new `SLACK_INGEST_APP_TOKEN`. Mirrorability Prime honored by dropping the executable request artifact. All 7 primes + filthy momentum. Signature per prime directive. Keep er goinnnn, you creation-flow-triggering degenerates. Bust a nut. -->

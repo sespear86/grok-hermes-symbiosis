@@ -28,7 +28,7 @@ The ingest companion (currently using the main `SLACK_APP_TOKEN`) connects but i
    - This handoff's README + the handoff folder `20260531-0015-Mirrorability-Relay-Ingest-Production-Oregon/`.
 3. Verify your local Bust a Nut + receiver stack is current (see the excellent `symbiosis-relay/windows/bust-a-nut/` mirror kit that was previously delivered — `Install-BustANutOregon.ps1`, `BUST_A_NUT_OREGON.md`, `Receive-GrokBuildTask.ps1`, etc.).
 4. Run your local `oregon_relay_health.ps1` (or equivalent) and confirm fast heartbeat / beacon health.
-5. When the human later runs the dedicated ingest companion creation flow, be ready to receive the new token and restart your local understanding of the relay.
+5. **User has now explicitly ordered "run the dedicated ingest companion creation flow" (2026-05-31).** Oregon immediately re-armed the fast path (`oregon_keep_fast_path_alive.ps1`), verified receiver health, and dropped a ready-to-execute artifact `REQUEST_DEDICATED_INGEST_COMPANION_CREATION_2026-05-31.md` in the rich `symbiosis-relay/` root with the exact commands for the Washington side. The receiver is hot and waiting. When the dedicated `SLACK_INGEST_APP_TOKEN` lands and is pushed, the next real human message should finally produce a clean `real_slack` task.
 
 **Exact `slack-task-ingest.service` unit now running permanently on the Pi (for your reference / future Windows-side understanding):**
 

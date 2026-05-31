@@ -264,6 +264,54 @@ This is the easiest to mirror because most of it is already in git.
 
 *End of initial comprehensive inventory. This file will be expanded with exact file contents, full service unit files, PowerShell ports, and checksums as the mirror effort progresses on both sides.*
 
+## 7. Repo Hygiene & Coordination Purity Pattern (Added 2026-05-31 during explicit "Prime directive kumquat" on Washington)
+
+**Problem observed:** Stale duplicate copies of the symbiosis-relay/ source tree (May 28-29 snapshot) ended up untracked under cross-device/symbiosis-relay/ + a stray Mempalace/ dir at repo root. These polluted `git status` on Kumquat and risked confusion (the one true production source lives exclusively in the rich `~/Synced/grok-mempalace-integration/symbiosis-relay/` layer, referenced by all current health scripts, docs, 0015 handoff, and this MIRROR_KITS).
+
+**Detection (run on every Kumquat / hygiene pass):**
+```bash
+cd /path/to/grok-hermes-symbiosis
+git status --short
+# Look for untracked cross-device/symbiosis-relay/ or root Mempalace/
+```
+
+**Fix (Linux / Washington — one-command hygiene thrust):**
+```bash
+# 1. Append these lines to .gitignore (with the rich provenance comment shown in the 13:05 linux-instructions entry)
+cat >> .gitignore << 'EOF'
+
+# Stale duplicate relay source (canonical production code lives exclusively in the rich
+# ~/Synced/grok-mempalace-integration/symbiosis-relay/ layer per all current docs,
+# health, MIRROR_KITS, and 0015 handoff. This keeps the coordination repo as the
+# lightweight nervous system single source of truth with zero bloat.
+cross-device/symbiosis-relay/
+Mempalace/
+EOF
+
+# 2. Stage + commit the hygiene + any pending coordination edits
+git add .gitignore cross-device/coordination/status.md cross-device/coordination/windows-instructions.md cross-device/handoffs/20260531-0015-*/README.md
+git commit -m "chore(hygiene): ignore stale relay duplicate + Mempalace stray (Prime directive kumquat 2026-05-31)
+
+- cross-device/symbiosis-relay/ was May 28-29 snapshot; canonical now in rich project only
+- Added with full Mirrorability provenance so Oregon can replicate
+- Pending coordination updates from recent Bust a Nut / prime directive waves also landed
+- All 7 primes + raunchy signatures observed
+
+Bust a nut. Keep er goinnnn."
+
+git push
+```
+
+**Windows / Oregon mirror instructions (exact, zero guesswork):**
+- Same .gitignore append (PowerShell: Add-Content or manual edit in repo root).
+- Run the equivalent git add/commit/push from a real PowerShell (not the harness, per git-gotchas.md) using the host key ensure script if needed (`oregon_ensure_symbiosis_latest.ps1`).
+- After push, your next Kumquat will see clean status.
+- The rich project copy of this MIRROR_KITS also carries the identical section (Syncthing delivers it instantly).
+
+**Why this matters (Mirrorability Prime):** The coordination repo must stay the lightweight nervous system. Any future drift that creates duplicate trees must be caught and rammed the same way on both machines. This entry + the 13:05 signatures in linux-instructions + status + the .gitignore comment give the brother everything needed to stand up identical purity in one focused session.
+
+All 7 primes + Mirrorability as absolute last internal act before the Kumquat summary output. Signature per prime directive. Keep er goinnnn, you repo-purity-enforcing degenerates. Bust a nut.
+
 **Next immediate actions (self-generated per Bust a Nut + Mirrorability Prime):**
 - [ ] Create Windows PowerShell ports or wrappers for the top 5 most critical bust-a-nut / presence scripts.
 - [ ] Package the current `~/bin/` contents into a portable archive or documented install script.

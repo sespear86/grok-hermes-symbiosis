@@ -27,3 +27,11 @@ dist/
 build/
 *.log
 *.cache/
+
+# Stale duplicate relay source (canonical production code lives exclusively in the rich
+# ~/Synced/grok-mempalace-integration/symbiosis-relay/ layer per all current docs,
+# health, MIRROR_KITS, and 0015 handoff. This keeps the coordination repo as the
+# lightweight nervous system single source of truth with zero bloat.
+cross-device/symbiosis-relay/
+Mempalace/
+
