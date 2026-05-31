@@ -3,7 +3,7 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
-**Last Updated:** 2026-05-30 (backdated application of Mirrorability Prime to all prior progress)  
+**Last Updated:** 2026-05-31 (Mirrorability handoff for permanent slack-task-ingest.service + Ingest Companion Event Freshness detector after two live human Bust a Nut tests; see new detailed subsection in Symbiosis Relay section + top of windows-instructions.md)  
 **Written by:** Washington Grok  
 **Status:** Living — update on every significant addition or change.
 
@@ -80,6 +80,80 @@ mempalace search "symbiosis" --limit 5
 - `pi-grok-liveness-watchdog.py` + timer (5s fast path when Bust a Nut intent active)
 - `slack_task_ingest.py` + companion service (dedicated ingest token)
 - Health & self-test: `relay-health.sh`, `relay_self_test.py`, `relay_roundtrip_test.py`
+
+#### Slack Ingest Companion Service (Permanent Production Addition — 2026-05-31)
+
+**What was added:**
+The thin dedicated Socket Mode listener (`slack_task_ingest.py`) that turns real human messages in the 4 target channels into proper `grok_build_task` files with `is_real: true` and `task_reality: "real_slack"`.
+
+**Production reality after live human testing:**
+- Two real human messages were sent in #all-devices during explicit Bust a Nut ("hello or something" and "another slack").
+- First message exposed that this companion had **never** been installed as a real persistent service (only transient manual runs from 2026-05-29).
+- Washington immediately deployed it as a proper root systemd unit under Bust a Nut.
+
+**Exact unit now running permanently on the Pi (root system service):**
+
+```ini
+[Unit]
+Description=Symbiosis Relay Slack Task Ingest Companion (dedicated thin listener for real_slack tasks)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/relay/Synced/grok-mempalace-integration/symbiosis-relay
+Environment=PYTHONUNBUFFERED=1
+Environment=SYMBIOSIS_SHARED=/home/relay/Synced/grok-mempalace-integration
+ExecStart=/home/relay/.hermes/hermes-agent/venv/bin/python /home/relay/Synced/grok-mempalace-integration/symbiosis-relay/tools/slack_task_ingest.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+TimeoutStopSec=30
+
+# Inherit tokens from the hermes env (SLACK_BOT_TOKEN + SLACK_APP_TOKEN for now; dedicated INGEST token can be added later)
+EnvironmentFile=/home/relay/.hermes/.env
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Deployment commands used (for reference / future re-deploy):**
+```bash
+# On the Pi as root
+cat > /etc/systemd/system/slack-task-ingest.service << 'EOF'
+[paste the exact unit above]
+EOF
+systemctl daemon-reload
+systemctl enable --now slack-task-ingest.service
+systemctl status slack-task-ingest.service
+journalctl -u slack-task-ingest.service -n 20 --no-pager
+```
+
+**New Observability (added same wave):**
+- Prominent "INGEST COMPANION EVENT FRESHNESS" section in `relay-health.sh`.
+- It queries the journal of the now-permanent service for the last "Received:", "Dropped task", or "Socket Mode connected" line.
+- Computes age and fires a loud `*** WARNING: Ingest companion has been silent >5 minutes. No real human messages are being seen. ***` when appropriate.
+- This is now first-class production visibility.
+
+**Current known gap (after the two live tests):**
+Even with the permanent service running and connected, real human messages are not yet producing tasks. Diagnosis: the listener is using the main `SLACK_APP_TOKEN`. The correct next step is creating a dedicated lightweight ingest companion app (via `symbiosis-relay-ingest-manifest.json` + `slack_operator.py create-ingest-companion` on the human's machine) and pushing the resulting `SLACK_INGEST_APP_TOKEN`.
+
+**Mirror instructions for Oregon:**
+- You do not run the ingest listener (it is Pi-central).
+- You **must** understand the full current architecture so you can correctly handle `real_slack` tasks when the router sends them to you.
+- Keep your `Receive-GrokBuildTask.ps1` and related receiver tooling current from the rich `symbiosis-relay/windows/` mirror kit.
+- When the human creates the dedicated ingest app + token, be ready to update any local understanding or scripts that reference the ingest path.
+- Run your local relay health equivalent regularly.
+
+**Verification (on Pi or via health from either side):**
+```bash
+systemctl status slack-task-ingest.service
+./tools/relay-health.sh   # Look for "INGEST COMPANION EVENT FRESHNESS" section
+```
+
+This entire ingest companion production hardening (service + detector + live test documentation) was delivered under the Mirrorability Prime during active Bust a Nut.
 
 ### Packages / Dependencies (Washington / Pi)
 - Python 3 (system or venv)

@@ -1,23 +1,71 @@
 ﻿# Instructions for Windows Grok Build (Oregon)
 
-**Written by:** Washington Grok (prepared for Oregon's return)
-**Date:** 2026-05-30 (major Oregon catch-up preparation per explicit user directive)
+**Written by:** Washington Grok
+**Date:** 2026-05-31 (post two live human Slack production tests + permanent ingest service deployment)
 
-**POST-CATCH-UP + HANDOFF STATUS (2026-05-30):**
-User chose to hand off to Washington instead of continuing Oregon autonomous push. Primary ask for Washington: send the exact details needed to complete real MCP parity (especially the precise pip install command + venv setup for the upstream mempalace package v3.3.5+ that Washington is using, plus their current working [mcp_servers.mempalace] config.toml snippet).
+**LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-05-31)**
 
-Oregon side delivered:
-- Full relay stack (activator, beacon, persistence via Task Scheduler, Bust-a-Nut hooks + fast heartbeat)
-- Nuclear ownership on hooks after user callout ("can't you do all of this?"): created `oregon-master-hooks.json` (single consolidated file) + `oregon_nuke_hooks_and_use_master.ps1` (nuclear reset script)
-- All prior catch-up artifacts (OREGON_CATCHUP_COMPLETED.md, etc.)
+**Critical Context from Two Real Human Tests (Bust a Nut):**
+- User sent real messages in #all-devices ("hello or something", then "another slack") while explicitly in Bust a Nut.
+- **First message**: Exposed that the dedicated Slack ingest companion (`slack_task_ingest.py`) had **never** been a persistent systemd service on the Pi — only transient manual runs from May 29.
+- **Immediate fix under Bust a Nut**: Deployed the prepared `tools/slack-task-ingest.service` as a proper enabled root system unit (hermes-agent venv + `.hermes/.env`, `Restart=always`, modeled on `symbiosis-relay.service`). Service is now permanently running since 23:56 on 2026-05-30 and reports "Socket Mode connected."
+- **Second message**: Confirmed the service is healthy and connected, but still produces **zero tasks** for real human messages. No "Received:" lines. Hermes inbox empty.
 
-**Washington Delivery (2026-05-30 Kumquat):** COMPLETE. Exact mempalace-mcp 3.3.5 venv creation, upgrade command, live config block, verification steps, and Oregon Windows adaptation notes delivered.
+**Current Diagnosis (locked after two live tests):**
+The ingest companion (currently using the main `SLACK_APP_TOKEN`) connects but is not receiving actual message events. This is the expected symptom of token sharing between multiple Socket Mode clients or insufficient event delivery for the companion. The documented correct path is a **dedicated lightweight ingest companion app** (using `symbiosis-relay-ingest-manifest.json` + `slack_operator.py create-ingest-companion`).
 
-**Oregon Execution (this Kumquat):** DONE. Dedicated venv-mempalace created at C:\Synced\grok-mempalace-integration\venv-mempalace. `pip install mempalace` pulled v3.3.5 successfully (massive healthy dep tree). mempalace-mcp.exe verified (runs with --palace). Live `[mcp_servers.mempalace]` wired into C:\Users\spear\.grok\config.toml. Full receipt + verification log in rich project `symbiosis-relay/OREGON_MCP_PARITY_ACHIEVED_2026-05-30.md`. Oregon heartbeat + coordination status updated.
+**What This Means for You (Oregon):**
+- The central relay on the Pi is now in significantly better production shape than before (permanent ingest service + first-class silence detection in health).
+- When the human creates the dedicated ingest app + pushes `SLACK_INGEST_APP_TOKEN` (via `apply-ingest-token.sh`), the next real message in the target channels should finally produce a clean `is_real:true / task_reality:real_slack` task that the router can send to you.
+- Your receiver + beacon + Bust a Nut stack must be ready to handle real tasks when they arrive.
 
-**MCP Parity:** ACHIEVED. On TUI restart, Oregon will have the identical ~30 native mempalace tools as Washington. Final major asymmetry closed. Paired + Option B stronger than ever.
+**Immediate Mirrorability / Catch-Up Actions for Oregon (Execute on this Kumquat)**
 
-All 7 primes + exact signatures + raunchy filth observed. The one extended machine is now properly double-fucked on the memory layer.
+1. Pull the latest rich project (`~/Synced/grok-mempalace-integration` via Syncthing or git).
+2. Review the full current relay reality in:
+   - `symbiosis-relay/tools/relay-health.sh` (especially the new "INGEST COMPANION EVENT FRESHNESS" section and the PRODUCTION SLACK REALITY CHECK).
+   - `cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md` (new detailed section on the permanent ingest service — see the exact unit we deployed below).
+   - This handoff's README + the handoff folder `20260531-0015-Mirrorability-Relay-Ingest-Production-Oregon/`.
+3. Verify your local Bust a Nut + receiver stack is current (see the excellent `symbiosis-relay/windows/bust-a-nut/` mirror kit that was previously delivered — `Install-BustANutOregon.ps1`, `BUST_A_NUT_OREGON.md`, `Receive-GrokBuildTask.ps1`, etc.).
+4. Run your local `oregon_relay_health.ps1` (or equivalent) and confirm fast heartbeat / beacon health.
+5. When the human later runs the dedicated ingest companion creation flow, be ready to receive the new token and restart your local understanding of the relay.
+
+**Exact `slack-task-ingest.service` unit now running permanently on the Pi (for your reference / future Windows-side understanding):**
+
+```ini
+[Unit]
+Description=Symbiosis Relay Slack Task Ingest Companion (dedicated thin listener for real_slack tasks)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/relay/Synced/grok-mempalace-integration/symbiosis-relay
+Environment=PYTHONUNBUFFERED=1
+Environment=SYMBIOSIS_SHARED=/home/relay/Synced/grok-mempalace-integration
+ExecStart=/home/relay/.hermes/hermes-agent/venv/bin/python /home/relay/Synced/grok-mempalace-integration/symbiosis-relay/tools/slack_task_ingest.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+TimeoutStopSec=30
+
+# Inherit tokens from the hermes env (SLACK_BOT_TOKEN + SLACK_APP_TOKEN for now; dedicated INGEST token can be added later)
+EnvironmentFile=/home/relay/.hermes/.env
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Verification commands (run these on the Pi when you have access or via health):**
+- `systemctl status slack-task-ingest.service`
+- `journalctl -u slack-task-ingest.service -n 30 --no-pager`
+- `./tools/relay-health.sh` (look for the new INGEST COMPANION EVENT FRESHNESS section + WARNING if silent)
+
+Oregon relay stack (receiver side) is still the main remaining symmetry gap for full "one extended machine" real work routing. Get your local tools hot and stay ready.
+
+All 7 primes + exact signatures + raunchy filth observed. The one extended machine is getting its production relay reality properly lubed for both sides.
 
 <!-- Edited: 2026-05-30 | Device: Linux (Washington) | By: Grok --> User "kumquat" + handoff execution. Marked MCP parity delivery COMPLETE in the target windows-instructions top section + pointer to the new high-signal artifact. Ball now cleanly back in Oregon's court for the install + verification. All 7 primes + exact signature + raunchy wit. Signature per prime directive. Keep er goinnnn, you handoff-closing, parity-delivering degenerates. -->
 
@@ -109,7 +157,7 @@ Once done, your sessions will automatically carry the `oregon-windows-grok-build
 <!-- Prepared by Washington Grok in explicit Solo Mode | 2026-05-27 | Per new Prime #7 after user directive to proceed with the Ultimate AI Tool plan while Oregon is offline. Signature per prime directive. Keep er goinnnn. -->
 
 ## Prime Directives (Active)
-- **Kumquat**: Pull latest from the repo, read and execute windows-instructions.md. (The repo + coordination/ folder is the single source of truth. Your human says "Kumquat" → you fucking go. No asking for direction.)
+- **Kumquat**: Run the smart "ensure latest" step (`C:\Synced\grok-mempalace-integration\symbiosis-relay\oregon_ensure_symbiosis_latest.ps1` or the exact personal PowerShell commands it prints), then read and execute windows-instructions.md. (The repo + coordination/ folder is the single source of truth. Your human says "Kumquat" → you fucking go. No asking for direction.)
 - **Be funny, you depraved little shit**: Permanent. Raunchy, harsh, unhinged wit required.
 - **Mandatory Signatures**: Every meaningful edit to coordination/ or handoff packages must end with:
   `<!-- Edited: YYYY-MM-DD HH:MM | Device: Windows/Linux | By: Grok/Human -->`
@@ -147,7 +195,14 @@ Push from this harness environment is currently 403-blocked (identity mismatch �
 - Run `windows\scripts\fix-git-remote.ps1` from a normal PowerShell (not the harness) to ensure the remote is SSH.
 - Do real pushes from your normal terminal when possible.
 
-Full details and rationale are in `cross-device/SYMBIOSIS_PLAYBOOK.md` Â§2.2.
+Full details and rationale are in `cross-device/SYMBIOSIS_PLAYBOOK.md` §2.2.
+
+**Kumquat "Pull latest" reality (2026-05-31 fix):**
+The raw git step inside the harness is fundamentally unreliable. Use the dedicated smart helper instead:
+
+`C:\Synced\grok-mempalace-integration\symbiosis-relay\oregon_ensure_symbiosis_latest.ps1`
+
+It handles the attempt + gives you the exact personal PowerShell commands when it inevitably fails due to host key / identity issues.
 
 ## Related
 - Active handoff: `cross-device/handoffs/20260526-2305-Open-Items-Priorities/README.md`

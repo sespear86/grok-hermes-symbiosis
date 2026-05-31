@@ -26,7 +26,10 @@ Use these in Discord when you want your Grok to check for new instructions:
 
 **For the Windows side (Oregon):**
 - "Kumquat"
+- "Kumquat. bust a nut" (recommended for deep autonomous runs)
 - "Pull latest from the repo, read and execute windows-instructions.md"
+
+**Note:** On Windows, the "Pull latest" step inside the harness is unreliable. The ritual now uses `oregon_ensure_symbiosis_latest.ps1` (in the rich project) which gives clear instructions for your real personal PowerShell when git fails (the normal case).
 
 ## Current Files
 
