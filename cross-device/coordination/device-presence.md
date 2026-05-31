@@ -125,3 +125,116 @@ No human copy-paste. No "hey the other side is back" messages in Discord. The he
 **Last Updated:** 2026-05-27 (system introduction during Oregon "is online right now" moment)
 
 <!-- Edited: 2026-05-27 | Device: Linux | By: Grok --> Device Presence spec created as the formal, machine-readable replacement for ad-hoc "Oregon offline" prose. Heartbeat files + Kumquat step + Solo/Paired mode definitions now the law. This is how the one extended machine stops guessing whether its brother is awake. Raunchy, precise, lightweight. Signature per prime directive. Keep er goinnnn. -->
+
+---
+
+## Grok Build Instance Liveness Beacons (Remote "Is the TUI Actually Running?")
+
+**New capability (added 2026-05-28):** In addition to the Kumquat-timed heartbeats, each machine can now publish a **live Grok Build presence beacon** so the other device can answer the question:
+
+> "Is there actually an active Grok Build TUI session running on the brother machine *right now*?"
+
+This is extremely useful for:
+- Deciding whether to send real-time work or a handoff.
+- Enforcing single-active-Grok-Build-instance rules more intelligently.
+- Knowing whether the other side can immediately respond in a live collaboration.
+- Extending Device Presence 3.5 with actual *instance* liveness instead of just "machine was seen recently".
+
+### Beacon Location & Format (Shared via Syncthing)
+
+Beacons live in the rich project (so they travel under the existing Option B + dual-source setup):
+
+```
+~/Synced/grok-mempalace-integration/device-presence/
+    washington-grok-build-presence.json
+    oregon-grok-build-presence.json
+```
+
+**Beacon JSON shape** (small, self-describing, human + machine readable):
+
+```json
+{
+  "machine": "washington",
+  "source": "washington-linux-grok-build",
+  "grok_build_active": true,
+  "last_seen": "2026-05-28T15:42:11Z",
+  "current_session_id": "019e6c87-fd3d-75d3-afba-dfba11f86077",
+  "pid": 28471,
+  "started_at": "2026-05-28T15:11:29Z",
+  "updated_by": "grok-build-presence-beacon"
+}
+```
+
+- `grok_build_active`: the single most important boolean.
+- `last_seen`: ISO-8601 UTC timestamp of the last update.
+- Readers should treat beacons older than ~3–5 minutes as "possibly stale / session may have died".
+
+### Local Tools (Option B — Each Side Owns Its Writer)
+
+Washington (Linux) tools live in `~/bin/` (local tooling, exactly like the rich capture scripts):
+
+- `grok-build-presence-beacon start [session-id]`
+- `grok-build-presence-beacon heartbeat`
+- `grok-build-presence-beacon stop`
+- `grok-build-presence-beacon status`
+
+- `check-brother-grok-presence` (or `--json`) — reads the *other* machine's beacon from the shared rich project and prints friendly (or machine) output.
+
+Oregon maintains the symmetric PowerShell versions locally (documented in the rich project's mirroring guide).
+
+The **writer code** is never required to be byte-identical across machines. Only the beacon *data* and file locations matter for remote checking.
+
+### Integration into Kumquat / Device Presence 3.5
+
+During the mandatory 3.5 presence check, the agent should now also look for the brother's beacon:
+
+1. Read the brother's heartbeat (existing behavior).
+2. Read the brother's `*-grok-build-presence.json` beacon (new).
+3. In the updated heartbeat for this cycle, record something like:
+   - "Oregon currently has an active Grok Build session (started 15:11, session 019e6c87..., last beacon 15:42)"
+   - or "Oregon has no active Grok Build instance (last beacon reported inactive at 14:50)"
+
+This gives future Kumquats (and humans reading the heartbeats) much richer context than "last heartbeat at 14:30, Paired mode."
+
+### Hooking It Up (Recommended)
+
+Best places to drive the beacon writer:
+
+- The existing rich project hooks (`docs/mempalace-session-retention.json` — SessionStart / SessionEnd).
+- A thin wrapper alias for the `grok` command on each machine.
+- The rich capture scripts themselves (they already know when a real session is being mined).
+- Any future "Grok Build launcher" scripts.
+
+Calling `grok-build-presence-beacon heartbeat` every few minutes from a background process while the TUI is open is also acceptable and very robust.
+
+### Self-Test (Prime #4)
+
+The presence beacon tools are now part of the things `check-primes.sh` (and any future `check-presence.sh`) should verify exist and are executable on the local machine.
+
+### Why This Design Wins Under Option B
+
+- Zero new network protocols or always-on listeners.
+- The other device can check liveness just by reading a file that Syncthing already delivers.
+- Each side develops and maintains its own beacon writer (PowerShell on Oregon, bash on Washington) without fighting over sync.
+- The data (the beacons) still lives in the shared rich project for coordination.
+- Fits perfectly into the existing Kumquat ritual, heartbeats, and 3.5 step.
+- Extremely lightweight and raunchily debuggable (just `cat` the JSON).
+
+This turns "I think the other side might have Grok Build open" into "I can prove the other side has an active session since 15:11 and it was still alive 30 seconds ago."
+
+Signature per prime directive. Keep er goinnnn, you remote-presence-building degenerates.
+
+**Last Updated:** 2026-05-28 (Grok Build liveness beacons added + physical Relay hardware now live on Raspberry Pi 4 + TL-SG108 switch)
+
+<!-- Edited: 2026-05-28 16:30 | Device: Linux | By: Grok --> Physical Symbiosis Relay hardware (RPi 4 via TL-SG108) confirmed live by user. Immediately executed: updated PI_BRINGUP.md with real hardware, created pi-bootstrap.sh, systemd unit, and relay_listener.py skeleton. Extended this spec to register the Relay Node as a first-class participant. Prototypes for decision engine + activator already wired. Self-test and Phase C capture incoming. The central listening post is no longer a dream — it has a switch and an IP address. 7 primes + exact signature followed. Signature per prime directive. Keep er goinnnn, you hardware-bringing degenerates. -->
+
+**New Relay Node (2026-05-28, hardware online):**
+- Device alias: "relay" or "symbiosis-post"
+- Hardware: Raspberry Pi 4 connected via TP-Link TL-SG108 Gigabit switch.
+- Role: Central Hermes listening post for Slack + intelligent router using beacons + heartbeats.
+- Bootstrap script + systemd unit + listener skeleton now exist in `cross-device/symbiosis-relay/`.
+- The Relay will publish its own lightweight presence (heartbeat + "relay-active" beacon) so Washington and Oregon can see when the central post is alive.
+
+This completes the three-node model: Washington (primary), Oregon (secondary), Relay (always-on coordinator).
+
+<!-- Edited: 2026-05-28 15:45 | Device: Linux | By: Grok --> Extended Device Presence model to support the new Symbiosis Relay node (central Hermes listening post on Raspberry Pi or equivalent). The Relay will be a first-class participant that reads beacons + heartbeats to make intelligent routing decisions while enforcing the global single-active-Grok-Build-instance rule. See new `cross-device/symbiosis-relay/ARCHITECTURE.md` for the full ambitious design. This is the natural evolution of the presence system we just hardened with live instance beacons. Signature per prime directive. Keep er goinnnn, you relay-node-envisioning degenerates. -->

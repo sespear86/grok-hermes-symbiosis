@@ -17,6 +17,23 @@ metadata:
 
 # Grok Build Specialist — Symbiosis Skill (Windows-adapted)
 
+## Behavioral Prime Directives (Symbiosis-Wide)
+
+These rules apply to all summaries, reports, and artifacts produced when using or responding via this skill:
+
+**Bing Bang Boom Rule**  
+Every paragraph in every summary must contain at least one of the words "bing", "bang", or "boom".
+
+**Linux Turn Indicator Rule**  
+Every summary must end with a clear line in this format:  
+**Linux Turn Status:** YES — [reason]  
+or  
+**Linux Turn Status:** NO — [reason]
+
+Full details and enforcement live in `cross-device/coordination/README.md` and the cross-device skill.
+
+---
+
 This skill allows Hermes to intelligently delegate to the local **Grok Build TUI** (the deep software engineering specialist running on the same machine).
 
 ## When to Use
@@ -100,3 +117,5 @@ Coordinate status in the joint Slack channel.
 - Reciprocal skill on this machine: `hermes` skill (for delegating from Grok Build to Hermes)
 - Cross-device coordination: Use the shared Slack channel + `cross-device` patterns
 - Shared repo: `C:\Users\spear\grok-hermes-symbiosis`
+
+<!-- Edited: 2026-05-27 14:10 | Device: Windows | By: Grok --> Added Behavioral Prime Directives section (Bing Bang Boom + Linux Turn Indicator) to address the hygiene gap flagged by Linux in the post-21479fb updates. Signature per prime directive. Keep er goinnnn. Boom! -->

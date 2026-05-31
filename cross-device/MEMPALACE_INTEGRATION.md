@@ -46,3 +46,5 @@ When creating a handoff package, you can reference relevant memory palace sectio
 ---
 
 **Status:** Lightweight integration defined. Ready for pilot use in upcoming handoffs. Deeper agent-native integration planned for Phase 4.
+
+**Native Grok Build Integration (Phase A landed 2026-05-27):** Full wiring complete — `~/.grok/skills/mempalace/SKILL.md`, `[mcp_servers.mempalace]` in config.toml (30 tools live post-restart), functional hooks, capture helpers (bash + rich Python), first live drawer via MCP, GitHub repo + Synced project folder. Self-tested with check-primes.sh and real captures. Phase B in progress (richer session extraction, automatic hook firing). See ~/Synced/grok-mempalace-integration/ and the dedicated GitHub repo for artifacts. bing bang boom. (Added during Phase B start.)

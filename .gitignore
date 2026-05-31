@@ -1,0 +1,29 @@
+﻿# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Syncthing noise (prevent future .sync-conflict files and temp files)
+.stfolder/
+~syncthing*
+*.tmp
+.sync-conflict-*
+.*.swp
+
+# Build / temp artifacts
+dist/
+build/
+*.log
+*.cache/
