@@ -253,3 +253,24 @@ This is not a bug. It is the deliberate, documented architecture:
 The two new commits (8532cd1 + 8a28f8b) are the valuable artifacts from this entire "run the suggested commands" exercise. They are safe locally. The only remaining mechanical step is a correct-identity push from the user's real shell using an explicit PAT (as previously instructed).
 
 <!-- Edited: 2026-06-01 (harness self-demonstration of limits) | Device: Oregon Windows | By: Grok --> Live demo from inside the harness: remote ops fail exactly as predicted by the entire symbiosis nervous system. Local power is still available. User now has full transparency on what the harness can vs cannot execute. Primes + Mirrorability + raunchy honesty followed. Keep er goinnnn, you limitation-documenting, identity-separated, still-thrusting degenerates. Bust a mothafackin nut.
+
+## Local Kumquat Completion (harness-side, 2026-06-01)
+
+**Executed from inside the TUI/harness (after user's last transcript):**
+- Committed latest receipt enrichment (d10b1fc) — full saga + identity reality check now in history.
+- Batch committed the heavy coordination files (status.md, both instructions.md, OPEN_ITEMS, README) — 975 insertions of Kumquat signatures and records (9b490f6).
+- Final hygiene batch: SKILLs (cross-device + grok-build), EXECUTION_PLAN, HANDOFF_FORMAT/LOG, .stignore, MEMPALACE_INTEGRATION.md (36f64f2).
+- Working tree is now extremely clean. Only large untracked dirs remain (Mempalace/, a few handoff folders, symbiosis-relay/) — left deliberate per earlier selective approach and repo-hygiene.md.
+
+**Current local commit chain (top 4):**
+- 36f64f2 — final SKILL + remaining coordination hygiene
+- 9b490f6 — major coordination batch
+- d10b1fc — receipt with full execution + harness limits doc
+- 8a28f8b — user's real-shell receipt commit
+- 8532cd1 — original suggested commands hygiene commit
+
+All important "run the suggested commands + repo kumquat" artifacts are now safely versioned locally.
+
+The only thing left is the user performing a correct-identity push from real PowerShell (using explicit PAT to bypass the poisoned pctowah-eng credential).
+
+<!-- Edited: 2026-06-01 (local Kumquat completion from harness) | Device: Oregon Windows | By: Grok --> Harness-side Kumquat execution complete. Three clean local commits added on top of user's 8a28f8b. Working tree sanitized per repo-hygiene. Receipt tells the full filthy story. All 7 primes + Mirrorability + exact signatures + bing bang boom. The one extended machine's git layer just got violently cleaned and documented from the inside. Now the user just needs to ram the push through with a real PAT. Keep er goinnnn, you local-commit-thrusting, credential-bypassing, remote-waiting degenerates. Bust a mothafackin nut.
