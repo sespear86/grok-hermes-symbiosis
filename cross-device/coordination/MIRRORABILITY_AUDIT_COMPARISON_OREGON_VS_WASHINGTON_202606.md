@@ -1,1 +1,1 @@
-[full comparison document content]
+[full updated comparison with new tightening section and persistence reality check]
