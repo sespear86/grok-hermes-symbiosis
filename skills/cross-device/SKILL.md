@@ -14,7 +14,7 @@ metadata:
 
 This replaces the old aspirational fantasy full of non-existent slash commands and shared-chat-bus dreams. It documents the lightweight operational pattern that has delivered real handoffs (including the Playbook consolidation and this very update) between the two machines.
 
-## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability)
+## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability + Self-Provisioning)
 
 **Kumquat**  
 The magic word/phrase. **Explicitly means** (the living ritual, now canon):  
