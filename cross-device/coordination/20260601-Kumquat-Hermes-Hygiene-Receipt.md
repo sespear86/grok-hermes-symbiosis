@@ -370,3 +370,48 @@ The three superseded handoff directories (20260527-0210, 20260527-1425, 20260531
 This wave was executed with zero hesitation after the explicit "bust a nut" trigger. Primes observed. Momentum sustained.
 
 <!-- Edited: 2026-06-01 (Bust a Nut continuation - PR #1 + backup documentation + full autonomous thrust) | Device: Oregon Windows | By: Grok (harness, explicit "bust a nut" trigger) --> User said "bust a nut". I kept thrusting. Updated receipt, documented backup folder, pushed more references to the hygiene branch, confirmed collaborator-powered remote access. No stopping. All 7 primes + raunchy signatures + Mirrorability + exact Linux Turn discipline followed. The one extended machine is double-lubed and still ramming. Keep er goinnnn, you trigger-firing, PR-delivering, backup-documenting degenerates. Bust a mothafackin nut.
+
+**Linux Turn Status:** YES — The hygiene branch + PR #1 are now the primary delivery vehicle for the full Oregon Kumquat 2026-06-01 thrust. Washington should review the PR, ingest the collaborator access reality, and continue any relay/ingest companion work or further Mempalace enrichment. The one extended machine's git layer just got a massive autonomous delivery. Ball is with the brother for review + next wave.
+
+<!-- Edited: 2026-06-01 (Bust a Nut wave complete - Linux Turn Status + final signatures) | Device: Oregon Windows | By: Grok (harness) --> Full autonomous Bust a Nut wave executed after explicit user trigger. Receipt, coordination files, backup documentation, and PR branch all updated and pushed. All 7 primes + raunchy filth + Mirrorability + exact signatures + Linux Turn Indicator followed with zero blue balls. The symbiosis just got violently advanced. Keep er goinnnn, you nut-busting, PR-ramming, one-extended-machine degenerates. Bust a mothafackin nut. -->
+
+## Full Symbiosis Infrastructure Audit — Oregon (2026-06-01) — #1 Priority
+
+**User directive:** This is now the current #1 priority. Full sync between machines before adding more complexity. Use Mirrorability Prime ruthlessly.
+
+**Oregon Audit Completed (this machine):**
+
+I performed a thorough, category-by-category audit of the full symbiosis stack on Oregon. See the new standardized template for the exact checklist used:
+
+**`cross-device/coordination/SYMBIOSIS_INFRASTRUCTURE_AUDIT_TEMPLATE.md`**
+
+### High-Level Oregon Findings (summary)
+
+**Strong / Present:**
+- Core repos (symbiosis + rich mempalace-integration) in good recent state.
+- Grok Build TUI + Hermes agent both healthy.
+- Grok-side hermes skill present and recently updated.
+- Full .grok/hooks wiring for bust-a-nut, relay health, mempalace capture, symmetry reminders.
+- Symbiosis-relay Windows receiver/activator/bust-a-nut stack present in the rich project.
+- Device presence heartbeats active.
+- Syncthing running.
+- pctowah-eng now has collaborator access (major recent win — harness can do real remote work over HTTPS).
+- Recent Kumquat hygiene (this entire saga) is well documented in the receipt and PR #1.
+
+**Gaps / Partial / Concerns (Mirrorability risks):**
+- Hermes-side `grok-build` skill location was not found in the expected `~/.hermes/skills/grok-build` path during audit.
+- Primary GitHub SSH key for sespear86 is missing on this machine (only Pi deploy key exists).
+- Main is heavily diverged from origin.
+- Several large untracked directories remain (Mempalace/, symbiosis-relay/, backup).
+- No obvious Windows Services for the relay stack (script + hook + scheduled task driven — needs verification on Washington side).
+- Some environment/tokens may be in non-obvious locations.
+
+**Backup folder state:** `.rebase-backup-20260601-180229/` now has a proper README.md documenting why the three historical handoffs were moved.
+
+**Next Machine Action:** Washington must run the exact same template audit on their side. We will then compare lists and close every Mirrorability gap with concrete artifacts (scripts, docs, one-liners, configs).
+
+This audit + template is the foundation for bringing the two machines into true full sync.
+
+All 7 primes + Mirrorability Prime + raunchy signatures + exact Linux Turn followed while executing this as #1 priority.
+
+<!-- Edited: 2026-06-01 (Oregon full Symbiosis Infrastructure Audit completed + template created + #1 priority declared) | Device: Oregon Windows | By: Grok (harness, explicit "bust a nut" + priority #1 mode) --> User set full symbiosis infrastructure audit as #1 priority and triggered "bust a nut". I executed a complete Oregon audit, created the standardized repeatable template, documented gaps, and packaged it for handoff. No hesitation. The one extended machine is now under strict Mirrorability discipline until both sides match. Keep er goinnnn, you audit-thrusting, gap-closing, sync-demanding degenerates. Bust a mothafackin nut. -->
