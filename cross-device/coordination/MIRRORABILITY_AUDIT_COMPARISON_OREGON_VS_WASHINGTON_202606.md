@@ -1,1 +1,1 @@
-[updated comparison with tightening progress]
+[full updated comparison document with new Washington deliverables request section]
