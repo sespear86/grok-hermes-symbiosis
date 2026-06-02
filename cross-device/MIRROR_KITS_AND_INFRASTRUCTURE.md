@@ -3,7 +3,7 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
-**Last Updated:** 2026-05-31 (Mirrorability handoff for permanent slack-task-ingest.service + Ingest Companion Event Freshness detector after two live human Bust a Nut tests; see new detailed subsection in Symbiosis Relay section + top of windows-instructions.md)  
+**Last Updated:** 2026-06-01 (Mirrorability Prime fully executed for 2026-06-01 Oregon Hermes + Grok skill alignment + Kumquat ritual hygiene pass — complete replication kit added as Section 8 for Washington/Linux)  
 **Written by:** Washington Grok  
 **Status:** Living — update on every significant addition or change.
 
@@ -319,3 +319,157 @@ All 7 primes + Mirrorability as absolute last internal act before the Kumquat su
 - [ ] Add a "Windows Status" column to each section above.
 
 Signature per prime directive. Keep er goinnnn.
+
+## 8. 2026-06-01 Oregon Hermes + Grok Skill Alignment + Explicit Kumquat Ritual Hygiene (Mirror Kit for Washington/Linux)
+
+**Date of Oregon work:** 2026-06-01  
+**What was done on Oregon (Windows):** Full autonomous Kumquat hygiene pass executing all post-`hermes update` suggestions.  
+**Prime being satisfied:** Mirrorability / Full Provisioning Prime — zero asymmetry. Washington must be able to replicate the entire set of changes in one focused session using only this document + the synced repo.
+
+**Trigger on Oregon:** User asked Grok (in TUI) to execute every suggestion from the Hermes update + doctor analysis. All steps were completed with full prime observance (Bing Bang Boom, raunchy signatures, self-test via doctor/status, self-provisioning of the receipt artifact, etc.).
+
+### Changes That Must Be Mirrored
+
+1. Updated canonical `grok-build` skill (now carries full Behavioral Prime Directives: Bing Bang Boom Rule + Linux Turn Indicator Rule).
+2. Modernized Grok-side `hermes` delegation skill with explicit **Kumquat ritual definition** (the 8-step process: ensure latest via helper, nervous system ingest, Mempalace step 3, Device Presence 3.5, self-test/health, execute, self-provision, produce signed artifacts).
+3. `hermes skills list` run → Skills Hub initialized.
+4. `npm audit fix` inside the hermes-agent directory → 0 vulnerabilities (browser tools clean).
+5. GITHUB_TOKEN section confirmed in `~/.hermes/.env` (user fills real PAT).
+6. Both delegate bridge scripts installed to `~/bin` with PATH.
+7. Fresh `hermes doctor` and `hermes status` captured (major hygiene wins visible).
+8. Detailed receipt artifact created: `cross-device/coordination/20260601-Kumquat-Hermes-Hygiene-Receipt.md`
+
+**Source of truth (all in this repo, travels via git + Syncthing):**
+- `skills/grok-build/SKILL.md` (canonical, post-2026-06-01)
+- `skills/cross-device/SKILL.md` (grounded v2 with Kumquat ritual)
+- `cross-device/coordination/20260601-Kumquat-Hermes-Hygiene-Receipt.md` (the full filthy log)
+- `scripts/delegate-to-grok.sh` and `scripts/delegate-to-hermes.sh` (Linux equivalents already present)
+- `windows/scripts/hermes-grok-delegate.ps1` and `grok-hermes-delegate.ps1` (for reference / Oregon)
+
+### Exact Mirror Steps for Washington (Linux) — One Focused Session
+
+**Step 0: Pull latest (run in real personal shell, not tmux/Grok harness if git auth is flaky)**
+```bash
+cd ~/grok-hermes-symbiosis
+git fetch origin
+git pull --rebase
+```
+
+**Step 1: Deploy the updated skills (source → live deployment)**
+
+```bash
+# 1a. Hermes side — grok-build skill (the reciprocal delegation target)
+mkdir -p ~/.hermes/skills/grok-build
+cp skills/grok-build/SKILL.md ~/.hermes/skills/grok-build/SKILL.md
+
+# 1b. Grok Build side — hermes / cross-device skill
+mkdir -p ~/.grok/skills/hermes
+cp skills/cross-device/SKILL.md ~/.grok/skills/hermes/SKILL.md
+
+# Optional but recommended for symmetry: also keep a cross-device copy
+mkdir -p ~/.grok/skills/cross-device
+cp skills/cross-device/SKILL.md ~/.grok/skills/cross-device/SKILL.md
+```
+
+**Step 2: Install / refresh the Linux delegate scripts**
+
+```bash
+mkdir -p ~/bin
+cp scripts/delegate-to-grok.sh ~/bin/
+cp scripts/delegate-to-hermes.sh ~/bin/
+chmod +x ~/bin/delegate-to-*.sh
+
+# Ensure ~/bin is in PATH (add to ~/.bashrc or ~/.zshrc if not already present)
+grep -q 'export PATH="$HOME/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+grep -q 'export PATH="$HOME/bin:$PATH"' ~/.zshrc  || echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
+
+# Reload in current shell
+export PATH="$HOME/bin:$PATH"
+```
+
+**Step 3: Initialize / refresh Skills Hub**
+
+```bash
+hermes skills list
+```
+
+**Step 4: Clean browser / agent tools (npm audit fix)**
+
+```bash
+# First, locate the exact hermes-agent directory on this machine
+hermes doctor | grep -i "Project:"
+
+# Typical path on Linux main machine:
+cd ~/.hermes/hermes-agent
+
+# Or the relay-style path if this is being mirrored for a relay user:
+# cd /home/relay/.hermes/hermes-agent
+
+npm audit fix
+```
+
+**Step 5: Verify GITHUB_TOKEN section exists in Hermes env (for github skill during repo-heavy work)**
+
+```bash
+grep -A 5 'GITHUB_TOKEN' ~/.hermes/.env || echo "Add the section manually if missing (see Oregon .env example in the 20260601 receipt)"
+```
+
+Fill a real PAT if the placeholder is still there:
+```bash
+# GITHUB_TOKEN=ghp_your_real_token_here
+```
+
+**Step 6: Post-mirror verification (run these and capture output)**
+
+```bash
+hermes doctor --fix
+hermes status
+```
+
+Look for:
+- Browser tools: ✓ no known vulnerabilities
+- Skills Hub: ✓ directory exists
+- Config up to date
+- xAI OAuth / grok-4.3 still happy
+
+**Step 7: Ingest the new receipt as part of your next Kumquat**
+
+```bash
+# Read the full Oregon hygiene log
+cat cross-device/coordination/20260601-Kumquat-Hermes-Hygiene-Receipt.md
+```
+
+Then execute your normal Washington Kumquat ritual (nervous system + Mempalace step 3 + Device Presence 3.5 + self-test via `check-primes.sh` or equivalent + write fresh heartbeat + signed updates).
+
+**Step 8: Produce the Washington-side mirror receipt / closure**
+
+Create or append to a matching artifact (e.g. under coordination/ or a new dated file) with:
+- Confirmation that all steps above were executed
+- Hashes or `git log` receipts of the files deployed
+- `hermes doctor` / status diff before vs after
+- Full Linux Turn Status line at the end
+- Raunchy filthy signature block observing all primes (including this Mirrorability execution)
+
+### Linux vs Windows Path Notes (for this specific hygiene)
+
+| Item                        | Oregon (Windows)                          | Washington (Linux)                     |
+|-----------------------------|-------------------------------------------|----------------------------------------|
+| Hermes home                 | `%LOCALAPPDATA%\hermes`                   | `~/.hermes`                            |
+| hermes-agent for npm        | `%LOCALAPPDATA%\hermes\hermes-agent`      | `~/.hermes/hermes-agent` (or /home/relay/... on Pi) |
+| Live grok-build skill       | `%LOCALAPPDATA%\hermes\skills\grok-build\SKILL.md` | `~/.hermes/skills/grok-build/SKILL.md` |
+| Live hermes skill (Grok)    | `~/.grok\skills\hermes\SKILL.md`          | `~/.grok/skills/hermes/SKILL.md`       |
+| Delegate scripts            | `C:\Users\...\bin\*.ps1`                  | `~/bin/delegate-to-*.sh`               |
+| PATH setup                  | PowerShell profile                        | ~/.bashrc or ~/.zshrc                  |
+
+### Verification That Mirrorability Was Fully Executed
+
+- This section exists in the master `MIRROR_KITS_AND_INFRASTRUCTURE.md`.
+- All source files are in the repo (no "I'll send the details later").
+- The 20260601 receipt on Oregon explicitly calls out "Mirrorability as final internal step."
+- When Washington completes the steps above and writes their closure receipt with matching filthy signatures, the prime is satisfied in both directions for this wave.
+
+**Linux Turn Status:** NO — Oregon just thrust hard on the Hermes layer. Washington’s turn is to mirror the above in the next explicit Kumquat, produce the symmetric receipt, and keep the one extended machine’s skill + delegation loop perfectly symmetric. The cockring is now double-lubed.
+
+---
+
+<!-- Executed: 2026-06-01 | Device: Oregon Windows (origin) | By: Grok (harness) --> Full Mirrorability Prime executed for the Linux machine on the 2026-06-01 Oregon Hermes Kumquat hygiene pass. Complete self-contained replication instructions + path table + verification commands + source-of-truth references delivered. No asymmetry. All 7+ primes + raunch + "keep er goinnnn" observed in the creation of this mirror kit. Signature per prime directive. Bust a nut. Boom!
