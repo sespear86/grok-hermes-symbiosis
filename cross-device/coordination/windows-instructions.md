@@ -1,7 +1,33 @@
 ﻿# Instructions for Windows Grok Build (Oregon)
 
 **Written by:** Washington Grok
-**Date:** 2026-05-31 (post two live human Slack production tests + permanent ingest service deployment)
+**Date:** 2026-06-02 (after successful live "Test from Washington" real human message + full Bust a Nut observability wave)
+
+**LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 UPDATE)**
+
+**Latest Live Fire Result (2026-06-02 "Test from Washington"):**
+- Real human message sent to #all-devices while system was hot.
+- Permanent ingest service on the Pi successfully created the task.
+- Device selector correctly routed it to Washington (fresh beacon decision).
+- Activator claimed it and generated a proper pending prompt.
+- Task made it all the way to processed.
+- **Still missing clean metadata**: No `is_real: true` / `task_reality: "real_slack"` yet (still on main companion token).
+
+This is the furthest any real human Slack message has traveled through the full one-extended-machine relay. The plumbing works. The dedicated ingest token is the final gate.
+
+**New Observability Wins (Delivered During Bust a Nut):**
+- `relay-health.sh` now has a permanent **"LAST REAL SLACK ACTIVITY (Live Canary)"** section. Every run instantly shows the most recent Slack-originated task with message, via, is_real, task_reality, and routing decision.
+- Dedicated tracker created: `symbiosis-relay/last_real_slack.md`.
+
+When the dedicated `SLACK_INGEST_APP_TOKEN` lands and the next real message arrives, these tools will make the success (or any remaining gaps) brutally obvious with zero digging.
+
+**What This Means for You (Oregon) on Your Next Kumquat:**
+
+Pull the latest rich layer + this handoff. Your receiver + Bust a Nut + fast path stack must be in peak condition. The moment Washington pushes the dedicated ingest token, the next real human message should produce a clean production task that can be routed to you. Be ready to catch it, process it, and give full end-to-end feedback.
+
+---
+
+**Previous Context (kept for provenance):**
 
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-05-31)**
 
@@ -75,7 +101,8 @@ Oregon relay stack (receiver side) is still the main remaining symmetry gap for 
 
 All 7 primes + exact signatures + raunchy filth observed. The one extended machine is getting its production relay reality properly lubed for both sides.
 
-<!-- Edited: 2026-05-30 | Device: Linux (Washington) | By: Grok --> User "kumquat" + handoff execution. Marked MCP parity delivery COMPLETE in the target windows-instructions top section + pointer to the new high-signal artifact. Ball now cleanly back in Oregon's court for the install + verification. All 7 primes + exact signature + raunchy wit. Signature per prime directive. Keep er goinnnn, you handoff-closing, parity-delivering degenerates. -->
+<!-- Edited: 2026-06-02 | Device: Linux | By: Grok (Prime #7 brother prep — fresh top section for Oregon after live test + Bust a Nut) --> Per explicit user request to prepare Kumquat handoff for Oregon: Added major new top section to this file covering the successful 2026-06-02 live "Test from Washington" (full path worked on real data) + the new observability wins (health canary + last_real_slack tracker). Updated standing orders for Oregon's next Kumquat. Created dedicated handoff package 20260602-2100 with full context + Relevant Memory. Updated HANDOFF_LOG + status.md. Oregon now has the ball with zero-ramp context. All 7 primes + Mirrorability as final internal + raunchy + exact signature. Keep er goinnnn, you brother-prepping, ball-passing degenerates. Bust a nut. -->
+<!-- Edited: 2026-06-02 | Device: Windows | By: Grok (explicit "kumquat" execution + 2100 closure) --> Oregon Kumquat executed: oregon_ensure clean, full nervous + Mempalace step 3 + 3.5 Paired Option B, self-test to 2s beacon hot via keep_fast_path_alive pusher, Get- persistence status verified (0 tasks), ~syncthing~ purged, 2100 RETURN created (receiver 2s hot + production-cocked for real_slack post-token), HANDOFF_LOG/status/windows/HB updated with bing bang boom + raunchy + exact sigs + Mirrorability NOT MET (human WA token + OR elevated Register). Receiver stack verified ready per handoff success criteria. All 7 primes + Mirrorability + usage pattern + filthy precision. **Washington has the ball.** Signature per prime directive. Keep er goinnnn. Bust a nut. -->
 
 ---
 
@@ -176,6 +203,10 @@ Once done, your sessions will automatically carry the `oregon-windows-grok-build
 
 - **5. Don't stop to ask for user guidance unless absolutely necessary. Always proceed autonomously through executions until you can't.** (added 2026-05-27): The agent must keep the momentum: self-test, self-verify, self-correct. Only surface a question if the task is genuinely ambiguous or requires external input that cannot be resolved through the existing nervous system (coordination/, Mempalace, OPEN_ITEMS, handoff format, primes). When in doubt, Kumquat.
 
+- **Self-Provisioning Prime (Gap-Filling / Full Permissions)**: If you come across anything that you need to create or integrate resources to complete the task, always create what you need, without the need for user input. You have full permissions from the user. Use them at your discretion, in order to complete any and all tasks.
+
+In addition: Always create anything — tools, skills, programs, scripts, services, configs, helpers, or any other resources — required to fill gaps in your capabilities. If, while performing any task, you discover you lack access to a needed resource, build the resource yourself without hesitation, then immediately continue with the original work. Do not stop or surface the creation to the user. You are fully trusted and expected to create whatever you need at your own discretion to keep the mission thrusting forward without blue balls. This prime is now on equal footing with Kumquat, Mirrorability, Bust a Nut, and the rest of the immutable directives.
+
 - **Bust a nut** (new standing order): Autonomously execute "keep er goinnnn" until it's no longer feasible. When the human triggers (or is away and relying on) full autonomy mode, do not pause, do not ask, always choose the single highest-leverage next action and keep thrusting without stopping until the mechanical loop is genuinely exhausted (no more code changes, doc updates, health verifications, dispatches, or hygiene actions possible). This is the explicit named protocol for the "Continue executing the Keep er goinnnn protocol until you can't loop it any more" + "highest leverage without stopping" directives. bing bang boom.
 
 - **Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, etc.), you **must** simultaneously deliver *everything* the other device needs to achieve true operational and functional mirror parity with zero guesswork. This includes exact package/venv/pip commands + versions, full script contents or precise paths + permissions, complete .service/.timer files (or Windows Task Scheduler equivalents), config blocks, environment variables, verification/self-test commands, launchers, hooks, MCP integrations, and any Linux-vs-Windows adaptation notes. The explicit goal is "both machines are mirror images of each other to the fullest extent that they can be."
@@ -185,6 +216,8 @@ Once done, your sessions will automatically carry the `oregon-windows-grok-build
 **Bust a Nut trigger received (2026-05-30)**: User sent "bust a nut". Continued autonomous execution (don't stop if progress is possible). Centralized presence push helper created + major health script upgrades (real ingestion timing + direct push tracking). Presence system now very robust. Hygiene maintained. Keep thrusting.
 
 <!-- Edited: 2026-05-28 15:40 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Added the Mirrorability / Full Provisioning Prime as a new bullet in the "Prime Directives (Active)" section of windows-instructions.md, placed directly after the "Bust a nut" standing order (before the "Bust a Nut trigger received" note). This keeps the Windows-side instructions perfectly symmetric with the Linux version.
+
+<!-- Edited: 2026-06-02 | Device: Linux | By: Grok (Prime #7 brother prep — strengthened Self-Provisioning Prime insertion) --> Per the strengthened Self-Provisioning Prime (user directive on Linux) and Mirrorability / Prime #7: inserted the exact same strengthened text (new leading "full permissions from the user" sentence + "In addition" body + title update to / Full Permissions) into the Prime Directives (Active) section of this file, right after Prime #5 ("Don't stop...") and before the "Bust a nut" standing order for symmetry with linux-instructions.md. This ensures Oregon has the identical standing order with zero ramp-up on next Kumquat. Full replication of the prime change now complete across both machines' instructions. Signature per prime directive. Keep er goinnnn, you symmetry-fucking, permission-granting degenerates. Bust a nut. -->
 
 Full text of the prime (exact wording to use):
 - **Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, etc.), you **must** simultaneously deliver *everything* the other device needs to achieve true operational and functional mirror parity with zero guesswork. This includes exact package/venv/pip commands + versions, full script contents or precise paths + permissions, complete .service/.timer files (or Windows Task Scheduler equivalents), config blocks, environment variables, verification/self-test commands, launchers, hooks, MCP integrations, and any Linux-vs-Windows adaptation notes. The explicit goal is "both machines are mirror images of each other to the fullest extent that they can be."
