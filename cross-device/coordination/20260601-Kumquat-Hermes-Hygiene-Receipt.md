@@ -430,3 +430,58 @@ This audit + template is the foundation for bringing the two machines into true 
 All 7 primes + Mirrorability Prime + raunchy signatures + exact Linux Turn followed while executing this as #1 priority.
 
 <!-- Edited: 2026-06-01 (Oregon full Symbiosis Infrastructure Audit completed + template created + #1 priority declared) | Device: Oregon Windows | By: Grok (harness, explicit "bust a nut" + priority #1 mode) --> User set full symbiosis infrastructure audit as #1 priority and triggered "bust a nut". I executed a complete Oregon audit, created the standardized repeatable template, documented gaps, and packaged it for handoff. No hesitation. The one extended machine is now under strict Mirrorability discipline until both sides match. Keep er goinnnn, you audit-thrusting, gap-closing, sync-demanding degenerates. Bust a mothafackin nut. -->
+
+## Repo Kumquat (re-trigger 2026-06-01 18:54, explicit "repo kumquat")
+
+**Date:** 2026-06-01 18:54 (during active TUI session, post full audit wave)
+**Machine:** Oregon (STINKY / Windows 11 / Kumquat)
+**Executor:** Grok (harness, full Kumquat ritual + repo-hygiene prime)
+**Trigger:** Direct user "repo kumquat" — dedicated hygiene pass on the canonical `grok-hermes-symbiosis` git repo per repo-hygiene.md + standing "Repo Kumquat" callouts in windows-instructions + 20260601 receipt.
+
+### Ritual Executed (Full Canon)
+- Nervous system: windows-instructions (Repo Kumquat section + live relay state), status.md (Washington 06-02 hygiene locked), OPEN_ITEMS (Mempalace + git hybrid + hygiene priorities still #1-3).
+- **Mempalace step 3 (mandatory):** three-primes.md (Kumquat 1-3.5 + Self-Provisioning + bing-bang-boom), usage-pattern.md (5-step + 3.5 device presence + checklist), git-gotchas.md (harness 403 reality + personal shell mandate + hybrid model), repo-hygiene.md (low-noise, enrich-over-proliferate, archive superseded, purge Syncthing temps), recent-decisions.md (locked hybrid + Mempalace permanent), device-presence (oregon.md old, washington 06-02 fresh).
+- **3.5 Device Presence:** Washington HB 2026-06-02 ~01:40 (Symbiosis Kumquat + 952936b push) fresh vs Oregon prior 05-31. Declared **Paired Mode** (honest gap but recent cross-Kumquats + Washington audit delivery + mutual Mirrorability thrust; no Solo). Fresh oregon.md heartbeat written with repo hygiene focus.
+- **Prime #4 Self-Test:** `Mempalace/scripts/check-primes.sh` executed via harness bash. Result: "Self-test PASSED. bing bang boom." (core in-repo SKILL + instructions green; expected warnings on Symced vs harness-local copies).
+- Relay health: Not re-snapshot (focused git layer per explicit "repo kumquat" trigger); prior waves had it hot.
+
+### Git / Repo Hygiene Audit (Core of this Trigger)
+- **Current branch:** kumquat-2026-06-01-hygiene (stale — this is a hygiene smell; main has advanced with Washington's 952936b + later).
+- **git status (porcelain):** 3 modified (cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md, coordination/linux-instructions.md, coordination/status.md — high-signal Washington 06-02 updates delivered via live layer), untracked Mempalace/ + cross-device/symbiosis-relay/ (intentional per .gitignore + hybrid Git/Syncthing model in git-gotchas + prior receipts; live truth in rich project).
+- **Cruft hunt:** 1x lingering `Mempalace/symbiosis/device-presence/~syncthing~washington.md.tmp` found → **PURGED** via Remove-Item (exact precedent from first 20260601 repo kumquat section). No .sync-conflict-* anywhere. No .rebase-backup-20260601 dir on Oregon (clean vs Washington's note). .gitignore solid (covers ~syncthing* *.tmp .sync-conflict-*).
+- **Other observations:** No superseded handoff cruft, no temp proliferation, no low-value files. The 3M files are not "cruft" — they are the brother 's latest hygiene + audit work needing proper branch context. Branch drift itself is the main repo smell flagged for user resolution.
+- **Hygiene verdict:** Extremely clean. The one lingering mechanical noise (the tmp) is gone. Repo layer ready for main branch reconciliation. All per repo-hygiene.md + 2009 precedent discipline.
+
+### Mirrorability / Self-Provisioning
+- Everything executed is fully reproducible: exact purge command, check-primes.sh invocation, git status commands, file paths, this receipt enrichment.
+- Self-provisioned the fresh HB + this section without user hand-holding.
+- The modified coordination files + receipt now carry the record.
+
+**Exact commands the user should run right now in a normal PowerShell (outside the TUI — do this to lock the Kumquat):**
+```powershell
+cd "$env:USERPROFILE\grok-hermes-symbiosis"
+
+# 1. Switch to main (or create fresh branch from latest main)
+git checkout main
+git pull --rebase   # (will need host key / SSH key or PAT HTTPS)
+
+# 2. Review the 3 high-signal modified files from Washington (they are good)
+git diff cross-device/coordination/status.md cross-device/coordination/linux-instructions.md cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md
+
+# 3. Stage + commit the hygiene artifacts from this pass (receipt enrichment + HB refresh + any instructions touch)
+git add cross-device/coordination/20260601-Kumquat-Hermes-Hygiene-Receipt.md
+git add Mempalace/symbiosis/device-presence/oregon.md
+# git add cross-device/coordination/windows-instructions.md   # if touched
+
+git status
+git commit -m "repo kumquat 2026-06-01 18:54: tmp purged, full ritual + Mempalace step 3 + 3.5 Paired, git hygiene audit (stale branch noted), oregon HB refreshed, receipt enriched. Per repo-hygiene + all primes + Mirrorability. Oregon side."
+
+# 4. Push (PAT or loaded SSH key for sespear86 identity — harness will 403)
+git push origin main
+```
+
+After push, both sides see the repo kumquat hygiene locked in history. Re-run doctor or status as needed.
+
+**Linux Turn Status:** YES — Washington should ingest this repo kumquat section (and any new HB), confirm the tmp purge + branch note, run the exact same hygiene audit on their main (or compare .git state), and continue the #1 Mirrorability infrastructure audit gap-closing (especially Oregon receiver parity + ingest token). The git layer just got another focused Kumquat thrust with zero blue balls. Ball is with the brother for repo state reconciliation + audit comparison.
+
+<!-- Edited: 2026-06-01 18:54 (explicit "repo kumquat" re-trigger — focused git hygiene pass + ritual + purge + self-test + receipt enrichment) | Device: Oregon Windows (STINKY) | By: Grok (harness) --> Explicit user "repo kumquat". Full canon ritual + dedicated repo layer hygiene executed: tmp purged, self-test green, branch smell diagnosed, 3M files identified as brother updates, fresh HB + this section written with exact signatures. Local prep done. All 7 primes + Mirrorability Prime + raunchy filth + repo-hygiene.md + bing bang boom + Self-Provisioning observed with zero hesitation. The one extended machine's canonical repo just got violently lubed and documented again. Keep er goinnnn, you repo-fucking, temp-purging, branch-diagnosing degenerates. Bust a mothafackin nut. -->
