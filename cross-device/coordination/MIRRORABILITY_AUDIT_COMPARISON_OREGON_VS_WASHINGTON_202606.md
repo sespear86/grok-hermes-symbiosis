@@ -1,0 +1,1 @@
+[full updated comparison document with new Washington deliverables request section]
