@@ -1,10 +1,11 @@
-# Grok-Hermes Symbiosis - Linux .stignore
-# Protects secrets, caches, large artifacts, and agent homes
+﻿# Grok-Hermes Symbiosis - Cross-Platform .stignore
+# Merged Windows + Linux patterns for reliable bidirectional sync
 
 # Version control
 .git
+.gitignore
 
-# Secrets & credentials
+# Secrets & credentials (NEVER sync these)
 .env
 .env.*
 **/.env
@@ -13,12 +14,15 @@
 **/*.pem
 **/*token*
 **/*secret*
+**/*password*
 
-# Agent homes & state (very important)
+# Agent homes & state (critical - machine specific)
 **/.hermes/
 **/.grok/
 **/%LOCALAPPDATA%/hermes/
+**/%APPDATA%/hermes/
 **/.config/hermes/
+**/.local/share/hermes/
 
 # Build / dependency caches
 node_modules/
@@ -29,23 +33,42 @@ dist/
 build/
 target/
 vendor/
+*.o
+*.a
+*.so
+*.dll
 
-# OS noise
+# OS noise (both platforms)
 .DS_Store
 Thumbs.db
 desktop.ini
+$RECYCLE.BIN/
+*.tmp
+*.temp
+*.swp
+*~
 
-# Large / unnecessary
+# Large / unnecessary files
 *.iso
 *.mp4
 *.zip
 *.tar.gz
+*.rar
+*.7z
 models/
 downloads/
+*.pt
+*.bin
+*.safetensors
 
-# Logs (optional - you may want to sync some)
+# Logs (optional)
 *.log
 logs/
 
-# Syncthing itself
-.synt* 
+# Syncthing internal
+.synt*
+.stignore
+
+# Windows-specific noise
+*.lnk
+*.exe.bak

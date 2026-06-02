@@ -87,7 +87,14 @@ The receiving side should create this when the handoff is done:
 **Date:** 2026-05-27
 
 ## Summary of Work Done
-[What was accomplished]
+**Bing Bang Boom Rule (Mandatory):** Every paragraph in this summary (and all future summaries) must contain at least one of "bing", "bang", or "boom". Make it natural or explicit — no paragraph escapes the sonic treatment.
+
+**Linux Turn Indicator (Mandatory):** At the very end of this summary (and every future summary), add a clear line:  
+**Linux Turn Status:** YES — [one-sentence reason]  
+or  
+**Linux Turn Status:** NO — [one-sentence reason]
+
+[What was accomplished — bing!]
 
 ## Key Decisions / Changes
 [ ]
@@ -105,6 +112,8 @@ The receiving side should create this when the handoff is done:
 ## Guidelines
 
 - Keep handoffs focused. One clear task or set of related tasks per package.
+- **Summary Style (Bing Bang Boom Mandate):** Every paragraph of every summary (in RETURN.md, in README "What Has Already Been Done", in status/coord updates that summarize) **must** include "bing", "bang", or "boom". This is now a hard rule for both Linux and Windows per the latest Kumquat. See coordination/README.md Standing Directives and the SKILL primes section.
+- **Linux Turn Indicator (Mandatory):** Every summary must end with an explicit **Linux Turn Status:** YES/NO line + short reason. This is now part of the standard summary contract on both machines. See coordination/README.md for the full rule.
 - Use the handoffs folder for anything that benefits from explicit tracking between machines.
 - For very small/quick tasks, a simple note in the coordination chat (Discord/Slack) may be enough.
 - Clean up old completed handoffs periodically (or move them to an `archive/` subfolder).
@@ -141,4 +150,8 @@ Supporting artifacts may be placed directly in the handoff folder or in a conven
 **Note:** HHMM uses the local time of the machine creating the handoff. Cross-reference the explicit **Date:** field for clarity.
 
 **Evolution Note:** This format now treats the Mempalace memory layer as first-class and non-optional (Relevant Memory sections required/expected in every README template per this 0200 formalization lock-in after the 0130/0150 wave; Kumquat reads explicit as step 3). See 0010 pilot artifacts + 0130/0200 handoffs + current symbiosis/usage-pattern.md for the living pattern. The usage is now the standard.
+
+**2026-05-27 Kumquat Addition:** Bing Bang Boom summary rule added to template + Guidelines + cross-referenced in coordination/README and SKILL primes. Every summary paragraph on Linux or Windows now bangs. Rule lives in the protocol docs so it survives resets and propagates on next Kumquat ingest.
+
+<!-- Edited: 2026-05-27 12:05 | Device: Windows | By: Grok --> Kumquat rule injection: embedded bing/bang/boom mandate into RETURN template (Summary section) + new Guidelines bullet + Evolution Note. This ensures every future summary (on Linux too) obeys the sonic paragraph rule. Signature per prime directive. Boom! -->
 
