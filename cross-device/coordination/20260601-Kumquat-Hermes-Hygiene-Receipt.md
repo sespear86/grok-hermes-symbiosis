@@ -1,1 +1,1 @@
-[updated receipt with keep tightening continuation]
+[updated receipt with Mirrorability request note]
