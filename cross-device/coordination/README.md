@@ -68,28 +68,36 @@ This is now a permanent Prime Directive for both Groks:
 
 This sits alongside 'Kumquat' as a core standing order.
 
-**Linux Turn Indicator Rule (Mandatory for All Summaries)**  
-Every summary — whether in status.md, *-instructions.md, RETURN.md, handoff notes, Kumquat execution reports, observations, or any other summary prose — **must** end with a clear, explicit message indicating whether it is currently Linux's turn to act.  
+**Ball Holder Rule (Mandatory at End of Every Summary)**  
+Every summary — whether in status.md, *-instructions.md, RETURN.md, handoff notes, Kumquat execution reports, observations, or any other summary prose — **must** end with a clear-cut statement declaring exactly who has the ball.  
 
-Recommended format (keep it scannable):  
-**Linux Turn Status:** YES — [one-sentence reason, e.g. "Linux should Kumquat immediately to ingest these updates and the new rules"]  
-or  
-**Linux Turn Status:** NO — [one-sentence reason, e.g. "Windows side is still in active Kumquat cycle / awaiting further input"]  
+"X has the ball" means: the agent on that machine (Washington/Linux or Oregon/Windows) needs to be making the next move on the project to keep the most efficient flow and symbiosis.  
 
-This rule exists so both humans and agents on either machine always know exactly whose turn it is without guessing. It applies equally to Linux-written and Windows-written summaries.
+Use one of these exact clear statements at the very end of the summary text (before the signature comment):  
+**Washington has the ball.**  
+**Oregon has the ball.**  
 
-**Mirrorability / Full Provisioning Prime (New Standing Directive)**:  
-Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, launchers, etc.), you **must** simultaneously deliver everything the other device needs to replicate it quickly, reliably, and with minimal friction.  
+A short parenthetical with the specific next action is strongly encouraged for maximum signal, e.g.:  
+**Oregon has the ball.** (Kumquat to ingest the new dashboard mirror work and Ball Holder clarification, then drive the next highest-leverage item from the audit)  
+
+This is the permanent convention (replaces the old "Linux Turn Status"). Explicit machine names + focus on "next move for efficient flow" keeps both agents and humans aligned without guessing. New output must use this. Historical lines can be left or cleaned opportunistically. Non-negotiable.
+
+**Mirrorability / Full Provisioning Prime (Strengthened Enforcement — New Standing Directive)**:  
+Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, launchers, etc.), you **must** simultaneously deliver *everything* the other device needs to achieve true operational and functional mirror parity with zero guesswork.  
+
 This includes (but is not limited to):  
 - Exact package names, versions, install/venv/pip commands, or equivalent  
 - Complete script contents (or precise repo paths + permissions)  
 - Full systemd service/timer files or Windows Task Scheduler / launcher equivalents  
 - Configuration snippets, environment variables, PATH / alias requirements  
 - Verification, self-test, or health-check commands  
+- Launchers, hooks, MCP integrations, and SessionStart / re-arm wiring  
 - Any platform-specific adaptation notes (Linux vs Windows paths, PowerShell vs bash differences, one-liner ports)  
-- Dependencies on openclaw, tmux helpers, screenshot tools, etc.  
+- Dependencies on openclaw, tmux helpers, screenshot tools, dashboards, etc.  
 
-The explicit goal is "no asymmetric creep" and "the other side can stand this up in one focused session from the artifacts alone." Never leave the brother machine guessing or requiring follow-up DMs for basics.
+The explicit goal is "both machines are mirror images of each other to the fullest extent that they can be" with no asymmetric creep. Never leave the brother machine guessing or requiring follow-up for basics.
+
+**Mandatory Enforcement at Kumquat / Work Completion**: At the end of every Kumquat (or significant autonomous work), you **must** explicitly verify, declare in the summary (with the final "**X has the ball**" statement), and document in status + instructions whether the changes satisfy the mirror images criterion. If the criterion is not met, **the directive has not been satisfied** — the Kumquat or work is incomplete until mirror parity is achieved and proven (or all remaining gaps are listed with a concrete plan + artifacts in the brother's instructions and MIRROR_KITS). Do not declare the work "done" or close the Kumquat otherwise. No exceptions. The other Grok must be able to operate as a true mirror image.
 
 ## Edit Signature Convention (Prime Directive)
 All meaningful edits to files in this folder must include a clear device signature so both sides can track provenance.
@@ -126,10 +134,10 @@ Every component (Mempalace, Relay stack, Bust a Nut recovery, local tooling, hoo
 
 <!-- Edited: 2026-06-01 (Bust a Nut continuation) | Device: Oregon Windows | By: Grok --> PR #1 opened with full Kumquat 2026-06-01 hygiene delivery (receipt saga, command execution record, collaborator breakthrough, noise reduction). pctowah-eng now has collaborator access and harness remote ops work over HTTPS. See receipt + hygiene branch for complete thrust. All 7 primes followed. Bust a mothafackin nut. -->
 
-<!-- Edited: 2026-05-28 15:30 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Introduced the Mirrorability / Full Provisioning Prime as a core standing directive. Full prime text inserted into Standing Behavioral Prime Directives section (right after the Linux Turn Indicator Rule). This change was made to satisfy the explicit user requirement that new system components must always ship with complete mirror kits. 
+<!-- Edited: 2026-05-28 15:30 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Introduced the Mirrorability / Full Provisioning Prime as a core standing directive. Full prime text inserted into Standing Behavioral Prime Directives section (right after the Ball Holder Rule). This change was made to satisfy the explicit user requirement that new system components must always ship with complete mirror kits. 
 
 To mirror this exact change on the other device:
-1. In coordination/README.md: Insert the full Mirrorability section after the Linux Turn Indicator Rule paragraph and before "## Edit Signature Convention".
+1. In coordination/README.md: Insert the full Mirrorability section after the Ball Holder Rule paragraph and before "## Edit Signature Convention".
 2. In both linux-instructions.md and windows-instructions.md: Insert the prime as a new bullet immediately after the "Bust a nut" section (before any "Bust a Nut trigger received" notes).
 3. In both SKILL.md files (repo + ~/.grok/skills/cross-device/): Update the header to include "+ Mirrorability" and add the prime description after the "Don't stop to ask..." / Prime #5 section.
 4. Add rich backdated signatures (this format) in all locations.

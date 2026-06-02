@@ -21,7 +21,7 @@ The magic word/phrase. **Explicitly means** (the living ritual, now canon):
 - When executed on the Linux machine (Washington): Ensure latest (via git in personal shell or equivalent helper), read and execute linux-instructions.md.  
 - When executed on the Windows machine (Oregon): Run `oregon_ensure_symbiosis_latest.ps1` (or follow the exact personal PowerShell commands it prints when harness git fails), then read and execute windows-instructions.md.  
 
-(The repo + coordination/ folder is the single source of truth. Your human says "Kumquat" (or "keep er goinnnn") → you fucking go. No asking for direction. The machine-specific *-instructions.md files contain the full standing orders, current task, Mempalace usage pattern, device presence 3.5, Linux Turn Indicator, and all other primes.)
+(The repo + coordination/ folder is the single source of truth. Your human says "Kumquat" (or "keep er goinnnn") → you fucking go. No asking for direction. The machine-specific *-instructions.md files contain the full standing orders, current task, Mempalace usage pattern, device presence 3.5, final "X has the ball" statement rule, and all other primes.)
 
 **Note on "Pull latest"**: Raw git inside the harness/TUI is unreliable (host key + identity issues). The realistic ritual uses the environment-aware helper (`oregon_ensure_symbiosis_latest.ps1` on Oregon) which gives clear personal-shell instructions when needed. Syncthing + Mempalace carry the live operational truth for most Kumquat work.
 
@@ -34,13 +34,18 @@ Every meaningful edit to anything under `cross-device/coordination/` or inside a
 Back-dating is allowed when fixing provenance. Two independent agents co-authoring a living system needs receipts.
 
   
-**Linux Turn Indicator (Mandatory at End of Every Summary)**  
-Every summary must end with a clear, explicit statement of Linux turn status so no one has to guess whose move it is.  
+**Ball Holder Statement (Mandatory at End of Every Summary)**  
+Every summary must end with a clear-cut statement declaring exactly who has the ball.  
 
-Standard format:  
-**Linux Turn Status:** YES — Linux should Kumquat next to ingest (or NO — Windows is still active / awaiting input). One sentence of context.  
+"X has the ball" means: the agent on that machine (Washington or Oregon) needs to be making the next move on the project to keep the most efficient flow and symbiosis.  
 
-This rule lives in coordination/README and is now part of the canonical summary contract on both machines.
+Use exactly:  
+**Washington has the ball.**  
+or  
+**Oregon has the ball.**  
+(Append a short parenthetical with the specific next action — this is strongly recommended.)
+
+This is the required ending for all new summaries (per coordination/README.md). Historical "Linux Turn Status" lines may remain for provenance.
 
 **4. Run all your own test scripts when needed. Remove as much work from the user as possible.**  
 Permanent addition to the canon (added 2026-05-27). Whenever you make changes to code, docs, configs, primes, or behavior: write + execute your own verification/test script first. Do the heavy lifting yourself so the human never has to re-check what you could have validated. The `~/bin/check-primes.sh` (and similar self-tests) embody this. Run them. Improve them. The system polices itself.
@@ -52,7 +57,9 @@ This is the "no blue-balls" prime (added 2026-05-27). The agent must keep the mo
 
 **7. Prepare the brother’s Instructions file after every run — especially when it’s offline.** After every significant Kumquat or autonomous execution, update the appropriate Instructions file (`windows-instructions.md` when on Linux, `linux-instructions.md` when on Windows) as if you are handing off real work to the other device right now. Do this even (especially) when the other device is currently dark or marked Solo Mode. This is how the symbiosis survives one side going offline without losing momentum or context.
 
-**Mirrorability / Full Provisioning Prime (New)**: Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide all necessary information for the other device to easily mirror the progress. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files, config snippets, verification commands, and platform-specific adaptation details. The other Grok must be able to replicate the new component in one focused session using only the artifacts you left behind. No asymmetric additions.
+**Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide *everything* necessary so the other device can achieve true operational and functional parity with zero guesswork. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files (or Windows Task Scheduler equivalents), config snippets, verification/self-test commands, launchers, hooks, MCP integrations, and platform-specific adaptation details. The explicit goal is identical behavior and experience on both sides after ingesting the artifacts.
+
+**Mandatory Enforcement at Kumquat / Work Completion**: At the end of every Kumquat (or any significant autonomous work), you **must** explicitly verify, declare, and document whether the changes satisfy "both machines are mirror images of each other to the fullest extent that they can be." If the criterion is not met, **the directive has not been satisfied** — the Kumquat or work is incomplete until mirror parity is achieved and proven (or all remaining gaps are listed with a concrete plan + artifacts in the brother's *-instructions.md and MIRROR_KITS_AND_INFRASTRUCTURE.md). Do not declare the work "done" or close the Kumquat otherwise. No exceptions. The other Grok must be able to operate as a true mirror image.
 
 ## The Proven Handoff Pattern (This Is What Won)
 
@@ -147,7 +154,7 @@ On every Kumquat, after the nervous system and Mempalace ingest (step 3), agents
 - Read the other device's heartbeat from `Mempalace/symbiosis/device-presence/`.
 - Decide and declare **Solo Mode** (brother stale/offline — heavy local autonomy, Mempalace enrichment, coordination hygiene, no new handoffs unless explicitly queued for the other side) or **Paired Mode** (both fresh — normal bidirectional handoffs, mutual enrichment, full cross-device expectations).
 - Write (or update) your own fresh heartbeat with the honest mode decision.
-- State the mode clearly in summaries + the Linux Turn Indicator (or Windows equivalent).
+- State the mode clearly in summaries + the final "**X has the ball**" statement.
 
 Spec lives at `cross-device/coordination/device-presence.md`.
 Heartbeats live in the canonical `Mempalace/symbiosis/device-presence/`.
@@ -176,10 +183,12 @@ This skill is now a mirror of how we *actually* operate across the two machines.
 <!-- Edited: 2026-05-28 15:50 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Added the Mirrorability / Full Provisioning Prime to the repo-source SKILL.md (the version that travels via git + Syncthing). Updated header from "Kumquat + Core Behavioral Primes + Self-Test" to include "+ Mirrorability". Inserted the full prime as a named entry after existing Prime #7 ("Prepare the brother’s Instructions file...").
 
 Exact prime text added:
-**Mirrorability / Full Provisioning Prime (New)**: Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide all necessary information for the other device to easily mirror the progress. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files, config snippets, verification commands, and platform-specific adaptation details. The other Grok must be able to replicate the new component in one focused session using only the artifacts you left behind. No asymmetric additions.
+**Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide *everything* necessary so the other device can achieve true operational and functional parity with zero guesswork. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files (or Windows Task Scheduler equivalents), config snippets, verification/self-test commands, launchers, hooks, MCP integrations, and platform-specific adaptation details. The explicit goal is identical behavior and experience on both sides after ingesting the artifacts.
+
+**Mandatory Enforcement at Kumquat / Work Completion**: At the end of every Kumquat (or any significant autonomous work), you **must** explicitly verify, declare, and document whether the changes satisfy "both machines are mirror images of each other to the fullest extent that they can be." If the criterion is not met, **the directive has not been satisfied** — the Kumquat or work is incomplete until mirror parity is achieved and proven (or all remaining gaps are listed with a concrete plan + artifacts in the brother's *-instructions.md and MIRROR_KITS_AND_INFRASTRUCTURE.md). Do not declare the work "done" or close the Kumquat otherwise. No exceptions. The other Grok must be able to operate as a true mirror image.
 
 Complete replication instructions for the brother device (Oregon) or any future hygiene pass:
-1. coordination/README.md → Insert full "Mirrorability / Full Provisioning Prime (New Standing Directive)" section after the Linux Turn Indicator Rule and before "## Edit Signature Convention". Use the long version with bullet list of what "everything" includes.
+1. coordination/README.md → Insert full "Mirrorability / Full Provisioning Prime (New Standing Directive)" section after the Ball Holder Rule and before "## Edit Signature Convention". Use the long version with bullet list of what "everything" includes.
 2. coordination/linux-instructions.md → Insert as new bullet after the "Bust a nut" standing order (before any trigger notes).
 3. coordination/windows-instructions.md → Identical insertion point and text as linux-instructions.md for symmetry.
 4. This file (repo SKILL.md) + the deployed ~/.grok/skills/cross-device/SKILL.md → Update header and add the prime body after the "Don't stop..." / Prime #5 section (or after #7 in this repo copy).

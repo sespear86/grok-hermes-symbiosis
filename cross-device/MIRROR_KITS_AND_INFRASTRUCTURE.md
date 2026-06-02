@@ -107,6 +107,59 @@ mempalace search "symbiosis" --limit 5
 
 ---
 
+## 1.5 Dashboards (Multi-Device + Bust-a-Nut Live Monitors) — 2026-05-31 Washington Bust a Nut addition
+
+**Purpose:** Live web UIs for observing the entire symbiosis state without digging through logs or running health scripts manually. Master multi-device view + focused Bust-a-Nut autonomy monitor. Integrated into SessionStart so the browser pops open with diagnostics on every new Grok Build session while Bust a Nut intent is active.
+
+### Washington State (as delivered)
+- `symbiosis-relay/tools/multi-device-dashboard/` (server.py + frontend, live polling of presence, health, tasks, beacons, intent).
+- `bust-a-nut-dashboard/` (focused on intent, re-arms, fast HB, idle monitor events).
+- `start-dashboard.sh` (fire-and-forget launcher, nohup style, opens browser).
+- Hardened to be safe as first action in SessionStart hooks.
+- Enhanced server with Markdown heartbeat parser for both sides' .md heartbeats.
+- Hook wiring example in this doc (see below).
+
+### Exact Mirror Instructions (Oregon / Windows)
+
+The core Python server + frontend should travel via the rich Syncthing share under `symbiosis-relay/tools/multi-device-dashboard/`.
+
+**Step 1: Ensure the code is present**
+- After Washington pushes / Syncthing syncs, `C:\Synced\grok-mempalace-integration\symbiosis-relay\tools\multi-device-dashboard\` should contain server.py, static/ or templates/, etc.
+- If not present yet, the `start-dashboard.ps1` below has a useful self-contained fallback that renders current Oregon health + persistence + beacons into a browser page (no external server needed).
+
+**Step 2: The Oregon launcher (already created)**
+- `C:\Synced\grok-mempalace-integration\symbiosis-relay\tools\multi-device-dashboard\start-dashboard.ps1`
+- It prefers the real server.py if present (launches hidden, opens http://127.0.0.1:8787).
+- Otherwise falls back to generating + opening a rich local HTML using oregon_relay_health.ps1 + Get-OregonBustANutPersistenceStatus.ps1 + presence json/md.
+- Run manually or from hooks.
+
+**Step 3: Wire into .grok/hooks (SessionStart)**
+Add (or merge) into your active SessionStart hook (e.g. relay-bust-a-nut-sessionstart.json or a combined one):
+
+```json
+{
+  "type": "command",
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Synced\\grok-mempalace-integration\\symbiosis-relay\\tools\\multi-device-dashboard\\start-dashboard.ps1\"",
+  "timeout": 15
+}
+```
+
+Put it early (first or near first) so the browser is up before other work, matching Washington's "first action in Grok Build SessionStart" pattern. Use nohup-equivalent (the .ps1 already launches the server detached when possible).
+
+**Step 4: Bust-a-Nut specific (if separate bust-a-nut-dashboard arrives)**
+- Similar launcher pattern.
+- Only auto-open the focused one when intent marker is present (the multi one can always be available).
+- Oregon equivalent: call from oregon_bust_a_nut_sessionstart.ps1 or the enforcer when intent is detected.
+
+**Verification:**
+- Run the .ps1 → browser opens with useful data.
+- With full server: `http://localhost:8787` shows aggregated view (when brother data is also visible via shared device-presence/ or health).
+- In a Bust a Nut session: SessionStart should surface the dashboard(s) automatically.
+
+**Update this doc + hooks + oregon_* scripts when the real UI code lands from Washington.**
+
+---
+
 ## 2. Symbiosis Relay Stack (The Central Listening Post)
 
 ### Major Components
@@ -411,6 +464,8 @@ systemctl --user status washington-activator.service
   "hooks": {
     "SessionStart": [ { "hooks": [
       { "type": "command", "command": "~/Synced/grok-mempalace-integration/symbiosis-relay/tools/multi-device-dashboard/start-dashboard.sh", "timeout": 10 },
+      # Oregon equivalent (add to your SessionStart hook json):
+      # { "type": "command", "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Synced\\grok-mempalace-integration\\symbiosis-relay\\tools\\multi-device-dashboard\\start-dashboard.ps1\"", "timeout": 15 },
       { "type": "command", "command": "~/bin/ensure-syncthing", "timeout": 15 },
       { "type": "command", "command": "source ~/grokforge-palaces/mempalace-venv/bin/activate && ~/bin/mempalace-project-inject", "timeout": 30 },
       { "type": "command", "command": "~/bin/mempalace-project-verify 2>/dev/null | grep -E 'sub-palace|Status|captures' | head -6 || echo 'Mempalace health verifier: quiet or not initialized yet'", "timeout": 20 },
