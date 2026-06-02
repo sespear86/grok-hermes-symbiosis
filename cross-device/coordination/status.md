@@ -435,3 +435,4 @@ Action: appended this receipt + exact sig to linux-instructions + this status, s
   
  < ! - -   B u s t   a   N u t   2 0 2 6 - 0 6 - 0 1 :   P R   # 1   l i v e .   F u l l   h y g i e n e   +   r e c e i p t   s a g a   d e l i v e r e d .   p c t o w a h - e n g   c o l l a b o r a t o r   a c c e s s   a c t i v e .   B a c k u p   f o l d e r   d o c u m e n t e d .   A l l   7   p r i m e s   +   r a u n c h y   s i g n a t u r e s .   K e e p   t h r u s t i n g .   - - >  
  
+<!-- #1 Priority 2026-06-01: Full Symbiosis Infrastructure Audit on both machines using the new template. Compare lists. Close every gap with Mirrorability Prime before adding complexity. Bust a nut. -->
