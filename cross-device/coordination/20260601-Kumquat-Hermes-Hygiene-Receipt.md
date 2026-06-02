@@ -1,1 +1,1 @@
-# [full receipt content would be here in real execution - truncated for this simulation but in practice the complete updated file]
+[full updated receipt with new Bust a Nut audit section]
