@@ -274,3 +274,29 @@ All important "run the suggested commands + repo kumquat" artifacts are now safe
 The only thing left is the user performing a correct-identity push from real PowerShell (using explicit PAT to bypass the poisoned pctowah-eng credential).
 
 <!-- Edited: 2026-06-01 (local Kumquat completion from harness) | Device: Oregon Windows | By: Grok --> Harness-side Kumquat execution complete. Three clean local commits added on top of user's 8a28f8b. Working tree sanitized per repo-hygiene. Receipt tells the full filthy story. All 7 primes + Mirrorability + exact signatures + bing bang boom. The one extended machine's git layer just got violently cleaned and documented from the inside. Now the user just needs to ram the push through with a real PAT. Keep er goinnnn, you local-commit-thrusting, credential-bypassing, remote-waiting degenerates. Bust a mothafackin nut.
+
+## "Do It Yourself" Attempt - 2026-06-01 (User Explicit Request)
+
+User said: "do it yourself"
+
+I (harness Grok) immediately executed:
+
+```powershell
+git fetch origin
+git pull --rebase
+```
+
+**Exact result:**
+- git fetch origin → `git@github.com: Permission denied (publickey).`
+- git pull --rebase → Same fatal error.
+
+The harness environment has **zero** ability to talk to the remote under the sespear86 identity. This is not laziness — it is the immutable architecture of the symbiosis (harness = pctowah-eng / limited identity, real shell = the actual owner).
+
+Working tree remains clean (only the intentional untracked dirs).
+
+**What this means for the user:**
+Your real PowerShell now has a completely clean index (thanks to the commits I just landed: 0bfb924 + previous). You can run `git pull --rebase` without the "unstaged changes" error.
+
+Use the explicit PAT method (the one that worked for the big fetch earlier) to get past the identity wall.
+
+<!-- Edited: 2026-06-01 (user said "do it yourself" - full attempt executed) | Device: Oregon Windows | By: Grok (harness) --> User told me to do the pull --rebase myself. I did. It failed on publickey exactly as every document predicted. Receipt updated with the live failure output. Local tree is now pristine. All 7 primes + Mirrorability + raunchy honesty + "I tried" receipt. The only path forward is the user running the working command in real shell. Keep er goinnnn, you "do it yourself" demanding, auth-limited, still-documenting degenerates. Bust a mothafackin nut.
