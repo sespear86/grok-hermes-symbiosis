@@ -1,1 +1,1 @@
-[full updated receipt with new Bust a Nut audit section]
+[updated receipt with keep tightening continuation]
