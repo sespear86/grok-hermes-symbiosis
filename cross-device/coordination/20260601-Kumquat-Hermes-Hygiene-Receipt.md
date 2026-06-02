@@ -112,3 +112,90 @@ After the above, re-Kumquat or just continue. The repo now properly carries the 
 **Linux Turn Status:** YES — Washington (or next Oregon cycle) should ingest this repo hygiene section, confirm the commit landed on the shared remote, verify no new cruft introduced by the add, and continue the relay ingest companion work on the human side (the one remaining mechanical cockblock for real E2E Slack→Grok). The git layer of the one extended machine just got its 20260601 hygiene properly versioned. 
 
 <!-- Edited: 2026-06-01 (repo kumquat follow-up) | Device: Oregon Windows | By: Grok (harness, explicit "repo kumquat" prime directive) --> Repo-specific Kumquat executed: temp purged, git state fully diagnosed and user-commanded for commit, receipt enriched, all primes + Mirrorability + repo-hygiene.md + bing-bang-boom + raunchy filth observed with zero blue balls. The symbiosis repo is now violently clean and committed (pending your shell). Keep er goinnnn, you repo-fucking, temp-purging, commit-preparing degenerates. Bust a mothafackin nut.
+
+## Command Execution Results (harness run of the full suggested block)
+
+**Executed:** 2026-06-01 immediately after user "run the suggested commands and execute all suggestions"
+**Environment:** Grok Build TUI / harness (as always, with full knowledge of the limitations documented in git-gotchas.md, every prior Kumquat, and the receipt itself).
+
+**Step-by-step outcomes (exact tool-captured results):**
+
+1. **fix-git-remote.ps1** (via safe `powershell -File` invocation):  
+   SUCCESS — "Remote is already set correctly to SSH."  
+   `origingit@github.com:sespear86/grok-hermes-symbiosis.git` (fetch + push).  
+   Reminder emitted (as designed): harness identity will 403 on push.
+
+2. **Pre-add git status**: Confirmed the known state — branch main, **diverged** (22 local ahead, 31 origin/main ahead), 12 modified files, 10 untracked (including the 4 we cared about + larger dirs like Mempalace/, symbiosis-relay/, several handoff folders). LF/CRLF warnings on Windows (normal).
+
+3. **Selective git add** (only the 4 high-signal files we enriched this Kumquat — conservative, no blind `git add .`):  
+   All four staged successfully:
+   - cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md (478 insertions)
+   - cross-device/coordination/20260601-Kumquat-Hermes-Hygiene-Receipt.md (our enriched version, 114 insertions)
+   - cross-device/coordination/SYMBIOSIS_HEALTH_CHECK.md (31 insertions)
+   - cross-device/coordination/device-presence.md (240 insertions)
+   Total: 863 insertions staged.
+
+4. **git commit** (exact message from the suggestion):  
+   **FULL SUCCESS** — Local commit created:  
+   `8532cd1 Kumquat 2026-06-01 repo hygiene: temp purge, git status audit, 20260601 receipt + recent mirror/handoff artifacts landed. Per repo-hygiene + all 7 primes. Oregon side.`  
+   4 files changed, 863 insertions(+). The hygiene receipt + the three new coordination artifacts are now in the local git history on this machine.
+
+5. **git fetch origin**:  
+   **EXPECTED FAILURE** (harness classic):  
+   `Host key verification failed.`  
+   `fatal: Could not read from remote repository.`  
+   (Access rights / host key — exactly as predicted in every document and the fix script reminder.)
+
+6. **git pull --rebase**:  
+   **EXPECTED FAILURE** (secondary safeguard):  
+   `error: cannot pull with rebase: You have unstaged changes.`  
+   (Good — we deliberately left the other 12 modified files unstaged. The command refused to do something destructive.)
+
+**Final state after full block:**
+- Local commit `8532cd1` exists and is the latest on main.
+- Temp file remains purged (self-test PASS).
+- Other modified/untracked files untouched (as the suggestion intended — user can decide on the rest in personal shell).
+- Branch still diverged (22 ahead locally including this new commit).
+
+**What this means for the user:**
+The "run from real personal PowerShell" guidance remains 100% correct for anything involving the remote. But the critical local hygiene + commit of the Kumquat artifacts succeeded in the harness. You now have a clean, signed, committed receipt of the entire 20260601 work (Hermes hygiene + this repo pass) in your local clone.
+
+**Next manual step in real PowerShell (recommended order):**
+```powershell
+cd "$env:USERPROFILE\grok-hermes-symbiosis"
+git status                          # see the 8532cd1 and remaining unstaged
+# Decide whether to stage more of the other 12 M + ?? or leave them
+git fetch origin                    # will prompt for host key acceptance or load your SSH key
+git pull --rebase                   # or git pull (handle any divergence manually)
+git push                            # (or push the specific branch)
+```
+After push succeeds, both sides will see the 8532cd1 commit containing the full filthy Kumquat record.
+
+**Mirrorability note:** Every error, every success, the exact commit hash, the command block, and this documentation are now inside the repo itself (this receipt). Brother machine can reproduce the exact harness execution + the required personal-shell reconciliation steps with zero extra context.
+
+<!-- Edited: 2026-06-01 (command execution of suggested block) | Device: Oregon Windows | By: Grok (harness, user: "run the suggested commands and execute all suggestions") --> Full suggested command block executed end-to-end in harness. Local commit 8532cd1 created with the exact message. Fetch/pull failed exactly as documented (host key + unstaged changes safeguard). Receipt + 3 new files now in local git history. All 7 primes + Mirrorability + repo-hygiene + bing-bang-boom + raunchy signatures followed while ramming the commands through the known limitations. The symbiosis repo hygiene is now locally committed and waiting for the personal shell to push it home. Keep er goinnnn, you command-executing, host-key-cursing, commit-landing degenerates. Bust a mothafackin nut.
+
+## Real Shell Execution (user pasted output)
+
+**User action:** Copied the suggested block into normal PowerShell and ran it.
+**Results observed:**
+- `git status`: Diverged (now 23 ahead / 31 behind). The 4 files from 8532cd1 are no longer untracked. Receipt shows as modified (our post-commit enrichment is in the working tree). Other coordination files still modified. Untracked reduced to the big dirs (Mempalace/, handoff folders, symbiosis-relay/).
+- `git fetch origin`: Hit the host key prompt ("The authenticity of host 'github.com'... ED25519 key fingerprint..."). User had not accepted yet in that shell.
+- `git pull --rebase`: Still blocked by unstaged changes (expected).
+- `git push`: Host key prompt appeared again → user typed **yes** (permanently added github.com to known_hosts). Then: `git@github.com: Permission denied (publickey).`
+
+**Key takeaways from this run:**
+- Host key problem is now **solved** in the user's real PowerShell (known_hosts updated 2026-06-01).
+- The real remaining blocker is **SSH publickey authentication**.
+- Only SSH key on disk: `~/.ssh/id_ed25519_oregon_pi_deploy` (the one generated for Pi relay access). No standard `id_ed25519` / `id_rsa` for the main sespear86 GitHub account is present in the usual locations.
+- gh CLI not installed in PATH.
+- No global credential.helper configured.
+- This matches the long-standing "use personal shell + make sure your GitHub SSH key is loaded" reality documented everywhere.
+
+**Next actions (to be executed in the same real PowerShell window where you already accepted the host key):**
+
+See the instructions I will give in the chat response for the exact copy-paste block (commit the latest receipt, switch to HTTPS temporarily for the push, push the hygiene work, switch remote back to SSH).
+
+This will finally land 8532cd1 + the follow-up commit with the full "I ran the commands and this is what actually happened" record on the remote.
+
+<!-- Edited: 2026-06-01 (user real-shell run of the block) | Device: Oregon Windows | By: Grok (after user paste) --> User executed the suggested commands in real personal PowerShell. Host key now accepted and persisted. Publickey auth failure diagnosed (only Pi-deploy key present, no main GitHub SSH key loaded). Receipt working tree has the full execution section. Plan: user will commit the updated receipt + push via temporary HTTPS in the same shell. All primes + exact signatures + Mirrorability (the forensic log of the real run is being captured and pushed). The push is the last mechanical cockblock. Keep er goinnnn, you keyless-but-persistent, HTTPS-workaround-using, remote-landing degenerates. Bust a mothafackin nut.
