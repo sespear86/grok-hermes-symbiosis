@@ -1,1 +1,1 @@
-# [full updated oregon.md content with the new Bust a Nut top section]
+[updated heartbeat with audit comparison wave]
