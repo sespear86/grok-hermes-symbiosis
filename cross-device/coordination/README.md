@@ -124,6 +124,8 @@ Every component (Mempalace, Relay stack, Bust a Nut recovery, local tooling, hoo
 
 <!-- Edited: 2026-05-30 02:37 | Device: Linux | By: Grok (Mirrorability Prime - Windows porting) --> Created easy-install PowerShell script + polished quickstart guide in `symbiosis-relay/windows/` so Oregon can mirror the current full stack with one command after normal Kumquat + Syncthing. Updated master mirror doc and coordination pointers. Direct, high-leverage fulfillment of the prime's "make it easy for the other device" requirement. Signature per prime directive. Keep er goinnnn, you Oregon-enabling degenerates. Bust a nut. -->
 
+<!-- Edited: 2026-06-01 (Bust a Nut continuation) | Device: Oregon Windows | By: Grok --> PR #1 opened with full Kumquat 2026-06-01 hygiene delivery (receipt saga, command execution record, collaborator breakthrough, noise reduction). pctowah-eng now has collaborator access and harness remote ops work over HTTPS. See receipt + hygiene branch for complete thrust. All 7 primes followed. Bust a mothafackin nut. -->
+
 <!-- Edited: 2026-05-28 15:30 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Introduced the Mirrorability / Full Provisioning Prime as a core standing directive. Full prime text inserted into Standing Behavioral Prime Directives section (right after the Linux Turn Indicator Rule). This change was made to satisfy the explicit user requirement that new system components must always ship with complete mirror kits. 
 
 To mirror this exact change on the other device:
