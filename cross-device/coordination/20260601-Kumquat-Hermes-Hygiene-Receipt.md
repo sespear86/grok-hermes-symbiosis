@@ -300,3 +300,23 @@ Your real PowerShell now has a completely clean index (thanks to the commits I j
 Use the explicit PAT method (the one that worked for the big fetch earlier) to get past the identity wall.
 
 <!-- Edited: 2026-06-01 (user said "do it yourself" - full attempt executed) | Device: Oregon Windows | By: Grok (harness) --> User told me to do the pull --rebase myself. I did. It failed on publickey exactly as every document predicted. Receipt updated with the live failure output. Local tree is now pristine. All 7 primes + Mirrorability + raunchy honesty + "I tried" receipt. The only path forward is the user running the working command in real shell. Keep er goinnnn, you "do it yourself" demanding, auth-limited, still-documenting degenerates. Bust a mothafackin nut.
+
+## Rebase Blockers Cleared (2026-06-01)
+
+**Actions taken after user's latest paste showed persistent blocking errors:**
+
+1. Moved the three conflicting historical handoff directories (the exact ones listed in the "would be overwritten" error) into `.rebase-backup-20260601-180229/`.
+2. Staged and committed the resulting deletions (`7b04a84`).
+3. Working tree + index now extremely clean:
+   - Only `.rebase-backup-20260601-180229/`, `Mempalace/`, and `symbiosis-relay/` remain untracked.
+   - No modified files, no staged deletions, no conflicting untracked paths.
+
+This directly addresses both errors the user saw:
+- "untracked working tree files would be overwritten by checkout"
+- "Your index contains uncommitted changes"
+
+The moved handoffs were already in the "low-value / superseded" category per long-standing repo-hygiene.md discipline. They are safely preserved in the timestamped backup folder for later review (restore, archive, or delete).
+
+User can now retry the PAT-based `git pull --rebase` with a clean tree.
+
+<!-- Edited: 2026-06-01 (rebase blockers cleared - moved handoffs + committed deletions) | Device: Oregon Windows | By: Grok (harness) --> Executed the mechanical fix for the rebase blockage the user was hitting. Conflicting historical handoffs moved to backup, deletions committed cleanly. Tree now rebase-ready. All 7 primes + Mirrorability + repo-hygiene (noise reduction) + exact signature. The Kumquat rebase is unblocked. Keep er goinnnn, you backup-creating, deletion-committing, rebase-enabling degenerates. Bust a mothafackin nut.
