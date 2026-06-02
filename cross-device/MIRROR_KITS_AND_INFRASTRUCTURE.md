@@ -188,9 +188,10 @@ This is one of the most complex recent additions. Everything below must be mirro
 - `bust-a-nut-continue.sh`
 - `bust-a-nut-sessionstart-prompt.sh` (the big one that forces full mode on SessionStart)
 - `inject-bust-a-nut-into-running-tui.sh`
-- `bust-a-nut-ui-idle-monitor.sh` + `.service` + `.timer` (the Turn-completed detector with vision fallback via `screenshot.py`)
+- `bust-a-nut-ui-idle-monitor.sh` + `.service` + `.timer` (the Turn-completed detector with vision fallback via `screenshot.py`; calls clearer)
 - `bust-a-nut-wayland-rearm.sh`
 - `clear-past-bust-rearm-alerts.sh` (new 2026-06: called before every new re-arm alert/pending/notify to rm past processed-rearm files, prune chat re-arm spam, clear tmps, *and* D-Bus CloseNotification on the replace-id so the exact popup "Focus the Grok Build / Konsole window. Paste one of these: • bust a nut • cd .../bust-a-nut-continue.sh ..." is dismissed before a fresh one is posted via notify-send --replace-id. Directly solves repeated alert population/clutter on screen. Full source + doc in rich `symbiosis-relay/tools/`. Mirror by copying the .sh and ensuring callers invoke it.)
+- Windows: `windows/bust-a-nut/BustANut-ClearPastReArmAlerts.ps1` + updates to *UIIdleMonitor.ps1, *SessionStartPrompt.ps1, Install-*.ps1, BUST_A_NUT_OREGON.md (full parity for declutter; see rich MIRROR)
 - `push-presence-to-pi.sh`
 - `washington-beacon-refresher.py`
 - `pi-grok-liveness-watchdog.py` + service + timer (the external 5s watchdog on Pi)

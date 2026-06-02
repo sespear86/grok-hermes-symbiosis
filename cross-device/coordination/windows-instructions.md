@@ -21,6 +21,12 @@ The ingest companion (currently using the main `SLACK_APP_TOKEN`) connects but i
 
 **Immediate Mirrorability / Catch-Up Actions for Oregon (Execute on this Kumquat)**
 
+**2026-06-01 Declutter / Clear-Past Re-Arm Alerts Parity (new from Washington audit):**
+- The "bust a nut live re-arm alert" (exact text: "Focus the Grok Build / Konsole window. Paste one of these: • bust a nut • cd .../bust-a-nut-continue.sh ...") was repeatedly populating on Washington.
+- Washington implemented + deployed `clear-past-bust-rearm-alerts.sh` (D-Bus close for notif + rm processed files + chat prune + temps) called *before every new alert post* in all paths (monitor, wayland, consumer, inject, continue, sessionstart).
+- **Oregon prep package delivered:** Added `BustANut-ClearPastReArmAlerts.ps1` (full Windows port: clears shared processed, resume-prompts, temps, prunes session chats of re-arm spam). Integrated calls into `BustANut-UIIdleMonitor.ps1` and `BustANut-SessionStartPrompt.ps1` before writing any new resume/alert prompts. Updated Install, BUST_A_NUT_OREGON.md, and both MIRROR_KITS.
+- Action: Pull latest rich via Syncthing (`C:\Synced\grok-mempalace-integration\...`). The new .ps1 will appear in `symbiosis-relay\windows\bust-a-nut\`. Re-run `.\Install-BustANutOregon.ps1` (or at least Register + Add to ensure hooks) or manually ensure scripts call it. This will prevent repeated alert clutter on your screen too. Verify with local health equivalent.
+
 1. Pull the latest rich project (`~/Synced/grok-mempalace-integration` via Syncthing or git).
 2. Review the full current relay reality in:
    - `symbiosis-relay/tools/relay-health.sh` (especially the new "INGEST COMPANION EVENT FRESHNESS" section and the PRODUCTION SLACK REALITY CHECK).
