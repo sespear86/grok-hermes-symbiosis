@@ -1,1 +1,1 @@
-[updated heartbeat]
+[updated heartbeat with Mirrorability request]
