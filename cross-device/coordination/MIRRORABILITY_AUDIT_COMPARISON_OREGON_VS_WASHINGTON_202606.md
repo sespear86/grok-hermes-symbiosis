@@ -1,1 +1,1 @@
-[full updated comparison with new tightening section and persistence reality check]
+[updated comparison with tightening progress]
