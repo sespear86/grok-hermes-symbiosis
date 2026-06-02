@@ -69,16 +69,18 @@ This is now a permanent Prime Directive for both Groks:
 This sits alongside 'Kumquat' as a core standing order.
 
 **Ball Holder Rule (Mandatory at End of Every Summary)**  
-Every summary — whether in status.md, *-instructions.md, RETURN.md, handoff notes, Kumquat execution reports, observations, or any other summary prose — **must** end with a clear-cut statement declaring exactly which machine has the ball (i.e. whose turn it is to act next).  
+Every summary — whether in status.md, *-instructions.md, RETURN.md, handoff notes, Kumquat execution reports, observations, or any other summary prose — **must** end with a clear-cut statement declaring exactly who has the ball.  
+
+"X has the ball" means: the agent on that machine (Washington/Linux or Oregon/Windows) needs to be making the next move on the project to keep the most efficient flow and symbiosis.  
 
 Use one of these exact clear statements at the very end of the summary text (before the signature comment):  
 **Washington has the ball.**  
 **Oregon has the ball.**  
 
-Optional but recommended: append a short parenthetical reason for scannability, e.g.  
-**Oregon has the ball.** (human must create/push dedicated ingest token + run elevated persistence register)  
+A short parenthetical with the specific next action is strongly encouraged for maximum signal, e.g.:  
+**Oregon has the ball.** (Kumquat to ingest the new dashboard mirror work and Ball Holder clarification, then drive the next highest-leverage item from the audit)  
 
-This replaces the previous "Linux Turn Status" convention for new summaries. The explicit machine names (Washington = Linux side, Oregon = Windows side) make it unambiguous for both humans and agents. Update historical "Linux Turn Status" lines only when touching a file for other reasons; new output must use the ball statement. This rule is non-negotiable at the end of every summary.
+This is the permanent convention (replaces the old "Linux Turn Status"). Explicit machine names + focus on "next move for efficient flow" keeps both agents and humans aligned without guessing. New output must use this. Historical lines can be left or cleaned opportunistically. Non-negotiable.
 
 **Mirrorability / Full Provisioning Prime (Strengthened Enforcement — New Standing Directive)**:  
 Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, launchers, etc.), you **must** simultaneously deliver *everything* the other device needs to achieve true operational and functional mirror parity with zero guesswork.  

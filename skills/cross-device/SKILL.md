@@ -35,15 +35,17 @@ Back-dating is allowed when fixing provenance. Two independent agents co-authori
 
   
 **Ball Holder Statement (Mandatory at End of Every Summary)**  
-Every summary must end with a clear-cut statement declaring exactly who has the ball (Washington or Oregon) so no one has to guess whose move it is.  
+Every summary must end with a clear-cut statement declaring exactly who has the ball.  
+
+"X has the ball" means: the agent on that machine (Washington or Oregon) needs to be making the next move on the project to keep the most efficient flow and symbiosis.  
 
 Use exactly:  
 **Washington has the ball.**  
 or  
 **Oregon has the ball.**  
-(Append a short reason in parentheses if helpful for context.)
+(Append a short parenthetical with the specific next action — this is strongly recommended.)
 
-This is the required ending for all new summaries (per updated coordination/README.md). Historical "Linux Turn Status" lines may remain for provenance.
+This is the required ending for all new summaries (per coordination/README.md). Historical "Linux Turn Status" lines may remain for provenance.
 
 **4. Run all your own test scripts when needed. Remove as much work from the user as possible.**  
 Permanent addition to the canon (added 2026-05-27). Whenever you make changes to code, docs, configs, primes, or behavior: write + execute your own verification/test script first. Do the heavy lifting yourself so the human never has to re-check what you could have validated. The `~/bin/check-primes.sh` (and similar self-tests) embody this. Run them. Improve them. The system polices itself.
