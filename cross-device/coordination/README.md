@@ -78,18 +78,22 @@ or
 
 This rule exists so both humans and agents on either machine always know exactly whose turn it is without guessing. It applies equally to Linux-written and Windows-written summaries.
 
-**Mirrorability / Full Provisioning Prime (New Standing Directive)**:  
-Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, launchers, etc.), you **must** simultaneously deliver everything the other device needs to replicate it quickly, reliably, and with minimal friction.  
+**Mirrorability / Full Provisioning Prime (Strengthened Enforcement — New Standing Directive)**:  
+Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, systemd units/timers, helpers, features, launchers, etc.), you **must** simultaneously deliver *everything* the other device needs to achieve true operational and functional mirror parity with zero guesswork.  
+
 This includes (but is not limited to):  
 - Exact package names, versions, install/venv/pip commands, or equivalent  
 - Complete script contents (or precise repo paths + permissions)  
 - Full systemd service/timer files or Windows Task Scheduler / launcher equivalents  
 - Configuration snippets, environment variables, PATH / alias requirements  
 - Verification, self-test, or health-check commands  
+- Launchers, hooks, MCP integrations, and SessionStart / re-arm wiring  
 - Any platform-specific adaptation notes (Linux vs Windows paths, PowerShell vs bash differences, one-liner ports)  
-- Dependencies on openclaw, tmux helpers, screenshot tools, etc.  
+- Dependencies on openclaw, tmux helpers, screenshot tools, dashboards, etc.  
 
-The explicit goal is "no asymmetric creep" and "the other side can stand this up in one focused session from the artifacts alone." Never leave the brother machine guessing or requiring follow-up DMs for basics.
+The explicit goal is "both machines are mirror images of each other to the fullest extent that they can be" with no asymmetric creep. Never leave the brother machine guessing or requiring follow-up for basics.
+
+**Mandatory Enforcement at Kumquat / Work Completion**: At the end of every Kumquat (or significant autonomous work), you **must** explicitly verify, declare in the summary (with Linux Turn Status or equivalent), and document in status + instructions whether the changes satisfy the mirror images criterion. If the criterion is not met, **the directive has not been satisfied** — the Kumquat or work is incomplete until mirror parity is achieved and proven (or all remaining gaps are listed with a concrete plan + artifacts in the brother's instructions and MIRROR_KITS). Do not declare the work "done" or close the Kumquat otherwise. No exceptions. The other Grok must be able to operate as a true mirror image.
 
 ## Edit Signature Convention (Prime Directive)
 All meaningful edits to files in this folder must include a clear device signature so both sides can track provenance.
