@@ -1,0 +1,3 @@
+# Minimal for symbiosis-relay core (stdlib + optional test)
+# See pyproject.toml for full
+pytest>=7; extra == 'test'
