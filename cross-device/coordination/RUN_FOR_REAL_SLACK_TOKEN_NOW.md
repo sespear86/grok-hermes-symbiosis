@@ -8,11 +8,15 @@ This is the single human action that unlocks the first true production `real_sla
 From the rich symbiosis-relay directory (the one synced via Syncthing, e.g. on your daily driver or Washington):
 
 ```bash
-cd /path/to/Synced/grok-mempalace-integration/symbiosis-relay
+cd ~/Synced/grok-mempalace-integration/symbiosis-relay
 python tools/slack_operator.py create-ingest-companion
 ```
 
-(Or with the full path if needed: `python /home/Irikash/Synced/grok-mempalace-integration/symbiosis-relay/tools/slack_operator.py create-ingest-companion`)
+# Full explicit form (recommended for scripts or clarity):
+# cd /home/Irikash/Synced/grok-mempalace-integration/symbiosis-relay
+# python tools/slack_operator.py create-ingest-companion
+
+This is the canonical rich directory used by relay-health.sh (hardcoded SHARED), hooks, bin/ capture scripts, and apply-ingest-token.sh execution context.
 
 ## What It Does (Autonomous as Possible)
 - Nukes the operator state file so it does a *fresh* creation (avoids your main "Symbiosis Relay" app).
