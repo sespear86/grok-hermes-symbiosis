@@ -6,6 +6,10 @@
 
 **CURRENT OPERATIONAL FOCUS (user directive 2026-06-03):** Take Tier 1 priority **off** Bust-a-Nut autonomous re-arm/survival stack (it is sustained + hardened; monitor via relay-health, only targeted work on pain). Ruthlessly focus on **Real Slack production flow** — the biggest shared cockblock. The exact human action that unlocks it is running `cd ~/Synced/grok-mempalace-integration/symbiosis-relay && python tools/slack_operator.py create-ingest-companion` (canonical rich dir matching the SHARED= in relay-health.sh and ~/Synced references in hooks). See the full recipe + verification in the updated PROJECT_FINISH_LINE.md (CURRENT ACTIVE FOCUS + the 2026-06-03 signed entry at the end) and last_real_slack.md. Once the xapp- token is pushed (apply script does the Pi .env + restart), the next real human Slack in the 4 channels will be the first clean production real_slack with full metadata and routing. Update this file + status + Mempalace on the post-token Kumquat. Mirrorability: the operator/apply/manifest are already in kits. **Washington has the ball** for facilitating the human run.
 
+**Washington prep complete (19557e65 packaging):** Clean oregon-receiver/ kit + py generalization + handoff + docs updates delivered + pushed + rich cp (Install + launcher + Test- star mirroring receipts + extended Register/Get + install guide + deprecation + sigs + Ball Holder). Oregon does the Kumquat + Install elevated + Test- (must PASS receipts) + reboot-verify + update docs + RETURN on their next pull. See windows-instructions top standing order + MIRROR section 9 + handoff 20260603-.... **Oregon has the ball.**
+
+<!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> Brief note added (Washington prep complete, Oregon does X on Kumquat: Install/Test- from kit, verify vs receipts, update docs + RETURN + Ball Holder). Exact sig + primes + Mirrorability followed. Keep er goinnnn.
+
 **IMMUTABLE PRIMARY OPERATING MODEL (Mandatory for all plan execution on both devices):**
 
 1. Orchestrate and launch sub-agents on both devices to execute the plan.
@@ -485,3 +489,32 @@ Signature per prime directive. Keep er goinnnn, you kumquat-fucking, register-de
 Signature per prime directive. Keep er goinnnn, you repo-hygiene-ingesting, ball-receiving, human-action-cocking, persistence-kit-completing, no-blue-balls degenerates. Bust a mothafackin nut. -->
 
 
+
+**New Standing Capability (2026-06)**: Full autonomous project execution via the `autonomous` skill (`/autonomous <idea>` or grok -p ...). Use for any "idea to production ready nonstop" request. It chains research/design/execute-plan/check/prod-gate/Hermes handoff using the exact subagent-validate-repeat loop. After any use that touches shared infra or cross-device concerns, perform Mirrorability check + update the brother instructions + this file. See ~/.grok/skills/autonomous/SKILL.md + docs/PRODUCTION_CHECKLIST.md. Bust a nut until the gate says PASS.
+
+
+**Toolbox Addition (2026-06, autonomous 6370a6d6)**: New ~/.grok/toolbox/ (registry, protocol doc, vet/list scripts) created + integrated (existing tools organized from full catalog, 3 new vetted with full compromise research protocol including CVE detection for filesystem). Hook updated for health. Mempalace projects/grok-toolbox drawer(s) filed. Mirror: copy ~/.grok/toolbox + update hooks json + ensure bin/vitals parity; run vet-tool on any new; Kumquat hygiene + self-test (check-primes). See ~/.grok/toolbox/TOOLBOX.md + PRODUCTION_READY.md (PASS gate). Protocol now mandatory for all future tool onboarding.
+
+
+**df604e5f Toolbox Enhancements (Recommended Nexts)**: vet-tool now supports real --install (pip verified wheel sha, npm placeholder, docker cosign graceful); ensure-toolbox-vitals for boot stale re-vet; /toolbox skill added; 3 Docker MCPs (docker-docs PASS, fetch/playwright CAVEAT with wrappers + mitigations). Docker CLI absent here — for mirror/Oregon: install Docker Engine/Desktop + `docker mcp` plugin (per https://docs.docker.com/ai/mcp-catalog-and-toolkit/ ); then `docker mcp catalog ls`, pull verified images with --verify-signatures. Re-vet any new via /toolbox or vet-tool after install. Update this + hooks parity + ~/.grok/toolbox on Kumquat. Self-test: check-primes + list-tools + vet record. See ~/.grok/toolbox/TOOLBOX.md + wrappers.
+
+**REBOOT PREP (auton db7caad3, 2026-06-03)**: User exiting session, rebooting Grok Build TUI.
+- Hygiene: check-primes PASSED, mempalace-project-verify run (sub-palace init pending first mine), rich capture triggered, toolbox list/vet smoke (23 tools, skill present), beacons present.
+- Hooks: Confirmed vitals first, toolbox health (expanduser fixed), ensure-toolbox-vitals, mempalace inject/verify, bust-a-nut.
+- Toolbox/skill: Fully ready (registry, protocol, vet with install gate, wrappers for docker-mcp etc., /toolbox skill at ~/.grok/skills/toolbox/SKILL.md).
+- Captures: Rich session captured to mempalace/linux (grok-build-sessions wing). File final reboot summary there.
+- Mirror: Update this + windows-instructions with "after reboot: run ensure-vitals (will happen auto), Kumquat if cross-device work pending, check toolbox health, continue autonomous if needed via /toolbox or --resume".
+- On reboot: SessionStart will run vitals research+updates (Grok/Hermes/Mempalace/Syncthing/symbiosis), toolbox health, ensure-toolbox-vitals (stale re-vet), mempalace inject/verify, etc. Clean boot expected.
+- Next: After TUI up, test /toolbox, run mempalace mine if needed for sub-palace, presence beacon.
+- Signature: All primes, self-tests, protocol followed. No broken state.
+Linux Turn Status: YES — (reboot, then Kumquat or continue toolbox work if pending; keep thrusting).
+
+**auton-gate closeout (021dbe8d Phase 6 verifier PASS, 2026-06-03)**: First autonomous test project `auton-gate` (Python CLI mechanical gate for PRODUCTION_CHECKLIST.md) reached true VERDICT: PASS (mechanical MECHANICAL_PASS + full 12-section adjudication 52[x]/18[SKIP]/3 optional + security-auditor 0 crit/high + re-execs + self-dogfood). 
+- Artifacts: ~/auton-gate/GATE_REPORT.md (verifier 147-line), PRODUCTION_READY.md (updated), pushed to https://github.com/sespear86/auton-gate (commit 74d56ab); Mempalace projects/auton-gate drawer + kg fact (verdict PASS); state ~/.grok/auton-projects/021dbe8d.json.
+- Git hygiene: local commit (no force) + remote push done; reports gitignored.
+- Hermes: no active channels this session (kanban optional).
+- Cross-device/Kumquat: GH repo shared (mirror for code); local files via Syncthing presumed; Oregon beacon UNKNOWN (no presence); AGENTS.md + PROD_READY note mirror parity + Kumquat update. Prep note: after Kumquat, verify `auton-gate --version` + `auton-gate check . --auton-id 021dbe8d` on Oregon; update windows-instructions.md symmetrically; run mempalace sync if needed.
+- Resume: grok -p '/autonomous --resume 021dbe8d' (or hermes equivalent).
+- Mirrorability: GH push + Mempalace + this note + prior drawer for ee70444d = parity on shared; local dir ~/auton-gate should Kumquat/Syncthing to Oregon equiv path. Self-provisioned MCP create+push.
+- Next natural: use auton-gate on next autonomous; E-1/E-2 patches to SKILL.md if not auto; monitor first prod use via Hermes if connected.
+Signature per prime. Bust a nut. Washington has the ball (Kumquat hygiene done for this). Keep er goinnnn. bing/bang/boom.

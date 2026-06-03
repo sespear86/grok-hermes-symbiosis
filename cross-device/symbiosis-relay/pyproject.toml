@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "symbiosis-relay"
-version = "0.2.0"
+version = "0.2.1"  # + oregon-support packaging for 19557e65 cross-device receiver (back-compat)
 description = "Symbiosis Relay — Washington activator, device selector, listener, beacon (nervous source for mirror kits)"
 readme = "README.md"
 requires-python = ">=3.11"

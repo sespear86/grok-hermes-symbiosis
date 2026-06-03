@@ -3,7 +3,7 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
-**Last Updated:** 2026-06-03 (auton 19557e65 live test wave + receipts: hardened Washington activator_core confirmed in real runtime; service PATH self-provision; full Mirrorability cp of receipts + prior hardened py's). Post-PASS live fire (inject + --once x2 normal/bust + service poll after restart) exercised health interlock, atomic claim+ (failed/ on rc-fail, processed/ on bust success), enriched status+version, structured corr logs, bust live-inject success, hermes rc enforcement. New artifact: LIVE_TEST_19557e65_RECEIPTS.md (git + rich cp). No source py changes. Self-provision: ~/.config/systemd/user/washington-activator.service now carries explicit PATH (includes ~/.local/bin for hermes). Oregon mirror notes: when porting thin receiver + activator (oregon-activator-skeleton etc in windows/bust-a-nut/), replicate the unit PATH env or use full hermes path in core; test persistence Register-OregonBustANutPersistence at real logon + Get- parity post any activator port. All prior hardened (washington_activator.py thin, activator_core.py, task_schema.py, inject, device_selector export, relay_beacon dedupe) + pyproject + tests + docs + OPERATIONS + this receipts already in kits via 60773bd + cp. **Washington has the ball.** (Kumquat + push + lock Oregon notes.) Signature per prime. Bust a nut. Keep er goinnnn.
+**Last Updated:** 2026-06-03 (auton 19557e65 live test wave + receipts + **clean Oregon receiver packaging complete**): hardened WA activator_core live fire verified (health pre-claim, atomic, beacon flags, enriched status+version, corr JSON logs, rc enforcement + pending full + failed/ on non-0, bust live TUI rc=0 success). Receipts: LIVE_TEST_19557e65_RECEIPTS.md. Packaging: small back-compat SYMBIOSIS_DEVICE in py (default washington unchanged; oregon creates correct paths), new clean oregon-receiver/ kit (Install idempotent elevated + dirs + Register call + "Oregon-Symbiosis-Task-Receiver" scheduled logon+10s, thin launcher wrapper, Test- star that asserts exact receipts behaviors + prints PASS or fail), install guide, deprecation on old skeleton, Register/Get enhanced to cover receiver in family. Handoff 20260603-... per FORMAT (self-contained scripts + RETURN template). Docs updated (HANDOFF_LOG, MIRROR this, windows top standing order, linux brief, status). Git push + rich cp + Mempalace + check-primes/relay-health. All 7 primes + Mirrorability last + exact sigs + Ball Holder + self-prov. **Oregon has the ball.** (next Kumquat: pull, cd .../oregon-receiver, elevated Install, .\Test-OregonReceiver.ps1 (must PASS matching receipts), Get-, reboot + TUI test, fill RETURN + update docs with OR receipts + Ball Holder). Signature per prime. Bust a nut. Keep er goinnnn.
 **Written by:** Washington Grok  
 **Status:** Living — update on every significant addition or change.
 
@@ -360,6 +360,42 @@ cd C:\Synced\grok-mempalace-integration\symbiosis-relay\windows
 This is the concrete, Mirrorability-Prime-compliant way to bring the other device up to speed with minimal research or tribal knowledge.
 
 Signature per prime directive. Keep er goinnnn, you Oregon-enabling, one-extended-machine-building degenerates. Bust a nut.
+
+---
+
+## 9. 19557e65 Hardened Activator + Oregon Receiver Kit (2026-06-03 packaging wave — post live test receipts)
+
+**Washington delivered (git + rich cp):**
+- Small back-compat in py: SYMBIOSIS_DEVICE env (or --device on thin) default "washington". Builds COMMAND_INBOX=.../incoming/$device , STATUS_OUTBOX=.../status/$device , beacon $device-grok-*.json , machine field, logs. Comment "19557e65 + oregon-support for cross-device receiver". Linux test: default unchanged, oregon mode creates oregon/ paths + --health/--once work; py_compile + test_task_schema green. "Packaging change only, no behavior change for default washington".
+- New clean kit under windows/oregon-receiver/ (the mirror kit that syncs):
+  - Install-OregonSymbiosisReceiver.ps1 (idempotent elevated: ensures incoming\oregon\processed/failed/pending/status/oregon dirs, calls/extends Register, registers "Oregon-Symbiosis-Task-Receiver" scheduled task logon + repeat 10s hidden restart policy that sets SYMBIOSIS_SHARED + SYMBIOSIS_DEVICE=oregon , cd to relay, launches launcher loop. Prints exact post-install verif cmds).
+  - Oregon-Symbiosis-Receiver.ps1 (thin launcher: sets envs DEVICE=oregon, forwards --Once/--Health/--Status to py or starts loop; modeled on thin CLI + receipts).
+  - Test-OregonReceiver.ps1 (the star: drops realistic sample with corr "oregon-test-19557e65", runs launcher --Once, asserts only on 0: health ok pre-claim, status enriched + version from receipts, atomic move (to processed/ or failed/ dep on hermes rc in env), pending full format if fail, beacon presence active/bust correct, logs show corr + key events. Prints "PASS — matches LIVE_TEST_19557e65_RECEIPTS.md" or detailed failure. Inline sample task).
+  - README-OREGON-RECEIVER-INSTALL.md (exact post-Kumquat steps, how mirrors Linux live test ref receipts verbatim, troubleshoot PATH/elevation/python, "All 7 primes + Mirrorability followed").
+- Updates: oregon-activator-skeleton.ps1 big deprecation note pointing to new kit + "use the shared hardened py + this launcher for full parity with the 19557e65 live test". Register-OregonBustANutPersistence.ps1 + Get- enhanced (receiver task added to family, reported in Get-).
+- Handoff package: cross-device/handoffs/20260603-Oregon-Symbiosis-Receiver-Install-Kit-19557e65/ (README per FORMAT with overview/why now/what OR does/links to receipts, key scripts copied for self-contained, RETURN.md template with sections for OR to fill (Kumquat/install/Test-PASS/Get/reboot/real test/updated docs/ **Oregon has the ball.** / exact sig), supporting sample task + status snippet from receipts).
+- Living docs (exact sigs "By: Grok (19557e65 Oregon packaging autonomous)"): HANDOFF_LOG new row (WA->OR, desc, Awaiting Oregon Kumquat, link), MIRROR this section + copy cmds, windows-instructions.md top new standing order ("Upon your next Kumquat after 20260603 packaging: pull, run the Install from the new oregon-receiver kit..., execute the Test- script (must PASS matching LIVE_TEST_RECEIPTS), register via the extended Register, reboot + TUI test, update this file + status + MIRROR + handoff RETURN with your receipts + Ball Holder. Thin receiver now has full health/claim/beacon/inject/hermes parity with WA hardened core."), brief note in linux-instructions.md, top entry in coordination/status.md.
+- Git: add -f handoff + oregon-receiver/ + updates + py gen; rich commit; push. Rich cp of handoff dir + key files to Synced/.../windows/ + coord snapshots.
+- Mempalace: projects/symbiosis-washington-activator-prod drawer + diary (packaging complete, "Oregon package ready").
+- Verification: Linux py gen test (env=oregon paths correct, CLIs work), py_compile + pytest, check-primes + relay-health equiv captured in handoff. All sigs + Mirrorability (exact OR recipe everywhere).
+
+**Exact Oregon commands (post Kumquat):**
+```powershell
+cd C:\Synced\grok-mempalace-integration\symbiosis-relay\windows\oregon-receiver
+powershell -ExecutionPolicy Bypass -File .\Install-OregonSymbiosisReceiver.ps1
+.\Test-OregonReceiver.ps1
+.\Oregon-Symbiosis-Receiver.ps1 -Health
+.\Oregon-Symbiosis-Receiver.ps1 -Status
+cd ..\bust-a-nut
+.\Get-OregonBustANutPersistenceStatus.ps1
+# reboot test + TUI bust or drop task to incoming\oregon\ ; update docs + RETURN
+```
+
+**Verification against receipts (Test- asserts):** health before claim (ok + age in status), atomic claim+archive (failed/ on hermes fail per design), enriched status+version+health_ok+age_at_claim+last_rcs+machine:oregon, beacon active/bust correct, corr in logs, pending full fmt on fail path, "PASS — matches LIVE_TEST_19557e65_RECEIPTS.md".
+
+**Mirrorability note:** Everything above (kit + handoff + docs + cmds + sigs) is the full recipe so brother implements without WA. rich cp ensures instant travel. Self-provisioned gaps (dirs, stubs, notes) on the fly.
+
+<!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> New section 9 added with full kit details, exact OR cmds, verif vs receipts. Mirrorability as final internal + all primes + Ball Holder + bing bang + self-prov followed. Oregon has the ball on next Kumquat. Keep er goinnnn.
 
 ## 7. Repo Hygiene & Coordination Purity Pattern (Added 2026-05-31 during explicit "Prime directive kumquat" on Washington)
 

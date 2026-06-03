@@ -2,7 +2,7 @@
 """
 activator_core.py — Extracted resilient core for Washington activator (Symbiosis Relay).
 
-Per DESIGN AUTON 19557e65 PR1/PR2/PR3:
+Per DESIGN AUTON 19557e65 PR1/PR2/PR3 + oregon-support packaging:
 - Structured JSON logging with correlation
 - Enriched status writes
 - Beacon with retries + abort on total fail
@@ -12,6 +12,7 @@ Per DESIGN AUTON 19557e65 PR1/PR2/PR3:
 - prompt_grok_build with hermes rc check, configurable inject, pending on *any* terminal fail
 - Bust intent hook (touch marker)
 - No bare excepts; explicit taxonomy
+- SYMBIOSIS_DEVICE generalization (back-compat default "washington") for cross-device oregon receiver
 
 Stdlib only (KD-1). Mirrors existing patterns (SYMBIOSIS_SHARED, Path, json, subprocess, logging).
 
@@ -33,10 +34,21 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).parent))
 import task_schema  # noqa: E402
 
+# --- 19557e65 + oregon-support for cross-device receiver ---
+# Small back-compatible generalization: SYMBIOSIS_DEVICE env var (or --device CLI flag on the thin
+# washington_activator.py) defaults to "washington". Used to build:
+#   COMMAND_INBOX = .../incoming/$device
+#   STATUS_OUTBOX = .../status/$device
+#   beacon file: $device-grok-build-presence.json
+#   status.machine, etc.
+# Oregon receiver launcher will: $env:SYMBIOSIS_DEVICE="oregon"; python -u washington_activator.py ...
+# Default behavior 100% unchanged for existing washington service + tests. Packaging change only.
+DEVICE = (os.environ.get("SYMBIOSIS_DEVICE", "washington") or "washington").strip().lower()
+
 # --- Config (env overridable, same spirit as device_selector/relay_listener) ---
 SHARED_BASE = Path(os.environ.get("SYMBIOSIS_SHARED", "/home/Irikash/Synced/grok-mempalace-integration"))
-COMMAND_INBOX = SHARED_BASE / "symbiosis-relay" / "incoming" / "washington"
-STATUS_OUTBOX = SHARED_BASE / "symbiosis-relay" / "status" / "washington"
+COMMAND_INBOX = SHARED_BASE / "symbiosis-relay" / "incoming" / DEVICE
+STATUS_OUTBOX = SHARED_BASE / "symbiosis-relay" / "status" / DEVICE
 PROCESSED_DIR = COMMAND_INBOX / "processed"
 PENDING_PROMPTS_DIR = COMMAND_INBOX / "pending-prompts"
 PROCESSING_DIR = COMMAND_INBOX / "processing"
@@ -68,7 +80,8 @@ if not _logger.handlers:
     sh.setFormatter(logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s"))
     _logger.addHandler(sh)
     # JSON file (parseable by relay-health / dashboards)
-    fh = logging.FileHandler(LOG_DIR / "washington_activator.jsonl")
+    # Device-aware name for oregon parity (default "washington_activator.jsonl" unchanged)
+    fh = logging.FileHandler(LOG_DIR / f"{DEVICE}_activator.jsonl")
     fh.setFormatter(logging.Formatter("%(message)s"))  # we emit pre-formatted json lines
     _logger.addHandler(fh)
 
@@ -113,7 +126,7 @@ def read_status() -> dict[str, Any]:
             return json.loads(sf.read_text())
         except Exception:
             pass
-    return {"state": "unknown", "machine": "washington"}
+    return {"state": "unknown", "machine": DEVICE}
 
 
 # --- Status + Beacon (enriched, retried) ---
@@ -123,7 +136,7 @@ def write_status(state: str, task_id: str = "", message: str = "", **extra: Any)
         "current_task": task_id,
         "message": message,
         "updated_at": datetime.now(timezone.utc).isoformat(),
-        "machine": "washington",
+        "machine": DEVICE,
         "version": "0.2.0-auton-19557e65",
         **extra,
     }
@@ -162,7 +175,7 @@ def check_health() -> dict[str, Any]:
         "status_writable": STATUS_OUTBOX.exists() and os.access(STATUS_OUTBOX, os.W_OK),
     }
     # Beacon age (self)
-    beacon_path = SHARED_BASE / "device-presence" / "washington-grok-build-presence.json"
+    beacon_path = SHARED_BASE / "device-presence" / f"{DEVICE}-grok-build-presence.json"
     if beacon_path.exists():
         try:
             b = json.loads(beacon_path.read_text())
@@ -403,8 +416,8 @@ def process_inbox_once() -> int:
 
 
 def run_loop() -> None:
-    _json_log("INFO", "Washington Activator core loop starting")
-    write_status("idle", "", "Washington activator listening for relay commands (core)")
+    _json_log("INFO", "Activator core loop starting", device=DEVICE)
+    write_status("idle", "", f"{DEVICE} activator listening for relay commands (core)")
     while True:
         try:
             n = process_inbox_once()
@@ -416,7 +429,7 @@ def run_loop() -> None:
 
 
 def run_once(dry_run: bool = False) -> int:
-    _json_log("INFO", "run_once (core)", dry_run=dry_run)
+    _json_log("INFO", "run_once (core)", dry_run=dry_run, device=DEVICE)
     write_status("idle", "", "One-shot run (core)")
     if dry_run:
         _json_log("INFO", "dry-run: would process inbox but skipping hermes/inject")
