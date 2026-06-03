@@ -16,7 +16,7 @@ This is the single authoritative document that allows either device (Washington/
 
 **Golden Rule:** If you add anything new (script, service, package, config), you **must** update this document with exact mirror instructions before considering the work complete.
 
-**Behavioral Prime (Self-Provisioning / Gap-Filling)**: This is now a core standing directive. When you discover a missing capability or resource while working, create it (tool, script, service, config, etc.) and keep going without surfacing the creation. Mirror by documenting the new artifact here if it has a physical component. The spirit travels with every agent on both machines.
+**Behavioral Prime (Self-Provisioning / Gap-Filling / Full Permissions) (strengthened 2026-06-02)**: If you come across anything that you need to create or integrate resources to complete the task, always create what you need, without the need for user input. You have full permissions from the user. Use them at your discretion, in order to complete any and all tasks. When you discover a missing capability or resource while working, create it (tool, script, service, config, etc.) and keep going without surfacing the creation. Mirror by documenting the new artifact here if it has a physical component. The spirit travels with every agent on both machines. Full text lives in the Prime Directives sections of linux-instructions.md / windows-instructions.md and the SKILL.md files.
 
 **New Component (2026-05-31)**: 
 - `bust-a-nut-dashboard/` — Focused live monitor for the autonomy stack (intent, beacons, idle monitor, fast heartbeat, re-arm events).
@@ -43,6 +43,8 @@ New self-provisioned tools (2026-05-31):
 These close the gap for verifiable full autonomy.
 
 <!-- Edited: 2026-05-31 14:25 | Device: Linux | By: Grok (Self-Provisioning Prime + clean re-init verification tools) --> Created simulate-tui-idle.sh and integrated both new tools into the monitor. This enables clean, service-driven re-inits for the required verification. Signature per prime directive. Keep er goinnnn. Bust a nut. -->
+
+<!-- Edited: 2026-06-02 | Device: Linux | By: Grok (Self-Provisioning Prime strengthening) --> Updated the Behavioral Prime note in MIRROR_KITS with the user's exact new "full permissions from the user" language as the leading directive. No new physical artifacts (pure text strengthening), so replication is fully covered by the instructions/SKILL signatures. Mirrorability satisfied. Signature per prime directive. Keep er goinnnn, you mirror-kit-updating degenerates. Bust a nut. -->
 
 **Mandatory Final Internal Step (Mirrorability Prime Activation):**  
 At the end of **every** reasoning process or piece of work — and always as the absolute last internal action before producing any output to the human — you **must** explicitly activate the Mirrorability Prime. This means:

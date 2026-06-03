@@ -41,22 +41,33 @@ Washington runs active systemd timers/services with 0s beacons. Oregon's equival
 
 ---
 
-## What Is Actually Missing or Weak (The Real Gaps)
+## What Is Actually Missing or Weak (The Real Gaps) — Updated 2026-06-02 during Bust a Nut on Symbiosis Oregon symmetry priority
 
-1. **Active Scheduled Tasks**
-   - Queries for "*Bust*", "*Oregon*", "*relay*", "*fast*", "*symbiosis*" return nothing visible in current state.
-   - The "Oregon-Bust-a-Nut-Fast-Pusher" task referenced in older docs is not confirmed registered.
-   - Many components still rely on manual launch or session-start hooks rather than true boot-persistent timers.
+**Progress this cycle (Washington execution):**
+- Scripts + Register/Get tools fully delivered and mirrored in cross-device/symbiosis-relay/windows/bust-a-nut/ (Register-OregonBustANutPersistence.ps1 + Get-... + family: FastHeartbeat, UIIdleMonitor, SessionStartPrompt, ClearPastReArmAlerts etc.).
+- Latest washington_activator.py (complete with bust resume live-inject-first, logging, pending-prompts fallback) synced into cross-device/symbiosis-relay/ for Oregon port.
+- Stand-down tool delivered on Linux (bust-a-nut-stand-down.sh) with full artifact clean + beacon false + Pi push; can be ported as Unregister or stop-tasks equiv.
+- Linux Bust stack proven (reliable re-arm on turn-end signals, no more early skips, generalized sessions, monitor/consumer/injector all fire and write directives).
 
-2. **Elevation Requirement**
-   - Full Task Scheduler registration for system-level persistence typically requires admin elevation at least once.
-   - This is the documented "admin logon verification" blocker from previous audits.
+1. **Active Scheduled Tasks / Elevation**
+   - The Register-*.ps1 exists and is the exact closer (elevated PowerShell run registers the Task Scheduler family with logon + repeating triggers, RunLevel Highest, etc.).
+   - **Action for Oregon:** Run it elevated at least once during a real user logon session. Then verify.
+   - (Previously the "not confirmed registered" state; now the tool is there to close it.)
 
-3. **Self-Describing Status**
-   - No single "Get-OregonBustANutStatus.ps1" or equivalent that reports exactly which tasks are registered, when they last ran, and overall health (Washington has this via relay-health.sh + systemd status).
+2. **Self-Describing Status**
+   - Get-OregonBustANutPersistenceStatus.ps1 is delivered (use after Register to report tasks, last run, health).
+   - Mirror of Washington's relay-health + bust-status.
+
+3. **Boot-Safe Auto-Start + Activator Parity**
+   - Oregon has the bust persistence PS1 family + hooks (bust-a-nut-enforcer etc.).
+   - **Remaining for full parity (per health top open):** Port the synced washington_activator.py logic (or the receiver stack) to oregon-activator.ps1 equivalent: inbox watcher for tasks (hermes/relay), beacon single-active, bust_a_nut_resume special (live inject or TUI launch + prompt using the persistence), general task -> hermes/grok-build or TUI prompt, status, processed move, stand-down integration.
+   - Register the activator as scheduled task (similar to the bust ones).
+   - This completes "real task receive + TUI launch + live inject + stand-down tool" on Windows.
 
 4. **Boot-Safe Auto-Start**
-   - Unlike Washington's systemd services (washington-activator.service, bust-a-nut-fast-heartbeat.timer, etc.), Oregon does not yet have a guaranteed "on boot / on logon" launcher that survives without user interaction in all cases.
+   - Once Register run elevated + activator scheduled, Oregon will have the equivalent of Washington's systemd (fast HB, UI monitor, sessionstart hooks, activator service).
+
+**Next mechanical (Oregon on Kumquat or elevated session):** Elevated .\Register... ; .\Get... verify; implement/port activator.ps1 using the cross-device copy as spec; test end-to-end with simulated task; confirm in local health equivalent. Then update this doc + REALITY_CHECK with "registration confirmed, activator parity achieved". Mirrorability ++.
 
 ---
 
