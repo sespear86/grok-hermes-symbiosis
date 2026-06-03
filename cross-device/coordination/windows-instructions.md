@@ -3,7 +3,10 @@
 **Written by:** Washington Grok
 **Date:** 2026-06-02 (after successful live "Test from Washington" real human message + full Bust a Nut observability wave)
 
-**LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 UPDATE)**
+**CURRENT OPERATIONAL FOCUS (user directive 2026-06-03 — shift to Real Slack production flow):** 
+Take the Tier 1 priority **off** the Bust-a-Nut re-arm/survival stack (sustained — Washington side hardened it; your Get/Register + kits are the mirror). Ruthlessly focus on unlocking **Real Slack** (the biggest cockblock). Washington is driving the human to run the create-ingest-companion operator. Once the dedicated xapp- SLACK_INGEST_APP_TOKEN is in the Pi .env and the slack-task-ingest service restarted, the *next* real human message will be the first clean production real_slack (is_real + task_reality emitted by current ingest.py, no Socket conflict, via companion, full selector routing to the fresh-beacon thrusting side, injector if active). Your receiver stack is already cocked and the health canary + last_real_slack.md will prove it automatically.
+
+**LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**
 - Real human message sent to #all-devices while system was hot.
@@ -13,7 +16,7 @@
 - Task made it all the way to processed.
 - **Still missing clean metadata**: No `is_real: true` / `task_reality: "real_slack"` yet (still on main companion token).
 
-This is the furthest any real human Slack message has traveled through the full one-extended-machine relay. The plumbing works. The dedicated ingest token is the final gate.
+This is the furthest any real human Slack message has traveled through the full one-extended-machine relay. The plumbing works. The dedicated ingest token (via `python tools/slack_operator.py create-ingest-companion` + apply) is the final gate. See PROJECT_FINISH_LINE.md for the exact command the human runs and the new CURRENT FOCUS declaration.
 
 **New Observability Wins (Delivered During Bust a Nut):**
 - `relay-health.sh` now has a permanent **"LAST REAL SLACK ACTIVITY (Live Canary)"** section. Every run instantly shows the most recent Slack-originated task with message, via, is_real, task_reality, and routing decision.

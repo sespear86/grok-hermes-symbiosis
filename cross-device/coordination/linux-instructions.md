@@ -4,6 +4,8 @@
 **Date:** 2026-05-29 (major refresh during user check-in)
 **Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
 
+**CURRENT OPERATIONAL FOCUS (user directive 2026-06-03):** Take Tier 1 priority **off** Bust-a-Nut autonomous re-arm/survival stack (it is sustained + hardened; monitor via relay-health, only targeted work on pain). Ruthlessly focus on **Real Slack production flow** — the biggest shared cockblock. The exact human action that unlocks it is running `python tools/slack_operator.py create-ingest-companion` from the rich symbiosis-relay directory (with the persistent browser profile that has the Slack login). See the full recipe + verification in the updated PROJECT_FINISH_LINE.md (CURRENT ACTIVE FOCUS + the 2026-06-03 signed entry at the end) and last_real_slack.md. Once the xapp- token is pushed (apply script does the Pi .env + restart), the next real human Slack in the 4 channels will be the first clean production real_slack with full metadata and routing. Update this file + status + Mempalace on the post-token Kumquat. Mirrorability: the operator/apply/manifest are already in kits. **Washington has the ball** for facilitating the human run.
+
 **IMMUTABLE PRIMARY OPERATING MODEL (Mandatory for all plan execution on both devices):**
 
 1. Orchestrate and launch sub-agents on both devices to execute the plan.
