@@ -51,6 +51,8 @@ All 7 primes + Mirrorability (cp + git add -f for nervous source + scrub + sigs)
 
 (After fixes for verifier blockers: prompt restored, beacon dedupe, selector export, OPERATIONS+PROD fleshed, security scrub, commands re-run green, mechanical 0 with --no, security 0 crit/high, 0 major from design review.)
 
+**Post-PASS Live Test (19557e65 resumption, 2026-06-03):** Full directive wave executed: inject_hermes_task.py drop + direct JSONs + --once (normal + bust) + service restart + PATH self-prov + poll. All verified (see LIVE_TEST_19557e65_RECEIPTS.md): health passed pre-claim (ok + age in status), atomic claim (processing/ -> failed/ on hermes rc1 or processed/ on bust success), beacon correct flags, enriched status+version+last_rc, structured JSON logs corr everywhere, rc enforcement + pending full artifact, bust live inject rc=0 + bust_active in presence, service now hardened (journal jsonl), no regressions. Self-prov unit PATH. Kumquat: commits f17323b+f2db482 pushed, receipts cp'd, status/MIRROR/windows updated + Oregon (thin+Register/Get) notes locked, Mempalace drawer+diary filed. Check-primes bing bang, relay-health green (activator active, 9s beacon, intent). All primes + Mirrorability + Ball Holder + no blue balls.
+
 **Washington has the ball.** (Kumquat to ingest + mirror hygiene + monitor first real Slack via the hardened path. Bust a nut complete.)
 
 <!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (orchestrator + subs for 19557e65; all reads, re-runs, fixes, mcp drawer, sigs) --> Exact primes + Mirrorability + bing bang boom + self-provision + gate dogfood followed. No blue balls. 0 issues final rounds. Keep er goinnnn.
