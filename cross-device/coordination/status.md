@@ -7,7 +7,7 @@
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
-**Update (2026-06-04, AUTON f41d2ff4):** `symbiosis-handoff-scaffold` implemented under `cross-device/scripts/` (CLI + validate + LOG + pytest + OR PS wrapper + PRODUCTION_READY + MIRROR §10). OPEN_ITEMS nice-to-have #2 closed. **Washington has the ball** for verify-gate / optional meta-handoff delivery; Oregon still on 19557e65 receiver Kumquat per prior standing orders.
+**Update (2026-06-04, AUTON 9548ff34):** User sent "Test from Washington" to #all-devices (explicit autonomous trigger). Full Bust-a-Nut forensics (SSH to Pi root@192.168.1.235 via symbiosis-relay-root key + health + file inspection): No SLACK_INGEST_APP_TOKEN in ~/.hermes/.env (main token still active); no new task-slack-*.json with the message (latest remains prior 1780370... one); ingest logs quiet. last_real_slack.md + PROJECT_FINISH_LINE updated with new test entry + sigs; relay-health.sh enhanced with dedicated token status in canary (self-provisioned observability win). OPEN_ITEMS #1 (sync report) already closed by prior 355e3993; this keeps the real Slack reality check brutally current. Token gate remains the only cockblock for clean `is_real: true` + `task_reality: "real_slack"` on real human messages. All other plumbing (permanent service, operator, manifest, selector, health detector, mirror) ready. **Washington has the ball.** (user to do the token reveal + apply-ingest-token.sh on the known URL for the next send to be the first clean production one; agent ready for immediate post-apply verification + injector test if Bust active). Keep er goinnnn.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 implement) -->
 
