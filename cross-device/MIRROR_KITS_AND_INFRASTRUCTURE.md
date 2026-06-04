@@ -397,6 +397,52 @@ cd ..\bust-a-nut
 
 <!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> New section 9 added with full kit details, exact OR cmds, verif vs receipts. Mirrorability as final internal + all primes + Ball Holder + bing bang + self-prov followed. Oregon has the ball on next Kumquat. Keep er goinnnn.
 
+## 10. Handoff Scaffold (`symbiosis-handoff-scaffold`, AUTON f41d2ff4)
+
+**Purpose:** FORMAT-locked handoff package generator + `HANDOFF_LOG.md` row inserter + `--validate-only` checker. Washington canonical Python; Oregon `New-SymbiosisHandoff.ps1` maps PascalCase flags to the same CLI.
+
+**Paths (git):**
+- `cross-device/scripts/symbiosis-new-handoff` (shim)
+- `cross-device/scripts/handoff_scaffold/` (package + `templates/README.md.tmpl`)
+- `windows/scripts/New-SymbiosisHandoff.ps1`
+
+**Exact verify block (copy-paste):**
+```bash
+# WA
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" --slug "Test-Handoff" --dry-run
+pytest tests -q
+```
+```powershell
+# OR (after git/Syncthing ingest)
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+python3 .\symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" --slug "Test-Handoff" --dry-run
+# or wrapper:
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\New-SymbiosisHandoff.ps1 -Slug "Test-Handoff" -DryRun -RepoRoot C:\Users\spear\grok-hermes-symbiosis
+```
+Then validate a created package (both sides):
+```bash
+./symbiosis-new-handoff --validate-only ../handoffs/YYYYMMDD-HHMM-Short-Name
+```
+
+**Rich mirror recipe:**
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/New-SymbiosisHandoff.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**Washington `~/bin` (optional):**
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-new-handoff ~/bin/symbiosis-new-handoff
+```
+
+**Production gate:** `cross-device/scripts/PRODUCTION_READY.md` + `pytest tests -q` + `auton-gate check cross-device/scripts --auton-id f41d2ff4 --profile cli` (when auton-gate installed).
+
+**Mirrorability:** MET for CLI flags + output shape + validate behavior (PS wrapper requires Python 3 on OR — same as other symbiosis tooling). Gaps: none for v1; document if OR lacks python3 in PATH.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 symbiosis-handoff-scaffold implement) --> Section 10 Handoff Scaffold + exact WA/OR verify block + rich cp + ~/bin recipe. Mirrorability: MET. Keep er goinnnn. Bust a nut. -->
+
 ## 7. Repo Hygiene & Coordination Purity Pattern (Added 2026-05-31 during explicit "Prime directive kumquat" on Washington)
 
 **Problem observed:** Stale duplicate copies of the symbiosis-relay/ source tree (May 28-29 snapshot) ended up untracked under cross-device/symbiosis-relay/ + a stray Mempalace/ dir at repo root. These polluted `git status` on Kumquat and risked confusion (the one true production source lives exclusively in the rich `~/Synced/grok-mempalace-integration/symbiosis-relay/` layer, referenced by all current health scripts, docs, 0015 handoff, and this MIRROR_KITS).

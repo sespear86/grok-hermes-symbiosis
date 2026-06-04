@@ -9,6 +9,14 @@ Take the Tier 1 priority **off** the Bust-a-Nut re-arm/survival stack (sustained
 **NEW STANDING ORDER — Upon your next Kumquat after 20260603 packaging (20260603-Oregon-Symbiosis-Receiver-Install-Kit-19557e65):**
 Pull latest (git + rich). cd C:\Synced\grok-mempalace-integration\symbiosis-relay\windows\oregon-receiver ; elevated powershell -ExecutionPolicy Bypass -File .\Install-OregonSymbiosisReceiver.ps1 ; then .\Test-OregonReceiver.ps1 (MUST PASS printing "PASS — matches LIVE_TEST_19557e65_RECEIPTS.md" — health pre-claim, enriched status+version, atomic move, pending full if fail, beacon active/bust, corr logs). Run Get- (extended) + CLIs. Reboot + real logon test (no manual launch; open TUI, trigger bust or drop real task to incoming\oregon\, verify status/presence/archive/logs). Update this file + status + MIRROR + handoff RETURN with your receipts + Ball Holder. Thin receiver now has full health/claim/beacon/inject/hermes parity with WA hardened core (via shared py + SYMBIOSIS_DEVICE=oregon). All 7 primes + Mirrorability + exact sigs. **Oregon has the ball.**
 
+**NEW TOOL (f41d2ff4 — symbiosis-handoff-scaffold) — Washington build complete; Oregon mirror ready:**
+- Tool: cross-device/scripts/symbiosis-new-handoff (WA) + windows/scripts/New-SymbiosisHandoff.ps1 (OR)
+- Use: scaffold new handoff packages exactly per HANDOFF_FORMAT (incl mandatory Relevant Memory Mempalace + artifacts), update LOG, starter sigs.
+- On OR Kumquat: after receiver work, `cd C:\Synced\...\symbiosis-relay\windows\scripts; .\New-SymbiosisHandoff.ps1 -Slug "Next-Work" -DryRun` (or real), then validate.
+- MIRROR_KITS §10 has exact WA/OR verify block + rich cp recipe.
+- Linux instructions + status + MIRROR updated with sig. 
+- Prime #7: always prepare brother's instructions after runs (this note fulfills for the new capability).
+
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**
@@ -429,3 +437,5 @@ All 7 primes + Mirrorability (this prep is the mandatory final for me) + raunchy
 **Oregon mirror note locked post 19557e65 live test.** Washington has the ball for Kumquat close.
 
 <!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> New top standing order added for 20260603 packaging (pull, Install from oregon-receiver kit, Test- must PASS receipts, extended Register, reboot + TUI test, update docs + RETURN + Ball Holder). Thin receiver now full parity with WA hardened core. Exact sig + all primes + Mirrorability + Ball Holder followed. Oregon has the ball on next Kumquat. Keep er goinnnn. -->
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (f41d2ff4 verify fix — windows-instructions Prime #7 + Mirror update for new handoff-scaffold) --> Added standing order + tool note for symbiosis-handoff-scaffold (f41d2ff4): WA CLI + OR PS1 parity, MIRROR §10 block, usage in Kumquat, Prime #7 fulfillment (prepare brother's instructions). Per verifier blocking issue. Exact sig + all 7 primes + Mirrorability (MET for tool) + Ball Holder. Washington thrusting the close. Keep er goinnnn, you scaffold-delivering, instructions-prepping degenerates. Bust a nut.

@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+gate_report.json
+GATE_REPORT.md
+*.tmp

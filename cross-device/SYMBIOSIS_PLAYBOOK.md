@@ -97,6 +97,16 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 - Lifecycle (from refinements): Create folder + README → do work (update status/coordination as needed) → RETURN.md → mark log complete → optional archive to `archive/` subfolder.
 - Small/quick tasks: Shared chat (via Hermes gateway) is often enough. Use handoffs for anything needing explicit tracking or multi-session context.
 - See `cross-device/handoffs/HANDOFF_FORMAT.md`, `HANDOFF_LOG.md`, and the two completed example packages for patterns that worked.
+- **Handoff scaffold (shipped AUTON f41d2ff4):** Mechanical package creation + LOG row + Mempalace bullets + validator:
+  ```bash
+  cd ~/grok-hermes-symbiosis/cross-device/scripts
+  ./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" \
+    --slug "Short-Name" --context "Why" --task "What" [--dry-run] [--return-stub]
+  ./symbiosis-new-handoff --validate-only ../handoffs/YYYYMMDD-HHMM-Short-Name
+  ```
+  Oregon: `.\windows\scripts\New-SymbiosisHandoff.ps1 -Slug "Short-Name" -DryRun` (see `MIRROR_KITS_AND_INFRASTRUCTURE.md` § Handoff Scaffold).
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> §2.3 handoff scaffold CLI examples + validator. Signature per prime directive. -->
 
 ### 2.4 Agent Coordination via `cross-device/coordination/`
 - Primary structured channel between the two Groks (minimizes Discord copy-paste).

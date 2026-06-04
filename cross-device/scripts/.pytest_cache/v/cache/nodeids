@@ -1,0 +1,16 @@
+[
+  "tests/test_log.py::test_escape_pipe",
+  "tests/test_log.py::test_insert_row_newest_first",
+  "tests/test_render.py::test_format_drift_against_live_repo",
+  "tests/test_render.py::test_reject_injection",
+  "tests/test_render.py::test_render_includes_artifacts_and_mempalace",
+  "tests/test_slug_and_cli.py::test_cli_rejects_unsafe_context",
+  "tests/test_slug_and_cli.py::test_slug_regex[-bad-False]",
+  "tests/test_slug_and_cli.py::test_slug_regex[Symbiosis-Handoff-Scaffold-Ship-True]",
+  "tests/test_slug_and_cli.py::test_slug_regex[Test-Handoff-True]",
+  "tests/test_slug_and_cli.py::test_slug_regex[ab-False]",
+  "tests/test_slug_and_cli.py::test_slug_regex[has space-False]",
+  "tests/test_validate.py::test_path_confinement_rejects_escape",
+  "tests/test_validate.py::test_validate_fails_on_drifted_sections",
+  "tests/test_validate.py::test_validate_scaffolded_package"
+]

@@ -1,0 +1,9 @@
+[project]
+name = "symbiosis-handoff-scaffold"
+version = "0.1.0"
+description = "FORMAT-locked handoff package generator (AUTON f41d2ff4)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["handoff_scaffold"]

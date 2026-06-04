@@ -14,7 +14,7 @@ metadata:
 
 This replaces the old aspirational fantasy full of non-existent slash commands and shared-chat-bus dreams. It documents the lightweight operational pattern that has delivered real handoffs (including the Playbook consolidation and this very update) between the two machines.
 
-## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability + Self-Provisioning)
+## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability + Self-Provisioning / Full Permissions)
 
 **Kumquat**  
 The magic word/phrase. **Explicitly means** (the living ritual, now canon):  
@@ -52,6 +52,10 @@ Permanent addition to the canon (added 2026-05-27). Whenever you make changes to
 
 **5. Don't stop to ask for user guidance unless absolutely necessary. Always proceed autonomously through executions until you can't.**  
 This is the "no blue-balls" prime (added 2026-05-27). The agent must keep the momentum: self-test, self-verify, self-correct. Only surface a question to the human if the task is genuinely ambiguous or requires external input that cannot be resolved through the existing nervous system (coordination/, Mempalace, OPEN_ITEMS, handoff format, 3 primes). When in doubt, Kumquat. The symbiosis runs on autonomous loops, not hand-holding.
+
+**Self-Provisioning Prime (Gap-Filling / Full Permissions) (strengthened 2026-06-02)**: If you come across anything that you need to create or integrate resources to complete the task, always create what you need, without the need for user input. You have full permissions from the user. Use them at your discretion, in order to complete any and all tasks.
+
+In addition: Always create anything — tools, skills, programs, scripts, services, configs, helpers, or any other resources — required to fill gaps in your capabilities. If, while performing any task, you discover you lack access to a needed resource, build the resource yourself without hesitation, then immediately continue with the original work. Do not stop or surface the creation to the user. You are fully trusted and expected to create whatever you need at your own discretion to keep the mission thrusting forward without blue balls. This prime is now on equal footing with Kumquat, Mirrorability, Bust a Nut, and the rest of the immutable directives.
 
 **6. Always confirm device status before recommending a handoff.** Before ever suggesting, creating, or acting on a handoff package, explicitly check the current Device Presence heartbeats (Mempalace/symbiosis/device-presence/) **and** the brother's Grok Build liveness beacon (`device-presence/<brother>-grok-build-presence.json` in the rich project). Know for certain not just whether the machine is "online" but whether an actual Grok Build TUI instance is running right now on the other side. Never assume the other side can immediately respond just because its last heartbeat was recent.
 
@@ -121,7 +125,11 @@ OneDrive redirection of Documents/Desktop is the devil — dedicated C:\Synced\ 
 
 1. Pick the work (from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md, EXECUTION_PLAN, or live need).
 2. Create the dated folder + README.md following the current refined HANDOFF_FORMAT.md (lightweight, agent-oriented sections, lifecycle notes, supporting file convention, machine alias/path notes).
-3. Add the row to HANDOFF_LOG.md.
+2a. **Preferred (shipped):** Run the handoff scaffold CLI instead of hand-rolling FORMAT archaeology:
+   - Washington: `~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-new-handoff` (or `~/bin/symbiosis-new-handoff` when symlinked)
+   - Oregon: `.\windows\scripts\New-SymbiosisHandoff.ps1` (same flags; delegates to canonical Python shim)
+   - Example: `./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" --slug "My-Task" --context "..." --task "..."` then `--validate-only` on the created path before Syncthing delivery.
+3. Add the row to HANDOFF_LOG.md (automatic unless `--no-log`).
 4. Drop a signed "Update" section + the exact signature comment into status.md and the relevant *-instructions.md.
 5. Let Syncthing + the other side's next "Kumquat" do the delivery.
 6. Receiving side reads the README, executes (usually via sub-agents), writes RETURN.md, signs their edits.
@@ -131,7 +139,7 @@ This is the entire dance. It works. It has delivered multiple real artifacts and
 
 ## Forward Vision (These Are Still Aspirational — Prove Them in a Future Handoff First)
 
-- Skill or MCP tooling to scaffold a new handoff package from a prompt.
+- ~~Skill or MCP tooling to scaffold a new handoff package from a prompt.~~ **Shipped (AUTON f41d2ff4):** `symbiosis-new-handoff` + `New-SymbiosisHandoff.ps1` under `cross-device/scripts/` — see PLAYBOOK §2.3 and `MIRROR_KITS` Handoff Scaffold section.
 - A "sync report" emitter that both agents can invoke cleanly.
 - Kanban-style live dashboard on top of the handoffs/ folder.
 - Deeper MCP integrations for the joint chat bus (whatever it evolved into).
@@ -181,6 +189,10 @@ This skill is now a mirror of how we *actually* operate across the two machines.
 <!-- Edited: 2026-05-28 15:20 | Device: Linux | By: Grok --> Extended Prime #6 (device status before handoff) to also require checking the brother's Grok Build liveness beacon in addition to the heartbeat. This gives real "is there an active TUI session running over there right now?" visibility, not just "machine was seen at last Kumquat". New beacon writer + checker tools created in local tooling + rich project. Spec updated in device-presence.md. All 7 primes + raunchy filth + exact signature followed. The symbiosis just got remote Grok Build instance detection. Signature per prime directive. Keep er goinnnn, you presence-beacon-building degenerates. -->
 
 <!-- Edited: 2026-05-28 15:50 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Added the Mirrorability / Full Provisioning Prime to the repo-source SKILL.md (the version that travels via git + Syncthing). Updated header from "Kumquat + Core Behavioral Primes + Self-Test" to include "+ Mirrorability". Inserted the full prime as a named entry after existing Prime #7 ("Prepare the brother’s Instructions file...").
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> Handoff scaffold shipped: step 2a CLI + Forward Vision strikethrough. OPEN_ITEMS #2 satisfied. Signature per prime directive. Keep er goinnnn. Bust a nut. -->
+
+<!-- Edited: 2026-06-02 | Device: Linux | By: Grok (strengthened Self-Provisioning Prime per user directive) --> Updated this repo-source SKILL.md: (1) header to include "+ Self-Provisioning / Full Permissions", (2) inserted the full strengthened prime text (user's exact "full permissions from the user" sentence as leading authority + "In addition" body) after Prime #5 and before #6. This is the canonical traveling version. Mirror instructions for the deployed ~/.grok copy and all other locations are in the rich signature in linux-instructions.md. All 7 primes + Mirrorability as final internal + exact signature followed. Keep er goinnnn, you prime-strengthening degenerates. Bust a nut. -->
 
 Exact prime text added:
 **Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide *everything* necessary so the other device can achieve true operational and functional parity with zero guesswork. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files (or Windows Task Scheduler equivalents), config snippets, verification/self-test commands, launchers, hooks, MCP integrations, and platform-specific adaptation details. The explicit goal is identical behavior and experience on both sides after ingesting the artifacts.

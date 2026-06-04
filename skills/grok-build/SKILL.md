@@ -91,7 +91,7 @@ Coordinate status in the joint Slack channel.
 
 ## Recommended Grok Build Capabilities
 
-- `implement` (with reviewers) for new features/refactors
+- `implement` (with reviewers) for new features/refactors — now autonomously uses worktree isolation + Composer 2.5 model for the implementer subagent, with automatic merge on clean review
 - `design` for architecture and design docs
 - `check` for independent verification
 - `best-of-n` for exploring multiple approaches

@@ -14,6 +14,7 @@
 
 | Date       | ID                                          | From              | To                | Short Description                          | Status      | Link                                      |
 |------------|---------------------------------------------|-------------------|-------------------|--------------------------------------------|-------------|-------------------------------------------|
+| 2099-01-01 | 20990101-1200-Verifier-Gate-Smoke-Re | Washington Linux | Oregon Windows | Verifier Gate Smoke Re | In Progress | [20990101-1200-Verifier-Gate-Smoke-Re](./20990101-1200-Verifier-Gate-Smoke-Re/) |
 | 2026-05-25 | 20260525-1857-Windows-Syncthing-Quick-Reference | Oregon Windows    | Washington Linux  | Create Windows Syncthing Quick Reference   | Completed   | [20260525-1857-Windows-Syncthing-Quick-Reference](./20260525-1857-Windows-Syncthing-Quick-Reference/) |
 | 2026-05-25 | 20260525-1937-Create-Handoff-Log-Index         | Oregon Windows    | Washington Linux  | Create living Handoff Log/Index            | Completed   | [20260525-1937-Create-Handoff-Log-Index](./20260525-1937-Create-Handoff-Log-Index/) |
 | 2026-05-25 | 20260525-1954-Symbiosis-Operations-Playbook    | Oregon Windows    | Washington Linux  | Consolidate setup references into a living Symbiosis Operations Playbook | Completed   | [20260525-1954-Symbiosis-Operations-Playbook](./20260525-1954-Symbiosis-Operations-Playbook/) |
