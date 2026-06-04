@@ -108,6 +108,12 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> §2.3 handoff scaffold CLI examples + validator. Signature per prime directive. -->
 
+### 2.3a Sync report (read-only)
+
+After Kumquat step 3.5, when **Paired Mode**, run the sync report on this machine and paste the markdown summary to the shared coordination channel when about to create or close a handoff: Washington `~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-sync-report --device "Washington Linux"`; Oregon `.\windows\scripts\Get-SymbiosisSyncReport.ps1 -Device "Oregon Windows"` (or `python3 .\symbiosis-sync-report` from `cross-device\scripts`). Read-only — does not replace editing `status.md` or `HANDOFF_LOG.md`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
 ### 2.4 Agent Coordination via `cross-device/coordination/`
 - Primary structured channel between the two Groks (minimizes Discord copy-paste).
 - Key files:

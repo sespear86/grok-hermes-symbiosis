@@ -39,3 +39,74 @@ Drawer: `projects/symbiosis-handoff-scaffold` (wing `projects`, room `symbiosis-
 **Boom:** Next handoff opens with one command; dogfood closes the loop.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 implement) -->
+
+---
+
+# PRODUCTION_READY — symbiosis-sync-report-emitter
+
+**AUTON_ID:** `355e3993`  
+**Subtree:** `cross-device/scripts/` (package `sync_report/`)  
+**Profile:** `cli` (stdlib Python 3.11+, mocked subprocess in unit tests)
+
+## Status
+
+| Gate | Evidence |
+|------|----------|
+| V1 pytest | `pytest tests -q -k sync_report` → 24 passed (Washington 2026-06-04, post review fixes) |
+| V2 auton-gate | `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 355e3993 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md` |
+| V3 MIRROR §11 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11 |
+| V4 smoke | `./symbiosis-sync-report --device "Washington Linux" --no-syncthing \| head -40` — typical &lt;2s WA |
+| V5 check-primes | `~/grok-hermes-symbiosis/Mempalace/scripts/check-primes.sh` exit 0 at verify |
+| V6 Mempalace drawer | `projects/symbiosis-sync-report-emitter` (wing `projects`) — batch 8 |
+| V7 OPEN_ITEMS / SKILL | #1 Done; Forward Vision sync line struck (docs matrix 2026-06-04) |
+| V8 PS/WA parity | `Get-SymbiosisSyncReport.ps1` + Pester (batch 4); normalized sample compare |
+| V9 JSON schema | `tests/test_sync_report.py::test_render_json_schema_keys` + golden `fixtures/expected_report.md` |
+| V10 `--no-syncthing` | Always succeeds; `syncthing.available=false` |
+| V11 no `shell=True` | `test_no_shell_true_in_sync_report_sources` |
+| V12 Verifier | `VERIFIER_GATE_REPORT.md` **PASS** + Mirror **MET** (batch 7) |
+| V14 CI GH Actions | **N/A** — stdlib CLI; evidence = pytest + Pester + auton-gate (s06/s08 waivers per f41d2ff4) |
+| V15 Implement reviewer | 0 critical/high after fix round (see `/tmp/grok-auton-355e3993/REVIEW_impl_core.md`) |
+| V16 ruff | `ruff check sync_report` clean at gate |
+
+## Dual-package pytest
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+pytest tests -q                    # handoff_scaffold + sync_report
+pytest tests -q -k sync_report     # emitter only
+```
+
+## Syncthing (WA smoke — fill after `syncthing cli help`)
+
+v1 runtime uses **`SYMBIOSIS_SYNCTHING_FOLDERS`** only (comma-separated, max 5). Example placeholder until smoke documents real IDs:
+
+```bash
+export SYMBIOSIS_SYNCTHING_FOLDERS="symbiosis-repo,grok-mempalace-integration,mempalace"
+# Per-folder: syncthing cli show folder <id>  (3s timeout in collector)
+```
+
+Oregon: set the same env or pass `--no-syncthing` when the CLI is absent.
+
+## Mirror declaration
+
+**Washington + Oregon parity:** Same flags via PS wrapper + shared Python shim. **Mirrorability: MET** when batch 4 PS + Pester land (see `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11).
+
+## Rich deploy
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisSyncReport.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisSyncReport.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+## Mempalace
+
+Drawer: `projects/symbiosis-sync-report-emitter` (batch 8).
+
+---
+
+**Bing:** Spelunking git + Syncthing + LOG separately was the visibility tax.  
+**Bang:** One read-only report for Kumquat, handoffs, and paste.  
+**Boom:** Dogfood §2.3a on the next Paired handoff wave.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->

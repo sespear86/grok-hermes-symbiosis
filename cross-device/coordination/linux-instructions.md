@@ -4,9 +4,25 @@
 **Date:** 2026-05-29 (major refresh during user check-in)
 **Current Phase:** Handoff System Maturity (see EXECUTION_PLAN.md)
 
+**Handoff scaffold shipped (AUTON f41d2ff4, 2026-06-04):** Use `cross-device/scripts/symbiosis-new-handoff` (or `~/bin/symbiosis-new-handoff`) to create FORMAT-compliant packages + LOG rows; validate with `--validate-only`. Dogfood: `pytest cross-device/scripts/tests -q` then optional `auton-gate check cross-device/scripts --auton-id f41d2ff4 --profile cli`. Rich mirror: `cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/` (adjust path if your rich root differs). Oregon parity: `windows/scripts/New-SymbiosisHandoff.ps1` — verify block in MIRROR_KITS Handoff Scaffold §.
+
+**Sync report emitter (AUTON 355e3993, 2026-06-04):** After Kumquat step 3.5 when **Paired**, run read-only visibility before creating/closing a handoff:
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+export SYMBIOSIS_SYNCTHING_FOLDERS="<id1>,<id2>"   # optional; see PRODUCTION_READY after smoke; else --no-syncthing
+./symbiosis-sync-report --device "Washington Linux" | head -40
+# optional PATH shim:
+# ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-sync-report ~/bin/symbiosis-sync-report
+```
+Dogfood: `pytest tests -q -k sync_report` then `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 355e3993 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md`. Rich mirror (same tree as handoff scaffold): `cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/` plus PS1 copies per MIRROR §11. Does **not** replace editing `status.md` / `HANDOFF_LOG.md`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
 **CURRENT OPERATIONAL FOCUS (user directive 2026-06-03):** Take Tier 1 priority **off** Bust-a-Nut autonomous re-arm/survival stack (it is sustained + hardened; monitor via relay-health, only targeted work on pain). Ruthlessly focus on **Real Slack production flow** — the biggest shared cockblock. The exact human action that unlocks it is running `cd ~/Synced/grok-mempalace-integration/symbiosis-relay && python tools/slack_operator.py create-ingest-companion` (canonical rich dir matching the SHARED= in relay-health.sh and ~/Synced references in hooks). See the full recipe + verification in the updated PROJECT_FINISH_LINE.md (CURRENT ACTIVE FOCUS + the 2026-06-03 signed entry at the end) and last_real_slack.md. Once the xapp- token is pushed (apply script does the Pi .env + restart), the next real human Slack in the 4 channels will be the first clean production real_slack with full metadata and routing. Update this file + status + Mempalace on the post-token Kumquat. Mirrorability: the operator/apply/manifest are already in kits. **Washington has the ball** for facilitating the human run.
 
 **Washington prep complete (19557e65 packaging):** Clean oregon-receiver/ kit + py generalization + handoff + docs updates delivered + pushed + rich cp (Install + launcher + Test- star mirroring receipts + extended Register/Get + install guide + deprecation + sigs + Ball Holder). Oregon does the Kumquat + Install elevated + Test- (must PASS receipts) + reboot-verify + update docs + RETURN on their next pull. See windows-instructions top standing order + MIRROR section 9 + handoff 20260603-.... **Oregon has the ball.**
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> Handoff scaffold standing order + dogfood pytest/auton-gate + rich cp recipe. Mirrorability: MET. Signature per prime directive. Keep er goinnnn. -->
 
 <!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> Brief note added (Washington prep complete, Oregon does X on Kumquat: Install/Test- from kit, verify vs receipts, update docs + RETURN + Ball Holder). Exact sig + primes + Mirrorability followed. Keep er goinnnn.
 

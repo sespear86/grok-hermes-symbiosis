@@ -443,6 +443,60 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-new-handoff ~/bin/
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 symbiosis-handoff-scaffold implement) --> Section 10 Handoff Scaffold + exact WA/OR verify block + rich cp + ~/bin recipe. Mirrorability: MET. Keep er goinnnn. Bust a nut. -->
 
+## 11. Sync Report Emitter (`symbiosis-sync-report-emitter`, AUTON 355e3993)
+
+**Purpose:** Read-only cross-device snapshot: git state, Syncthing folder health, last N handoffs, OPEN_ITEMS Top 3 excerpt, Mempalace presence ages, warnings. Paste when Paired after Kumquat 3.5.
+
+**Paths (git):**
+- `cross-device/scripts/symbiosis-sync-report` (shim)
+- `cross-device/scripts/sync_report/` (package)
+- `windows/scripts/Get-SymbiosisSyncReport.ps1`
+- `windows/scripts/Get-SymbiosisSyncReport.Tests.ps1`
+
+**Exact verify block (copy-paste):**
+
+```bash
+# WA
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+export SYMBIOSIS_SYNCTHING_FOLDERS="<id1>,<id2>,<id3>"   # IDs from PRODUCTION_READY after smoke (syncthing cli help)
+./symbiosis-sync-report --device "Washington Linux" | head -40
+pytest tests -q -k sync_report
+```
+
+```powershell
+# OR (after git/Syncthing ingest) — canonical Python first
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_RICH_ROOT = "C:\Synced\grok-mempalace-integration"
+$env:SYMBIOSIS_MEMPALACE_ROOT = "C:\Synced\Mempalace"
+$env:SYMBIOSIS_SYNCTHING_FOLDERS = "<id1>,<id2>,<id3>"
+python3 .\symbiosis-sync-report --device "Oregon Windows" | Select-Object -First 40
+# or wrapper:
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\Get-SymbiosisSyncReport.ps1 -Device "Oregon Windows" | Select-Object -First 40
+Invoke-Pester .\Get-SymbiosisSyncReport.Tests.ps1
+```
+
+**Rich mirror recipe:**
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisSyncReport.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisSyncReport.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**Washington `~/bin` (optional):**
+
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-sync-report ~/bin/symbiosis-sync-report
+```
+
+**Production gate:** `cross-device/scripts/PRODUCTION_READY.md` (355e3993 section) + `pytest tests -q -k sync_report` + `auton-gate check cross-device/scripts --auton-id 355e3993 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md`
+
+**Mirrorability:** MET when OR runs Python shim or PS wrapper with same output shape (Python 3.11+). Gaps: document if OR lacks syncthing CLI (use `--no-syncthing`).
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
 ## 7. Repo Hygiene & Coordination Purity Pattern (Added 2026-05-31 during explicit "Prime directive kumquat" on Washington)
 
 **Problem observed:** Stale duplicate copies of the symbiosis-relay/ source tree (May 28-29 snapshot) ended up untracked under cross-device/symbiosis-relay/ + a stray Mempalace/ dir at repo root. These polluted `git status` on Kumquat and risked confusion (the one true production source lives exclusively in the rich `~/Synced/grok-mempalace-integration/symbiosis-relay/` layer, referenced by all current health scripts, docs, 0015 handoff, and this MIRROR_KITS).

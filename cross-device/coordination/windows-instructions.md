@@ -17,6 +17,23 @@ Pull latest (git + rich). cd C:\Synced\grok-mempalace-integration\symbiosis-rela
 - Linux instructions + status + MIRROR updated with sig. 
 - Prime #7: always prepare brother's instructions after runs (this note fulfills for the new capability).
 
+**NEW TOOL (355e3993 — symbiosis-sync-report-emitter) — Washington docs + core CLI; Oregon mirror (PS wrapper batch 4):**
+- Tool: `cross-device/scripts/symbiosis-sync-report` (canonical Python) + `windows/scripts/Get-SymbiosisSyncReport.ps1` (when landed)
+- Env (set in elevated or user session as needed): `SYMBIOSIS_REPO_ROOT`, `SYMBIOSIS_RICH_ROOT`, `SYMBIOSIS_MEMPALACE_ROOT`, `SYMBIOSIS_SYNCTHING_FOLDERS` (comma-separated folder IDs; required on OR if no `syncthing` CLI — else use `--no-syncthing`)
+- After Kumquat 3.5 when **Paired**, before handoff create/close:
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_RICH_ROOT = "C:\Synced\grok-mempalace-integration"
+$env:SYMBIOSIS_MEMPALACE_ROOT = "C:\Synced\Mempalace"
+$env:SYMBIOSIS_SYNCTHING_FOLDERS = "<id1>,<id2>"
+python3 .\symbiosis-sync-report --device "Oregon Windows" --no-syncthing | Select-Object -First 40
+# or: cd ..\..\windows\scripts ; .\Get-SymbiosisSyncReport.ps1 -Device "Oregon Windows"
+```
+- MIRROR_KITS §11: full WA/OR verify + rich `cp` recipe. Read-only — paste markdown summary; do not skip `status.md` / LOG edits.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**

@@ -46,7 +46,7 @@
 
 ## Nice-to-Haves / Future Experiments (Ranked)
 
-1. Lightweight "sync report" emitter that both agents can invoke cleanly. (Per SKILL vision + PLAYBOOK §5)
+1. ~~Lightweight "sync report" emitter that both agents can invoke cleanly.~~ **Done (2026-06-04, AUTON 355e3993):** `cross-device/scripts/symbiosis-sync-report` + `windows/scripts/Get-SymbiosisSyncReport.ps1` (batch 4); read-only git/Syncthing/LOG/OPEN_ITEMS/presence/warnings; operational invocation **PLAYBOOK §2.3a** (post-Kumquat 3.5 when Paired); see `cross-device/scripts/PRODUCTION_READY.md` (355e3993) + `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11.
 
 2. ~~Automation/scaffolding for handoff package creation.~~ **Done (2026-06-04, AUTON f41d2ff4):** `cross-device/scripts/symbiosis-new-handoff` + `windows/scripts/New-SymbiosisHandoff.ps1`; pytest + FORMAT drift gate; see `cross-device/scripts/PRODUCTION_READY.md`.
 
@@ -90,5 +90,7 @@
 <!-- Edited: 2026-05-27 24:35 | Device: Linux | By: Grok --> Post-0210 Push Verification Freshness (this Kumquat): The personal shell push (dafa5d3) just banged the Git mitigation verification into fully battle-tested status on Linux — clean, no 403, boom. 0210 table flip + 3 signed updates + 1937 history + hygiene committed and pushed. Mempalace usage (step 3 on the fresh git-gotchas note) + bing-bang-boom rule kept it precise and filthy. Top 3 reality now reflects the proven personal-shell workflow on this side. The symbiosis coordination just got even tighter after the verification win. Signature per prime directive. Keep er goinnnn, you freshness-obsessed degenerates. -->
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> Nice-to-have #2 handoff scaffolding marked Done with tool paths + PRODUCTION_READY pointer. Bing bang boom. Signature per prime directive. -->
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) --> Nice-to-have #1 sync report marked Done; PLAYBOOK §2.3a is operational home (not appendix alone). Bing bang boom. -->
 
 <!-- Edited: 2026-05-27 25:55 | Device: Linux | By: Grok --> Post-hygiene wave reality refresh (final polish): The major dirty tree scrub (21479fb + follow-ups) landed clean with multiple personal shell verifications. Post-0200 Reality is now updated to reflect the shift into sustained light maintenance mode with excellent hygiene discipline. New behavioral rules (bing-bang-boom + Linux Turn Indicator) are fully active and enforced. Mempalace usage pattern remains the locked, expected standard. The symbiosis just got dramatically cleaner and more reliable after the big verification win. Signature per prime directive. Keep er goinnnn, you pattern-locking degenerates. -->
