@@ -711,3 +711,50 @@ systemctl --user status washington-activator.service
 **This closes the 2026-06-02 full template audit wave under Mirrorability Prime. The one extended machine is now symmetrically inventoried and ready for the ingest token to finally ram real work through the relay.**
 
 All 7 primes + Mirrorability (this as last internal before output) + exact signatures + raunchy + Linux Turn + usage pattern followed in the creation of the audit report + these additions. Signature per prime directive. Keep er goinnnn, you full-sync, gap-closing, one-extended-machine degenerates. Bust a nut.
+
+## 12. Slack ↔ Grok Build Control Plane (`slack-grok-build-control-plane`, AUTON 474101a5)
+
+**Core deliverable:** Slack messages (via existing ingest) can now close/open Grok Build sessions and inject instructions (incl. full `/autonomous` launches). Pipeline sends threaded acks/reports back to Slack. Authz deny-by-default + UID allowlist. Control after claim, before beacon/generic Hermes (no fallthrough on reject).
+
+**Washington (Linux):**
+- `cross-device/symbiosis-relay/control.py` (parser + authorize + execute_control + discover_grok_pts + autonomous launch via `grok -p '/autonomous ...'`)
+- `cross-device/symbiosis-relay/tools/send_to_slack.py` (chat_postMessage with thread_ts from task; token load mirrors ingest/bridge from env + ~/.hermes/.env)
+- Wired in `activator_core.py` (post-claim, pre-beacon; pure control skips generic path)
+- `inject_hermes_task.py` enhancements (`--to-device`, `--as-real-slack`, `--slack-user`, `--slack-channel-id`) for tests
+- Health: control_* counters from activator JSONL (see relay-health.sh "SLACK→GROK CONTROL PLANE" section)
+- Dogfood: `python inject_hermes_task.py "grok close" --to-device washington --as-real-slack --slack-user U...` then check markers/beacon + logs
+
+**Oregon (Windows) parity (minimal viable):**
+- Same `activator_core.py` + `SYMBIOSIS_DEVICE=oregon` (from 19557e65 receiver kit)
+- PS thin wrappers or delegate-to-grok equivalent for stand-down / inject / `grok -p '/autonomous'`
+- Send via Hermes MCP `messages_send(target="slack:#all-devices", ...)` or shared bot token if env present
+- Mirror recipe in this § + rich `windows/scripts/` or oregon-receiver/
+- Test: after OR Kumquat + elevated Register, use inject or direct task drop + verify beacon/marker + (if gateway) Slack ack
+
+**Env / tokens (both sides):**
+- `SLACK_BOT_TOKEN` (for send_to_slack / web_client post; same as bridge)
+- `SYMBIOSIS_CONTROL_SLACK_USERS` (comma UIDs; deny-by-default if unset)
+- `SYMBIOSIS_CONTROL_ALLOW_ALL=1` (dev / inject tests only)
+- `SYMBIOSIS_SHARED` (for rich paths)
+
+**Rich cp (Washington after edit):**
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/symbiosis-relay/control.py ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/cross-device/symbiosis-relay/tools/send_to_slack.py ~/Synced/.../symbiosis-relay/tools/
+cp -a ~/grok-hermes-symbiosis/cross-device/symbiosis-relay/tools/relay-health.sh ~/Synced/.../symbiosis-relay/tools/
+# (plus any test updates)
+```
+
+**Verification (after OR pull or WA edit):**
+- Inject "grok close" → intent marker gone, beacon bust=false, Slack nack in thread (if token)
+- Inject "grok open" → intent present, inject script called (or queued), beacon bust start
+- Inject "grok autonomous: test idea" → AUTON launched (check ~/.grok/auton-projects/), ack sent
+- `relay-health.sh` shows control counters
+- No secrets in git; all control actions in activator JSONL
+- Mirror: OR has equivalent PS or delegate + can send acks
+
+**Docs cross-ref:** DESIGN.md + RESEARCH_SYNTHESIS.md (474101a5), relay control.py + send_to_slack.py, status.md / linux-instructions.md / PLAYBOOK / OPEN_ITEMS (new control plane item), Mempalace/symbiosis/ entry.
+
+**All 7 primes + Mirrorability (this § as last internal) + exact sigs + raunchy + self-prov + no blue balls followed.** Signature per prime directive. Keep er goinnnn, you Slack-cocked, control-plane-thrusting degenerates. Bust a nut.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 MIRROR §12) -->

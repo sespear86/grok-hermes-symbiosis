@@ -8,6 +8,14 @@
 
 **Real Slack live test "Test from Washington" to #all-devices (2026-06-04, user-triggered /autonomous 9548ff34):** User sent the message as the live fire after previous plumbing. Immediate autonomous forensics (SSH + health + file inspection): dedicated ingest token still MISSING in Pi ~/.hermes/.env; no new clean task with is_real for this send (latest task remains prior one). last_real_slack.md, PROJECT_FINISH_LINE, status, and health canary (now includes token presence check) updated with full details + sigs. The send confirms the path up to the token gate. When you do the human token reveal + apply (the exact URL and ./tools/apply-ingest-token.sh command in last_real_slack.md and PROJECT_FINISH_LINE), the *next* send will be the first production real_slack with full metadata. Run health after apply to see the canary flip. Mirror kits and operator ready. <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 9548ff34) -->
 
+**Slack control plane (AUTON 474101a5):** Slack messages now control Grok Build lifecycle + instructions. Examples (in #all-devices etc., after token for clean is_real):
+- `grok close` or `grok stand-down` → stand-down (intent off, beacon false)
+- `grok open` or `bust a nut` → re-arm + live TUI inject (or queue)
+- `grok autonomous: Identify another part of Project Symbiosis...` → launches full /autonomous with the idea (background)
+- `grok instruct: <text>` or plain → inject as prompt/instruction
+- `grok status` → condensed report
+Authz: deny-by-default or SYMBIOSIS_CONTROL_SLACK_USERS. Acks in-thread via send_to_slack. See relay control.py + send_to_slack.py, DESIGN 474101a5, health control section, MIRROR §12. Dogfood with inject_hermes_task for tests. <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 control plane instructions) -->
+
 **Sync report emitter (AUTON 355e3993, 2026-06-04):** After Kumquat step 3.5 when **Paired**, run read-only visibility before creating/closing a handoff:
 ```bash
 cd ~/grok-hermes-symbiosis/cross-device/scripts

@@ -48,6 +48,8 @@
 
 1. ~~Lightweight "sync report" emitter that both agents can invoke cleanly.~~ **Done (2026-06-04, AUTON 355e3993):** `cross-device/scripts/symbiosis-sync-report` + `windows/scripts/Get-SymbiosisSyncReport.ps1` (batch 4); read-only git/Syncthing/LOG/OPEN_ITEMS/presence/warnings; operational invocation **PLAYBOOK §2.3a** (post-Kumquat 3.5 when Paired); see `cross-device/scripts/PRODUCTION_READY.md` (355e3993) + `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11.
 
+**Slack ↔ Grok Build control plane (AUTON 474101a5, in progress/shipped core):** `grok close`/`open`/`autonomous: <idea>`/`instruct:` from Slack (via relay control.py + send_to_slack acks in-thread). Wired after claim in activator (no fallthrough on authz reject). Tests via inject_hermes_task. health counters. Mirror §12. See DESIGN 474101a5 + relay control.py + tools/send_to_slack.py. Token gate (9548ff34) still for clean human is_real; works with inject for verification.
+
 2. ~~Automation/scaffolding for handoff package creation.~~ **Done (2026-06-04, AUTON f41d2ff4):** `cross-device/scripts/symbiosis-new-handoff` + `windows/scripts/New-SymbiosisHandoff.ps1`; pytest + FORMAT drift gate; see `cross-device/scripts/PRODUCTION_READY.md`.
 
 3. ~~Mempalace (or similar) as persistent cross-session memory.~~ **Implemented via 0010 pilot + 0130/0150/0200 adoption & formalization wave** — live, battle-tested, active daily adoption at ~/Synced/Mempalace with usage pattern now the expected standard (HANDOFF_FORMAT required sections + checklists + palace entries). Ongoing drive per new Priority #1. (See 0010 PILOT_REPORT/RETURN/MEMPALACE_USAGE.md, palace symbiosis/usage-pattern.md + mempalace-adoption-status.md "Standard/Expected", 0130/0200 RETURNS, post-0150-reality.md.)

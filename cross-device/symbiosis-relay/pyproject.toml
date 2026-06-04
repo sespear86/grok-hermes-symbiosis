@@ -9,7 +9,7 @@ description = "Symbiosis Relay — Washington activator, device selector, listen
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{name = "Grok (symbiosis auton 19557e65)"}]
-dependencies = []
+dependencies = ["slack-sdk>=3.0"]
 
 [project.optional-dependencies]
 test = ["pytest>=7"]

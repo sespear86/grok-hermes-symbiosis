@@ -330,3 +330,24 @@ This is a **living** document. Treat it as the single place both humans and futu
 *This playbook is intentionally lightweight and practical. It consolidates what has already proven useful. Update it as the symbiosis matures.*
 
 <!-- Edited: 2026-05-27 03:35 | Device: Linux | By: Grok --> Light non-bloated cross-ref added to §2.4 (Agent Coordination) pointing to Mempalace for durable context surviving churn (per 0130 adoption deliverable 4 + 0010 pilot rec). Kept it 1-line high-signal. Also reinforces the §2.5 Memory Layer section already present. Self-referential: read PLAYBOOK + MEMPALACE_INTEGRATION + usage-pattern + 0130 handoff README first per pattern, then tiny edit + sig. Primes + loop + Kumquat followed. The coordination nervous system just got a memory assist in the best depraved way. Signature per prime directive. Keep er goinnnn. -->
+## Slack as Grok Build Control Surface (AUTON 474101a5)
+
+Slack messages in the 4 watched channels can now drive Grok Build lifecycle and instructions via the relay pipeline:
+
+- `grok close` / `stand-down` → safe stand-down (bust-a-nut-stand-down.sh)
+- `grok open` / `bust a nut` → re-arm + live TUI inject (or queue)
+- `grok autonomous: <idea>` → full /autonomous launch (background)
+- `grok instruct: <text>` or plain → prompt/instruction injection
+- `grok status` → condensed report + ack in-thread
+
+**Implementation:** thin `control.py` (parser + authz + execute) wired in `activator_core.py` after claim (before beacon/generic Hermes). `tools/send_to_slack.py` for threaded acks (BOT_TOKEN from env). Authz: deny-by-default or `SYMBIOSIS_CONTROL_SLACK_USERS`.
+
+**Dogfood (while token gate active for clean is_real):** use `inject_hermes_task.py "grok close" --to-device washington --as-real-slack ...`
+
+See DESIGN 474101a5, MIRROR §12, relay control.py + send_to_slack.py, health "CONTROL PLANE" section, status/instructions updates.
+
+**Mirror:** WA full; OR via same activator + PS bust tools or delegate + Hermes MCP send.
+
+All 7 primes + Mirrorability + sigs followed in delivery.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 PLAYBOOK control plane) -->
