@@ -30,9 +30,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-# Ensure sibling modules (task_schema) resolvable when run as script or -m
-sys.path.insert(0, str(Path(__file__).parent))
+# Ensure sibling modules (task_schema, control, tools) resolvable when run as script or -m
+_RELAY_ROOT = Path(__file__).parent
+sys.path.insert(0, str(_RELAY_ROOT))
+sys.path.insert(0, str(_RELAY_ROOT / "tools"))
 import task_schema  # noqa: E402
+import control  # noqa: E402
+import send_to_slack  # noqa: E402
 
 # --- 19557e65 + oregon-support for cross-device receiver ---
 # Small back-compatible generalization: SYMBIOSIS_DEVICE env var (or --device CLI flag on the thin
@@ -393,6 +397,49 @@ def process_inbox_once() -> int:
             continue
 
         write_status("processing", correlation, "Received task from Relay, activating Grok Build", health_ok=True, beacon_age_seconds_at_claim=h.get("beacon_age_seconds"))
+
+        action = control.parse_control(task)
+        if action is not None:
+            ok_auth, auth_reason = control.authorize(task)
+            if not ok_auth:
+                _json_log(
+                    "WARNING",
+                    "control_rejected",
+                    correlation=correlation,
+                    control_action=action.command,
+                    control_rejected_reason=auth_reason,
+                    slack_user=task.get("slack_user"),
+                )
+                slack_out = send_to_slack.nack_control_unauthorized(task, auth_reason, device=DEVICE)
+                _json_log(
+                    "INFO",
+                    "control_slack_nack",
+                    correlation=correlation,
+                    slack_ack_ok=slack_out.get("ok"),
+                    slack_ack_rc=0 if slack_out.get("ok") else 1,
+                )
+                write_status("control_rejected", correlation, auth_reason, control_rejected_reason=auth_reason)
+                archive_task(proc_path, success=True)
+                processed += 1
+                continue
+
+            result = control.execute(action, device=DEVICE, shared_base=SHARED_BASE)
+            slack_out = send_to_slack.ack_control_result(task, result, device=DEVICE)
+            _json_log(
+                "INFO",
+                f"control_{action.command}",
+                correlation=correlation,
+                control_action=action.command,
+                control_ok=result.ok,
+                control_detail=result.detail,
+                slack_ack_ok=slack_out.get("ok"),
+                slack_ack_rc=0 if slack_out.get("ok") else 1,
+            )
+            state = "control_completed" if result.ok else "control_failed"
+            write_status(state, correlation, result.detail, control_action=action.command, control_ok=result.ok)
+            archive_task(proc_path, success=True)
+            processed += 1
+            continue
 
         # Fire beacon (must succeed or abort)
         if not fire_beacon(True, correlation, bust=(task.get("type") == "bust_a_nut_resume")):
