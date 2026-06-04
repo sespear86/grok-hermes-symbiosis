@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "tool_version": "0.1.0",
   "project_path": "/home/Irikash/grok-hermes-symbiosis/cross-device/scripts",
-  "auton_id": "f41d2ff4",
+  "auton_id": "355e3993",
   "profile": "cli",
   "checklist_path": "/home/Irikash/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md",
   "checklist_sha256": "3af8e8b9a434efc4",
@@ -10,8 +10,8 @@
     "primary": "python",
     "manifest": "pyproject.toml"
   },
-  "started_at": "2026-06-04T15:45:39.582662+00:00",
-  "finished_at": "2026-06-04T15:45:39.582662+00:00",
+  "started_at": "2026-06-04T20:30:24.252258+00:00",
+  "finished_at": "2026-06-04T20:30:24.252258+00:00",
   "checks": [
     {
       "check_id": "s03.03.build_clean",
@@ -26,7 +26,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 22,
+      "duration_ms": 35,
       "message": "build passed (exit=0)"
     },
     {
@@ -42,7 +42,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 5,
+      "duration_ms": 7,
       "message": "lint passed (exit=0)"
     },
     {
@@ -55,7 +55,7 @@
         "has_tests_dir": true,
         "test_file_count": true
       },
-      "duration_ms": 0,
+      "duration_ms": 2,
       "message": "Test files/dirs present; manual review for coverage of happy/error/boundary per checklist"
     },
     {
@@ -67,12 +67,12 @@
       "evidence": {
         "command": "pytest -q",
         "exit_code": 0,
-        "stdout": "..............                                                           [100%]\n14 passed in 0.10s\n",
+        "stdout": "......................................                                   [100%]\n38 passed in 0.45s\n",
         "stderr": "",
-        "summary": "14 passed in 0.10s",
+        "summary": "38 passed in 0.45s",
         "stack": "python"
       },
-      "duration_ms": 626,
+      "duration_ms": 946,
       "message": "test_suite passed"
     },
     {
@@ -86,7 +86,7 @@
         "count": 0,
         "env_committed": false
       },
-      "duration_ms": 2,
+      "duration_ms": 4,
       "message": "No high-signal secrets or committed .env found"
     },
     {
@@ -156,13 +156,13 @@
       "check_id": "s11.01.commits_clear",
       "section": 11,
       "bullet": 1,
-      "status": "SKIP",
+      "status": "MANUAL_REVIEW_REQUIRED",
       "automatable": "partial",
       "evidence": {
-        "skipped": true
+        "has_git": false
       },
       "duration_ms": 0,
-      "message": "skipped via --no-git-check"
+      "message": "no .git dir; cannot verify commits"
     },
     {
       "check_id": "s12.01.production_ready_md",
@@ -172,7 +172,7 @@
       "automatable": "full",
       "evidence": {
         "production_ready_md": true,
-        "auton_id": "f41d2ff4",
+        "auton_id": "355e3993",
         "auton_state_ok": true,
         "auton_state_keys": [
           "auton_id",
@@ -192,7 +192,7 @@
       "status": "PASS",
       "automatable": "partial",
       "evidence": {
-        "drawer": "drawer_projects_symbiosis-handoff-scaffold_bf17a5ffbe20f554ffda65fb"
+        "drawer": "projects/symbiosis-sync-report-emitter"
       },
       "duration_ms": 0,
       "message": "mempalace_drawer in auton state"
@@ -201,11 +201,6 @@
   "mechanical_verdict": "MECHANICAL_PASS",
   "exit_code": 0,
   "production_verdict": "PASS",
-  "verifier_repass": "2026-06-04T15:45:54Z",
-  "issues_count": 0,
-  "fix_rounds": 1,
-  "report_path": "VERIFIER_GATE_REPORT.md",
-  "blocking_resolved": [
-    "coordination/windows-instructions.md f41d2ff4 handoff scaffold + Prime #7"
-  ]
+  "production_verdict_at": "2026-06-04T20:32:00+00:00",
+  "production_verdict_report": "/tmp/grok-auton-355e3993/VERIFIER_GATE_REPORT.md"
 }
