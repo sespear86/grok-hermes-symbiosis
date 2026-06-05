@@ -781,3 +781,59 @@ Have Grok Build run "/autonomous Identify another part of Project Symbiosis to t
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> MIRROR §12 NL autonomous recipe. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (rich cp + OR Kumquat). -->
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 MIRROR §12) -->
+
+## 14. Handoff Live Dashboard (`symbiosis-handoff-live-dashboard`, AUTON 3694a72b)
+
+**Purpose:** Localhost web UI that auto-refreshes read-only handoff kanban state (same data as `symbiosis-kanban`). Complements §13 CLI and §11 sync report; does not replace `multi-device-dashboard` (§1.5).
+
+**Naming:** Shim **`symbiosis-handoff-dashboard`**; slug/drawer `symbiosis-handoff-live-dashboard`.
+
+**Paths (git):**
+- `cross-device/scripts/symbiosis-handoff-dashboard`
+- `cross-device/scripts/handoff_dashboard/`
+- `cross-device/scripts/start-handoff-dashboard.sh`
+- `windows/scripts/Get-SymbiosisHandoffDashboard.ps1`
+- `windows/scripts/start-handoff-dashboard.ps1`
+
+**WA verify:**
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./start-handoff-dashboard.sh --device "Washington Linux"
+curl -sS http://127.0.0.1:8766/healthz
+curl -sS 'http://127.0.0.1:8766/api/kanban?format=json' | head -c 2000
+pytest tests -q -k handoff_dashboard
+```
+
+**OR verify:**
+
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_MEMPALACE_ROOT = "C:\Synced\Mempalace"
+.\windows\scripts\start-handoff-dashboard.ps1 -Device "Oregon Windows"
+Invoke-WebRequest http://127.0.0.1:8766/healthz
+cd windows\scripts
+Invoke-Pester .\Get-SymbiosisHandoffDashboard.Tests.ps1
+```
+
+**Rich mirror:**
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffDashboard.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffDashboard.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/start-handoff-dashboard.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**~/bin (WA):**
+
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-handoff-dashboard ~/bin/symbiosis-handoff-dashboard
+```
+
+**Production gate:** `PRODUCTION_READY.md` (3694a72b) + `auton-gate` + pytest.
+
+**Mirrorability:** MET when OR runs launcher + API returns same `schema_version` / column keys as WA.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b handoff-live-dashboard) -->

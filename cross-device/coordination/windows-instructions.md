@@ -34,6 +34,20 @@ python3 .\symbiosis-sync-report --device "Oregon Windows" --no-syncthing | Selec
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+**Handoff live dashboard (AUTON 3694a72b) — Washington shipped; Oregon mirror:**
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_MEMPALACE_ROOT = "C:\Synced\Mempalace"
+.\windows\scripts\start-handoff-dashboard.ps1 -Device "Oregon Windows"
+Invoke-WebRequest http://127.0.0.1:8766/healthz
+cd windows\scripts
+Invoke-Pester .\Get-SymbiosisHandoffDashboard.Tests.ps1
+```
+MIRROR §14 + PLAYBOOK §2.3c. Read-only localhost UI; same data as `Get-SymbiosisHandoffKanban.ps1`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
+
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**

@@ -55,7 +55,8 @@ pytest tests -q -k kanban
 pytest tests -q -k handoff_dashboard
 ```
 
-See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban).
+See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban), §14 (live dashboard).
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 implement) -->
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch7) -->
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b batch5-7 docs) -->

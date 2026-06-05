@@ -114,6 +114,18 @@ After Kumquat step 3.5, when **Paired Mode**, run the sync report on this machin
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+### 2.3b Handoff kanban (read-only CLI)
+
+When **Paired Mode** and you want a terminal board over `handoffs/` (columns, RETURN badges, warnings) without starting a server: Washington `~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-kanban --device "Washington Linux" --format board` (or `--format md` / `json`); Oregon `.\windows\scripts\Get-SymbiosisHandoffKanban.ps1 -Device "Oregon Windows"`. **Read-only** — does not edit LOG, README, or `status.md`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch7) -->
+
+### 2.3c Handoff live dashboard (read-only)
+
+When **Paired Mode** and you want glanceable pipeline state (e.g. during Slack-driven autons), start the localhost dashboard: Washington `./start-handoff-dashboard.sh --device "Washington Linux"` (opens http://127.0.0.1:8766); Oregon `.\windows\scripts\start-handoff-dashboard.ps1 -Device "Oregon Windows"`. **Read-only** — same data as `symbiosis-kanban`; does not edit LOG or status.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
+
 ### 2.4 Agent Coordination via `cross-device/coordination/`
 - Primary structured channel between the two Groks (minimizes Discord copy-paste).
 - Key files:

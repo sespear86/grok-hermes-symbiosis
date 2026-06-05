@@ -58,7 +58,9 @@
 
 3. ~~Mempalace (or similar) as persistent cross-session memory.~~ **Implemented via 0010 pilot + 0130/0150/0200 adoption & formalization wave** — live, battle-tested, active daily adoption at ~/Synced/Mempalace with usage pattern now the expected standard (HANDOFF_FORMAT required sections + checklists + palace entries). Ongoing drive per new Priority #1. (See 0010 PILOT_REPORT/RETURN/MEMPALACE_USAGE.md, palace symbiosis/usage-pattern.md + mempalace-adoption-status.md "Standard/Expected", 0130/0200 RETURNS, post-0150-reality.md.)
 
-4. Kanban-style view over the handoffs/ folder.
+4. ~~Kanban-style view over the handoffs/ folder.~~ **Done CLI (2026-06-04, AUTON 6239aa70):** `symbiosis-kanban` + `Get-SymbiosisHandoffKanban.ps1`; **Done live dashboard (2026-06-04, AUTON 3694a72b):** `symbiosis-handoff-dashboard` + launchers + MIRROR §14 + PLAYBOOK §2.3c.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
 
 5. Shared project folders under `~/Synced/Projects` (or Windows `C:\Synced\Projects` equivalent).
 

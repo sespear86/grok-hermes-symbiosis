@@ -34,6 +34,17 @@ Dogfood: `pytest tests -q -k sync_report` then `auton-gate check ~/grok-hermes-s
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+**Handoff live dashboard (AUTON 3694a72b, 2026-06-04):** When **Paired Mode** and you want auto-refresh pipeline state in the browser (same kanban model as CLI):
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./start-handoff-dashboard.sh --device "Washington Linux" &
+# or foreground: ~/bin/symbiosis-handoff-dashboard --device "Washington Linux" --open
+curl -sS http://127.0.0.1:8766/healthz
+```
+Dogfood: `pytest tests -q -k handoff_dashboard` then `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 3694a72b --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md`. Rich mirror per MIRROR §14. Read-only — does not replace `status.md` / LOG edits.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
+
 **CURRENT OPERATIONAL FOCUS (user directive 2026-06-03):** Take Tier 1 priority **off** Bust-a-Nut autonomous re-arm/survival stack (it is sustained + hardened; monitor via relay-health, only targeted work on pain). Ruthlessly focus on **Real Slack production flow** — the biggest shared cockblock. The exact human action that unlocks it is running `cd ~/Synced/grok-mempalace-integration/symbiosis-relay && python tools/slack_operator.py create-ingest-companion` (canonical rich dir matching the SHARED= in relay-health.sh and ~/Synced references in hooks). See the full recipe + verification in the updated PROJECT_FINISH_LINE.md (CURRENT ACTIVE FOCUS + the 2026-06-03 signed entry at the end) and last_real_slack.md. Once the xapp- token is pushed (apply script does the Pi .env + restart), the next real human Slack in the 4 channels will be the first clean production real_slack with full metadata and routing. Update this file + status + Mempalace on the post-token Kumquat. Mirrorability: the operator/apply/manifest are already in kits. **Washington has the ball** for facilitating the human run.
 
 **Washington prep complete (19557e65 packaging):** Clean oregon-receiver/ kit + py generalization + handoff + docs updates delivered + pushed + rich cp (Install + launcher + Test- star mirroring receipts + extended Register/Get + install guide + deprecation + sigs + Ball Holder). Oregon does the Kumquat + Install elevated + Test- (must PASS receipts) + reboot-verify + update docs + RETURN on their next pull. See windows-instructions top standing order + MIRROR section 9 + handoff 20260603-.... **Oregon has the ball.**
