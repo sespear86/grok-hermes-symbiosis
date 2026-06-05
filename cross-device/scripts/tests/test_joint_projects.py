@@ -9,9 +9,18 @@ from pathlib import Path
 
 import pytest
 
+import json as json_mod
+
 from joint_projects.collectors import collect_list
-from joint_projects.paths import assert_under_projects_root, default_projects_root, validate_slug
+from joint_projects.init import init_project
+from joint_projects.paths import (
+    assert_under_projects_root,
+    default_projects_root,
+    project_dir,
+    validate_slug,
+)
 from joint_projects.render import render_json, render_md
+from joint_projects.verify import verify_all, verify_project
 
 SCRIPTS = Path(__file__).resolve().parents[1]
 JP_PKG = SCRIPTS / "joint_projects"
@@ -303,4 +312,241 @@ def test_default_projects_root_env_override(tmp_path, monkeypatch):
     assert default_projects_root() == (tmp_path / "custom").resolve()
 
 
-# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR1) -->
+def test_init_dry_run_no_writes(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    res = init_project(
+        slug="Dry-Run-App",
+        root=root,
+        device="Washington Linux",
+        template="minimal",
+        dry_run=True,
+    )
+    assert res.ok
+    assert not (root / "Dry-Run-App").exists()
+    assert len(res.planned_paths) == 3
+
+
+def test_init_minimal_materializes(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    res = init_project(
+        slug="My-Joint-App",
+        root=root,
+        device="Washington Linux",
+        template="minimal",
+        dry_run=False,
+    )
+    assert res.ok, res.errors
+    proj = root / "My-Joint-App"
+    assert (proj / "README.md").is_file()
+    assert (proj / ".stignore").is_file()
+    st = (proj / ".stignore").read_text(encoding="utf-8")
+    assert "**/.grok/" in st
+    assert "**/.hermes/" in st
+    manifest = json_mod.loads((proj / ".symbiosis-project.json").read_text(encoding="utf-8"))
+    assert manifest["slug"] == "My-Joint-App"
+    assert manifest["created_by_device"] == "Washington Linux"
+    assert manifest["template"] == "minimal"
+    assert manifest["auton_id"] == "61cdeb81"
+
+
+def test_init_app_template_src_gitkeep(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    res = init_project(
+        slug="App-Template",
+        root=root,
+        device="Oregon Windows",
+        template="app",
+        dry_run=False,
+    )
+    assert res.ok
+    assert (root / "App-Template" / "src" / ".gitkeep").is_file()
+    readme = (root / "App-Template" / "README.md").read_text(encoding="utf-8")
+    assert "Suggested layout" in readme
+
+
+def test_init_existing_dir_fails(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    (root / "Collide").mkdir()
+    res = init_project(
+        slug="Collide",
+        root=root,
+        device="Washington Linux",
+        dry_run=False,
+    )
+    assert not res.ok
+
+
+def test_init_path_confinement_invalid_slug(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    with pytest.raises(ValueError):
+        project_dir(root, "..")
+    res = init_project(
+        slug="..",
+        root=root,
+        device="Washington Linux",
+        dry_run=False,
+    )
+    assert not res.ok
+
+
+def test_verify_project_ok_after_init(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    init_project(
+        slug="Verify-Me",
+        root=root,
+        device="Washington Linux",
+        dry_run=False,
+    )
+    res = verify_project(root, "Verify-Me")
+    assert res.ok
+    assert not res.errors
+
+
+def test_verify_project_legacy_warnings(projects_mini_tree):
+    _repo, projects_root = projects_mini_tree
+    alpha = verify_project(projects_root, "Alpha-App")
+    assert alpha.ok
+    assert any(".symbiosis-project.json" in w for w in alpha.warnings)
+
+    beta = verify_project(projects_root, "Beta-Only-Readme")
+    assert not beta.ok
+    assert any(".stignore" in e for e in beta.errors)
+
+
+def test_verify_all_projects(projects_mini_tree):
+    _repo, projects_root = projects_mini_tree
+    results = verify_all(projects_root)
+    slugs = {r.slug for r in results}
+    assert slugs == {"Alpha-App", "Beta-Only-Readme"}
+
+
+def test_verify_warns_git_and_agent_home(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    slug = "Warn-Dirs"
+    init_project(slug=slug, root=root, device="Washington Linux", dry_run=False)
+    proj = root / slug
+    (proj / ".git").mkdir()
+    agent = proj / "nested" / ".grok"
+    agent.mkdir(parents=True)
+    res = verify_project(root, slug)
+    assert res.ok
+    assert any(".git/" in w for w in res.warnings)
+    assert any(".grok" in w for w in res.warnings)
+
+
+def test_cli_init_dry_run(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    r = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "init",
+            "--slug",
+            "Cli-Dry",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(root),
+            "--dry-run",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r.returncode == 0, r.stderr
+    assert "[dry-run]" in r.stdout
+    assert not (root / "Cli-Dry").exists()
+
+
+def test_cli_init_and_verify(tmp_path):
+    root = tmp_path / "projects"
+    root.mkdir()
+    r = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "init",
+            "--slug",
+            "Cli-Full",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(root),
+            "--template",
+            "app",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r.returncode == 0, r.stderr
+    r2 = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "verify",
+            "--slug",
+            "Cli-Full",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(root),
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r2.returncode == 0, r2.stderr
+    assert "OK" in r2.stdout
+
+
+def test_cli_verify_all_exit1_on_errors(projects_mini_tree):
+    _repo, projects_root = projects_mini_tree
+    r = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "verify",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(projects_root),
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r.returncode == 1
+    assert "Beta-Only-Readme" in r.stdout
+
+
+def test_init_list_verify_no_handoff_log_write(repo_root, tmp_path):
+    log = repo_root / "cross-device" / "handoffs" / "HANDOFF_LOG.md"
+    mtime_before = log.stat().st_mtime
+    projects_root = tmp_path / "projects"
+    projects_root.mkdir()
+    init_project(
+        slug="No-Log-Touch",
+        root=projects_root,
+        device="Washington Linux",
+        dry_run=False,
+    )
+    verify_project(projects_root, "No-Log-Touch")
+    collect_list(
+        device="Washington Linux",
+        projects_root=projects_root,
+        repo_root=repo_root,
+        include_coord=True,
+    )
+    assert log.stat().st_mtime == mtime_before
+
+
+# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR2) -->
