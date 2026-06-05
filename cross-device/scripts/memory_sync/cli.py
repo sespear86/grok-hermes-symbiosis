@@ -44,14 +44,18 @@ def main(argv: list[str] | None = None) -> int:
     palace = paths.default_mempalace_root()
 
     if args.cmd == "bundle":
-        # minimal dry-run bundle
+        # Build bundle (dry-run friendly)
         if args.agent == "grok":
             sess = grok_session.find_latest_session(Path.cwd())
-            todos, warns = grok_session.collect_todos(sess) if sess else ([], ["no session"])
+            todos, warns = grok_session.collect_todos(sess) if sess else ([], ["no session dir or no todo_write events"])
         else:
             todos, warns = [], []
+        try:
+            open_items = coordination.extract_open_items_top3(repo) if hasattr(coordination, "extract_open_items_top3") else None
+        except Exception:
+            open_items = None
         b = {
-            "bundle_id": bundle_mod.make_bundle_id(args.project, datetime.now(timezone.utc).isoformat(), args.agent, "deadbeef"),
+            "bundle_id": bundle_mod.make_bundle_id(args.project, datetime.now(timezone.utc).isoformat(), args.agent, "cafebabe"),
             "version": bundle_mod.BUNDLE_VERSION,
             "exported_at": datetime.now(timezone.utc).isoformat(),
             "agent": args.agent,
@@ -59,26 +63,89 @@ def main(argv: list[str] | None = None) -> int:
             "project_slug": args.project,
             "todos": todos,
             "decisions": [],
-            "open_items_excerpt": coordination.extract_open_items_top3(repo) if hasattr(coordination, "extract_open_items_top3") else None,
+            "open_items_excerpt": open_items,
             "native_memory_excerpt": None,
             "mempalace_refs": [f"projects/{args.project}-snapshots"],
             "warnings": warns,
         }
+        try:
+            from . import redact
+            b = redact.redact_bundle(b)
+        except Exception:
+            pass
         print(json.dumps(b, indent=2))
         return 0
 
     if args.cmd == "push":
-        # stub: build + push (real in full B3)
-        print(f"push {args.agent} {args.device} to {palace} (stub; see DESIGN B3 + palace_io)")
-        return 0
+        # Real push: build bundle then file via palace_io
+        if args.agent == "grok":
+            sess = grok_session.find_latest_session(Path.cwd())
+            todos, warns = grok_session.collect_todos(sess) if sess else ([], ["no session"])
+        else:
+            todos, warns = [], []
+        try:
+            open_items = coordination.extract_open_items_top3(repo) if hasattr(coordination, "extract_open_items_top3") else None
+        except Exception:
+            open_items = None
+        b = {
+            "bundle_id": bundle_mod.make_bundle_id(args.project, datetime.now(timezone.utc).isoformat(), args.agent, "feedface"),
+            "version": bundle_mod.BUNDLE_VERSION,
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "agent": args.agent,
+            "device": args.device,
+            "project_slug": args.project,
+            "todos": todos,
+            "decisions": [],
+            "open_items_excerpt": open_items,
+            "native_memory_excerpt": None,
+            "mempalace_refs": [f"projects/{args.project}-snapshots"],
+            "warnings": warns,
+        }
+        try:
+            from . import redact
+            b = redact.redact_bundle(b)
+        except Exception:
+            pass
+        if args.dry_run:
+            print(json.dumps({"dry_run": True, "would_push": b}, indent=2))
+            return 0
+        try:
+            from . import palace_io as pio
+            drawer_ref = pio.push_bundle(palace, b, args.project)
+            try:
+                from . import palace_io as _pio
+                _pio.record_push(args.project, args.agent, args.device, b["bundle_id"])
+            except Exception:
+                pass
+            print(json.dumps({"pushed": True, "bundle_id": b["bundle_id"], "drawer": drawer_ref}, indent=2))
+            return 0
+        except Exception as e:
+            print(json.dumps({"pushed": False, "error": str(e)}, indent=2))
+            return 2
 
     if args.cmd == "pull":
-        print(f"pull {args.agent} {args.device} (stub inject to stdout)")
-        return 0
+        try:
+            from . import palace_io as pio
+            bundles = pio.pull_bundles(palace, args.project, agent=args.agent, limit=3)
+            if args.dry_run:
+                print(json.dumps({"dry_run": True, "would_pull": [bb.get("bundle_id") for bb in bundles]}, indent=2))
+                return 0
+            text = pio.render_inject(bundles)
+            print(text)
+            return 0
+        except Exception as e:
+            print(f"pull failed: {e}")
+            return 2
 
     if args.cmd == "status":
-        print(json.dumps({"last": None, "device": args.device, "project": args.project, "note": "stub per B3"}, indent=2))
-        return 0
+        try:
+            from . import palace_io as pio
+            last = pio.get_last_push(args.project, args.device)
+            print(json.dumps({"project": args.project, "device": args.device, "last_push": last or "none recorded in this process", "note": "use push to record; palace query for cross-process"}, indent=2))
+            return 0
+        except Exception as e:
+            print(json.dumps({"error": str(e)}, indent=2))
+            return 2
 
     return 0
 
