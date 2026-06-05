@@ -48,6 +48,10 @@
 
 1. ~~Lightweight "sync report" emitter that both agents can invoke cleanly.~~ **Done (2026-06-04, AUTON 355e3993):** `cross-device/scripts/symbiosis-sync-report` + `windows/scripts/Get-SymbiosisSyncReport.ps1` (batch 4); read-only git/Syncthing/LOG/OPEN_ITEMS/presence/warnings; operational invocation **PLAYBOOK §2.3a** (post-Kumquat 3.5 when Paired); see `cross-device/scripts/PRODUCTION_READY.md` (355e3993) + `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11.
 
+**Slack NL autonomous silent failure (AUTON 98822e73):** **Done** — NL parser, trust override, explicit device dispatch, TUI inject, NL acks, health last_control, tests/smoke. Canonical command in aux DESIGN.md (see /tmp/grok-auton-98822e73/DESIGN.md + RESEARCH) + MIRROR §12. (D1 aligned post-review.)
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> Closed NL autonomous gap. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (gate after review). -->
+
 **Slack ↔ Grok Build control plane (AUTON 474101a5, in progress/shipped core):** `grok close`/`open`/`autonomous: <idea>`/`instruct:` from Slack (via relay control.py + send_to_slack acks in-thread). Wired after claim in activator (no fallthrough on authz reject). Tests via inject_hermes_task. health counters. Mirror §12. See DESIGN 474101a5 + relay control.py + tools/send_to_slack.py. Token gate (9548ff34) still for clean human is_real; works with inject for verification.
 
 2. ~~Automation/scaffolding for handoff package creation.~~ **Done (2026-06-04, AUTON f41d2ff4):** `cross-device/scripts/symbiosis-new-handoff` + `windows/scripts/New-SymbiosisHandoff.ps1`; pytest + FORMAT drift gate; see `cross-device/scripts/PRODUCTION_READY.md`.

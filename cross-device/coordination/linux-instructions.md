@@ -8,6 +8,12 @@
 
 **Real Slack live test "Test from Washington" to #all-devices (2026-06-04, user-triggered /autonomous 9548ff34):** User sent the message as the live fire after previous plumbing. Immediate autonomous forensics (SSH + health + file inspection): dedicated ingest token still MISSING in Pi ~/.hermes/.env; no new clean task with is_real for this send (latest task remains prior one). last_real_slack.md, PROJECT_FINISH_LINE, status, and health canary (now includes token presence check) updated with full details + sigs. The send confirms the path up to the token gate. When you do the human token reveal + apply (the exact URL and ./tools/apply-ingest-token.sh command in last_real_slack.md and PROJECT_FINISH_LINE), the *next* send will be the first production real_slack with full metadata. Run health after apply to see the canary flip. Mirror kits and operator ready. <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 9548ff34) -->
 
+**Slack NL autonomous + explicit device (AUTON 98822e73):** Natural-language control works on the main-token path (trust override + threaded ack with token note). Golden example in #all-devices:
+`Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.`
+Smoke: `SYMBIOSIS_CONTROL_ALLOW_ALL=1 ./tools/smoke_nl_autonomous.sh washington` then activator once on device inbox. See MIRROR §12 (98822e73), `control.py`, `relay_listener.py --once`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> Standing order + canonical Slack example. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (review + rich cp). -->
+
 **Slack control plane (AUTON 474101a5):** Slack messages now control Grok Build lifecycle + instructions. Examples (in #all-devices etc., after token for clean is_real):
 - `grok close` or `grok stand-down` → stand-down (intent off, beacon false)
 - `grok open` or `bust a nut` → re-arm + live TUI inject (or queue)
