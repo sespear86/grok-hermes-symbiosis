@@ -47,6 +47,19 @@ Optional: `ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-project
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
 
+**Grok MCP for Hermes (AUTON b045169b, 2026-06-05):** Native `grok__*` tools in `cross-device/grok-mcp/`. After pull, venv + pytest + register + test:
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/grok-mcp
+python3.11 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/pytest tests -q
+# hermes mcp add grok — full block in configs/hermes-mcp-recommendations.md
+hermes mcp test grok
+./symbiosis-grok-mcp --help
+```
+Optional: `ln -sf ~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp ~/bin/`. Rich cp + OR verify: MIRROR §16. Prefer MCP over `delegate-to-grok.sh` when tools listed. **Washington has the ball** (PR10 gates: auton-gate, verifier, optional live dogfood).
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b) -->
+
 **CURRENT OPERATIONAL FOCUS (user directive 2026-06-03):** Take Tier 1 priority **off** Bust-a-Nut autonomous re-arm/survival stack (it is sustained + hardened; monitor via relay-health, only targeted work on pain). Ruthlessly focus on **Real Slack production flow** — the biggest shared cockblock. The exact human action that unlocks it is running `cd ~/Synced/grok-mempalace-integration/symbiosis-relay && python tools/slack_operator.py create-ingest-companion` (canonical rich dir matching the SHARED= in relay-health.sh and ~/Synced references in hooks). See the full recipe + verification in the updated PROJECT_FINISH_LINE.md (CURRENT ACTIVE FOCUS + the 2026-06-03 signed entry at the end) and last_real_slack.md. Once the xapp- token is pushed (apply script does the Pi .env + restart), the next real human Slack in the 4 channels will be the first clean production real_slack with full metadata and routing. Update this file + status + Mempalace on the post-token Kumquat. Mirrorability: the operator/apply/manifest are already in kits. **Washington has the ball** for facilitating the human run.
 
 **Washington prep complete (19557e65 packaging):** Clean oregon-receiver/ kit + py generalization + handoff + docs updates delivered + pushed + rich cp (Install + launcher + Test- star mirroring receipts + extended Register/Get + install guide + deprecation + sigs + Ball Holder). Oregon does the Kumquat + Install elevated + Test- (must PASS receipts) + reboot-verify + update docs + RETURN on their next pull. See windows-instructions top standing order + MIRROR section 9 + handoff 20260603-.... **Oregon has the ball.**

@@ -1,0 +1,13 @@
+All good.
+
+VERDICT: PASS
+
+```json SYMBIOSIS_RESULT
+{
+  "ok": true,
+  "summary": "Checks passed",
+  "verdict": "pass",
+  "artifacts": [],
+  "worktree_path": null
+}
+```

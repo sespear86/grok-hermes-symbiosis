@@ -1,0 +1,12 @@
+Done the thing.
+
+```json SYMBIOSIS_RESULT
+{
+  "ok": true,
+  "summary": "Implemented feature X",
+  "verdict": "complete",
+  "artifacts": [{"path": "/tmp/x.md", "role": "design"}],
+  "worktree_path": null,
+  "notes": ""
+}
+```

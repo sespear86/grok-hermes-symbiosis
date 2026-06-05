@@ -49,6 +49,17 @@ hermes mcp add github --command npx --args "-y @modelcontextprotocol/server-gith
 ```
 (See `configs/hermes-mcp-recommendations.md`)
 
+### Grok MCP on Hermes (AUTON b045169b — native SE delegation)
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/grok-mcp
+python3.11 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+# then hermes mcp add grok ... (full block in configs/hermes-mcp-recommendations.md)
+hermes mcp test grok
+```
+In Hermes sessions, prefer `grok__grok_implement` / `grok__grok_design` / etc. over shell delegates when tools are listed.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR7) -->
+
 ### Test the MCP Bridge
 In a Grok session:
 - `/mcps` → look for "hermes"
@@ -72,7 +83,7 @@ In a Grok session:
 
 ## Next-Level (Future Work in this Dir)
 
-- Custom MCP server exposing more Grok-specific tools (image gen, todo mgmt, verification) to Hermes.
+- ~~Custom MCP server for Grok SE workflows on Hermes.~~ **Shipped:** `cross-device/grok-mcp/` (b045169b). Future: image/video/todo bridges, Grok `config.toml` symmetry.
 - Memory/todo sync scripts.
 - Kanban + Grok subagent orchestration helpers.
 - Evaluation harness comparing pure vs symbiotic performance on complex tasks.

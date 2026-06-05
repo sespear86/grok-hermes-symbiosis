@@ -187,7 +187,7 @@ The long-term goal is maximum congruency of projects, skills, scripts, tools, an
 
 ## Advanced / Future Extensions (Roadmap in this repo)
 
-- Custom MCP server (Python FastMCP) that exposes select Grok Build capabilities (image/video gen, todo system, verification) to Hermes and vice versa.
+- ~~Custom MCP server (Python FastMCP) exposing Grok Build SE workflows to Hermes.~~ **Done (2026-06-05, AUTON b045169b):** [`cross-device/grok-mcp/`](cross-device/grok-mcp/) — `grok__grok_implement`, `grok__grok_design`, `grok__grok_check`, `grok__grok_review`, `grok__grok_best_of_n` via `hermes mcp add grok`; see `configs/hermes-mcp-recommendations.md` and MIRROR §16.
 - Bidirectional memory sync (Grok todos ↔ Hermes memory / Honcho peers).
 - Shared skill curation: Grok-generated high-quality SE skills auto-ported or symlinked for Hermes.
 - Plugin for Hermes that treats Grok Build as a "specialist subagent" via CLI RPC.

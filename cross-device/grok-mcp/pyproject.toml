@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "symbiosis-grok-mcp"
+version = "0.1.0"
+description = "FastMCP stdio server exposing Grok Build specialist workflows to Hermes via grok -z (AUTON b045169b)"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Grok (symbiosis auton b045169b)" }]
+dependencies = [
+  "mcp[cli]>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+symbiosis-grok-mcp = "grok_mcp.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["grok_mcp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

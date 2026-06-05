@@ -68,6 +68,10 @@
 
 6. Simple agent helper / grep wrapper for Mempalace "queries" during Kumquat (only after real adoption validates the need per 0200 rec; keep lightweight; none needed currently).
 
+7. ~~Native Grok Build MCP server for Hermes (`grok__*` tools).~~ **Done (2026-06-05, AUTON b045169b):** `cross-device/grok-mcp/` + `hermes mcp add grok`; PLAYBOOK §2.3e; MIRROR §16; PR10 gates (auton-gate, verifier, dual-host `hermes mcp test`) remain.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b) -->
+
 ---
 
 ## Decisions Awaiting Input

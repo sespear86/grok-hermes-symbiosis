@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# symbiosis-grok-mcp — FastMCP stdio launcher (AUTON b045169b)
+# Hermes registers: hermes mcp add grok --command ... --args -m grok_mcp
+# This shim runs the same module for manual smoke / PATH convenience.
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+usage() {
+  cat <<'EOF'
+symbiosis-grok-mcp — Grok Build delegation MCP server (stdio)
+
+Usage:
+  symbiosis-grok-mcp          Run FastMCP stdio server (blocks; for Hermes child process)
+  symbiosis-grok-mcp --help   This message
+
+Env (optional):
+  GROK_BIN                    grok CLI (default: grok)
+  SYMBIOSIS_REPO_ROOT         repo root for path confinement
+  SYMBIOSIS_GROK_DELEGATE_YOLO=1  add --always-approve to grok -z (symbiosis hosts only)
+
+Package: cross-device/grok-mcp/  Design: DESIGN.md  AUTON b045169b
+EOF
+}
+
+case "${1:-}" in
+  -h|--help|help)
+    usage
+    exit 0
+    ;;
+esac
+
+run_py() {
+  local py="$1"
+  shift
+  cd "$ROOT"
+  exec "$py" -m grok_mcp "$@"
+}
+
+if [[ -x "$ROOT/.venv/bin/python" ]]; then
+  run_py "$ROOT/.venv/bin/python" "$@"
+fi
+if command -v python3.11 &>/dev/null; then
+  run_py "$(command -v python3.11)" "$@"
+fi
+if command -v python3 &>/dev/null; then
+  run_py "$(command -v python3)" "$@"
+fi
+
+echo "symbiosis-grok-mcp: no python found (expected .venv or python3.11)" >&2
+exit 127
+
+# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR5) -->

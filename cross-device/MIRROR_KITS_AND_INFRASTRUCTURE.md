@@ -894,3 +894,57 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-projects ~/bin/sym
 **Mirrorability:** MET when OR runs Python shim or PS wrappers with same list/init/verify behavior (Python 3.11+). Gaps: document if `C:\Synced\Projects` empty (honest empty list).
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
+## 16. Grok Build MCP for Hermes (`symbiosis-grok-mcp`, AUTON b045169b)
+
+**Purpose:** Hermes-native FastMCP stdio tools wrapping `grok -z` for implement / design / check / review / best-of-n. Server name **`grok`** → tools **`grok__*`** with structured `SYMBIOSIS_RESULT` parsing.
+
+**Naming:** Package `symbiosis-grok-mcp`; shim **`symbiosis-grok-mcp`**; drawer/slug **`grok-mcp-server`**.
+
+**Paths (git):**
+
+- `cross-device/grok-mcp/` (package `grok_mcp`)
+- `cross-device/grok-mcp/symbiosis-grok-mcp` (bash shim)
+- `windows/scripts/Invoke-SymbiosisGrokMcp.ps1`
+- `windows/scripts/Invoke-SymbiosisGrokMcp.Tests.ps1`
+
+**WA verify:**
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/grok-mcp
+python3.11 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/pytest tests -q
+hermes mcp test grok
+~/bin/symbiosis-grok-mcp --help 2>/dev/null || ./symbiosis-grok-mcp --help
+```
+
+**OR verify:**
+
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\grok-mcp
+py -3.11 -m venv .venv
+.\.venv\Scripts\pip install -e ".[dev]"
+.\.venv\Scripts\pytest tests -q
+hermes mcp test grok
+Invoke-Pester C:\Users\spear\grok-hermes-symbiosis\windows\scripts\Invoke-SymbiosisGrokMcp.Tests.ps1
+```
+
+**Rich mirror:**
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/grok-mcp ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Invoke-SymbiosisGrokMcp.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Invoke-SymbiosisGrokMcp.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**~/bin (WA, optional):**
+
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp ~/bin/symbiosis-grok-mcp
+```
+
+**Production gate:** `cross-device/grok-mcp/PRODUCTION_READY.md` + `auton-gate check ... --auton-id b045169b --profile cli` + verifier PASS + `check-primes.sh`.
+
+**Mirrorability:** **MET** when both hosts run pytest, `hermes mcp test grok`, and OR Pester smoke pass (Python 3.11+ venv). Gaps until PR10: live `hermes mcp add` executed on both hosts, GATE_REPORT/VERIFIER committed.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR9) -->

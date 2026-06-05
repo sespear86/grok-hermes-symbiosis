@@ -62,4 +62,40 @@ Useful for data-heavy work where Grok or Hermes needs to query local dbs.
 hermes mcp add github --command npx --args "-y @modelcontextprotocol/server-github" --env GITHUB_PERSONAL_ACCESS_TOKEN="$GITHUB_TOKEN"
 ```
 
+## Grok Build specialist (Symbiosis — AUTON b045169b)
+
+Native FastMCP server at `cross-device/grok-mcp/`. Exposes structured delegation to `grok -z` (implement, design, check, review, best-of-n). Tool prefix: **`grok__`** when server name is `grok`.
+
+**Linux (Washington):**
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/grok-mcp
+python3.11 -m venv .venv
+.venv/bin/pip install -e ".[dev]"
+hermes mcp add grok \
+  --command "$HOME/grok-hermes-symbiosis/cross-device/grok-mcp/.venv/bin/python" \
+  --args "-m" "grok_mcp" \
+  --env GROK_BIN="$HOME/.grok/bin/grok" \
+  --env SYMBIOSIS_REPO_ROOT="$HOME/grok-hermes-symbiosis" \
+  --startup-timeout-sec 15 \
+  --tool-timeout-sec 3600
+hermes mcp test grok
+```
+
+**Windows (Oregon):** Same with `C:\Users\spear\grok-hermes-symbiosis`, `Scripts\python.exe`, `grok.exe`. Use **3600** tool timeout for long `grok_implement` calls (design/check/review can use default 600–1200 on server side; Hermes cap must be ≥ per-tool `timeout_sec`).
+
+| Tool | Default timeout (server) |
+|------|--------------------------|
+| `grok_implement` | 3600 |
+| `grok_design` | 1800 |
+| `grok_check` | 600 |
+| `grok_review` | 1200 |
+| `grok_best_of_n` | 2400 |
+
+Optional headless approvals on dedicated symbiosis hosts only: `--env SYMBIOSIS_GROK_DELEGATE_YOLO=1` (never default in docs).
+
+See `cross-device/grok-mcp/README.md`, `DESIGN.md`, MIRROR §16.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR7) -->
+
 See also: `hermes mcp --help` and the main symbiosis README.

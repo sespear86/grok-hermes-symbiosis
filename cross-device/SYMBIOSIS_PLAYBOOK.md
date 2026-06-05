@@ -114,6 +114,24 @@ After Kumquat step 3.5, when **Paired Mode**, run the sync report on this machin
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+### 2.3e Hermes → Grok MCP tools (`grok__*`, AUTON b045169b)
+
+When Hermes has the **`grok`** MCP server registered (`cross-device/grok-mcp/`), prefer typed tools over shell `hermes-grok-delegate` / `delegate-to-grok.sh`:
+
+| Hermes tool | Grok workflow |
+|-------------|---------------|
+| `grok__grok_implement` | implement + reviewers |
+| `grok__grok_design` | design doc loop |
+| `grok__grok_check` | check / VERDICT |
+| `grok__grok_review` | code review |
+| `grok__grok_best_of_n` | parallel exploration |
+
+Register once per machine (`hermes mcp add grok` — see `configs/hermes-mcp-recommendations.md`). Returns parse `SYMBIOSIS_RESULT` JSON + summary. Long implement: Hermes `--tool-timeout-sec 3600` minimum.
+
+Washington smoke: `~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp --help` then `hermes mcp test grok`. Oregon: `.\windows\scripts\Invoke-SymbiosisGrokMcp.ps1 -Help` + same test. MIRROR §16.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR8) -->
+
 ### 2.3d Shared projects (`~/Synced/Projects` / `C:\Synced\Projects`)
 
 Joint product directories live under the Syncthing **Projects** folder (see §2.1 table). Use **`symbiosis-projects`** for list / init / verify — read-only `list` and `verify`; `init` writes only under `SYMBIOSIS_PROJECTS_ROOT` (default `~/Synced/Projects` or `C:\Synced\Projects`). Does **not** edit `HANDOFF_LOG.md` or handoff packages.

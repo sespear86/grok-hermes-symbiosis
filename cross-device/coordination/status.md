@@ -1,5 +1,9 @@
 # Symbiosis Status
 
+**Update (2026-06-05, AUTON b045169b — PR5–PR9 implement):** `cross-device/grok-mcp/` docs/shims/mirror landed: bash `symbiosis-grok-mcp`, Windows `Invoke-SymbiosisGrokMcp.ps1` + Pester, README roadmap #1 struck, PLAYBOOK §2.3e, hermes-mcp block, MIRROR §16, coordination standing orders. Core FastMCP + pytest (PR1–PR4) already in tree. **Washington has the ball** (PR10: `hermes mcp add grok` on WA, `hermes mcp test grok`, auton-gate, verifier, rich cp, OR Kumquat §16).
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR5–PR9) -->
+
 **Update (2026-06-05, AUTON 61cdeb81 — PR6 production gate):** Mechanical gates green on Washington: `pytest` 82/82, `ruff check .` clean, `auton-gate` **MECHANICAL_PASS** (s06/s08 waived per V17), `check-primes` exit 0, `VERIFIER_GATE_REPORT.md` **VERDICT: PASS**, dogfood `symbiosis-projects list --device "Washington Linux"`. **Washington has the ball.** (merge PR stack, rich cp when PS on tip; Oregon: Kumquat + MIRROR §15 Pester + RETURN.)
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR6) -->

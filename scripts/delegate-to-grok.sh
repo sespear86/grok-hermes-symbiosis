@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Grok-Hermes Symbiosis: Quick delegation helper from Hermes context to Grok Build
+# When Hermes has grok__* MCP tools (cross-device/grok-mcp, AUTON b045169b), prefer use_tool over this script.
 # Usage inside Hermes or from shell:
 #   ./delegate-to-grok.sh "Task for Grok specialist" [extra]
 #   cat spec.md | ./delegate-to-grok.sh "Implement with full review loop"

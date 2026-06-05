@@ -12,13 +12,15 @@ Self-provisioned ops CLIs under `cross-device/scripts/` (stdlib Python 3.11+):
 | 3694a72b | `symbiosis-handoff-dashboard` | `handoff_dashboard/` |
 | 61cdeb81 | `symbiosis-projects` | `joint_projects/` |
 
+**Sibling package (not under this pyproject):** AUTON **b045169b** — [`../grok-mcp/`](../grok-mcp/) (`symbiosis-grok-mcp` shim, FastMCP `grok_mcp`, own venv + pytest). Hermes tools `grok__*`. Mirror §16.
+
 Drawer/slug: kanban **`symbiosis-handoff-kanban`** (shim `symbiosis-kanban`); shared Projects **`symbiosis-shared-projects`** (shim `symbiosis-projects`).
 
 ## Install / run
 
 No pip deps (stdlib only). Python 3.11+.
 
-Mirror: `windows/scripts/` has PS equivalents (`New-SymbiosisHandoff.ps1`, `Get-SymbiosisSyncReport.ps1`, `Get-SymbiosisHandoffKanban.ps1`, `Get-SymbiosisHandoffDashboard.ps1`, `Get-SymbiosisProjects.ps1`, `Initialize-SymbiosisProject.ps1`).
+Mirror: `windows/scripts/` has PS equivalents (`New-SymbiosisHandoff.ps1`, `Get-SymbiosisSyncReport.ps1`, `Get-SymbiosisHandoffKanban.ps1`, `Get-SymbiosisHandoffDashboard.ps1`, `Get-SymbiosisProjects.ps1`, `Initialize-SymbiosisProject.ps1`, `Invoke-SymbiosisGrokMcp.ps1`).
 
 All 7 primes + Mirrorability + exact sigs apply to edits here.
 
@@ -55,7 +57,7 @@ pytest tests -q -k kanban
 pytest tests -q -k joint_projects
 ```
 
-See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban), §15 (shared projects).
+See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban), §15 (shared projects), §16 (grok-mcp).
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 implement) -->
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch7) -->

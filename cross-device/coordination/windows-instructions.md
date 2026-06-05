@@ -51,6 +51,13 @@ Invoke-Pester .\Get-SymbiosisProjects.Tests.ps1
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
 
+**NEW TOOL (b045169b — symbiosis-grok-mcp / Hermes `grok__*` tools):**
+- Package: `cross-device\grok-mcp\`; launcher: `windows\scripts\Invoke-SymbiosisGrokMcp.ps1` + Pester `Invoke-SymbiosisGrokMcp.Tests.ps1`
+- On OR Kumquat (after pull): venv, pytest, `hermes mcp add grok` (see `configs\hermes-mcp-recommendations.md`), `hermes mcp test grok`, `Invoke-Pester .\Invoke-SymbiosisGrokMcp.Tests.ps1`
+- MIRROR §16: full WA/OR verify + rich `cp` recipe. Hermes skill `grok-build`: MCP-first when `grok__*` listed.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b) -->
+
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**
