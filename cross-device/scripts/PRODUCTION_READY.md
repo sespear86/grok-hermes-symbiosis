@@ -172,3 +172,63 @@ Drawer: `projects/symbiosis-handoff-kanban` (Batch 8).
 **Boom:** Dogfood §2.3b on the next Kumquat when workload clarity matters.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch8) -->
+
+---
+
+# PRODUCTION_READY — symbiosis-handoff-live-dashboard
+
+**AUTON_ID:** `3694a72b`  
+**Subtree:** `cross-device/scripts/` (package `handoff_dashboard/`)  
+**Profile:** `cli` (stdlib Python 3.11+; HTTP server localhost; unit tests use ephemeral port)
+
+## Status
+
+| Gate | Evidence |
+|------|----------|
+| V1 pytest dashboard | `pytest tests -q -k handoff_dashboard` → **26 passed** (Washington 2026-06-04, batches 1–3) |
+| V2 pytest all | `pytest tests -q` → full scripts subtree green |
+| V3 auton-gate | `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 3694a72b --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md` (batch 9) |
+| V4 MIRROR §14 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §14 |
+| V5 smoke | `./start-handoff-dashboard.sh --device "Washington Linux"` + `curl http://127.0.0.1:8766/healthz` + `curl '/api/kanban?format=json'` |
+| V6 launchers | `start-handoff-dashboard.sh` + `Get-SymbiosisHandoffDashboard.ps1` + `start-handoff-dashboard.ps1` (batch 3) |
+| V7 OPEN_ITEMS / SKILL | #4 Done (CLI + live); Forward Vision live dashboard struck (batch 7) |
+| V8 PS/WA parity | `Get-SymbiosisHandoffDashboard.ps1` + Pester (batch 3; full run on OR Kumquat) |
+| V9 reuse kanban | `handoff_dashboard/collectors.py` delegates to `kanban.collect_board` — no duplicated column logic |
+| V10 no shell | `test_no_shell_in_handoff_dashboard_sources` |
+| V11 bind guard | Default `127.0.0.1`; `0.0.0.0` refused without `--allow-lan` |
+| V12 ruff | `ruff check handoff_dashboard` clean |
+| V13 Phase 4 bootstrap | **N/A** — extends existing `cross-device/scripts` tree (waiver per DESIGN) |
+| V14 CI GH Actions | **N/A** — stdlib CLI + localhost server; evidence = pytest + Pester + auton-gate |
+
+## Dual/quadruple-package pytest
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+pytest tests -q
+pytest tests -q -k handoff_dashboard
+```
+
+## Mirror declaration
+
+**Washington + Oregon parity:** Same flags via PS wrapper + shared Python shim + launchers. **Mirrorability: MET** when OR Pester + launcher smoke pass (see `MIRROR_KITS_AND_INFRASTRUCTURE.md` §14).
+
+## Rich deploy
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffDashboard.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffDashboard.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/start-handoff-dashboard.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+## Mempalace
+
+Drawer: `projects/symbiosis-handoff-live-dashboard` (Phase 9 / batch 8).
+
+---
+
+**Bing:** The board lived only in scrollback and one-shot CLI paste.  
+**Bang:** One tab polls the handoff nerve center every five seconds on localhost.  
+**Boom:** Dogfood §2.3c during Slack-driven autons; gate batch next.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b batch5-7 docs) -->

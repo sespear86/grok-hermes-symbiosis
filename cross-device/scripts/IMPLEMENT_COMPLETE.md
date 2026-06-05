@@ -90,3 +90,47 @@ Exact `<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d
 **Boom:** Primes + signed doc matrix ready for gate PASS.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch8) -->
+
+---
+
+# IMPLEMENT_COMPLETE — symbiosis-handoff-live-dashboard (AUTON 3694a72b)
+
+**Date:** 2026-06-04 (Washington Linux)  
+**Phase:** Batches 1–7 complete (core + tests + launchers + living docs); Batch 9 Phase 6 gate + verifier follow.
+
+## What landed
+
+| # | Deliverable | Path |
+|---|-------------|------|
+| 1 | Python package + static UI | `handoff_dashboard/{paths,collectors,server,cli}.py`, `static/*` |
+| 2 | Shim | `symbiosis-handoff-dashboard` |
+| 3 | WA launcher | `start-handoff-dashboard.sh` |
+| 4 | OR PS + launcher + Pester | `Get-SymbiosisHandoffDashboard.ps1`, `start-handoff-dashboard.ps1`, `.Tests.ps1` |
+| 5 | pytest | `tests/test_handoff_dashboard.py` (**26** cases) + `fixtures/expected_dashboard_api.json` |
+| 6 | Packaging | `pyproject.toml` v0.3.0 + `README.md` |
+| 7 | Production docs | `PRODUCTION_READY.md` (3694a72b section), `BATCH1_*`, `BATCH3_*` |
+| 8 | Living docs | OPEN_ITEMS #4, PLAYBOOK §2.3b/§2.3c, status, linux/windows instructions, SKILL, MIRROR §14 |
+
+## Verification receipts (implement wave)
+
+- `pytest tests -q -k handoff_dashboard` → **26 passed**
+- `pytest tests -q` → full subtree green
+- `ruff check handoff_dashboard` → clean
+- `bash -n start-handoff-dashboard.sh` + launcher `--check-only` smoke → exit 0
+- `curl` dogfood on `:8766` → `/healthz` + `schema_version==1` JSON
+
+## Mirrorability (internal)
+
+**MET (pending OR Kumquat confirm):** MIRROR §14 exact WA/OR verify + rich `cp -a` + PS wrapper parity.
+
+## Ball holder
+
+**Washington has the ball.** (auton-gate + verifier + rich cp + Mempalace drawer batch 8–9.)
+
+---
+
+**Bing:** Research sequenced live dashboard after kanban CLI.  
+**Bang:** Localhost UI reuses `collect_board` with zero write surface.  
+**Boom:** Doc matrix + sigs landed; thrust gate PASS next.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b batch5-7 docs) -->

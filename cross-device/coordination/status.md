@@ -1,5 +1,9 @@
 # Symbiosis Status
 
+**Update (2026-06-04, AUTON 3694a72b):** symbiosis-handoff-live-dashboard shipped — localhost UI reusing kanban collectors, MIRROR §14, PLAYBOOK §2.3c, pytest/auton-gate PASS. **Washington has the ball.** (Oregon: Kumquat + PS/Pester + declare Mirrorability.)
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
+
 **Update (2026-06-04, AUTON 98822e73):** Flawless NL `/autonomous` + explicit device targeting implemented in mirror-kit `symbiosis-relay` (PR1–7): natural-language parser + `control_command_override` trust on main token, ingest `force_control` hints, listener explicit Washington/Oregon bypass, pts-inject-first execute, NL Slack ack template, tests + `relay_listener --once` + smoke script, health `last_control_*`. Canonical command: `Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.` **Washington has the ball** (reviewer 0 issues → merge → `cp -a` rich → live Slack smoke + gate). Dedicated ingest token still human Tier 1; control path resilient without it.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> NL autonomous + explicit device shipped in worktree. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (review → rich cp → verifier). -->
