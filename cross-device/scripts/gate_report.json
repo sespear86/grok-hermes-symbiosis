@@ -10,8 +10,8 @@
     "primary": "python",
     "manifest": "pyproject.toml"
   },
-  "started_at": "2026-06-05T03:29:08.737074+00:00",
-  "finished_at": "2026-06-05T03:29:08.737074+00:00",
+  "started_at": "2026-06-05T03:29:59.371359+00:00",
+  "finished_at": "2026-06-05T03:29:59.371359+00:00",
   "checks": [
     {
       "check_id": "s03.03.build_clean",
@@ -26,7 +26,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 36,
+      "duration_ms": 41,
       "message": "build passed (exit=0)"
     },
     {
@@ -42,7 +42,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 5,
+      "duration_ms": 6,
       "message": "lint passed (exit=0)"
     },
     {
@@ -67,12 +67,12 @@
       "evidence": {
         "command": "pytest -q",
         "exit_code": 0,
-        "stdout": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 1.12s\n",
+        "stdout": "........................................................................ [ 59%]\n.................................................                        [100%]\n121 passed in 5.39s\n",
         "stderr": "",
-        "summary": "95 passed in 1.12s",
+        "summary": "121 passed in 5.39s",
         "stack": "python"
       },
-      "duration_ms": 1600,
+      "duration_ms": 5835,
       "message": "test_suite passed"
     },
     {
@@ -86,7 +86,7 @@
         "count": 0,
         "env_committed": false
       },
-      "duration_ms": 7,
+      "duration_ms": 8,
       "message": "No high-signal secrets or committed .env found"
     },
     {
