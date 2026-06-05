@@ -122,9 +122,9 @@ def test_healthz(dashboard_server):
     conn.request("GET", "/healthz")
     resp = conn.getresponse()
     assert resp.status == 200
-    assert resp.getheader("Content-Type", "").startswith("text/plain")
-    body = resp.read()
-    assert body == b"ok\n"
+    body = json.loads(resp.read().decode())
+    assert body["status"] == "ok"
+    assert body["device"] == "Washington Linux"
 
 
 def test_api_md_format(dashboard_server):
