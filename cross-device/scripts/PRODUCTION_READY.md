@@ -185,7 +185,7 @@ Drawer: `projects/symbiosis-handoff-kanban` (Batch 8).
 
 | Gate | Evidence |
 |------|----------|
-| V1 pytest joint_projects | **14 passed** (`pytest tests -q -k joint_projects`) |
+| V1 pytest joint_projects | **27 passed** (`pytest tests -q -k joint_projects`) |
 | V2 pytest all | **82 passed** (`pytest tests -q`) |
 | V3 auton-gate | **MECHANICAL_PASS** exit 0 — `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 61cdeb81 --profile cli`; `GATE_REPORT.md` + `gate_report.json` |
 | V4 MIRROR §15 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §15 |
