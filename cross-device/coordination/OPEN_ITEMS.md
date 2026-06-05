@@ -46,6 +46,8 @@
 
 ## Nice-to-Haves / Future Experiments (Ranked)
 
+**Bidirectional memory sync (Grok todos ↔ Hermes memory via Mempalace) — AUTON 7eb7d1b7 (Washington, 2026-06-05):** `cross-device/scripts/memory_sync/` + `symbiosis-memory-sync` (push/pull/status/bundle); SYMBIOSIS_MEMORY_BUNDLE v1; Mempalace projects/*-snapshots canonical (full doc via venv helper); collectors for grok todos (updates.jsonl), hermes MEMORY/USER, coordination OPEN_ITEMS; stdlib + real mempalace reality (MCP+CLI); PS mirror + Pester planned; MIRROR §17 / PLAYBOOK §2.3f / OPEN_ITEMS update + standing orders on ship. DESIGN 4-round 0-issue loop complete; skeleton + smoke + 3 tests green; B1-B10 per DESIGN. **In progress (thrusting to gate).** Bing: one-way retention was strong; Bang: now the bridge; Boom: agents share brain without paste tax.
+
 1. ~~Lightweight "sync report" emitter that both agents can invoke cleanly.~~ **Done (2026-06-04, AUTON 355e3993):** `cross-device/scripts/symbiosis-sync-report` + `windows/scripts/Get-SymbiosisSyncReport.ps1` (batch 4); read-only git/Syncthing/LOG/OPEN_ITEMS/presence/warnings; operational invocation **PLAYBOOK §2.3a** (post-Kumquat 3.5 when Paired); see `cross-device/scripts/PRODUCTION_READY.md` (355e3993) + `MIRROR_KITS_AND_INFRASTRUCTURE.md` §11.
 
 **Slack NL autonomous silent failure (AUTON 98822e73):** **Done** — NL parser, trust override, explicit device dispatch, TUI inject, NL acks, health last_control, tests/smoke. Canonical command in aux DESIGN.md (see /tmp/grok-auton-98822e73/DESIGN.md + RESEARCH) + MIRROR §12. (D1 aligned post-review.)

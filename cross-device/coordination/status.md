@@ -1,6 +1,6 @@
 # Symbiosis Status
 
-**Update (2026-06-05, AUTON b045169b — PR5–PR9 implement):** `cross-device/grok-mcp/` docs/shims/mirror landed: bash `symbiosis-grok-mcp`, Windows `Invoke-SymbiosisGrokMcp.ps1` + Pester, README roadmap #1 struck, PLAYBOOK §2.3e, hermes-mcp block, MIRROR §16, coordination standing orders. Core FastMCP + pytest (PR1–PR4) already in tree. **Washington has the ball** (PR10: `hermes mcp add grok` on WA, `hermes mcp test grok`, auton-gate, verifier, rich cp, OR Kumquat §16).
+**Update (2026-06-05, AUTON 7eb7d1b7 — bidirectional memory sync start):** Identified next symbiosis part (README:191 post-grok-mcp); research + 4-round design loop (0 open issues); skeleton `cross-device/scripts/memory_sync/` + collectors (grok todos from updates.jsonl, hermes excerpts, reuse coordination), bundle v1, redact, palace_io (real mempalace MCP+CLI via helper), cli/shim smoke + 3 tests green; 124/124 full subtree pytest; Mempalace drawer `projects/bidirectional-memory-sync` filed; OPEN_ITEMS entry + pyproject path. B1+ impl + gates + MIRROR §17 + rich + OR PS + coord hygiene next. **Washington has the ball.** (thrust execute to VERDICT PASS + mirror).
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR5–PR9) -->
 

@@ -948,3 +948,43 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp ~/bin/sy
 **Mirrorability:** **MET** when both hosts run pytest, `hermes mcp test grok`, and OR Pester smoke pass (Python 3.11+ venv). Gaps until PR10: live `hermes mcp add` executed on both hosts, GATE_REPORT/VERIFIER committed.
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR9) -->
+
+## 17. Bidirectional memory sync (AUTON 7eb7d1b7)
+
+**Component:** `cross-device/scripts/memory_sync/` (package) + `symbiosis-memory-sync` (shim) + `Mempalace/scripts/mempalace_symbiosis_bundle_io.py` (venv helper for real mempalace MCP/CLI).
+
+**WA verify (post pull):**
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+python3 -m pytest tests -q -k "memory or bundle"
+python3 -m memory_sync.cli bundle --agent grok --device "Washington Linux" --dry-run
+~/bin/check-primes.sh || true
+auton-gate check . --auton-id 7eb7d1b7 --profile cli  # expect mechanical waivers per DESIGN (s06/s08 lock/CI like siblings)
+```
+
+**OR verify:**
+```powershell
+# after rich cp + git
+cd C:\...\grok-hermes-symbiosis\cross-device\scripts
+python -m pytest tests -q -k "memory or bundle"
+.\Get-SymbiosisMemorySync.ps1 -Bundle -Agent grok -Device "Oregon Windows" -DryRun
+# Pester for the Get- script
+```
+
+**Rich mirror:**
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts/memory_sync ~/Synced/grok-mempalace-integration/symbiosis-relay/scripts/
+cp -a ~/grok-hermes-symbiosis/Mempalace/scripts/mempalace_symbiosis_bundle_io.py ~/Synced/grok-mempalace-integration/symbiosis-relay/Mempalace/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisMemorySync*.ps1 ~/Synced/.../windows/scripts/
+```
+
+**~/bin (WA):**
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-memory-sync ~/bin/symbiosis-memory-sync
+```
+
+**Production gate:** `cross-device/scripts/PRODUCTION_READY.md` (7eb7d1b7 section) + verifier + check-primes + full B10.
+
+**Mirrorability:** MET when WA gate/verifier + OR Pester + rich cp + both sides can run bundle/status smoke + standing orders in instructions/PLAYBOOK/OPEN_ITEMS.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 7eb7d1b7 MIRROR §17 draft) --> Exact signature per prime + Mirror as final internal + bing bang boom.
