@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Shim for symbiosis-projects (AUTON 61cdeb81)."""
+import sys
+from pathlib import Path
+
+root = Path(__file__).resolve().parent
+sys.path.insert(0, str(root / "handoff_scaffold"))
+sys.path.insert(0, str(root))
+
+from joint_projects.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    main()
+
+# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR1) -->
