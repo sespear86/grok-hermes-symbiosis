@@ -19,7 +19,7 @@ from joint_projects.paths import (
     project_dir,
     validate_slug,
 )
-from joint_projects.render import render_json, render_md
+from joint_projects.render import render_md
 from joint_projects.verify import verify_all, verify_project
 
 SCRIPTS = Path(__file__).resolve().parents[1]

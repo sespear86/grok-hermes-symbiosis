@@ -81,8 +81,8 @@ All Production Readiness Checklist items satisfied or appropriately waived for t
 
 | Check | Result |
 |-------|--------|
-| `pytest tests -q -k joint_projects` | 14 passed |
-| `pytest tests -q` | 82 passed |
+| `pytest tests -q -k joint_projects` | 27 passed |
+| `pytest tests -q` | 95 passed |
 | `ruff check joint_projects` / `ruff check .` | All checks passed |
 | `auton-gate check .../cross-device/scripts --auton-id 61cdeb81 --profile cli` | **MECHANICAL_PASS** exit 0 |
 | `~/bin/check-primes.sh` | exit 0 |
