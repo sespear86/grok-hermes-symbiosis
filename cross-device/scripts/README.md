@@ -9,6 +9,7 @@ Self-provisioned ops CLIs under `cross-device/scripts/` (stdlib Python 3.11+):
 | f41d2ff4 | `symbiosis-new-handoff` | `handoff_scaffold/` |
 | 355e3993 | `symbiosis-sync-report` | `sync_report/` |
 | 6239aa70 | `symbiosis-kanban` | `kanban/` |
+| 3694a72b | `symbiosis-handoff-dashboard` | `handoff_dashboard/` |
 
 Drawer/slug for kanban: **`symbiosis-handoff-kanban`** (shim name stays `symbiosis-kanban`).
 
@@ -37,11 +38,18 @@ All 7 primes + Mirrorability + exact sigs apply to edits here.
 ./symbiosis-kanban --device "Washington Linux" --format md --completed-limit 5
 ```
 
+**Handoff live dashboard (read-only localhost UI):**
+```bash
+./symbiosis-handoff-dashboard --device "Washington Linux" --port 8766 --open
+# or: curl http://127.0.0.1:8766/api/kanban?format=json
+```
+
 **Tests:**
 ```bash
 pytest tests -q
 pytest tests -q -k sync_report
 pytest tests -q -k kanban
+pytest tests -q -k handoff_dashboard
 ```
 
 See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban).

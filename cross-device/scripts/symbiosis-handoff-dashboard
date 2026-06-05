@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Shim for symbiosis-handoff-dashboard (AUTON 3694a72b)."""
+import sys
+from pathlib import Path
+
+root = Path(__file__).resolve().parent
+sys.path.insert(0, str(root / "handoff_scaffold"))
+sys.path.insert(0, str(root))
+
+from handoff_dashboard.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    main()
+
+# <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b implementer batch1) -->

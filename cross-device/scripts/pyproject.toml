@@ -1,9 +1,9 @@
 [project]
 name = "symbiosis-handoff-scaffold"
-version = "0.2.0"
-description = "Handoff scaffold (f41d2ff4) + sync report (355e3993) + handoff kanban (6239aa70) — symbiosis scripts subtree"
+version = "0.2.1"
+description = "Symbiosis handoff ops tools (scaffold + sync-report + kanban + handoff-dashboard 3694a72b)"
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = [".", "handoff_scaffold", "sync_report", "kanban"]
+pythonpath = [".", "handoff_scaffold", "sync_report", "kanban", "handoff_dashboard"]

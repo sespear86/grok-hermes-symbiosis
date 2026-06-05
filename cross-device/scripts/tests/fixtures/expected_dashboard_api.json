@@ -1,0 +1,124 @@
+{
+  "columns": {
+    "archived": [
+      {
+        "age_days": 155,
+        "column": "archived",
+        "date": "",
+        "effective_status": "Archived",
+        "folder_exists": true,
+        "from": "",
+        "has_return": false,
+        "id": "20260101-Archived-Only",
+        "link": "[20260101-Archived-Only](./archived/20260101-Archived-Only/)",
+        "log_status": "Archived",
+        "readme_status": "Archived",
+        "short_description": "20260101-Archived-Only",
+        "to": "",
+        "warnings": [
+          "folder_not_in_log"
+        ]
+      }
+    ],
+    "awaiting": [
+      {
+        "age_days": 3,
+        "column": "awaiting",
+        "date": "2026-06-02",
+        "effective_status": "Awaiting Oregon Kumquat",
+        "folder_exists": true,
+        "from": "Washington Linux",
+        "has_return": false,
+        "id": "20260602-Awaiting-Row",
+        "link": "[link](./)",
+        "log_status": "Awaiting Oregon Kumquat",
+        "readme_status": "Awaiting Oregon Kumquat",
+        "short_description": "Awaiting Oregon",
+        "to": "Oregon Windows",
+        "warnings": []
+      }
+    ],
+    "completed": [
+      {
+        "age_days": 2,
+        "column": "completed",
+        "date": "2026-06-03",
+        "effective_status": "Completed (RETURN present)",
+        "folder_exists": true,
+        "from": "Washington Linux",
+        "has_return": true,
+        "id": "20260603-Test-Row",
+        "link": "[link](./)",
+        "log_status": "Completed",
+        "readme_status": "In Progress",
+        "short_description": "Test row",
+        "to": "Oregon Windows",
+        "warnings": [
+          "readme_log_status_mismatch"
+        ]
+      }
+    ],
+    "in_progress": [
+      {
+        "age_days": 0,
+        "column": "in_progress",
+        "date": "2099-01-01",
+        "effective_status": "In Progress",
+        "folder_exists": false,
+        "from": "Washington Linux",
+        "has_return": false,
+        "id": "20990101-1200-Verifier-Gate-Smoke-Re",
+        "link": "[link](./)",
+        "log_status": "In Progress",
+        "readme_status": null,
+        "short_description": "Verifier Gate Smoke Re",
+        "to": "Oregon Windows",
+        "warnings": [
+          "missing_folder"
+        ]
+      }
+    ]
+  },
+  "coordination": {
+    "open_items_top3": "1. **First priority** \u2014 detail\n2. **Second** \u2014 detail",
+    "status_excerpt": [
+      "**Update (2026-06-04, AUTON 6239aa70):** Kanban batch 1 landed.",
+      "",
+      "**Washington has the ball.**",
+      "",
+      "## Older noise",
+      "",
+      "**Oregon has the ball.**"
+    ]
+  },
+  "counts": {
+    "archived": 1,
+    "awaiting": 1,
+    "completed_shown": 1,
+    "completed_total": 1,
+    "in_progress": 1,
+    "total_log_rows": 3
+  },
+  "meta": {
+    "ball_holder": "Washington has the ball.",
+    "device": "Washington Linux",
+    "format": "md",
+    "mempalace_root": "/tmp/pytest-of-Irikash/pytest-51/test_golden_api_structure_file0/mempalace",
+    "repo_root": "/tmp/pytest-of-Irikash/pytest-51/test_golden_api_structure_file0/repo",
+    "timestamp_utc": "<normalized>"
+  },
+  "presence": null,
+  "schema_version": 1,
+  "truncation": {
+    "completed_omitted": 0
+  },
+  "warnings": [
+    "folder_not_in_log",
+    "readme_log_status_mismatch",
+    "missing_folder",
+    "verifier_smoke_dummy_row",
+    "log_folder_missing:20990101-1200-Verifier-Gate-Smoke-Re",
+    "readme_log_status_mismatch:20260603-Test-Row",
+    "folder_not_in_log:20260101-Archived-Only"
+  ]
+}

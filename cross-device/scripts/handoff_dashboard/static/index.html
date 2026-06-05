@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Symbiosis Handoff Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header id="hdr">
+    <h1>Symbiosis Handoff Kanban</h1>
+    <p id="meta-line"></p>
+    <button type="button" id="btn-refresh">Refresh now</button>
+  </header>
+  <section id="priorities">
+    <h2>Top Priorities</h2>
+    <pre id="top3"></pre>
+  </section>
+  <section id="warnings-wrap">
+    <h2>Warnings</h2>
+    <ul id="warnings"></ul>
+  </section>
+  <main id="board" class="board"></main>
+  <section id="detail" class="detail hidden">
+    <h2>Card detail</h2>
+    <pre id="detail-body"></pre>
+    <button type="button" id="btn-close-detail">Close</button>
+  </section>
+  <section id="export">
+    <h2>Export</h2>
+    <button type="button" data-fmt="md">Download MD</button>
+    <button type="button" data-fmt="board">Download board</button>
+    <button type="button" data-fmt="json">Copy JSON</button>
+  </section>
+  <footer>
+    <p>Relay multi-device dashboard (optional): <a href="http://127.0.0.1:8787" target="_blank" rel="noopener">http://127.0.0.1:8787</a></p>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
