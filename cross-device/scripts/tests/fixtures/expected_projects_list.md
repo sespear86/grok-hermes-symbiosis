@@ -1,6 +1,7 @@
 # Symbiosis Shared Projects
 
 - **Device:** Washington Linux
+- **Timestamp (UTC):** <TIMESTAMP>
 - **Projects root:** `PLACEHOLDER`
 - **Ball holder:** Washington has the ball.
 
@@ -12,6 +13,8 @@
 | Beta-Only-Readme | yes | no |
 
 ## Top Priorities
+
+1. **First priority** — detail
 
 ## Warnings
 

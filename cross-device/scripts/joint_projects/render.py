@@ -51,9 +51,13 @@ def render_md(model: dict[str, Any]) -> str:
         lines.append("_no project directories_")
     lines.append("")
 
+    lines.extend(["", "## Top Priorities", ""])
     top3 = coordination.get("open_items_top3")
-    if top3 is not None:
-        lines.extend(["## Top Priorities", "", top3, ""])
+    if top3:
+        lines.append(top3)
+    else:
+        lines.append("_section missing_")
+    lines.append("")
 
     excerpt = coordination.get("status_excerpt") or []
     if excerpt:

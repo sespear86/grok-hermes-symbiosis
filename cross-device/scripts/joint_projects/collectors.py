@@ -94,8 +94,7 @@ def collect_list(
     ball_holder: str | None = None
 
     if not projects_root.exists():
-        projects_root.mkdir(parents=True, exist_ok=True)
-        warnings.append(f"projects root created: {projects_root}")
+        warnings.append(f"projects root does not exist: {projects_root}")
     elif not projects_root.is_dir():
         raise ValueError(f"projects root is not a directory: {projects_root}")
 

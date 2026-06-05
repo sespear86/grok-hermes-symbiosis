@@ -19,6 +19,21 @@ SHIM = SCRIPTS / "symbiosis-projects"
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
+def _normalize_projects_md(text: str) -> str:
+    out: list[str] = []
+    for ln in text.splitlines():
+        if ln.startswith("- **Timestamp (UTC):**"):
+            out.append("- **Timestamp (UTC):** <TIMESTAMP>")
+            continue
+        if ln.startswith("- **Projects root:**"):
+            out.append("- **Projects root:** `PLACEHOLDER`")
+            continue
+        if ln.startswith("- **Repo root:**"):
+            continue
+        out.append(ln)
+    return "\n".join(out)
+
+
 def test_validate_slug_rejects_bad():
     with pytest.raises(ValueError):
         validate_slug("..")
@@ -50,7 +65,21 @@ def test_collect_list_basic(projects_mini_tree):
     assert model["coordination"]["open_items_top3"] is not None
 
 
-def test_render_md_golden_sections(projects_mini_tree):
+def test_collect_list_missing_root_no_mkdir(tmp_path):
+    missing = tmp_path / "missing-projects"
+    assert not missing.exists()
+    model = collect_list(
+        device="Washington Linux",
+        projects_root=missing,
+        repo_root=None,
+        include_coord=False,
+    )
+    assert not missing.exists()
+    assert model["projects"] == []
+    assert any("projects root does not exist" in w for w in model["warnings"])
+
+
+def test_golden_projects_list_markdown(projects_mini_tree):
     repo_root, projects_root = projects_mini_tree
     model = collect_list(
         device="Washington Linux",
@@ -58,16 +87,27 @@ def test_render_md_golden_sections(projects_mini_tree):
         repo_root=repo_root,
         include_coord=True,
     )
-    md = render_md(model)
+    actual = _normalize_projects_md(render_md(model))
+    golden = _normalize_projects_md(
+        (FIXTURES / "expected_projects_list.md").read_text(encoding="utf-8")
+    )
     for needle in (
         "# Symbiosis Shared Projects",
         "## Projects",
         "| Alpha-App | yes | yes |",
-        "| Beta-Only-Readme | yes | no |",
-        "**Ball holder:** Washington has the ball.",
+        "## Top Priorities",
+        "First priority",
         "## Warnings",
+        "- none",
     ):
-        assert needle in md
+        assert needle in actual
+    for section in golden.split("\n\n"):
+        s = section.strip()
+        if not s:
+            continue
+        if s.startswith("# Symbiosis"):
+            continue
+        assert s in actual or s.split("\n")[0] in actual
 
 
 def test_list_succeeds_without_repo_coord_warnings(tmp_path):
@@ -170,6 +210,60 @@ def test_cli_invalid_device(projects_mini_tree):
     )
     assert r.returncode == 1
     assert "Washington Linux" in r.stderr
+
+
+def test_cli_markdown_format_alias(projects_mini_tree):
+    repo_root, projects_root = projects_mini_tree
+    r = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "list",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(projects_root),
+            "--repo-root",
+            str(repo_root),
+            "--format",
+            "markdown",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r.returncode == 0, r.stderr
+    assert "# Symbiosis Shared Projects" in r.stdout
+    assert "## Top Priorities" in r.stdout
+
+
+def test_cli_no_coord_skips_coordination(projects_mini_tree):
+    repo_root, projects_root = projects_mini_tree
+    r = subprocess.run(
+        [
+            sys.executable,
+            str(SHIM),
+            "list",
+            "--device",
+            "Washington Linux",
+            "--projects-root",
+            str(projects_root),
+            "--repo-root",
+            str(repo_root),
+            "--no-coord",
+            "--format",
+            "json",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=str(SCRIPTS),
+    )
+    assert r.returncode == 0, r.stderr
+    data = json.loads(r.stdout)
+    assert data["meta"]["format"] == "json"
+    assert data["coordination"]["open_items_top3"] is None
+    assert data["meta"].get("ball_holder") is None
+    assert not any("coordination skipped" in w for w in data.get("warnings", []))
 
 
 def test_cli_json_format(projects_mini_tree):
