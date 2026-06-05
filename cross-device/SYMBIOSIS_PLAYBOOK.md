@@ -330,6 +330,17 @@ This is a **living** document. Treat it as the single place both humans and futu
 *This playbook is intentionally lightweight and practical. It consolidates what has already proven useful. Update it as the symbiosis matures.*
 
 <!-- Edited: 2026-05-27 03:35 | Device: Linux | By: Grok --> Light non-bloated cross-ref added to §2.4 (Agent Coordination) pointing to Mempalace for durable context surviving churn (per 0130 adoption deliverable 4 + 0010 pilot rec). Kept it 1-line high-signal. Also reinforces the §2.5 Memory Layer section already present. Self-referential: read PLAYBOOK + MEMPALACE_INTEGRATION + usage-pattern + 0130 handoff README first per pattern, then tiny edit + sig. Primes + loop + Kumquat followed. The coordination nervous system just got a memory assist in the best depraved way. Signature per prime directive. Keep er goinnnn. -->
+## Slack NL `/autonomous` + explicit device (AUTON 98822e73)
+
+Natural-language control (main-token resilient via `control_command_override`) + forced dispatch when the message names a device:
+
+**Canonical example (#all-devices):**
+`Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.`
+
+Pipeline: ingest `enrich_control_hints` → hermes inbox → listener explicit target → activator `parse_control` → pts-inject `/autonomous …` (headless fallback) → threaded NL ack (`format_nl_autonomous_ack`) + JSONL `last_control_*`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> PLAYBOOK NL control + full example. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (review + rich cp). -->
+
 ## Slack as Grok Build Control Surface (AUTON 474101a5)
 
 Slack messages in the 4 watched channels can now drive Grok Build lifecycle and instructions via the relay pipeline:

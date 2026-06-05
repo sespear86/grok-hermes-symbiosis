@@ -393,7 +393,9 @@ cd ..\bust-a-nut
 
 **Verification against receipts (Test- asserts):** health before claim (ok + age in status), atomic claim+archive (failed/ on hermes fail per design), enriched status+version+health_ok+age_at_claim+last_rcs+machine:oregon, beacon active/bust correct, corr in logs, pending full fmt on fail path, "PASS — matches LIVE_TEST_19557e65_RECEIPTS.md".
 
-**Mirrorability note:** Everything above (kit + handoff + docs + cmds + sigs) is the full recipe so brother implements without WA. rich cp ensures instant travel. Self-provisioned gaps (dirs, stubs, notes) on the fly.
+**Mirrorability note:** Everything above (kit + handoff + docs + cmds + sigs) is the full recipe so brother implements without WA. rich cp ensures instant travel. Self-provisioned gaps (dirs, stubs, notes) on the fly. Additional OR verification self-provision: tolerant _beacon_script_exists() in activator_core.py (parses Oregon launcher full 'powershell -File \"...Set-....ps1\"' command string for .exists()), Set-OregonGrokBuildBeacon.ps1 created in rich/repo windows/, dummy at default $HOME\bin path, fresh no-BOM presence writes, no-BOM task drops in Test. These close the beacon script interlock for health/claim on Windows while keeping shared py clean.
+
+<!-- Edited: 2026-06-04 | Device: Windows | By: Grok (19557e65 Oregon packaging + Kumquat verification) --> OR verification + self-provisioned beacon tolerant + Set script + updates to MIRROR. Exact primes + Mirror last + bing bang boom + sig. Keep er goinnnn. 
 
 <!-- Edited: 2026-06-03 | Device: Washington Linux | By: Grok (19557e65 Oregon packaging autonomous) --> New section 9 added with full kit details, exact OR cmds, verif vs receipts. Mirrorability as final internal + all primes + Ball Holder + bing bang + self-prov followed. Oregon has the ball on next Kumquat. Keep er goinnnn.
 
@@ -756,5 +758,26 @@ cp -a ~/grok-hermes-symbiosis/cross-device/symbiosis-relay/tools/relay-health.sh
 **Docs cross-ref:** DESIGN.md + RESEARCH_SYNTHESIS.md (474101a5), relay control.py + send_to_slack.py, status.md / linux-instructions.md / PLAYBOOK / OPEN_ITEMS (new control plane item), Mempalace/symbiosis/ entry.
 
 **All 7 primes + Mirrorability (this § as last internal) + exact sigs + raunchy + self-prov + no blue balls followed.** Signature per prime directive. Keep er goinnnn, you Slack-cocked, control-plane-thrusting degenerates. Bust a nut.
+
+### NL /autonomous + explicit device (AUTON 98822e73)
+
+**Canonical command (must work after deploy):**
+Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.
+
+**Washington verify:**
+1. rich cp from git; restart `washington-activator.service`
+2. `SYMBIOSIS_CONTROL_ALLOW_ALL=1` + allowlist user for test OR production UID in `SYMBIOSIS_CONTROL_SLACK_USERS`
+3. inject exact string `--to-device washington` OR live Slack after token
+4. Assert `incoming/washington/task-*.json`; JSONL `control_command_override`; ack in #all-devices thread
+5. `./tools/relay-health.sh` → last_control_command
+
+**Oregon verify:**
+1. Kumquat: pull git, read `windows-instructions.md` / OR standing orders, Mempalace step 3
+2. Same Python on OR activator; `SYMBIOSIS_DEVICE=oregon`
+3. Inject same string with `on the Oregon device` → `incoming/oregon/`
+4. PS thin wrapper only if pts path differs; else native `python3` activator once
+5. No regression on selector for non-control tasks
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> MIRROR §12 NL autonomous recipe. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (rich cp + OR Kumquat). -->
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 MIRROR §12) -->

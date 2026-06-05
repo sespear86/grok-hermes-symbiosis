@@ -110,3 +110,65 @@ Drawer: `projects/symbiosis-sync-report-emitter` (batch 8).
 **Boom:** Dogfood §2.3a on the next Paired handoff wave.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
+---
+
+# PRODUCTION_READY — symbiosis-handoff-kanban
+
+**AUTON_ID:** `6239aa70`  
+**Subtree:** `cross-device/scripts/` (package `kanban/`)  
+**Profile:** `cli` (stdlib Python 3.11+, mocked paths in unit tests)
+
+## Status
+
+| Gate | Evidence |
+|------|----------|
+| V1 pytest all | `pytest tests -q` → scaffold + sync_report + kanban green (Washington 2026-06-04) |
+| V1b pytest kanban | `pytest tests -q -k kanban` → kanban unit + golden tests |
+| V2 auton-gate | `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 6239aa70 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md` |
+| V3 MIRROR §13 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §13 |
+| V4 smoke | `./symbiosis-kanban --device "Washington Linux" --format board \| head -50` |
+| V5 check-primes | `~/bin/check-primes.sh` exit 0 at Batch 8 verify (also Batch 7) |
+| V6 Mempalace drawer | `projects/symbiosis-handoff-kanban` — **3 drawers filed (Batch 8, 2026-06-04)** |
+| V7 OPEN_ITEMS / SKILL | #4 Done; Forward Vision kanban struck (Batch 7) |
+| V8 PS/WA parity | `Get-SymbiosisHandoffKanban.ps1` + Pester (batch 4) |
+| V9 JSON schema | `tests/test_kanban.py::test_kanban_json_schema_keys` + fixtures `expected_kanban.md` / `expected_kanban_board.txt` |
+| V10 no shell | `test_no_shell_true_in_kanban_sources` |
+| V11 Verifier | `VERIFIER_GATE_REPORT.md` **PASS** (Phase 6) |
+| V12 security-auditor | 0 critical/high on `kanban/` + shims (Phase 6) |
+| V13 Mirrorability | **MET** — MIRROR §13 + PRODUCTION_READY + OR verify block |
+| V14 CI GH Actions | **N/A** — stdlib CLI; evidence = pytest + Pester + auton-gate (s06/s08 waivers per siblings) |
+| V15 Hermes kanban | Phase 9: `hermes_delegation.kanban` in `6239aa70.json` |
+| V16 ruff | `ruff check kanban` clean |
+
+## Dual/triple-package pytest
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+pytest tests -q
+pytest tests -q -k kanban
+```
+
+## Mirror declaration
+
+**Washington + Oregon parity:** Same flags via PS wrapper + shared Python shim. **Mirrorability: MET** (see `MIRROR_KITS_AND_INFRASTRUCTURE.md` §13).
+
+## Rich deploy
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffKanban.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffKanban.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+## Mempalace
+
+Drawer: `projects/symbiosis-handoff-kanban` (Batch 8).
+
+---
+
+**Bing:** LOG tables and handoff folders were a two-screen foreplay tease.  
+**Bang:** One CLI boards the whole `handoffs/` nerve center for Paired ops.  
+**Boom:** Dogfood §2.3b on the next Kumquat when workload clarity matters.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch8) -->

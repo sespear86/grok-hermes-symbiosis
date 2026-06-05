@@ -1,26 +1,50 @@
-# cross-device/scripts — Symbiosis Tooling (handoff scaffold + future)
+# cross-device/scripts — Symbiosis Tooling
 
 ## Overview
 
-Self-provisioned during AUTON f41d2ff4 (`symbiosis-handoff-scaffold`): FORMAT-locked handoff packages, LOG automation, validation.
+Self-provisioned ops CLIs under `cross-device/scripts/` (stdlib Python 3.11+):
+
+| AUTON | Shim | Package |
+|-------|------|---------|
+| f41d2ff4 | `symbiosis-new-handoff` | `handoff_scaffold/` |
+| 355e3993 | `symbiosis-sync-report` | `sync_report/` |
+| 6239aa70 | `symbiosis-kanban` | `kanban/` |
+
+Drawer/slug for kanban: **`symbiosis-handoff-kanban`** (shim name stays `symbiosis-kanban`).
 
 ## Install / run
 
 No pip deps (stdlib only). Python 3.11+.
 
-See DESIGN.md (in auton artifacts) + handoff_scaffold/ impl.
-
-Mirror: windows/scripts/ has PS equivalents.
+Mirror: `windows/scripts/` has PS equivalents (`New-SymbiosisHandoff.ps1`, `Get-SymbiosisSyncReport.ps1`, `Get-SymbiosisHandoffKanban.ps1`).
 
 All 7 primes + Mirrorability + exact sigs apply to edits here.
 
-**Quick start:**
+**Handoff scaffold:**
 ```bash
 ./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" \
   --slug "My-Task" --context "..." --task "..." [--dry-run]
-pytest tests -q
 ```
 
-See `PRODUCTION_READY.md` and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10.
+**Sync report (read-only visibility):**
+```bash
+./symbiosis-sync-report --device "Washington Linux" [--no-syncthing] | head -40
+```
+
+**Handoff kanban (read-only board):**
+```bash
+./symbiosis-kanban --device "Washington Linux" --format board | head -50
+./symbiosis-kanban --device "Washington Linux" --format md --completed-limit 5
+```
+
+**Tests:**
+```bash
+pytest tests -q
+pytest tests -q -k sync_report
+pytest tests -q -k kanban
+```
+
+See `PRODUCTION_READY.md` (per-AUTON sections) and `MIRROR_KITS_AND_INFRASTRUCTURE.md` §10 (scaffold), §11 (sync report), §13 (kanban).
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4 implement) -->
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch7) -->

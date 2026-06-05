@@ -1,0 +1,13 @@
+--- AWAITING (1) ---
+20260602-Awaiting-Row | Washington Linux→Oregon Windows | Awaiting Oregon | RETURN:no | <AGE>
+
+--- IN PROGRESS (1) ---
+20990101-1200-Verifier-Gate-Smoke-Re | Washington Linux→Oregon Windows | Verifier Gate Smoke Re | RETURN:no | <AGE>
+
+--- COMPLETED (1) ---
+20260603-Test-Row | Washington Linux→Oregon Windows | Test row | RETURN:yes | <AGE>
+
+--- ARCHIVED (1) ---
+20260101-Archived-Only | → | 20260101-Archived-Only | RETURN:no | <AGE>
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch3) -->

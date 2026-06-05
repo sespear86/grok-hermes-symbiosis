@@ -19,7 +19,7 @@ from sync_report.collectors import (
     extract_open_items_top3,
     extract_status_excerpt,
     run_argv,
-    _parse_handoff_rows,
+    parse_handoff_rows,
 )
 from sync_report.paths import (
     brother_presence_filename,
@@ -94,10 +94,17 @@ def test_status_excerpt_update_block():
     assert len(block) <= 8
 
 
+def test_parse_handoff_rows_is_public():
+    from sync_report.collectors import parse_handoff_rows as public_fn
+
+    text = (FIXTURES / "sync_handoff_log_snippet.md").read_text(encoding="utf-8")
+    assert public_fn(text, 1)[0]["id"].startswith("2099")
+
+
 def test_handoff_rows_parse():
     text = (FIXTURES / "sync_handoff_log_snippet.md").read_text(encoding="utf-8")
     assert HEADER_ROW_PATTERN.search(text)
-    rows = _parse_handoff_rows(text, 3)
+    rows = parse_handoff_rows(text, 3)
     assert len(rows) == 2
     assert rows[0]["id"].startswith("20990101")
 

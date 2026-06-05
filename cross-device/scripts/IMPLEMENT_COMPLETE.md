@@ -44,3 +44,49 @@ Exact `<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d
 **Boom:** Bust a nut complete for execute. Ready for verify gate.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (implementer subagent AUTON f41d2ff4) -->
+
+---
+
+# IMPLEMENT_COMPLETE — symbiosis-handoff-kanban (AUTON 6239aa70)
+
+**Date:** 2026-06-04 (Washington Linux)  
+**Phase:** Batches 1–8 complete (design APPROVED); Batch 9 Phase 6 gate + verifier follow.
+
+## What landed
+
+| # | Deliverable | Path |
+|---|-------------|------|
+| 1 | Python package | `kanban/{paths,collectors,render,cli}.py` |
+| 2 | Shim | `symbiosis-kanban` |
+| 3 | pytest + golden fixtures | `tests/test_kanban.py`, `tests/test_render.py` (golden), `tests/fixtures/expected_kanban.*` |
+| 4 | PS mirror | `windows/scripts/Get-SymbiosisHandoffKanban.ps1` + `.Tests.ps1` |
+| 5 | Parser promotion | `sync_report/collectors.py` public `parse_handoff_rows` |
+| 6 | Packaging | `pyproject.toml` v0.2.0 + `README.md` triple-CLI quickstart |
+| 7 | Production docs | `PRODUCTION_READY.md` (6239aa70 section) |
+| 8 | Living docs | OPEN_ITEMS #4, PLAYBOOK §2.3b, status, linux/windows instructions, SKILL, MIRROR §13 |
+| 9 | Helper paste | `~/.grok/auton-projects/6239aa70/MIRROR_SECTION_13.md` |
+| 10 | Batch 8 ops | Rich `cp -a`, `~/bin` symlink, Mempalace drawer `projects/symbiosis-handoff-kanban` |
+
+## Verification receipts (implement wave)
+
+- `pytest tests -q -k kanban` → green
+- `pytest tests -q` → full subtree green
+- `ruff check kanban` → clean
+- Batch 7: `check-primes.sh` (see batch summary)
+- Batch 8: `BATCH_SUMMARY_6239aa70_8.md`; rich cp + `~/bin` + drawer; pytest 68 + check-primes exit 0
+
+## Mirrorability (internal)
+
+**MET:** MIRROR §13 exact WA/OR verify + rich `cp -a` + PS wrapper parity (Python 3.11+ on OR).
+
+## Ball holder
+
+**Washington has the ball.** (Batch 9 auton-gate + verifier; Oregon Kumquat ingest + Pester.)
+
+---
+
+**Bing:** Research sequenced kanban after scaffold + sync report.  
+**Bang:** Read-only board closes OPEN_ITEMS #4 without write risk.  
+**Boom:** Primes + signed doc matrix ready for gate PASS.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch8) -->

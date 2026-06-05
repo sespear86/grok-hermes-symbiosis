@@ -191,7 +191,7 @@ def collect_syncthing(*, no_syncthing: bool) -> dict[str, Any]:
     return result
 
 
-def _parse_handoff_rows(log_text: str, max_rows: int) -> list[dict[str, str]]:
+def parse_handoff_rows(log_text: str, max_rows: int) -> list[dict[str, str]]:
     lines = log_text.splitlines()
     try:
         idx = find_table_insert_index(lines)
@@ -221,6 +221,9 @@ def _parse_handoff_rows(log_text: str, max_rows: int) -> list[dict[str, str]]:
         if len(rows) >= max_rows:
             break
     return rows
+
+
+# Regression alias removed: use parse_handoff_rows (public, AUTON 6239aa70).
 
 
 def extract_open_items_top3(text: str) -> str | None:
@@ -314,7 +317,7 @@ def collect_coordination(repo_root: Path, *, handoff_rows: int) -> dict[str, Any
             out["handoff_log"]["warnings"].append(
                 "HANDOFF_LOG header drift; expected canonical table header"
             )
-        out["handoff_log"]["rows"] = _parse_handoff_rows(log_text, handoff_rows)
+        out["handoff_log"]["rows"] = parse_handoff_rows(log_text, handoff_rows)
     else:
         out["warnings"].append(f"HANDOFF_LOG missing: {log_p}")
 
@@ -494,3 +497,6 @@ def collect_report(
         "warnings": warnings,
         "relay": relay,
     }
+
+
+# <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch1) -->
