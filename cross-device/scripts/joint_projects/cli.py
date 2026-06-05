@@ -8,8 +8,10 @@ from pathlib import Path
 from handoff_scaffold.paths import handoff_format_path
 
 from .collectors import collect_list
+from .init import init_project
 from .paths import CANONICAL_FROM, default_projects_root, default_repo_root
 from .render import render_json, render_md
+from .verify import verify_all, verify_project
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -26,6 +28,19 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     list_p.add_argument("--format", choices=("md", "json", "markdown"), default="md")
     list_p.add_argument("--no-coord", action="store_true")
     list_p.add_argument("--strict-coord", action="store_true")
+
+    init_p = sub.add_parser("init", help="Initialize a new project under projects root")
+    init_p.add_argument("--slug", required=True)
+    init_p.add_argument("--device", required=True)
+    init_p.add_argument("--projects-root", type=Path, default=None)
+    init_p.add_argument("--dry-run", action="store_true")
+    init_p.add_argument("--template", choices=("minimal", "app"), default="minimal")
+
+    verify_p = sub.add_parser("verify", help="Verify project layout and hygiene")
+    verify_p.add_argument("--slug", default=None)
+    verify_p.add_argument("--device", required=True)
+    verify_p.add_argument("--projects-root", type=Path, default=None)
+
     return p.parse_args(argv)
 
 
@@ -94,10 +109,78 @@ def cmd_list(ns: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_init(ns: argparse.Namespace) -> int:
+    if ns.device not in CANONICAL_FROM:
+        print(
+            f"invalid --device; use one of: {', '.join(sorted(CANONICAL_FROM))}",
+            file=sys.stderr,
+        )
+        return 1
+
+    projects_root = (ns.projects_root or default_projects_root()).expanduser().resolve()
+    result = init_project(
+        slug=ns.slug,
+        root=projects_root,
+        device=ns.device,
+        template=ns.template,
+        dry_run=ns.dry_run,
+    )
+    if result.project_path:
+        print(f"Project path: {result.project_path}")
+    for path in result.planned_paths:
+        print(f"  {path}")
+    if ns.dry_run:
+        print("[dry-run] no files written")
+    for err in result.errors:
+        print(f"ERROR: {err}", file=sys.stderr)
+    if not result.ok:
+        return 1
+    if not ns.dry_run:
+        print(f"Initialized project {ns.slug!r} (template={ns.template})")
+    return 0
+
+
+def cmd_verify(ns: argparse.Namespace) -> int:
+    if ns.device not in CANONICAL_FROM:
+        print(
+            f"invalid --device; use one of: {', '.join(sorted(CANONICAL_FROM))}",
+            file=sys.stderr,
+        )
+        return 1
+
+    projects_root = (ns.projects_root or default_projects_root()).expanduser().resolve()
+    if ns.slug:
+        results = [verify_project(projects_root, ns.slug)]
+    else:
+        results = verify_all(projects_root)
+
+    if not results and ns.slug is None:
+        print(f"No project directories under {projects_root}")
+        return 0
+
+    exit_code = 0
+    for res in results:
+        print(f"=== {res.slug} ===")
+        for w in res.warnings:
+            print(f"WARN: {w}")
+        for e in res.errors:
+            print(f"ERROR: {e}", file=sys.stderr)
+            exit_code = 1
+        if res.ok and not res.warnings:
+            print("OK")
+        elif res.ok:
+            print("OK (with warnings)")
+    return exit_code
+
+
 def main(argv: list[str] | None = None) -> None:
     ns = parse_args(argv)
     if ns.command == "list":
         sys.exit(cmd_list(ns))
+    if ns.command == "init":
+        sys.exit(cmd_init(ns))
+    if ns.command == "verify":
+        sys.exit(cmd_verify(ns))
     print(f"unknown command: {ns.command}", file=sys.stderr)
     sys.exit(1)
 
@@ -106,4 +189,4 @@ if __name__ == "__main__":
     main()
 
 
-# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR1) -->
+# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR2) -->

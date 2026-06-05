@@ -1,0 +1,23 @@
+# {slug}
+
+Joint product workspace under Symbiosis **Synced/Projects** (Syncthing-backed).
+
+## Devices
+
+- **Washington Linux** — primary dev on this tree
+- **Oregon Windows** — paired Kumquat verify
+
+## Safety
+
+- Do **not** store secrets, API keys, or tokens in this folder.
+- Keep agent homes out of sync: `.stignore` excludes `**/.grok/` and `**/.hermes/`.
+- See **SYMBIOSIS_PLAYBOOK** §2.1 for repo hygiene; per-project Git remote is optional.
+
+## Symbiosis CLI
+
+```bash
+symbiosis-projects list --device "Washington Linux"
+symbiosis-projects verify --slug "{slug}"
+```
+
+Created: {created_utc} by {created_by_device} (template: {template}).
