@@ -10,6 +10,26 @@ echo "=== Linux Syncthing Preparation ==="
 echo "Creating sync root at: $SYNC_ROOT"
 
 mkdir -p "$SYNC_ROOT/Projects"
+# AUTON 61cdeb81: Projects root .stignore parity with windows prepare (+ agent dirs)
+PROJECTS_STIGNORE="$SYNC_ROOT/Projects/.stignore"
+if [ ! -f "$PROJECTS_STIGNORE" ]; then
+    cat > "$PROJECTS_STIGNORE" << 'PROJECTS_STIGNORE_EOF'
+# Example .stignore for joint project folders
+node_modules/
+.venv/
+__pycache__/
+dist/
+build/
+.env*
+secrets/
+.git/
+*.log
+.cache/
+**/.grok/
+**/.hermes/
+PROJECTS_STIGNORE_EOF
+    echo "Created example Projects .stignore at $PROJECTS_STIGNORE"
+fi
 mkdir -p "$SYNC_ROOT/handoffs"
 mkdir -p "$SYNC_ROOT/grok-hermes-symbiosis"
 
