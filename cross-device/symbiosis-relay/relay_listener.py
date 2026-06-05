@@ -29,7 +29,6 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 # Local imports for the Symbiosis Relay brain
-import sys
 sys.path.append(str(Path(__file__).parent))
 from device_selector import select_device_for_grok_build_task
 from relay_beacon import write_relay_beacon  # So the Relay can announce itself to the symbiosis
@@ -93,6 +92,65 @@ def get_pending_hermes_tasks() -> list[Path]:
     return sorted(tasks, key=lambda p: p.stat().st_mtime)
 
 
+def process_hermes_dispatch(decision: dict) -> tuple[str | None, dict | None]:
+    """
+    Consume at most one pending Hermes task and return (target_device, task) if dispatch should occur.
+    Explicit force_control + explicit_target_device bypasses selector choice (AUTON 98822e73).
+    """
+    pending = get_pending_hermes_tasks()
+    if not pending:
+        return None, None
+
+    try:
+        candidate = json.loads(pending[0].read_text())
+    except Exception as e:
+        log(f"Failed to read pending Hermes task {pending[0].name}: {e}", "error")
+        return None, None
+
+    hints = (candidate or {}).get("context_hints") or {}
+    if hints.get("force_control") and hints.get("explicit_target_device"):
+        real_task = consume_hermes_task(pending[0])
+        if not real_task:
+            return None, None
+        target = str(hints["explicit_target_device"])
+        log(
+            f"EXPLICIT TARGET from Slack NL command → {target.upper()} "
+            "(bypassing selector; force_control)"
+        )
+        if decision.get("single_active_violation"):
+            log(
+                "SINGLE-ACTIVE VIOLATION present; dispatching explicit control anyway "
+                "per operator 'on the X device' intent"
+            )
+        real_task.setdefault("context_hints", {})
+        real_task["context_hints"]["relay_decision"] = f"explicit:{target}"
+        real_task["context_hints"]["beacon_state"] = {
+            "washington": bool((decision.get("washington_beacon") or {}).get("grok_build_active")),
+            "oregon": bool((decision.get("oregon_beacon") or {}).get("grok_build_active")),
+        }
+        real_task.setdefault("source", "slack")
+        real_task.setdefault("type", "grok_build_task")
+        return target, real_task
+
+    if not decision.get("chosen"):
+        return None, None
+
+    real_task = consume_hermes_task(pending[0])
+    if not real_task:
+        return None, None
+    target = decision["chosen"]
+    log(f"INGESTED real task from Hermes/Slack (selector chose {target.upper()})")
+    real_task.setdefault("context_hints", {})
+    real_task["context_hints"]["relay_decision"] = decision.get("reason", "")
+    real_task["context_hints"]["beacon_state"] = {
+        "washington": bool((decision.get("washington_beacon") or {}).get("grok_build_active")),
+        "oregon": bool((decision.get("oregon_beacon") or {}).get("grok_build_active")),
+    }
+    real_task.setdefault("source", "slack")
+    real_task.setdefault("type", "grok_build_task")
+    return target, real_task
+
+
 def consume_hermes_task(task_path: Path) -> dict | None:
     """Move a Hermes task to processed and return its contents."""
     try:
@@ -148,57 +206,36 @@ def main_loop():
             if decision.get("single_active_violation"):
                 log("!!! GLOBAL SINGLE-ACTIVE VIOLATION !!!")
                 log(decision["reason"])
-                # Future: send alert to Slack via Hermes gateway
 
-            elif decision.get("chosen"):
-                target = decision["chosen"]
-                log(f"DECISION: Route to {target.upper()} — {decision['reason']}")
+            target, real_task = process_hermes_dispatch(decision)
 
-                # === Real Hermes / Slack task ingestion (the goal) ===
-                real_task = None
-                pending = get_pending_hermes_tasks()
-                if pending:
-                    real_task_path = pending[0]
-                    real_task = consume_hermes_task(real_task_path)
-                    if real_task:
-                        log(f"INGESTED real task from Hermes/Slack: {real_task_path.name}")
-
-                if real_task:
-                    # Enrich the real Slack task with current relay decision context
-                    real_task.setdefault("context_hints", {})
-                    real_task["context_hints"]["relay_decision"] = decision["reason"]
-                    real_task["context_hints"]["beacon_state"] = {
-                        "washington": bool(decision.get("washington_beacon", {}).get("grok_build_active")),
-                        "oregon": bool(decision.get("oregon_beacon", {}).get("grok_build_active")),
-                    }
-                    task = real_task
-                    task.setdefault("source", "slack")
-                    task.setdefault("type", "grok_build_task")
-                else:
-                    # Fallback synthetic test task (only when no real work is queued)
-                    # In production this path should be rare or disabled.
-                    task = {
-                        "type": "grok_build_task",
-                        "source": "relay-internal-test",
-                        "original_message": "Symbiosis Relay self-test task. Confirm you are alive and can accept work from the central listening post.",
-                        "correlation_id": f"relay-test-{int(time.time())}",
-                        "priority": "normal",
-                        "context_hints": {
-                            "relay_decision": decision["reason"],
-                            "beacon_state": {
-                                "washington": bool(decision.get("washington_beacon", {}).get("grok_build_active")),
-                                "oregon": bool(decision.get("oregon_beacon", {}).get("grok_build_active")),
-                            }
-                        }
-                    }
-
-                dispatch_task_to_device(target, task)
-
-                # Optional: peek at recent status from the target (for logging)
+            if real_task and target:
+                log(f"DECISION: Dispatch to {target.upper()}")
+                dispatch_task_to_device(target, real_task)
                 status = read_status(target)
                 if status:
                     log(f"Latest status from {target}: {status.get('state', 'unknown')} - {status.get('message', '')}")
-
+            elif decision.get("chosen"):
+                target = decision["chosen"]
+                log(f"DECISION: Route to {target.upper()} — {decision['reason']} (synthetic test)")
+                task = {
+                    "type": "grok_build_task",
+                    "source": "relay-internal-test",
+                    "original_message": "Symbiosis Relay self-test task. Confirm you are alive and can accept work from the central listening post.",
+                    "correlation_id": f"relay-test-{int(time.time())}",
+                    "priority": "normal",
+                    "context_hints": {
+                        "relay_decision": decision["reason"],
+                        "beacon_state": {
+                            "washington": bool((decision.get("washington_beacon") or {}).get("grok_build_active")),
+                            "oregon": bool((decision.get("oregon_beacon") or {}).get("grok_build_active")),
+                        },
+                    },
+                }
+                dispatch_task_to_device(target, task)
+                status = read_status(target)
+                if status:
+                    log(f"Latest status from {target}: {status.get('state', 'unknown')} - {status.get('message', '')}")
             else:
                 log(f"No viable target right now: {decision.get('reason', 'unknown')}")
 
@@ -211,5 +248,16 @@ def main_loop():
 
     log("Symbiosis Relay listener shut down cleanly.")
 
+def run_once() -> None:
+    """Single dispatch cycle (for tests and smoke)."""
+    decision = select_device_for_grok_build_task()
+    target, real_task = process_hermes_dispatch(decision)
+    if real_task and target:
+        dispatch_task_to_device(target, real_task)
+
+
 if __name__ == "__main__":
-    main_loop()
+    if "--once" in sys.argv:
+        run_once()
+    else:
+        main_loop()

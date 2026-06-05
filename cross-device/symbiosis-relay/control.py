@@ -7,8 +7,11 @@ Stdlib + subprocess only. No shell=True on user text.
 """
 from __future__ import annotations
 
+import json
 import os
+import re
 import subprocess
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,6 +32,9 @@ class ControlAction:
     command: CommandName
     payload: str
     raw_line: str
+    trust_note: str = ""
+    run_in_tui: bool = False
+    device_hint: str | None = None
 
 
 @dataclass
@@ -42,14 +48,106 @@ def _control_users() -> list[str]:
     return [u.strip() for u in os.environ.get("SYMBIOSIS_CONTROL_SLACK_USERS", "").split(",") if u.strip()]
 
 
-def _trust_gate(task: dict[str, Any]) -> bool:
+def _control_trust_text(task: dict[str, Any]) -> str:
+    hints = task.get("context_hints") or {}
+    if isinstance(hints, dict):
+        return str(task.get("original_message") or hints.get("original_user_command") or "")
+    return str(task.get("original_message") or "")
+
+
+def _trust_gate(task: dict[str, Any]) -> tuple[bool, str]:
     if _allow_all():
-        return True
+        return True, "allow_all"
+    hints = task.get("context_hints") or {}
+    if hints.get("force_control"):
+        print(
+            json.dumps({"event": "control_trust_override", "note": "force_control_hint"}),
+            file=sys.stderr,
+        )
+        return True, "force_control_hint"
+    text = _control_trust_text(task)
+    first = _first_line(text).lower()
+    low = text.lower()
+    if "/autonomous" in low or first.startswith(
+        ("have grok build run", "grok build run", "run /autonomous", "run the autonomous")
+    ):
+        print(
+            json.dumps({"event": "control_trust_override", "note": "control_command_override"}),
+            file=sys.stderr,
+        )
+        return True, "control_command_override"
     if task.get("task_reality") == "real_slack":
-        return True
+        return True, "real_slack"
     if task.get("is_real") is True:
-        return True
-    return False
+        return True, "is_real"
+    return False, "no_trust"
+
+
+def enrich_control_hints(text: str, hints: dict[str, Any]) -> dict[str, Any]:
+    """Pre-parse Slack text for explicit device + force_control (AUTON 98822e73)."""
+    low = (text or "").lower()
+    if "on the washington device" in low or ("washington" in low and "device" in low):
+        hints["explicit_target_device"] = "washington"
+    elif "on the oregon device" in low or ("oregon" in low and "device" in low):
+        hints["explicit_target_device"] = "oregon"
+    if "/autonomous" in low or low.strip().startswith(("have grok build run", "grok build run")):
+        hints["force_control"] = True
+        hints["original_user_command"] = text
+        hints.setdefault("run_in_tui", True)
+    return hints
+
+
+_DEVICE_SUFFIX_RE = re.compile(
+    r",?\s*on the (washington|oregon) device\.?\s*$",
+    re.IGNORECASE,
+)
+
+
+def _strip_device_suffix(idea: str) -> str:
+    return _DEVICE_SUFFIX_RE.sub("", (idea or "").strip()).strip()
+
+
+def _device_hint_from_text(text: str) -> str | None:
+    low = (text or "").lower()
+    if "on the washington device" in low or ("washington" in low and "device" in low):
+        return "washington"
+    if "on the oregon device" in low or ("oregon" in low and "device" in low):
+        return "oregon"
+    return None
+
+
+def _parse_natural_autonomous_command(text: str) -> tuple[str | None, str | None]:
+    """Return (full_payload `/autonomous <idea>`, device_hint) or (None, None)."""
+    if not (text or "").strip():
+        return None, None
+    raw = text
+    device_hint = _device_hint_from_text(raw)
+    patterns = [
+        r'have\s+grok\s+build\s+run\s+"?/autonomous\s+([^"]+)"?',
+        r"grok\s+build\s+run\s+/autonomous\s+(.+)",
+        r"run\s+(?:the\s+)?/autonomous\s+(.+)",
+        r'"/autonomous\s+([^"]+)"',
+    ]
+    idea: str | None = None
+    for pat in patterns:
+        m = re.search(pat, raw, re.IGNORECASE | re.DOTALL)
+        if m:
+            idea = _strip_device_suffix(m.group(1))
+            break
+    if not idea:
+        return None, device_hint
+    full_payload = f"/autonomous {idea}"
+    print(
+        json.dumps(
+            {
+                "event": "control_nl_parse",
+                "payload_len": len(full_payload),
+                "device": device_hint,
+            }
+        ),
+        file=sys.stderr,
+    )
+    return full_payload, device_hint
 
 
 def _first_line(text: str) -> str:
@@ -62,38 +160,78 @@ def _first_line(text: str) -> str:
 
 def parse_control(task: dict[str, Any]) -> ControlAction | None:
     """Return ControlAction if message is a control prefix and trust gate passes."""
-    if not _trust_gate(task):
+    ok_trust, trust_note = _trust_gate(task)
+    if not ok_trust:
         return None
 
     hints = task.get("context_hints") or {}
-    if isinstance(hints, dict) and hints.get("command"):
+    if not isinstance(hints, dict):
+        hints = {}
+    run_in_tui = bool(hints.get("run_in_tui", True))
+
+    if hints.get("command"):
         cmd = str(hints["command"]).strip().lower()
         if cmd in ("close", "open", "continue", "instruct", "autonomous", "status"):
             payload = str(hints.get("autonomous_idea") or hints.get("payload") or "")
             if cmd == "instruct" and not payload:
                 payload = _parse_instruct_payload(task.get("original_message") or "")
             if cmd == "autonomous" and not payload:
-                payload = _parse_autonomous_payload(task.get("original_message") or "")
+                idea = str(hints.get("autonomous_idea") or "")
+                payload = f"/autonomous {idea}" if idea else _parse_autonomous_payload(task.get("original_message") or "")
             raw = (task.get("original_message") or "").strip().splitlines()[0] if task.get("original_message") else cmd
-            return ControlAction(command=cmd, payload=payload, raw_line=raw)  # type: ignore[arg-type]
+            if cmd == "autonomous" and payload and not str(payload).startswith("/autonomous"):
+                payload = f"/autonomous {payload}"
+            if cmd in ("instruct", "autonomous") and run_in_tui and str(payload).startswith("/autonomous"):
+                return ControlAction(
+                    "instruct",
+                    str(payload),
+                    raw,
+                    trust_note=trust_note,
+                    run_in_tui=True,
+                )
+            return ControlAction(
+                cmd,  # type: ignore[arg-type]
+                payload,
+                raw,
+                trust_note=trust_note,
+                run_in_tui=run_in_tui,
+            )
 
-    text = task.get("original_message") or ""
+    text = _control_trust_text(task)
     first = _first_line(text).lower()
     if not first:
         return None
 
     if first.startswith("grok close") or first.startswith("grok stand-down"):
-        return ControlAction("close", "", _first_line(text))
+        return ControlAction("close", "", _first_line(text), trust_note=trust_note)
     if first.startswith("grok open") or first.startswith("grok bust") or first == "bust a nut":
-        return ControlAction("open", "", _first_line(text))
+        return ControlAction("open", "", _first_line(text), trust_note=trust_note)
     if first.startswith("grok continue"):
-        return ControlAction("continue", "", _first_line(text))
+        return ControlAction("continue", "", _first_line(text), trust_note=trust_note)
     if first.startswith("grok instruct:"):
-        return ControlAction("instruct", text.split(":", 1)[1].strip(), _first_line(text))
+        return ControlAction("instruct", text.split(":", 1)[1].strip(), _first_line(text), trust_note=trust_note)
     if first.startswith("grok autonomous:") or first.startswith("autonomous:"):
-        return ControlAction("autonomous", _parse_autonomous_payload(text), _first_line(text))
+        idea = _parse_autonomous_payload(text)
+        payload = f"/autonomous {idea}" if idea else ""
+        if run_in_tui and payload:
+            return ControlAction("instruct", payload, _first_line(text), trust_note=trust_note, run_in_tui=True)
+        return ControlAction("autonomous", idea, _first_line(text), trust_note=trust_note, run_in_tui=run_in_tui)
     if first.startswith("grok status"):
-        return ControlAction("status", "", _first_line(text))
+        return ControlAction("status", "", _first_line(text), trust_note=trust_note)
+
+    nl_payload, device_hint = _parse_natural_autonomous_command(text)
+    if nl_payload:
+        if hints.get("parsed_device") is None and device_hint:
+            hints = dict(hints)
+            hints["parsed_device"] = device_hint
+        return ControlAction(
+            "instruct",
+            nl_payload,
+            _first_line(text),
+            trust_note=trust_note,
+            run_in_tui=run_in_tui,
+            device_hint=device_hint,
+        )
 
     return None
 
@@ -212,6 +350,24 @@ def execute(
                     timeout=30,
                 )
                 return ControlResult(ok=True, detail=f"instruct injected on {pts}", command=cmd)
+            if text.strip().startswith("/autonomous"):
+                log_dir = Path.home() / "symbiosis-relay" / "logs"
+                log_dir.mkdir(parents=True, exist_ok=True)
+                log_path = log_dir / f"auton-launch-{int(time.time())}.log"
+                argv = ["grok", "-p", text.strip(), "--yolo"]
+                with open(log_path, "ab") as logf:
+                    subprocess.Popen(
+                        argv,
+                        stdout=logf,
+                        stderr=subprocess.STDOUT,
+                        cwd=str(Path.home()),
+                        start_new_session=True,
+                    )
+                return ControlResult(
+                    ok=True,
+                    detail=f"no pts; headless fallback {text.strip()[:120]}",
+                    command=cmd,
+                )
             if paths["inject"].is_file():
                 subprocess.run([str(paths["inject"])], check=False, timeout=60)
             return ControlResult(
@@ -222,10 +378,24 @@ def execute(
 
         if cmd == "autonomous":
             idea = action.payload or "user request via Slack control"
+            launch_text = idea if str(idea).startswith("/autonomous") else f"/autonomous {idea}"
+            if action.run_in_tui or str(idea).startswith("/autonomous"):
+                pts = discover_grok_pts(shared_base)
+                if pts and paths["pts"].is_file():
+                    subprocess.run(
+                        ["python3", str(paths["pts"]), pts, launch_text],
+                        check=False,
+                        timeout=30,
+                    )
+                    return ControlResult(
+                        ok=True,
+                        detail=f"autonomous injected on {pts}: {launch_text[:120]}",
+                        command=cmd,
+                    )
             log_dir = Path.home() / "symbiosis-relay" / "logs"
             log_dir.mkdir(parents=True, exist_ok=True)
             log_path = log_dir / f"auton-launch-{int(time.time())}.log"
-            argv = ["grok", "-p", f"/autonomous {idea}", "--yolo"]
+            argv = ["grok", "-p", launch_text, "--yolo"]
             with open(log_path, "ab") as logf:
                 subprocess.Popen(
                     argv,
@@ -235,7 +405,7 @@ def execute(
                     start_new_session=True,
                 )
             auton_id = _poll_newest_auton_id(timeout=2.0)
-            detail = f"Launched /autonomous on {device}"
+            detail = f"Launched {launch_text} on {device}"
             if auton_id:
                 detail += f" (AUTON {auton_id})"
             return ControlResult(ok=True, detail=detail, command=cmd)

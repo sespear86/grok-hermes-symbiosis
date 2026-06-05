@@ -23,6 +23,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 import time
@@ -67,6 +68,27 @@ INJECT_BUST_PYTHON = Path(os.environ.get(
     "INJECT_BUST_PYTHON",
     str(SHARED_BASE / "symbiosis-relay" / "tools" / "pts-inject-input.py")
 ))
+
+
+def _beacon_script_exists(beacon_val: str) -> bool:
+    """Tolerant exists check for beacon.
+    Supports simple path (WA sh/exe) and Oregon full 'powershell.exe ... -File \"path.ps1\"' command string
+    set by the thin launcher for cross-device (19557e65 Oregon receiver).
+    Self-provisioned gap fill so health interlock + claim can succeed on Windows without changing call sites.
+    """
+    if not beacon_val:
+        return False
+    p = Path(beacon_val)
+    if p.exists():
+        return True
+    # Oregon style full command containing -File "script.ps1" (or -file)
+    if '-File' in beacon_val or '-file' in beacon_val:
+        m = re.search(r'-File\s+["\']?([^"\']+?)["\']?', beacon_val, re.IGNORECASE)
+        if m:
+            script_p = Path(m.group(1))
+            return script_p.exists()
+    return False
+
 
 LOG_DIR = Path.home() / "symbiosis-relay" / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -167,13 +189,14 @@ def fire_beacon(active: bool, task_id: str = "", bust: bool = False) -> bool:
     _json_log("ERROR", "beacon total failure", active=active, task_id=task_id)
     return False
 
+# <!-- Edited: 2026-06-04 | Device: Windows | By: Grok (19557e65 Oregon packaging + Kumquat verification) --> Self-provisioned tolerant beacon exists parser for Oregon launcher command strings + Set beacon script support. Exact primes + Mirror + self-prov followed. Keep er goinnnn. Bust a nut.
 
 def check_health() -> dict[str, Any]:
     """Return health dict. Used before claim + for --health CLI."""
     health: dict[str, Any] = {
         "ok": True,
         "reasons": [],
-        "beacon_script_exists": BEACON.exists(),
+        "beacon_script_exists": _beacon_script_exists(str(BEACON)),
         "inject_script_exists": INJECT_BUST_SCRIPT.exists(),
         "inbox_writable": COMMAND_INBOX.exists() and os.access(COMMAND_INBOX, os.W_OK),
         "status_writable": STATUS_OUTBOX.exists() and os.access(STATUS_OUTBOX, os.W_OK),
@@ -424,7 +447,15 @@ def process_inbox_once() -> int:
                 continue
 
             result = control.execute(action, device=DEVICE, shared_base=SHARED_BASE)
-            slack_out = send_to_slack.ack_control_result(task, result, device=DEVICE)
+            slack_out = send_to_slack.ack_control_result(
+                task, result, device=DEVICE, action=action
+            )
+            raw_cmd = (
+                task.get("original_message")
+                or (task.get("context_hints") or {}).get("original_user_command")
+                or action.raw_line
+                or ""
+            )
             _json_log(
                 "INFO",
                 f"control_{action.command}",
@@ -434,6 +465,10 @@ def process_inbox_once() -> int:
                 control_detail=result.detail,
                 slack_ack_ok=slack_out.get("ok"),
                 slack_ack_rc=0 if slack_out.get("ok") else 1,
+                last_control_command=str(raw_cmd)[:200],
+                last_control_device=DEVICE,
+                last_control_detail=result.detail,
+                control_trust_note=action.trust_note or task.get("task_reality"),
             )
             state = "control_completed" if result.ok else "control_failed"
             write_status(state, correlation, result.detail, control_action=action.command, control_ok=result.ok)

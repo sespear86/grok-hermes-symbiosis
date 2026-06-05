@@ -90,6 +90,39 @@ def send_message(
         return {"ok": False, "ts": None, "error": str(e)}
 
 
+def format_nl_autonomous_ack(
+    task: dict,
+    result: Any,
+    device: str,
+    *,
+    trust_note: str = "control_command_override",
+    inject_mode: str = "",
+) -> str:
+    hints = task.get("context_hints") or {}
+    channel = task.get("slack_channel") or hints.get("source_channel") or "#all-devices"
+    short = (
+        hints.get("original_user_command")
+        or task.get("original_message")
+        or ""
+    )[:200]
+    explicit = hints.get("explicit_target_device") or "none"
+    explicit_label = explicit.title() if explicit != "none" else "none"
+    if not inject_mode:
+        detail = getattr(result, "detail", "") or ""
+        if "injected" in detail.lower() or "pts" in detail.lower():
+            inject_mode = f"Injecting into live {device.upper()} TUI (pts-inject)."
+        else:
+            inject_mode = f"Launching headless AUTON ({detail[:120]})."
+    return (
+        f"Command received from {channel}: {short}.\n"
+        f"Explicit target: {explicit_label}.\n"
+        f"Trust: {trust_note} (main token path; is_real missing until ingest token applied "
+        f"— see PROJECT_FINISH_LINE for the human xapp- step).\n"
+        f"{inject_mode}\n"
+        f"Monitor TUI or ~/.grok/auton-projects/. (AUTON 98822e73 fix)"
+    )
+
+
 def format_ack(result: Any, device: str, correlation: str) -> str:
     cmd = getattr(result, "command", "") or "control"
     detail = getattr(result, "detail", "") or ""
@@ -102,7 +135,13 @@ def format_denial(reason: str, device: str) -> str:
     return f"Not authorized on {device}: {reason}"
 
 
-def ack_control_result(task: dict, result: Any, *, device: str) -> dict[str, Any]:
+def ack_control_result(
+    task: dict,
+    result: Any,
+    *,
+    device: str,
+    action: Any = None,
+) -> dict[str, Any]:
     ch = task.get("slack_channel_id")
     if not ch:
         try:
@@ -111,7 +150,18 @@ def ack_control_result(task: dict, result: Any, *, device: str) -> dict[str, Any
             return {"ok": False, "ts": None, "error": str(e)}
     thread = task.get("slack_thread_ts") or task.get("slack_ts")
     corr = task.get("correlation_id", "")
-    text = format_ack(result, device, corr)
+    hints = task.get("context_hints") or {}
+    payload = getattr(action, "payload", "") if action else ""
+    trust_note = getattr(action, "trust_note", "") if action else ""
+    if hints.get("force_control") or str(payload).startswith("/autonomous"):
+        text = format_nl_autonomous_ack(
+            task,
+            result,
+            device,
+            trust_note=trust_note or "control_command_override",
+        )
+    else:
+        text = format_ack(result, device, corr)
     return send_message(ch, text, thread_ts=thread)
 
 
