@@ -122,9 +122,9 @@ def test_healthz(dashboard_server):
     conn.request("GET", "/healthz")
     resp = conn.getresponse()
     assert resp.status == 200
-    body = json.loads(resp.read().decode())
-    assert body["status"] == "ok"
-    assert body["device"] == "Washington Linux"
+    assert resp.getheader("Content-Type", "").startswith("text/plain")
+    body = resp.read()
+    assert body == b"ok\n"
 
 
 def test_api_md_format(dashboard_server):
@@ -257,6 +257,12 @@ def test_no_shell_in_handoff_dashboard_sources():
 
 def test_shim_importable():
     assert SHIM.is_file()
+
+
+def test_start_launcher_script_exists():
+    launcher = SCRIPTS / "start-handoff-dashboard.sh"
+    assert launcher.is_file()
+    assert launcher.stat().st_mode & 0o111
 
 
 def test_cli_module_help():

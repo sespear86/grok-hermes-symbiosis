@@ -40,9 +40,12 @@ All 7 primes + Mirrorability + exact sigs apply to edits here.
 
 **Handoff live dashboard (read-only localhost UI):**
 ```bash
+./start-handoff-dashboard.sh --device "Washington Linux" --open
 ./symbiosis-handoff-dashboard --device "Washington Linux" --port 8766 --open
 # or: curl http://127.0.0.1:8766/api/kanban?format=json
 ```
+
+Oregon: `.\windows\scripts\start-handoff-dashboard.ps1 -Device "Oregon Windows"`
 
 **Tests:**
 ```bash

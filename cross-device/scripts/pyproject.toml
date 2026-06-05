@@ -1,6 +1,6 @@
 [project]
 name = "symbiosis-handoff-scaffold"
-version = "0.2.1"
+version = "0.3.0"
 description = "Symbiosis handoff ops tools (scaffold + sync-report + kanban + handoff-dashboard 3694a72b)"
 requires-python = ">=3.11"
 
