@@ -1,0 +1,13 @@
+# Per-project Syncthing ignore (symbiosis-shared-projects AUTON 61cdeb81)
+node_modules/
+.venv/
+__pycache__/
+dist/
+build/
+.env*
+secrets/
+.git/
+*.log
+.cache/
+**/.grok/
+**/.hermes/

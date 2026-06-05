@@ -62,7 +62,9 @@
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 3694a72b) -->
 
-5. Shared project folders under `~/Synced/Projects` (or Windows `C:\Synced\Projects` equivalent).
+5. ~~Shared project folders under `~/Synced/Projects` (or Windows `C:\Synced\Projects` equivalent).~~ **Done (2026-06-05, AUTON 61cdeb81):** `symbiosis-projects` (`joint_projects/`) — `list` / `init` / `verify` under `SYMBIOSIS_PROJECTS_ROOT`; PLAYBOOK §2.3d; MIRROR §15; `PRODUCTION_READY.md` 61cdeb81 section; Linux prepare `.stignore` parity (PR3). Drawer: `projects/symbiosis-shared-projects` (PR5).
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
 
 6. Simple agent helper / grep wrapper for Mempalace "queries" during Kumquat (only after real adoption validates the need per 0200 rec; keep lightweight; none needed currently).
 

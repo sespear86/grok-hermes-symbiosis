@@ -68,4 +68,22 @@ def repo_root(tmp_path):
     return root
 
 
-# <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch3) -->
+@pytest.fixture
+def projects_mini_tree(tmp_path, kanban_mini_tree):
+    """Projects root + mini symbiosis repo for joint_projects list tests."""
+    root, _mp = kanban_mini_tree
+    projects_root = tmp_path / "projects"
+    projects_root.mkdir()
+    alpha = projects_root / "Alpha-App"
+    alpha.mkdir()
+    (alpha / "README.md").write_text("# Alpha\n", encoding="utf-8")
+    (alpha / ".stignore").write_text(".git/\n", encoding="utf-8")
+    beta = projects_root / "Beta-Only-Readme"
+    beta.mkdir()
+    (beta / "README.md").write_text("# Beta\n", encoding="utf-8")
+    (projects_root / ".hidden").mkdir()
+    (projects_root / "notes.txt").write_text("skip\n", encoding="utf-8")
+    return root, projects_root
+
+
+# <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR1) -->

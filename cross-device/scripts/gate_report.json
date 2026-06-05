@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "tool_version": "0.1.0",
   "project_path": "/home/Irikash/grok-hermes-symbiosis/cross-device/scripts",
-  "auton_id": "6239aa70",
+  "auton_id": "61cdeb81",
   "profile": "cli",
   "checklist_path": "/home/Irikash/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md",
   "checklist_sha256": "3af8e8b9a434efc4",
@@ -10,8 +10,8 @@
     "primary": "python",
     "manifest": "pyproject.toml"
   },
-  "started_at": "2026-06-05T02:38:34.292209+00:00",
-  "finished_at": "2026-06-05T02:38:34.292209+00:00",
+  "started_at": "2026-06-05T03:29:08.737074+00:00",
+  "finished_at": "2026-06-05T03:29:08.737074+00:00",
   "checks": [
     {
       "check_id": "s03.03.build_clean",
@@ -26,7 +26,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 35,
+      "duration_ms": 36,
       "message": "build passed (exit=0)"
     },
     {
@@ -42,7 +42,7 @@
         "stderr": "",
         "stack": "python"
       },
-      "duration_ms": 6,
+      "duration_ms": 5,
       "message": "lint passed (exit=0)"
     },
     {
@@ -67,12 +67,12 @@
       "evidence": {
         "command": "pytest -q",
         "exit_code": 0,
-        "stdout": "....................................................................     [100%]\n68 passed in 0.65s\n",
+        "stdout": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 1.12s\n",
         "stderr": "",
-        "summary": "68 passed in 0.65s",
+        "summary": "95 passed in 1.12s",
         "stack": "python"
       },
-      "duration_ms": 1103,
+      "duration_ms": 1600,
       "message": "test_suite passed"
     },
     {
@@ -86,7 +86,7 @@
         "count": 0,
         "env_committed": false
       },
-      "duration_ms": 5,
+      "duration_ms": 7,
       "message": "No high-signal secrets or committed .env found"
     },
     {
@@ -135,22 +135,15 @@
       "check_id": "s08.04.gitignore",
       "section": 8,
       "bullet": 4,
-      "status": "FAIL",
+      "status": "PASS",
       "automatable": "full",
       "evidence": {
         "present": true,
-        "missing_hints": [
-          ".env",
-          "*.egg-info",
-          "node_modules",
-          ".venv",
-          "dist",
-          "build"
-        ],
-        "size": 88
+        "missing_hints": [],
+        "size": 146
       },
       "duration_ms": 0,
-      "message": ".gitignore present (missing hints: ['.env', '*.egg-info', 'node_modules', '.venv', 'dist', 'build'])"
+      "message": ".gitignore present"
     },
     {
       "check_id": "s11.01.commits_clear",
@@ -172,14 +165,14 @@
       "automatable": "full",
       "evidence": {
         "production_ready_md": true,
-        "auton_id": "6239aa70",
+        "auton_id": "61cdeb81",
         "auton_state_ok": true,
         "auton_state_keys": [
           "auton_id",
           "idea",
           "slug",
           "status",
-          "design_review_id"
+          "phases_completed"
         ]
       },
       "duration_ms": 0,
@@ -192,7 +185,7 @@
       "status": "PASS",
       "automatable": "partial",
       "evidence": {
-        "drawer": "projects/symbiosis-handoff-kanban"
+        "drawer": "projects/symbiosis-shared-projects"
       },
       "duration_ms": 0,
       "message": "mempalace_drawer in auton state"
