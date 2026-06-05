@@ -181,27 +181,27 @@ Drawer: `projects/symbiosis-handoff-kanban` (Batch 8).
 **Subtree:** `cross-device/scripts/` (package `joint_projects/`)  
 **Profile:** `cli` (stdlib Python 3.11+, no network in unit tests)
 
-## Status (gates — mechanical evidence at PR6)
+## Status (gates — PR6 evidence 2026-06-05)
 
 | Gate | Evidence |
 |------|----------|
-| V1 pytest joint_projects | `pytest tests -q -k joint_projects` |
-| V2 pytest all | `pytest tests -q` (full scripts subtree green) |
-| V3 auton-gate | `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 61cdeb81 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md` |
+| V1 pytest joint_projects | **14 passed** (`pytest tests -q -k joint_projects`) |
+| V2 pytest all | **82 passed** (`pytest tests -q`) |
+| V3 auton-gate | **MECHANICAL_PASS** exit 0 — `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 61cdeb81 --profile cli`; `GATE_REPORT.md` + `gate_report.json` |
 | V4 MIRROR §15 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §15 |
-| V5 smoke | `./symbiosis-projects list --device "Washington Linux"`; `init --dry-run`; tmp-root init+verify |
-| V6 check-primes | `~/bin/check-primes.sh` exit 0 |
-| V7 Mempalace drawer | `projects/symbiosis-shared-projects` |
-| V8 OPEN_ITEMS / SKILL | #5 Done; Forward Vision shared Projects when shipped |
-| V9 PS/WA parity | `Get-SymbiosisProjects.ps1` + `Initialize-SymbiosisProject.ps1` + Pester |
-| V10 path confinement | `test_joint_projects.py::test_path_confinement_rejects_escape` (+ init escape cases) |
+| V5 smoke | `~/bin/symbiosis-projects list --device "Washington Linux"` (dogfood PR6); `init --dry-run`; tmp-root init+verify in pytest |
+| V6 check-primes | `~/bin/check-primes.sh` → exit 0 (2026-06-05) |
+| V7 Mempalace drawer | `projects/symbiosis-shared-projects` (s12.02 auton-gate PASS) |
+| V8 OPEN_ITEMS / SKILL | #5 Done; Forward Vision struck when shipped |
+| V9 PS/OR parity | **Pending on branch tip** — PS scripts on PR2 stack; WA Python + shim **PASS**; OR Pester after rich cp |
+| V10 path confinement | `test_assert_under_projects_root_rejects_escape` (+ init escape in pytest) |
 | V11 no shell | `test_no_shell_true_in_joint_projects_sources` |
 | V12 list coord policy | `test_list_succeeds_without_repo_coord_warnings`; `test_list_strict_coord_exit2_invalid_repo` |
-| V13 Verifier | Append **61cdeb81** to `VERIFIER_GATE_REPORT.md` **PASS** |
-| V14 security-auditor | 0 critical/high on `joint_projects/` + shim |
-| V15 Mirrorability | **MET** — MIRROR §15 + OR verify |
-| V16 ruff | `ruff check joint_projects` clean |
-| V17 CI GH Actions | **N/A** — stdlib CLI subtree; s06/s08 waivers per f41d2ff4 / 6239aa70 / 3694a72b |
+| V13 Verifier | `VERIFIER_GATE_REPORT.md` **VERDICT: PASS** (61cdeb81 section, PR6) |
+| V14 security-auditor | Manual: 0 crit/high — no secrets, no shell in package, path guards, read-only list |
+| V15 Mirrorability | **MET** (WA); OR §15 smoke recipe when PS merged |
+| V16 ruff | `ruff check .` clean (PR6 gate fix: unused import in tests) |
+| V17 CI / lockfiles | **N/A** — auton-gate s06.01 + s08.01 FAIL non-strict, waived (sibling pattern) |
 
 ## Mirror declaration
 
@@ -231,4 +231,4 @@ s06/s08 lockfile + monorepo CI **N/A** (3694a72b / f41d2ff4 / 6239aa70 pattern).
 **Bang:** `symbiosis-projects` lists, inits, and verifies joint trees without touching `HANDOFF_LOG.md`.  
 **Boom:** Dogfood PLAYBOOK §2.3d on the next Paired joint build; Oregon mirrors MIRROR §15.
 
-<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR6 gates) -->

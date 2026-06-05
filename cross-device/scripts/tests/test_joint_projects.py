@@ -11,7 +11,7 @@ import pytest
 
 from joint_projects.collectors import collect_list
 from joint_projects.paths import assert_under_projects_root, default_projects_root, validate_slug
-from joint_projects.render import render_json, render_md
+from joint_projects.render import render_md
 
 SCRIPTS = Path(__file__).resolve().parents[1]
 JP_PKG = SCRIPTS / "joint_projects"

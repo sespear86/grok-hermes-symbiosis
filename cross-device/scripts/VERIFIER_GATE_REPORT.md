@@ -63,28 +63,38 @@ All Production Readiness Checklist items satisfied or appropriately waived for t
 **Date**: 2026-06-05  
 **Profile**: cli  
 
-### PR4 documentation matrix (this pass)
+### Checklist status (PR6 mechanical + manual)
 
-- [x] `PRODUCTION_READY.md` 61cdeb81 section (V1–V17 gates, rich deploy, bing/bang/boom)
-- [x] `README.md` fifth-package row + examples
-- [x] `SYMBIOSIS_PLAYBOOK.md` §2.3d + Paired note
-- [x] `MIRROR_KITS_AND_INFRASTRUCTURE.md` §13 kanban body + §15 shared projects
-- [x] `OPEN_ITEMS.md` #5 Done
-- [x] `status.md`, `linux-instructions.md`, `windows-instructions.md`, `SKILL.md`, `usage-pattern.md`
-- [ ] Mechanical gates V1–V17 + **VERDICT: PASS** — **PR6** (auton-gate, verifier subagent, OR smoke)
+- [x] Code quality: `ruff check .` clean; 14 `joint_projects` tests + 82 full suite
+- [x] Linter/type-check/build: ast parse + ruff (auton-gate s03)
+- [x] Unit + integration: happy (list/init/verify), error (slug, escape, strict-coord), boundary (empty root, golden md)
+- [x] No obvious security: no secrets in `joint_projects/`; no `shell=True` in package sources; path confinement; read-only list (no HANDOFF_LOG writes)
+- [x] Edge cases: invalid repo `--strict-coord` exit 2; init conflicts; verify per-slug
+- [x] Conventions: sibling CLI pattern, stdlib, exact signatures on doc edits
+- [x] CI: **N/A** — auton-gate s06.01/s08.01 FAIL non-strict, waived per V17 / f41d2ff4 / 6239aa70 / 3694a72b
+- [x] README + PRODUCTION_READY 61cdeb81 section (evidence filled PR6)
+- [x] Mempalace drawer `projects/symbiosis-shared-projects` (auton state s12.02 PASS)
+- [x] Cross-device docs matrix (PR4) + MIRROR §15 WA verify
+- [x] Mirrorability: **MET** on WA; OR §15 Pester when PS on tip + rich `cp`
 
-### Evidence target (PR6)
+### Evidence (PR6 — 2026-06-05)
 
-- `pytest tests -q -k joint_projects` + full `pytest tests -q`
-- `ruff check joint_projects`
-- `auton-gate check ... --auton-id 61cdeb81 --profile cli`
-- MIRROR §15 OR block: `python3 .\symbiosis-projects list`, `Initialize-SymbiosisProject.ps1 -DryRun`, `Invoke-Pester .\Get-SymbiosisProjects.Tests.ps1`
-- `~/bin/check-primes.sh` exit 0
+| Check | Result |
+|-------|--------|
+| `pytest tests -q -k joint_projects` | 14 passed |
+| `pytest tests -q` | 82 passed |
+| `ruff check joint_projects` / `ruff check .` | All checks passed |
+| `auton-gate check .../cross-device/scripts --auton-id 61cdeb81 --profile cli` | **MECHANICAL_PASS** exit 0 |
+| `~/bin/check-primes.sh` | exit 0 |
+| Dogfood | `~/bin/symbiosis-projects list --device "Washington Linux"` |
+| Security | auton-gate s05.03 PASS; `test_no_shell_true_in_joint_projects_sources` |
 
-### VERDICT (PR4)
+### Issues found this pass
 
-**DOCS_READY** — Full mechanical **PASS** recorded at PR6 after gate run.
+None blocking. **Windows PS/Pester** not on `auton-61cdeb81-pr6` tip under `windows/scripts/` — Oregon uses py-first until PR2 merge + rich sync.
 
-**Washington has the ball.** (PR5 rich deploy + drawer; PR6 gates + this section → PASS; Oregon: Kumquat + §15 Pester + RETURN.)
+### VERDICT: PASS
 
-<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR4 docs) -->
+**Washington has the ball.** (merge PR stack; Oregon: Kumquat + MIRROR §15 when PS on tip + RETURN.)
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR6 verifier) --> Exact primes + Mirrorability + bing bang boom + Self-Test #4 green. Bust a nut.

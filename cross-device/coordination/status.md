@@ -1,6 +1,10 @@
 # Symbiosis Status
 
-**Update (2026-06-05, AUTON 61cdeb81 — PR4 docs matrix):** Shared Projects workspace documented and gated: `symbiosis-projects` / `joint_projects/` (PR1–PR2 code on branch; PR3 prepare parity; PR4 docs). PLAYBOOK **§2.3d**, MIRROR **§13** (kanban body restored) + **§15**, `OPEN_ITEMS` **#5 Done**, `PRODUCTION_READY.md` + `VERIFIER_GATE_REPORT.md` 61cdeb81 sections, README matrix row, SKILL Forward Vision, standing orders in `linux-instructions.md` / `windows-instructions.md`, `usage-pattern.md` sub-bullet. **Washington has the ball.** (PR5 `~/bin` + rich cp + Mempalace drawer; PR6 auton-gate + verifier PASS; Oregon: Kumquat + MIRROR §15 Pester smoke + RETURN.)
+**Update (2026-06-05, AUTON 61cdeb81 — PR6 production gate):** Mechanical gates green on Washington: `pytest` 82/82, `ruff check .` clean, `auton-gate` **MECHANICAL_PASS** (s06/s08 waived per V17), `check-primes` exit 0, `VERIFIER_GATE_REPORT.md` **VERDICT: PASS**, dogfood `symbiosis-projects list --device "Washington Linux"`. **Washington has the ball.** (merge PR stack, rich cp when PS on tip; Oregon: Kumquat + MIRROR §15 Pester + RETURN.)
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR6) -->
+
+**Update (2026-06-05, AUTON 61cdeb81 — PR4 docs matrix):** Shared Projects workspace documented and gated: `symbiosis-projects` / `joint_projects/` (PR1–PR2 code on branch; PR3 prepare parity; PR4 docs). PLAYBOOK **§2.3d**, MIRROR **§13** (kanban body restored) + **§15**, `OPEN_ITEMS` **#5 Done**, `PRODUCTION_READY.md` + `VERIFIER_GATE_REPORT.md` 61cdeb81 sections, README matrix row, SKILL Forward Vision, standing orders in `linux-instructions.md` / `windows-instructions.md`, `usage-pattern.md` sub-bullet.
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
 
