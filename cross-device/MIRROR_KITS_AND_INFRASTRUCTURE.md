@@ -781,3 +781,116 @@ Have Grok Build run "/autonomous Identify another part of Project Symbiosis to t
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> MIRROR §12 NL autonomous recipe. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (rich cp + OR Kumquat). -->
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 MIRROR §12) -->
+
+## 13. Handoff Kanban (`symbiosis-handoff-kanban`, AUTON 6239aa70)
+
+**Purpose:** Read-only Kanban-style view over `cross-device/handoffs/`: LOG rows + folder README/RETURN enrichment, columnar Awaiting / In Progress / Completed (recent) / Archived, coordination excerpts, presence. Paste-friendly `md` / `json` / `board`. Complements §11 sync report (does not replace it).
+
+**Naming:** Canonical shim **`symbiosis-kanban`**; drawer/slug `symbiosis-handoff-kanban`. Cross-ref §10 `symbiosis-new-handoff`, §11 `symbiosis-sync-report`.
+
+**Paths (git):**
+- `cross-device/scripts/symbiosis-kanban` (shim)
+- `cross-device/scripts/kanban/` (package)
+- `windows/scripts/Get-SymbiosisHandoffKanban.ps1`
+- `windows/scripts/Get-SymbiosisHandoffKanban.Tests.ps1`
+
+**Exact verify block (copy-paste):**
+
+```bash
+# WA
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-kanban --device "Washington Linux" --format board | head -50
+pytest tests -q -k kanban
+```
+
+```powershell
+# OR
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_MEMPALACE_ROOT = "C:\Synced\Mempalace"
+python3 .\symbiosis-kanban --device "Oregon Windows" --format json
+cd ..\..\windows\scripts
+.\Get-SymbiosisHandoffKanban.ps1 -Device "Oregon Windows" -Format board
+Invoke-Pester .\Get-SymbiosisHandoffKanban.Tests.ps1
+```
+
+**Rich mirror recipe:**
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffKanban.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisHandoffKanban.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**Washington ~/bin:**
+
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-kanban ~/bin/symbiosis-kanban
+```
+
+**Production gate:** `cross-device/scripts/PRODUCTION_READY.md` (6239aa70 section) + `pytest tests -q -k kanban` + `auton-gate check cross-device/scripts --auton-id 6239aa70 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md`
+
+**Mirrorability:** MET when OR runs Python shim or PS wrapper with same JSON/board shape (Python 3.11+).
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch7) -->
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR4 §13 reconciliation) -->
+
+## 15. Shared Projects Workspace (`symbiosis-shared-projects`, AUTON 61cdeb81)
+
+**Purpose:** List, initialize, and verify joint product directories under `~/Synced/Projects` / `C:\Synced\Projects`. Read-only `list`/`verify`; `init` writes only under projects root. Complements §2.1 Playbook joint row; does not replace Git or handoffs.
+
+**Naming:** Shim **`symbiosis-projects`**; slug/drawer **`symbiosis-shared-projects`**.
+
+**Paths (git):**
+
+- `cross-device/scripts/symbiosis-projects`
+- `cross-device/scripts/joint_projects/`
+- `windows/scripts/Get-SymbiosisProjects.ps1`
+- `windows/scripts/Initialize-SymbiosisProject.ps1`
+- `windows/scripts/Get-SymbiosisProjects.Tests.ps1`
+
+**WA verify:**
+
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-projects list --device "Washington Linux" | head -30
+./symbiosis-projects init --slug "Mirror-Smoke-61cdeb81" --dry-run
+export SYMBIOSIS_PROJECTS_ROOT="$(mktemp -d)"
+./symbiosis-projects init --slug "Test-Joint" --device "Washington Linux"
+./symbiosis-projects verify --slug "Test-Joint"
+pytest tests -q -k joint_projects
+```
+
+**OR verify:**
+
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_PROJECTS_ROOT = "C:\Synced\Projects"
+python3 .\symbiosis-projects list --device "Oregon Windows" | Select-Object -First 30
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\Get-SymbiosisProjects.ps1 -Device "Oregon Windows"
+.\Initialize-SymbiosisProject.ps1 -Slug "OR-Verify-61cdeb81" -DryRun
+Invoke-Pester .\Get-SymbiosisProjects.Tests.ps1
+```
+
+**Rich mirror:**
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisProjects.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Initialize-SymbiosisProject.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisProjects.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**~/bin (WA):**
+
+```bash
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-projects ~/bin/symbiosis-projects
+```
+
+**Production gate:** `PRODUCTION_READY.md` (61cdeb81) + `pytest tests -q -k joint_projects` + `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 61cdeb81 --profile cli`.
+
+**Mirrorability:** MET when OR runs Python shim or PS wrappers with same list/init/verify behavior (Python 3.11+). Gaps: document if `C:\Synced\Projects` empty (honest empty list).
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->

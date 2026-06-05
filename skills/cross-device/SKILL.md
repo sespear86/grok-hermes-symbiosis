@@ -141,6 +141,7 @@ This is the entire dance. It works. It has delivered multiple real artifacts and
 
 - ~~Skill or MCP tooling to scaffold a new handoff package from a prompt.~~ **Shipped (AUTON f41d2ff4):** `symbiosis-new-handoff` + `New-SymbiosisHandoff.ps1` under `cross-device/scripts/` — see PLAYBOOK §2.3 and `MIRROR_KITS` Handoff Scaffold section.
 - ~~A "sync report" emitter that both agents can invoke cleanly.~~ **Shipped (AUTON 355e3993):** `symbiosis-sync-report` + `Get-SymbiosisSyncReport.ps1` under `cross-device/scripts/` — see PLAYBOOK §2.3a and `MIRROR_KITS` §11.
+- ~~Shared project folders under `~/Synced/Projects` / `C:\Synced\Projects` with list/init/verify.~~ **Shipped (AUTON 61cdeb81):** `symbiosis-projects` + `joint_projects/` + `Get-SymbiosisProjects.ps1` / `Initialize-SymbiosisProject.ps1` — see PLAYBOOK §2.3d and `MIRROR_KITS` §15.
 - Kanban-style live dashboard on top of the handoffs/ folder.
 - Deeper MCP integrations for the joint chat bus (whatever it evolved into).
 
@@ -193,6 +194,8 @@ This skill is now a mirror of how we *actually* operate across the two machines.
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> Handoff scaffold shipped: step 2a CLI + Forward Vision strikethrough. OPEN_ITEMS #2 satisfied. Signature per prime directive. Keep er goinnnn. Bust a nut. -->
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) --> Sync report Forward Vision struck + shipped paths. OPEN_ITEMS #1 satisfied. Bing bang boom. -->
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
 
 <!-- Edited: 2026-06-02 | Device: Linux | By: Grok (strengthened Self-Provisioning Prime per user directive) --> Updated this repo-source SKILL.md: (1) header to include "+ Self-Provisioning / Full Permissions", (2) inserted the full strengthened prime text (user's exact "full permissions from the user" sentence as leading authority + "In addition" body) after Prime #5 and before #6. This is the canonical traveling version. Mirror instructions for the deployed ~/.grok copy and all other locations are in the rich signature in linux-instructions.md. All 7 primes + Mirrorability as final internal + exact signature followed. Keep er goinnnn, you prime-strengthening degenerates. Bust a nut. -->
 

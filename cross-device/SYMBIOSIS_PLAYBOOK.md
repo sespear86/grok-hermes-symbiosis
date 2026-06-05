@@ -114,6 +114,34 @@ After Kumquat step 3.5, when **Paired Mode**, run the sync report on this machin
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+### 2.3d Shared projects (`~/Synced/Projects` / `C:\Synced\Projects`)
+
+Joint product directories live under the Syncthing **Projects** folder (see §2.1 table). Use **`symbiosis-projects`** for list / init / verify — read-only `list` and `verify`; `init` writes only under `SYMBIOSIS_PROJECTS_ROOT` (default `~/Synced/Projects` or `C:\Synced\Projects`). Does **not** edit `HANDOFF_LOG.md` or handoff packages.
+
+**Paired Mode:** After Kumquat step 3.5, before starting joint code/assets in `Projects/`, run `list` to see existing slugs; use `init` for a new joint tree (templates + `.stignore`); `verify` before trusting a folder for shared work.
+
+Washington:
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-projects list --device "Washington Linux" | head -30
+./symbiosis-projects init --slug "My-Joint-App" --device "Washington Linux" [--dry-run]
+./symbiosis-projects verify --slug "My-Joint-App" --device "Washington Linux"
+```
+
+Oregon:
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_PROJECTS_ROOT = "C:\Synced\Projects"
+python3 .\symbiosis-projects list --device "Oregon Windows" | Select-Object -First 30
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\Get-SymbiosisProjects.ps1 -Device "Oregon Windows"
+.\Initialize-SymbiosisProject.ps1 -Slug "My-Joint-App" -Device "Oregon Windows" -DryRun
+```
+
+Prepare roots once: `linux/scripts/prepare-syncthing-folders.sh` / `windows/scripts/prepare-syncthing-folders.ps1` (Projects `.stignore` parity). Full mirror: `MIRROR_KITS_AND_INFRASTRUCTURE.md` §15.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
 ### 2.4 Agent Coordination via `cross-device/coordination/`
 - Primary structured channel between the two Groks (minimizes Discord copy-paste).
 - Key files:

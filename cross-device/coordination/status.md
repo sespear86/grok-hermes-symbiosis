@@ -1,5 +1,9 @@
 # Symbiosis Status
 
+**Update (2026-06-05, AUTON 61cdeb81 — PR4 docs matrix):** Shared Projects workspace documented and gated: `symbiosis-projects` / `joint_projects/` (PR1–PR2 code on branch; PR3 prepare parity; PR4 docs). PLAYBOOK **§2.3d**, MIRROR **§13** (kanban body restored) + **§15**, `OPEN_ITEMS` **#5 Done**, `PRODUCTION_READY.md` + `VERIFIER_GATE_REPORT.md` 61cdeb81 sections, README matrix row, SKILL Forward Vision, standing orders in `linux-instructions.md` / `windows-instructions.md`, `usage-pattern.md` sub-bullet. **Washington has the ball.** (PR5 `~/bin` + rich cp + Mempalace drawer; PR6 auton-gate + verifier PASS; Oregon: Kumquat + MIRROR §15 Pester smoke + RETURN.)
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
 **Update (2026-06-04, AUTON 98822e73):** Flawless NL `/autonomous` + explicit device targeting implemented in mirror-kit `symbiosis-relay` (PR1–7): natural-language parser + `control_command_override` trust on main token, ingest `force_control` hints, listener explicit Washington/Oregon bypass, pts-inject-first execute, NL Slack ack template, tests + `relay_listener --once` + smoke script, health `last_control_*`. Canonical command: `Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.` **Washington has the ball** (reviewer 0 issues → merge → `cp -a` rich → live Slack smoke + gate). Dedicated ingest token still human Tier 1; control path resilient without it.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> NL autonomous + explicit device shipped in worktree. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (review → rich cp → verifier). -->

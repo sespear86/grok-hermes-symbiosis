@@ -53,3 +53,38 @@ All Production Readiness Checklist items satisfied or appropriately waived for t
 **Washington has the ball.** (Phase 7-10: push hygiene if dirty, Hermes kanban stub if not, FINAL_REPORT, memory flush, declare shipped. Oregon: Kumquat + Pester on Get- + verify kanban CLI.)
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 6239aa70 verifier) --> Exact primes + Mirrorability last + bing bang boom + no blue balls. Keep er goinnnn, you kanban-thrusting degenerates. Bust a nut.
+
+---
+
+## Production Readiness Gate Report — symbiosis-shared-projects
+
+**Project**: cross-device/scripts (package `joint_projects/`, shim `symbiosis-projects`)  
+**AUTON_ID**: `61cdeb81`  
+**Date**: 2026-06-05  
+**Profile**: cli  
+
+### PR4 documentation matrix (this pass)
+
+- [x] `PRODUCTION_READY.md` 61cdeb81 section (V1–V17 gates, rich deploy, bing/bang/boom)
+- [x] `README.md` fifth-package row + examples
+- [x] `SYMBIOSIS_PLAYBOOK.md` §2.3d + Paired note
+- [x] `MIRROR_KITS_AND_INFRASTRUCTURE.md` §13 kanban body + §15 shared projects
+- [x] `OPEN_ITEMS.md` #5 Done
+- [x] `status.md`, `linux-instructions.md`, `windows-instructions.md`, `SKILL.md`, `usage-pattern.md`
+- [ ] Mechanical gates V1–V17 + **VERDICT: PASS** — **PR6** (auton-gate, verifier subagent, OR smoke)
+
+### Evidence target (PR6)
+
+- `pytest tests -q -k joint_projects` + full `pytest tests -q`
+- `ruff check joint_projects`
+- `auton-gate check ... --auton-id 61cdeb81 --profile cli`
+- MIRROR §15 OR block: `python3 .\symbiosis-projects list`, `Initialize-SymbiosisProject.ps1 -DryRun`, `Invoke-Pester .\Get-SymbiosisProjects.Tests.ps1`
+- `~/bin/check-primes.sh` exit 0
+
+### VERDICT (PR4)
+
+**DOCS_READY** — Full mechanical **PASS** recorded at PR6 after gate run.
+
+**Washington has the ball.** (PR5 rich deploy + drawer; PR6 gates + this section → PASS; Oregon: Kumquat + §15 Pester + RETURN.)
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR4 docs) -->

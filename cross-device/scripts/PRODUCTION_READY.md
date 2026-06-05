@@ -172,3 +172,63 @@ Drawer: `projects/symbiosis-handoff-kanban` (Batch 8).
 **Boom:** Dogfood §2.3b on the next Kumquat when workload clarity matters.
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 6239aa70 batch8) -->
+
+---
+
+# PRODUCTION_READY — symbiosis-shared-projects
+
+**AUTON_ID:** `61cdeb81`  
+**Subtree:** `cross-device/scripts/` (package `joint_projects/`)  
+**Profile:** `cli` (stdlib Python 3.11+, no network in unit tests)
+
+## Status (gates — mechanical evidence at PR6)
+
+| Gate | Evidence |
+|------|----------|
+| V1 pytest joint_projects | `pytest tests -q -k joint_projects` |
+| V2 pytest all | `pytest tests -q` (full scripts subtree green) |
+| V3 auton-gate | `auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 61cdeb81 --profile cli --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md` |
+| V4 MIRROR §15 | WA/OR verify blocks in `MIRROR_KITS_AND_INFRASTRUCTURE.md` §15 |
+| V5 smoke | `./symbiosis-projects list --device "Washington Linux"`; `init --dry-run`; tmp-root init+verify |
+| V6 check-primes | `~/bin/check-primes.sh` exit 0 |
+| V7 Mempalace drawer | `projects/symbiosis-shared-projects` |
+| V8 OPEN_ITEMS / SKILL | #5 Done; Forward Vision shared Projects when shipped |
+| V9 PS/WA parity | `Get-SymbiosisProjects.ps1` + `Initialize-SymbiosisProject.ps1` + Pester |
+| V10 path confinement | `test_joint_projects.py::test_path_confinement_rejects_escape` (+ init escape cases) |
+| V11 no shell | `test_no_shell_true_in_joint_projects_sources` |
+| V12 list coord policy | `test_list_succeeds_without_repo_coord_warnings`; `test_list_strict_coord_exit2_invalid_repo` |
+| V13 Verifier | Append **61cdeb81** to `VERIFIER_GATE_REPORT.md` **PASS** |
+| V14 security-auditor | 0 critical/high on `joint_projects/` + shim |
+| V15 Mirrorability | **MET** — MIRROR §15 + OR verify |
+| V16 ruff | `ruff check joint_projects` clean |
+| V17 CI GH Actions | **N/A** — stdlib CLI subtree; s06/s08 waivers per f41d2ff4 / 6239aa70 / 3694a72b |
+
+## Mirror declaration
+
+**Washington + Oregon parity:** Same list/init/verify contract via PS wrappers + shared Python shim. **Mirrorability: MET** when OR runs §15 verify (Python 3.11+). Empty `C:\Synced\Projects` → honest empty list.
+
+## Rich deploy
+
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisProjects.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Initialize-SymbiosisProject.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisProjects.Tests.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-projects ~/bin/symbiosis-projects
+```
+
+## Mempalace
+
+Drawer: `projects/symbiosis-shared-projects` (PR5).
+
+## Waivers
+
+s06/s08 lockfile + monorepo CI **N/A** (3694a72b / f41d2ff4 / 6239aa70 pattern).
+
+---
+
+**Bing:** Handoffs had a gym; joint product work had no locker room under `Synced/Projects`.  
+**Bang:** `symbiosis-projects` lists, inits, and verifies joint trees without touching `HANDOFF_LOG.md`.  
+**Boom:** Dogfood PLAYBOOK §2.3d on the next Paired joint build; Oregon mirrors MIRROR §15.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->

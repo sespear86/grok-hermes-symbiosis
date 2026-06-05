@@ -34,6 +34,23 @@ python3 .\symbiosis-sync-report --device "Oregon Windows" --no-syncthing | Selec
 
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
 
+**NEW TOOL (61cdeb81 — symbiosis-shared-projects / `symbiosis-projects`):**
+- Paths: `cross-device/scripts/symbiosis-projects` + `joint_projects/`; `windows/scripts/Get-SymbiosisProjects.ps1`, `Initialize-SymbiosisProject.ps1`, `Get-SymbiosisProjects.Tests.ps1`
+- Env: `SYMBIOSIS_PROJECTS_ROOT=C:\Synced\Projects` (and `SYMBIOSIS_REPO_ROOT` for optional coordination excerpts on `list`)
+- After Kumquat 3.5 when **Paired**, before joint work under `C:\Synced\Projects`:
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_PROJECTS_ROOT = "C:\Synced\Projects"
+python3 .\symbiosis-projects list --device "Oregon Windows" | Select-Object -First 30
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\Get-SymbiosisProjects.ps1 -Device "Oregon Windows"
+.\Initialize-SymbiosisProject.ps1 -Slug "Short-Name" -Device "Oregon Windows" -DryRun
+Invoke-Pester .\Get-SymbiosisProjects.Tests.ps1
+```
+- MIRROR §15: full WA/OR verify + rich `cp -a` recipe. PLAYBOOK §2.3d.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
 **LIVE RELAY PRODUCTION STATE + MIRRORABILITY ACTIONS (2026-06-02 / 06-03 UPDATE)**
 
 **Latest Live Fire Result (2026-06-02 "Test from Washington"):**
