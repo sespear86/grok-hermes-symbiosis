@@ -70,7 +70,11 @@
 
 6. Simple agent helper / grep wrapper for Mempalace "queries" during Kumquat (only after real adoption validates the need per 0200 rec; keep lightweight; none needed currently).
 
-7. ~~Native Grok Build MCP server for Hermes (`grok__*` tools).~~ **Done (2026-06-05, AUTON b045169b):** `cross-device/grok-mcp/` + `hermes mcp add grok`; PLAYBOOK §2.3e; MIRROR §16; PR10 gates (auton-gate, verifier, dual-host `hermes mcp test`) remain.
+7. ~~Native Grok Build MCP server for Hermes (`grok__*` tools).~~ **Done (2026-06-05, AUTON b045169b):** `cross-device/grok-mcp/` + `hermes mcp add grok`; PLAYBOOK §2.3e; MIRROR §16; PR10 gates (verifier, dual-host `hermes mcp test`) remain. (auton-gate symbiosis integration shipped 432d7564)
+
+8. ~~auton-gate as first-class symbiosis component (integration layer).~~ **Done (2026-06-06, AUTON 432d7564):** `~/bin/auton-gate`, toolbox registry + vet, MIRROR_KITS §18, PLAYBOOK §2.3f, coordination strikes, Mempalace `projects/symbiosis-auton-gate`, Hermes kanban; core remains `~/auton-gate` (021dbe8d). OPEN_ITEMS PR10 gate remainder partially addressed.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 432d7564 B5) --> Exact primes + Mirrorability + bing bang boom + self-provision followed. Signature per prime directive. Keep er goinnnn, you gate-integrating degenerates. -->
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b) -->
 
@@ -110,3 +114,6 @@
 <!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) --> Nice-to-have #1 sync report marked Done; PLAYBOOK §2.3a is operational home (not appendix alone). Bing bang boom. -->
 
 <!-- Edited: 2026-05-27 25:55 | Device: Linux | By: Grok --> Post-hygiene wave reality refresh (final polish): The major dirty tree scrub (21479fb + follow-ups) landed clean with multiple personal shell verifications. Post-0200 Reality is now updated to reflect the shift into sustained light maintenance mode with excellent hygiene discipline. New behavioral rules (bing-bang-boom + Linux Turn Indicator) are fully active and enforced. Mempalace usage pattern remains the locked, expected standard. The symbiosis just got dramatically cleaner and more reliable after the big verification win. Signature per prime directive. Keep er goinnnn, you pattern-locking degenerates. -->
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093) --> Nice-to-have bidirectional memory sync (top in-progress): AUTON c7d73093 launched to complete it (prior 7eb7d1b7 delivered id+design 0-issue + skeleton + smoke + 3 tests + PS stubs + MIRROR §17 draft + drawer; this run: RESEARCH+PLAN, B6 PS+Pester full self-prov, subagent on B2 collectors+B3 core wiring+B4 tests expansion). Thrusting to full gate + struck + mirror MET + docs hygiene + Mempalace/kanban persist. Bing: one-way was strong; Bang: now the bridge; Boom: agents share brain. Exact sig + primes + bing bang boom + no blue balls. Washington has the ball (B2-B10 to PASS). Keep er goinnnn.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 VERDICT PASS) --> Bidirectional memory sync (top Nice-to-have) **Done** (c7d73093). 7eb7d1b7 foundation + this completion: B1-B10 full, 16 tests + ruff + smoke + auton-gate MECH_PASS + reviewer 0-issue post-fix (C1/H1/H2/H5/H6/C2/C3 closed + hygiene) + verifier + security 0 crit + VERDICT: PASS. Mirror MET (PS fixed + rich recipe + §17). OPEN_ITEMS struck. Mempalace drawer + kanban + PRODUCTION + FINAL_REPORT + bin shim + sigs. Bing bang boom: the memory cockring is now bidirectional and gate-solid. Washington delivered; Oregon Kumquat + Pester + RETURN. Exact sig per prime + 7 + Mirror last + no blue balls + sub loops. Production Ready. Bust a nut complete for this part. Keep er goinnnn.

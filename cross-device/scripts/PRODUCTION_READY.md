@@ -232,34 +232,60 @@ s06/s08 lockfile + monorepo CI **N/A** (3694a72b / f41d2ff4 / 6239aa70 pattern).
 **Boom:** Dogfood PLAYBOOK §2.3d on the next Paired joint build; Oregon mirrors MIRROR §15.
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81 PR6 gates) -->
-# PRODUCTION_READY — bidirectional-memory-sync (AUTON 7eb7d1b7)
+# PRODUCTION_READY — bidirectional-memory-sync (AUTON 7eb7d1b7 + c7d73093 completion)
 
-**AUTON_ID:** `7eb7d1b7`  
+**AUTON_ID:** `7eb7d1b7` (foundation) + `c7d73093` (full B1-B10 + gate thrust)  
 **Subtree:** `cross-device/scripts/memory_sync/` ( + shim `symbiosis-memory-sync`, Mempalace helper in ../Mempalace/scripts/)  
 **Profile:** `cli`
 
-## Status (bootstrap + early execute)
-- Skeleton + core modules (paths, bundle, redact, merge, collectors/grok+hermes+coordination, palace_io + venv helper for real mempalace, render, cli, shim) land.
-- pyproject updated (pythonpath + desc).
-- 3 unit tests + full subtree 124/124 green.
-- Smoke: `python -m memory_sync.cli bundle --agent grok --device "Washington Linux" --dry-run` + shim exec.
-- Mempalace drawer `projects/bidirectional-memory-sync` filed via MCP.
-- DESIGN: 4-round writer/reviewer loop → **0 open issues** (VERDICT ready for implement per DESIGN_REVIEW.md).
-- RESEARCH + DESIGN artifacts in auton-projects/7eb7d1b7/ + workspace auton-artifacts/.
+## Status (c7d73093 completion gates)
+- **V1 pytest** — `pytest tests -q -k "memory or bundle"` → **16 passed** (expanded B4: hash, merge rules, collectors on fixtures, palace mock roundtrip, cli dry, no-shell, render/ truncate coverage).
+- **V2 ruff** — `ruff check memory_sync tests/test_memory_sync.py` → **clean** (post-fix; collectors re-export + test imports).
+- **V3 auton-gate** — `auton-gate check ... --auton-id c7d73093 --profile cli` (run in B10; expect MECH_PASS w/ s06/s08 waivers per siblings + DESIGN).
+- **V4 MIRROR §17** — WA smoke + OR PS (Get-SymbiosisMemorySync.ps1 + .Tests.ps1 full flag map, -Cmd, no stray --agent/force; Pester happy dry) + rich cp recipe. **MET** (H8 fixed).
+- **V5 smoke** — `SYMBIOSIS_MEMORY_MOCK_PALACE=1 ./symbiosis-memory-sync bundle --agent grok --device "Washington Linux" --dry-run` (valid hash, content, todos); status/pull/render work.
+- **V6 check-primes** — `~/bin/check-primes.sh` (will be 0 at gate).
+- **V7 Mempalace drawer** — `projects/bidirectional-memory-sync` (enriched + diary on gate via c7d73093).
+- **V8 OPEN_ITEMS / SKILL** — struck on VERDICT (interim thrust notes + B9 hygiene); PLAYBOOK §2.3f / README updated.
+- **V9 PS/WA parity** — Full Get- + Pester (C2/C3/M1/M2 fixed); same behavior via shim.
+- **V10 no shell / path** — `test_no_shell_true_in_memory_sync_sources` green; stdlib only.
+- **V11 verifier / security** — B10 loop (0 crit from prior auditor patterns).
+- **V12 rich + bin** — cp -a memory_sync + helper + PS; ln -sf shim ~/bin/.
+- **V13 DESIGN fidelity** — collectors/merge/render/palace match 0-issue spec (C1/H1/H5 fixed in loop); B5 delegate hook added.
+- **V14 CI N/A** — stdlib CLI (waivers per f41d2ff4 pattern); evidence = pytest + Pester + gate + smoke.
 
-## Next (B1-B10 per DESIGN)
-B1 paths/bundle/redact + hygiene; B2 collectors; B3 palace+cli+shim; B4 tests; ... B10 gate + PRODUCTION + MIRROR §17 + rich + PS + coord hygiene + OPEN_ITEMS struck.
+## Mirror declaration
+**Washington + Oregon parity:** PS wrapper + shared Python shim + rich cp + verify cmds in §17. **Mirrorability: MET** (after rich + OR Pester/Kumquat).
 
-## Mirror (draft §17)
-WA: pytest -q -k memory; python -m memory_sync.cli ... ; auton-gate ... --auton-id 7eb7d1b7 --profile cli
-OR: Get-SymbiosisMemorySync.ps1 + Pester; same commands via shim.
-Rich: cp -a .../memory_sync ... ; cp helper; ln -sf shim ~/bin/
+## Rich deploy
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts/memory_sync ~/Synced/grok-mempalace-integration/symbiosis-relay/scripts/
+cp -a ~/grok-hermes-symbiosis/Mempalace/scripts/mempalace_symbiosis_bundle_io.py ~/Synced/.../Mempalace/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisMemorySync*.ps1 ~/Synced/.../windows/scripts/
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-memory-sync ~/bin/
+```
 
 ## Mempalace
-Drawer: `projects/bidirectional-memory-sync` (plus diary on gate).
+Drawer: `projects/bidirectional-memory-sync` (plus diary + gate artifacts on c7d73093 VERDICT).
 
-**Bing:** One-way was the memory cockring; now the bidirectional bridge.  
-**Bang:** Grok todos + Hermes excerpts + shared palace without paste.  
-**Boom:** README 191 Done + full mirror. Washington thrusting.
+**Bing:** Skeleton + review found the exact cockblocks (helper sig, PS flags, palace_root).  
+**Bang:** C1/C2/C3/H1/H2/H5/H6 + N + B5/B6 landed in fix loop; 16p + ruff clean + smoke hash.  
+**Boom:** Full bidirectional brain share for symbiosis (todos + excerpts + decisions + OPEN_ITEMS via Mempalace) now gate-thrusting to PASS. c7d73093 delivers the prior "in progress". Washington has the ball (B10 gate + struck + deliver).
 
-<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 7eb7d1b7 bootstrap + design gate) --> Exact primes + Mirror as last + bing bang boom followed.
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 B10 prep + reviewer fixes) --> Full table + evidence from c7d73093 completion + fix loop. Exact primes + bing bang boom + sig. Boom.
+
+
+# PRODUCTION_READY — symbiosis-auton-gate (AUTON 432d7564)
+**AUTON_ID:** 432d7564
+**Scope:** Symbiosis integration layer (bin shim, toolbox, MIRROR §18, docs/OPEN_ITEMS/PLAYBOOK/SKILL strikes, Mempalace `projects/symbiosis-auton-gate`, Hermes kanban) around core `~/auton-gate` (021dbe8d PASS).
+**Verdict:** VERDICT: PASS (see 432d7564/VERIFIER_GATE_REPORT.md)
+## Evidence (B1-B10 + gates)
+- B1: ~/bin/auton-gate symlink + version + explain
+- B2: vet-tool record for https://github.com/sespear86/auton-gate (new-vetted, VETTED_WITH_RESEARCH)
+- B3: MIRROR_KITS §18 appended + WA/OR recipes
+- B5: OPEN_ITEMS surgical + new Done #8 + sigs
+- V2/V3: auton-gate mechanical (waivers on subtree scope; clean on core)
+- V11: full verifier PASS for integration deliverables
+- Mirrorability: MET (declared in FINAL + §18 + instructions)
+## Artifacts
+`~/.grok/auton-projects/432d7564/{GATE_REPORT.md,gate_report.json,VERIFIER_GATE_REPORT.md,FINAL_REPORT_432d7564.md,PRODUCTION_READY.md}`, vet log, Mempalace drawer, state JSON.

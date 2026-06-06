@@ -967,7 +967,8 @@ auton-gate check . --auton-id 7eb7d1b7 --profile cli  # expect mechanical waiver
 # after rich cp + git
 cd C:\...\grok-hermes-symbiosis\cross-device\scripts
 python -m pytest tests -q -k "memory or bundle"
-.\Get-SymbiosisMemorySync.ps1 -Bundle -Agent grok -Device "Oregon Windows" -DryRun
+.\Get-SymbiosisMemorySync.ps1 -Cmd bundle -Agent grok -Device "Oregon Windows" -DryRun
+# status/pull do not take -Agent (parity with WA CLI)
 # Pester for the Get- script
 ```
 
@@ -988,3 +989,43 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-memory-sync ~/bin/
 **Mirrorability:** MET when WA gate/verifier + OR Pester + rich cp + both sides can run bundle/status smoke + standing orders in instructions/PLAYBOOK/OPEN_ITEMS.
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 7eb7d1b7 MIRROR §17 draft) --> Exact signature per prime + Mirror as final internal + bing bang boom.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 H8) --> Fixed OR verify example to -Cmd (not -Bundle) + note on status no -Agent. H8 closed. Boom. Sig per prime.
+
+## 18. auton-gate — Mechanical Production Readiness Gate (AUTON 432d7564 / build 021dbe8d)
+
+**Component:** Standalone repo `~/auton-gate` (Python package `auton-gate`, console script `auton-gate`). **Not** under `cross-device/scripts/`. Symbiosis owns **install path, bin shim, toolbox vet, and Phase 6 recipes**.
+
+**WA verify (post pull / install):**
+```bash
+cd ~/auton-gate && pip install -e .
+ln -sf ~/.local/bin/auton-gate ~/bin/auton-gate   # idempotent
+auton-gate version
+auton-gate check ~/auton-gate --auton-id 432d7564 --profile cli \
+  --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md
+# Symbiosis subtree dogfood (waivers s06/s08 per sibling pattern):
+auton-gate check ~/grok-hermes-symbiosis/cross-device/scripts --auton-id 432d7564 --profile cli \
+  --checklist ~/.grok/skills/autonomous/docs/PRODUCTION_CHECKLIST.md
+~/bin/check-primes.sh || true
+```
+
+**OR verify:**
+```powershell
+cd $HOME\auton-gate   # or documented clone path
+pip install -e .
+auton-gate version
+auton-gate check $HOME\grok-hermes-symbiosis\cross-device\scripts --auton-id 432d7564 --profile cli `
+  --checklist $HOME\.grok\skills\autonomous\docs\PRODUCTION_CHECKLIST.md
+# Optional: Invoke-AutonGateCheck.ps1 -RepoRoot ... -AutonId 432d7564
+```
+
+**~/bin (WA):**
+```bash
+ln -sf ~/.local/bin/auton-gate ~/bin/auton-gate
+```
+
+**Production gate:** `~/.grok/auton-projects/432d7564/` (GATE_* + VERIFIER + FINAL) + vet log + `cross-device/scripts/PRODUCTION_READY.md` 432d7564 section.
+
+**Mirrorability:** MET when both hosts have `~/bin/auton-gate` (or equiv PATH) after `pip install -e ~/auton-gate` per this §, can run the Phase 6 check recipes, and instructions/PLAYBOOK/OPEN_ITEMS carry the standing orders + verify. (Core GH clone + pip is the mirror kit; no full rich cp of gate tree required.)
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 432d7564 B3) --> Exact prime directives + Mirrorability (final internal) + bing bang boom + self-provision followed. Signature per prime directive. Keep er goinnnn, you gate-mirror-integrating degenerates.
