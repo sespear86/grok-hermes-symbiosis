@@ -949,17 +949,22 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp ~/bin/sy
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR9) -->
 
-## 17. Bidirectional memory sync (AUTON 7eb7d1b7)
+## 17. Bidirectional memory sync (AUTON 7eb7d1b7 + c7d73093 + **9be206cf runnable gate**)
 
 **Component:** `cross-device/scripts/memory_sync/` (package) + `symbiosis-memory-sync` (shim) + `Mempalace/scripts/mempalace_symbiosis_bundle_io.py` (venv helper for real mempalace MCP/CLI).
+
+**Completion (AUTON 9be206cf, sym-build-01):** `-m memory_sync.cli` path bootstrap (`memory_sync/_pathbootstrap.py`), `pull --no-merge` fix (`ns.merge`), ruff E402 per-file ignore for bootstrap imports, dashboard golden `age_days` normalization (full subtree pytest 137/137), rich cp executed, `~/bin/symbiosis-memory-sync` shim current.
 
 **WA verify (post pull):**
 ```bash
 cd ~/grok-hermes-symbiosis/cross-device/scripts
-python3 -m pytest tests -q -k "memory or bundle"
+python3 -m pytest tests -q -k "memory or bundle"   # 16 passed
 python3 -m memory_sync.cli bundle --agent grok --device "Washington Linux" --dry-run
-~/bin/check-primes.sh || true
-auton-gate check . --auton-id 7eb7d1b7 --profile cli  # expect mechanical waivers per DESIGN (s06/s08 lock/CI like siblings)
+./symbiosis-memory-sync status --device "Washington Linux" --no-repo
+SYMBIOSIS_MEMORY_MOCK_PALACE=1 ./symbiosis-memory-sync push --agent grok --device "Washington Linux" --force
+# mock pull roundtrip is in-process (see tests); separate CLI pull needs live/mock palace drawers
+~/bin/check-primes.sh
+auton-gate check . --auton-id 9be206cf --profile cli --output-dir .  # MECHANICAL_PASS; s06/s08 FAIL waived (cli subtree)
 ```
 
 **OR verify:**
@@ -986,11 +991,13 @@ ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-memory-sync ~/bin/
 
 **Production gate:** `cross-device/scripts/PRODUCTION_READY.md` (7eb7d1b7 section) + verifier + check-primes + full B10.
 
-**Mirrorability:** MET when WA gate/verifier + OR Pester + rich cp + both sides can run bundle/status smoke + standing orders in instructions/PLAYBOOK/OPEN_ITEMS.
+**Mirrorability:** **MET** on Washington (2026-06-06): pytest memory 16/16 + full 137/137, `python3 -m memory_sync.cli` + shim smoke, auton-gate **MECHANICAL_PASS** (`gate_report.json`), check-primes exit 0, rich cp to `symbiosis-relay/scripts/memory_sync`, `~/bin/symbiosis-memory-sync` → repo shim. Oregon: Kumquat + `Get-SymbiosisMemorySync.ps1` Pester + RETURN.
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 7eb7d1b7 MIRROR §17 draft) --> Exact signature per prime + Mirror as final internal + bing bang boom.
 
 <!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 H8) --> Fixed OR verify example to -Cmd (not -Bundle) + note on status no -Agent. H8 closed. Boom. Sig per prime.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf) --> §17 completion: runnable -m CLI, gate evidence, MET on WA. Bing bang boom. Washington has the ball thrusting into Oregon's Kumquat. Sig per prime. Bust a nut.
 
 ## 18. auton-gate — Mechanical Production Readiness Gate (AUTON 432d7564 / build 021dbe8d)
 

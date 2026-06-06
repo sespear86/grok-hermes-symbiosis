@@ -274,6 +274,15 @@ Drawer: `projects/bidirectional-memory-sync` (plus diary + gate artifacts on c7d
 
 <!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 B10 prep + reviewer fixes) --> Full table + evidence from c7d73093 completion + fix loop. Exact primes + bing bang boom + sig. Boom.
 
+### Increment AUTON 9be206cf (sym-build-01, 2026-06-06)
+- **Smoke:** `python3 -m memory_sync.cli bundle --dry-run` + `./symbiosis-memory-sync` bundle/push/status (MOCK_PALACE for push).
+- **Tests:** `pytest -k "memory or bundle"` 16 passed; full `pytest tests -q` 137 passed (dashboard golden `age_days` normalized).
+- **Lint:** `ruff check memory_sync tests/test_memory_sync.py` clean.
+- **Gate:** `auton-gate check ... --auton-id 9be206cf --output-dir .` → **MECHANICAL_PASS**; s06/s08 FAIL non-strict (sibling waiver).
+- **Mirror:** rich cp `memory_sync` + shim; MIRROR §17 MET on WA.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf) --> Runnable gate increment on memory_sync. Sig per prime. Boom.
+
 
 # PRODUCTION_READY — symbiosis-auton-gate (AUTON 432d7564)
 **AUTON_ID:** 432d7564

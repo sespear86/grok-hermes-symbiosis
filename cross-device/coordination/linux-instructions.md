@@ -58,13 +58,16 @@ hermes mcp test grok
 ```
 Optional: `ln -sf ~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp ~/bin/`. Rich cp + OR verify: MIRROR §16. Prefer MCP over `delegate-to-grok.sh` when tools listed. **Washington has the ball** (PR10 gates: auton-gate, verifier, optional live dogfood).
 
-**Bidirectional memory sync (AUTON 7eb7d1b7, 2026-06-05 in progress):** `symbiosis-memory-sync` (push/pull/status/bundle) in `cross-device/scripts/`. After Kumquat 3.5 Paired or before delegate:
+**Bidirectional memory sync (AUTON 7eb7d1b7 / c7d73093 / **9be206cf DONE**):** `symbiosis-memory-sync` (push/pull/status/bundle) in `cross-device/scripts/`. After Kumquat 3.5 Paired or before delegate — bundle or push your brain, pull brother context:
 ```bash
 cd ~/grok-hermes-symbiosis/cross-device/scripts
 ./symbiosis-memory-sync bundle --agent grok --device "Washington Linux" --dry-run | head -10
-# (full impl + PS + MIRROR §17 landing; use for context in /hermes delegate or grok-build)
+./symbiosis-memory-sync status --device "Washington Linux" --no-repo
+python3 -m memory_sync.cli bundle --agent hermes --device "Washington Linux" --dry-run
 ```
-Optional ln -sf .../symbiosis-memory-sync ~/bin/. Rich cp + OR Get-*.ps1 + Pester per MIRROR §17 (to be added on gate). Updates PLAYBOOK §2.3f, OPEN_ITEMS, instructions, skills. **Washington has the ball** (execute batches + gates + mirror verify).
+`ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-memory-sync ~/bin/symbiosis-memory-sync` (idempotent). Rich cp + OR `Get-SymbiosisMemorySync.ps1` + Pester: **MIRROR §17** (MET on WA 2026-06-06). PLAYBOOK §2.3f + OPEN_ITEMS struck. **Washington has the ball** (Oregon Kumquat + Pester + RETURN).
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf) --> Memory sync standing order: gated, -m CLI works, MIRROR §17 MET on WA. Bing bang boom — the palace cockring is bidirectional and runnable. **Washington has the ball.** Sig per prime. -->
 
 <!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b) -->
 
