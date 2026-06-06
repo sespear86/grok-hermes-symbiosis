@@ -1,9 +1,13 @@
 [project]
 name = "symbiosis-handoff-scaffold"
 version = "0.4.0"
-description = "Handoff scaffold (f41d2ff4) + sync report (355e3993) + handoff kanban (6239aa70) + joint projects (61cdeb81) + memory sync (7eb7d1b7) — symbiosis scripts subtree"
+description = "Handoff scaffold (f41d2ff4) + sync report (355e3993) + handoff kanban (6239aa70) + joint projects (61cdeb81) + memory sync (7eb7d1b7) + mirror audit (9be206cf) — symbiosis scripts subtree"
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = [".", "handoff_scaffold", "sync_report", "kanban", "joint_projects", "memory_sync"]
+pythonpath = [".", "handoff_scaffold", "sync_report", "kanban", "joint_projects", "memory_sync", "mirror_audit"]
+
+[tool.ruff.lint.per-file-ignores]
+"memory_sync/cli.py" = ["E402"]
+"memory_sync/paths.py" = ["E402"]

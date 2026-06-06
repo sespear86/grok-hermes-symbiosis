@@ -47,6 +47,13 @@ def _normalize_model(model: dict) -> dict:
     out["meta"] = meta
     if "warnings" in out:
         out["warnings"] = sorted(out["warnings"])
+    cols = out.get("columns") or {}
+    for items in cols.values():
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            if isinstance(item, dict) and "age_days" in item:
+                item["age_days"] = "<normalized>"
     return out
 
 

@@ -283,6 +283,51 @@ Drawer: `projects/bidirectional-memory-sync` (plus diary + gate artifacts on c7d
 
 <!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf) --> Runnable gate increment on memory_sync. Sig per prime. Boom.
 
+# PRODUCTION_READY — res-vet-01 docker-mcp-gateway (AUTON 9be206cf)
+
+**Scope:** Integrate Docker MCP gateway + catalog into toolbox (wrapper, registry, config.toml comment, MIRROR §19). No Grok MCP server enabled until Docker present.
+
+| Gate | Evidence |
+|------|----------|
+| Vet review | `toolbox-vet-20260603-125306-docker-mcp-gateway-recheck.log` — S0-S12 record-only; **no blocking CAVEAT** for gateway |
+| Wrapper | `~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh` (chmod +x) |
+| Registry | `docker-mcp-gateway / mcp-catalog` → **INTEGRATED (design-ready)** |
+| Config | `~/.grok/config.toml` commented `[mcp_servers.docker_mcp_gateway]` |
+| Host | `docker` CLI **absent** on WA — `check` fails by design until OR install |
+| Mirror | MIRROR §19 + rich cp recipe for `~/.grok/toolbox` |
+
+**Smoke:**
+```bash
+~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh vet-note
+~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh recipe
+```
+
+**Verdict:** PASS (design-ready integration). Re-vet with `vet-tool.sh` after Docker install.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf res-vet-01) -->
+
+# PRODUCTION_READY — sym-build-04 mirror-audit starter (AUTON 9be206cf)
+
+**Scope:** Starter `symbiosis-mirror-audit` CLI — git/rich/grok/bin checklist vs MIRROR_KITS, JSON/markdown report, `--strict` exit 3 on gaps.
+
+| Gate | Evidence |
+|------|----------|
+| Package | `cross-device/scripts/mirror_audit/` |
+| Shim | `symbiosis-mirror-audit` |
+| PS | `windows/scripts/Get-SymbiosisMirrorAudit.ps1` (Pester skeleton planned) |
+| Tests | `pytest -k mirror_audit` |
+| MIRROR | §20 |
+
+**Smoke:**
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-mirror-audit --device "Washington Linux" | head -40
+pytest tests -q -k mirror_audit
+```
+
+**Verdict:** PASS (starter). Expand checklist + Pester in follow-on Kumquat.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf sym-build-04) -->
 
 # PRODUCTION_READY — symbiosis-auton-gate (AUTON 432d7564)
 **AUTON_ID:** 432d7564

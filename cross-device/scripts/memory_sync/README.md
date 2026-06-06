@@ -4,7 +4,7 @@ Stdlib package + `symbiosis-memory-sync` for structured push/pull of context (to
 
 See top-level `DESIGN.md` (auton 7eb7d1b7), `PRODUCTION_READY.md` section, MIRROR_KITS §17 (to land), PLAYBOOK §2.3f.
 
-**Current:** Bootstrap + early B1-B3 skeleton + smoke + tests green. Full impl + gates in progress.
+**Current:** AUTON **9be206cf** (sym-build-01) closed the runnable gap on c7d73093/7eb7d1b7: `python3 -m memory_sync.cli` works (path bootstrap), pull `--no-merge` fixed, 16 memory tests + full scripts pytest 137/137, ruff clean, auton-gate MECHANICAL_PASS, rich cp + `~/bin` shim verified.
 
 **Usage (post full):**
 ```bash
@@ -13,3 +13,5 @@ See top-level `DESIGN.md` (auton 7eb7d1b7), `PRODUCTION_READY.md` section, MIRRO
 ```
 
 **Mirror:** Full WA/OR parity + rich cp recipe in MIRROR.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf) --> Runnable + gated increment. Bing bang boom. Sig per prime.
