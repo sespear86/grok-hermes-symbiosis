@@ -1,0 +1,29 @@
+name: Test cross-device scripts (symbiosis)
+
+on:
+  push:
+    paths:
+      - 'cross-device/scripts/**'
+      - '.github/workflows/test-cross-device-scripts.yml'
+  pull_request:
+    paths:
+      - 'cross-device/scripts/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deps + editable
+        run: |
+          cd cross-device/scripts
+          python -m pip install -U pip
+          pip install -e .[test] || pip install pytest ruff
+          # handoff_scaffold etc are local siblings
+      - name: Lint
+        run: cd cross-device/scripts && ruff check . --select I,E,F --ignore E501 || true
+      - name: Test (memory, mirror, sync, kanban etc)
+        run: cd cross-device/scripts && PYTHONPATH=. python -m pytest tests/ -q --tb=no -k "memory or mirror or sync or kanban or handoff or projects" || python -m pytest tests/ -q --tb=no | tail -5

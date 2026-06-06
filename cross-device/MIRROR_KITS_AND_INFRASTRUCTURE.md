@@ -1036,3 +1036,87 @@ ln -sf ~/.local/bin/auton-gate ~/bin/auton-gate
 **Mirrorability:** MET when both hosts have `~/bin/auton-gate` (or equiv PATH) after `pip install -e ~/auton-gate` per this §, can run the Phase 6 check recipes, and instructions/PLAYBOOK/OPEN_ITEMS carry the standing orders + verify. (Core GH clone + pip is the mirror kit; no full rich cp of gate tree required.)
 
 <!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 432d7564 B3) --> Exact prime directives + Mirrorability (final internal) + bing bang boom + self-provision followed. Signature per prime directive. Keep er goinnnn, you gate-mirror-integrating degenerates.
+
+## 19. Docker MCP Gateway + catalog wrappers (res-vet-01 / AUTON 9be206cf)
+
+**Component:** `~/.grok/toolbox/` launchers (not git-tracked by default; mirror via Kumquat + rich copy). Security posture: **VETTED_PASS** for gateway (verify-signatures, SBOM/Grype); sibling wrappers `run-mcp-fetch.sh` / `run-mcp-playwright.sh` remain **CAVEAT**.
+
+**Paths (local):**
+- `~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh` (new — check, catalog-ls, gateway-help, recipe, vet-note)
+- `~/.grok/toolbox/scripts/run-mcp-docker-docs.sh`, `run-mcp-fetch.sh`, `run-mcp-playwright.sh`
+- `~/.grok/toolbox/registry/toolbox-registry.json` (status INTEGRATED design-ready)
+- `~/.grok/config.toml` — commented `[mcp_servers.docker_mcp_gateway]` example (enable only after `check` PASS)
+
+**WA verify (docker absent = design-only):**
+```bash
+chmod +x ~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh
+~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh vet-note
+~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh recipe
+~/.grok/toolbox/scripts/run-mcp-docker-gateway.sh check || echo "expected fail until Docker installed"
+```
+
+**OR verify (after Docker Engine/Desktop + MCP toolkit):**
+```powershell
+# Install Docker Desktop or Engine + mcp plugin per https://docs.docker.com/ai/mcp-catalog-and-toolkit/
+bash $HOME\.grok\toolbox\scripts\run-mcp-docker-gateway.sh check
+bash $HOME\.grok\toolbox\scripts\run-mcp-docker-gateway.sh catalog-ls
+docker mcp profile server add grok-docs --server catalog://mcp/docker-mcp-catalog/docker-docs --verify-signatures
+```
+
+**Rich mirror recipe (toolbox + optional git scripts reference):**
+```bash
+mkdir -p ~/Synced/grok-mempalace-integration/symbiosis-relay/toolbox
+cp -a ~/.grok/toolbox/scripts ~/Synced/grok-mempalace-integration/symbiosis-relay/toolbox/
+cp -a ~/.grok/toolbox/registry ~/Synced/grok-mempalace-integration/symbiosis-relay/toolbox/
+cp -a ~/.grok/toolbox/docs/COMPROMISE_RESEARCH_PROTOCOL.md ~/Synced/grok-mempalace-integration/symbiosis-relay/toolbox/docs/ 2>/dev/null || true
+```
+
+**Re-vet:** After Docker install or gateway version change: `~/.grok/toolbox/scripts/vet-tool.sh docker-mcp-gateway-recheck https://github.com/docker/mcp-gateway "" "docker mcp gateway ..."`
+
+**Mirrorability:** MET on WA for design-ready integration (wrapper + registry + config comment + this §). OR MET when Docker+mcp plugin installed and `check` + `catalog-ls` succeed + toolbox rich cp ingested.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf res-vet-01) --> Docker MCP gateway integrated design-ready; docker absent on WA. Sig per prime. Bust a nut.
+
+## 20. Mirror parity audit (`symbiosis-mirror-audit`, AUTON 9be206cf sym-build-04 starter)
+
+**Purpose:** Read-only compare **git repo** vs **Synced rich** vs **`~/.grok`** vs **`~/bin`** for key symbiosis CLIs, toolbox gateway, dashboards; parse `MIRROR_KITS` section headers; emit gaps + self-provision hints. Starter — expand checklist as new § land.
+
+**Paths (git):**
+- `cross-device/scripts/symbiosis-mirror-audit` (shim)
+- `cross-device/scripts/mirror_audit/` (package)
+- `windows/scripts/Get-SymbiosisMirrorAudit.ps1` (PS wrapper; Pester skeleton planned)
+
+**WA verify:**
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+chmod +x symbiosis-mirror-audit
+./symbiosis-mirror-audit --device "Washington Linux" | head -60
+./symbiosis-mirror-audit --device "Washington Linux" --format json --strict; echo exit=$?
+pytest tests -q -k mirror_audit
+ln -sf ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-mirror-audit ~/bin/symbiosis-mirror-audit
+```
+
+**OR verify:**
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_REPO_ROOT = "C:\Users\spear\grok-hermes-symbiosis"
+$env:SYMBIOSIS_RICH_ROOT = "C:\Synced\grok-mempalace-integration"
+$env:SYMBIOSIS_GROK_ROOT = "$HOME\.grok"
+python3 .\symbiosis-mirror-audit --device "Oregon Windows" | Select-Object -First 60
+cd ..\windows\scripts
+.\Get-SymbiosisMirrorAudit.ps1 -Device "Oregon Windows"
+# Planned: Invoke-Pester .\Get-SymbiosisMirrorAudit.Tests.ps1
+```
+
+**Rich mirror recipe:**
+```bash
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts/mirror_audit ~/Synced/grok-mempalace-integration/symbiosis-relay/scripts/
+cp -a ~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-mirror-audit ~/Synced/grok-mempalace-integration/symbiosis-relay/scripts/
+cp -a ~/grok-hermes-symbiosis/windows/scripts/Get-SymbiosisMirrorAudit.ps1 ~/Synced/grok-mempalace-integration/symbiosis-relay/windows/scripts/
+```
+
+**Production gate:** `cross-device/scripts/PRODUCTION_READY.md` sym-build-04 section + `pytest -k mirror_audit`.
+
+**Mirrorability:** MET when OR runs Python shim or PS wrapper with same JSON keys (`meta`, `components`, `mirror_sections`). Gaps expected until OR rich/toolbox parity — use report `--strict` for Kumquat exit code 3.
+
+<!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON 9be206cf sym-build-04) --> Mirror audit starter shipped. Sig per prime. Keep er goinnnn.
