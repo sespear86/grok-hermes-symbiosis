@@ -71,6 +71,22 @@ Describe "Set-KumquatManifestBlock" {
     }
 }
 
+Describe "Get-KumquatVerifierAttempt" {
+    It "returns latest classifier round plus one from verdict mtime" {
+        $goalId = "testver$(Get-Random)"
+        $goalRoot = Join-Path $env:TEMP "grok-goal-$goalId"
+        New-Item -ItemType Directory -Path $goalRoot -Force | Out-Null
+        $old = Join-Path $goalRoot "goal-verdict-$goalId-9-0.json"
+        $new = Join-Path $goalRoot "goal-verdict-$goalId-4-2.json"
+        Set-Content -Path $old -Value '{"refuted":true}' -Encoding utf8
+        Start-Sleep -Milliseconds 50
+        Set-Content -Path $new -Value '{"refuted":true}' -Encoding utf8
+        Get-KumquatClassifierRound -GoalRoot $goalRoot -GoalId $goalId | Should Be 4
+        Get-KumquatVerifierAttempt -GoalRoot $goalRoot -GoalId $goalId | Should Be 5
+        Remove-Item $goalRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 Describe "Sync-KumquatVerifierInputs" {
     It "overwrites attempt-indexed patch with authoritative repo diff header" {
         $goalId = "testid123abc"

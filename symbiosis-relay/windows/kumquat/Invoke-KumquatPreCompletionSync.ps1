@@ -28,20 +28,23 @@ $patchPath = Join-Path $ScratchDir "kumquat-git-diff.patch"
 if (-not (Test-Path $patchPath)) { throw "kumquat-git-diff.patch missing in scratch: $ScratchDir" }
 
 $relative = Get-KumquatCanonicalRelativePaths
+$currentRound = Get-KumquatClassifierRound -GoalRoot $goalRoot -GoalId $goalId
 if ($Attempt -le 0) {
-    $Attempt = (Get-KumquatGoalAttempt -GoalRoot $goalRoot -GoalId $goalId) + 1
+    $Attempt = Get-KumquatVerifierAttempt -GoalRoot $goalRoot -GoalId $goalId
 }
 
 $sync = Sync-KumquatVerifierInputs -GoalRoot $goalRoot -GoalId $goalId -Attempt $Attempt `
     -PatchPath $patchPath -RelativePaths $relative -ScratchDir $ScratchDir
-$stubs = Copy-KumquatDeliverableStubs -RepoRoot $RepoRoot -SessionDir $SessionDir -RelativePaths $relative
+$stubs = Copy-KumquatDeliverableStubs -RepoRoot $RepoRoot -SessionDir $SessionDir `
+    -ScratchDir $ScratchDir -RelativePaths $relative
 
 $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
 @(
     "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] PRECOMPLETION_SYNC",
     "goal_root: $goalRoot",
     "goal_id: $goalId",
-    "attempt: $Attempt",
+    "classifier_round: $currentRound",
+    "verifier_attempt: $Attempt",
     "patch_ok: $($sync.patch_ok)",
     "patch: $($sync.patch_path)",
     "changed: $($sync.changed_path)",

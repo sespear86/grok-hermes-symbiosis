@@ -235,6 +235,7 @@ function Get-KumquatCanonicalRelativePaths {
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatVerificationHarness.ps1",
+        "symbiosis-relay/windows/kumquat/Invoke-KumquatPreCompletionSync.ps1",
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1",
         "symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh",
@@ -356,6 +357,43 @@ function Get-KumquatGoalAttempt {
     return $max
 }
 
+function Get-KumquatClassifierRound {
+    param(
+        [string]$GoalRoot,
+        [string]$GoalId
+    )
+    if (-not $GoalRoot -or -not $GoalId) { return 0 }
+    $verdictPattern = "^goal-verdict-$([regex]::Escape($GoalId))-(\d+)-"
+    $latestVerdict = Get-ChildItem -Path $GoalRoot -Filter "goal-verdict-$GoalId-*.json" -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+    if ($latestVerdict -and $latestVerdict.Name -match $verdictPattern) {
+        return [int]$Matches[1]
+    }
+    $mdPattern = "^goal-classifier-$([regex]::Escape($GoalId))-(\d+)\.md$"
+    $latestMd = Get-ChildItem -Path $GoalRoot -Filter "goal-classifier-$GoalId-*.md" -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -notmatch '-skeptic-' } |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+    if ($latestMd -and $latestMd.Name -match $mdPattern) {
+        return [int]$Matches[1]
+    }
+    return 0
+}
+
+function Get-KumquatVerifierAttempt {
+    param(
+        [string]$GoalRoot,
+        [string]$GoalId
+    )
+    if ($env:KUMQUAT_VERIFIER_ATTEMPT) {
+        return [int]$env:KUMQUAT_VERIFIER_ATTEMPT
+    }
+    $current = Get-KumquatClassifierRound -GoalRoot $GoalRoot -GoalId $GoalId
+    if ($current -gt 0) { return $current + 1 }
+    return 1
+}
+
 function Format-KumquatChangedFilesList {
     param([string[]]$RelativePaths)
     @(
@@ -417,22 +455,29 @@ function Copy-KumquatDeliverableStubs {
     param(
         [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
         [Parameter(Mandatory)][string]$SessionDir,
+        [string]$ScratchDir = "",
         [string[]]$RelativePaths
     )
     if (-not $RelativePaths) { $RelativePaths = Get-KumquatCanonicalRelativePaths }
-    $deliverablesRoot = Join-Path $SessionDir "goal\deliverables"
+    $roots = @((Join-Path $SessionDir "goal\deliverables"))
+    if ($ScratchDir) { $roots += (Join-Path $ScratchDir "deliverables") }
     $copied = 0
-    foreach ($rel in $RelativePaths) {
-        $src = Join-Path $RepoRoot ($rel -replace '/', '\')
-        if (-not (Test-Path $src)) { continue }
-        $dst = Join-Path $deliverablesRoot ($rel -replace '/', '\')
-        $dstDir = Split-Path $dst -Parent
-        if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
-        Copy-Item $src $dst -Force
-        $copied++
+    foreach ($deliverablesRoot in $roots) {
+        $rootCopied = 0
+        foreach ($rel in $RelativePaths) {
+            $src = Join-Path $RepoRoot ($rel -replace '/', '\')
+            if (-not (Test-Path $src)) { continue }
+            $dst = Join-Path $deliverablesRoot ($rel -replace '/', '\')
+            $dstDir = Split-Path $dst -Parent
+            if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
+            Copy-Item $src $dst -Force
+            $rootCopied++
+        }
+        if ($rootCopied -gt $copied) { $copied = $rootCopied }
     }
     return @{
-        deliverables_root = $deliverablesRoot
+        deliverables_root = $roots[0]
+        scratch_deliverables = if ($ScratchDir) { Join-Path $ScratchDir "deliverables" } else { "" }
         copied            = $copied
         expected          = $RelativePaths.Count
     }
@@ -710,6 +755,8 @@ Export-ModuleMember -Function @(
     'Write-KumquatEvidenceVerification',
     'Get-KumquatGoalIdFromRoot',
     'Get-KumquatGoalAttempt',
+    'Get-KumquatClassifierRound',
+    'Get-KumquatVerifierAttempt',
     'Format-KumquatChangedFilesList',
     'Sync-KumquatVerifierInputs',
     'Copy-KumquatDeliverableStubs',
