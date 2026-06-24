@@ -3,6 +3,29 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
+### Invoke-KumquatGoalCompletion.ps1 + Patch Guard (Round 14, 2026-06-23)
+
+**What shipped:** Single goal-completion entry (harness + precompletion + 600s detached patch guard + clobber simulation evidence). Fixes harness post-`update_goal` patch clobber.
+
+| Artifact | Oregon | Washington |
+|----------|--------|------------|
+| Goal completion | `Invoke-KumquatGoalCompletion.ps1` | `invoke-kumquat-goal-completion.sh` (stub verifies OR entry + guard exist) |
+| Patch guard | `Invoke-KumquatVerifierPatchGuard.ps1` | verify path exists after pull |
+| PreCompletion | `Invoke-KumquatPreCompletionSync.ps1` | N/A (Oregon-only runtime) |
+
+**Exact Mirror Instructions for Washington Linux:**
+```bash
+cd ~/grok-hermes-symbiosis && git fetch origin && git checkout kumquat-2026-06-01-hygiene && git pull
+chmod +x symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh
+bash symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh
+bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh
+```
+File RETURN.md in handoff `20260623-2109`.
+
+**Mirror MET** for goal-completion stub + handoff/linux-instructions update.
+
+<!-- Edited: 2026-06-23 22:40 | Device: Windows | By: Grok (/kumquat push to WA) --> Round 14 MIRROR block. Signature per prime directive. -->
+
 ### Invoke-KumquatVerificationHarness.ps1 (Round 6 verifier contract, 2026-06-23)
 
 **What shipped:** Single verification entry owning dual-run ordering, coordination baseline restore, Pester bundle (4/4 Core + 1/1 Smoke in `kumquat-pest-results.txt`), relative `kumquat-changes.txt`, closure from manifest.

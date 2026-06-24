@@ -102,6 +102,36 @@ bash ~/Synced/grok-mempalace-integration/symbiosis-relay/linux/tools/test-relay-
 # File RETURN.md in this handoff dir
 ```
 
-**Washington has the ball.** (Ingest + verify parity + RETURN.)
+## Rounds 12–14 push to Washington (2026-06-23, branch `kumquat-2026-06-01-hygiene` @ `0a95aba`)
 
-<!-- Edited: 2026-06-23 | Device: Windows | By: Grok (/kumquat) --> Bing bang boom. Solid handoff for brother ingest. Signature per prime directive. Keep er goinnnn. Bust a nut.
+Oregon pushed verifier-honesty stack for goal harness. **WA: pull this branch (or merge) before `/kumquat`.**
+
+| Round | Commit theme | Key artifacts |
+|-------|----------------|---------------|
+| 12 | Attempt detection | `Get-KumquatClassifierRound`, `Get-KumquatVerifierAttempt` (latest verdict mtime + 1) |
+| 13 | Post-clobber repair | `Invoke-KumquatVerifierPatchGuard.ps1`, `Publish-KumquatWorkspaceDeliverables` |
+| 14 | Full panel coverage | 600s guard, `Write-KumquatClobberSimulationEvidence`, `Invoke-KumquatGoalCompletion.ps1` |
+
+**Oregon goal completion entry (headless):**
+```powershell
+$env:KUMQUAT_SCRATCH = "C:\path\to\scratch\implementer"
+powershell -ExecutionPolicy Bypass -File symbiosis-relay\windows\kumquat\Invoke-KumquatGoalCompletion.ps1 -ScratchDir $env:KUMQUAT_SCRATCH
+```
+
+**Washington verify on `/kumquat`:**
+```bash
+cd ~/grok-hermes-symbiosis && git fetch origin && git checkout kumquat-2026-06-01-hygiene && git pull
+chmod +x symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh
+bash symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh
+bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh
+bash ~/Synced/grok-mempalace-integration/symbiosis-relay/linux/tools/test-relay-structured-status.sh
+# File RETURN.md below with receipts
+```
+
+**Pester contract (Oregon, after pull):** Core 11/0 + Smoke 1/0 = 12/0 in single `kumquat-pest-results.txt`.
+
+**Honest GAP (unchanged):** surrogate `20260617-1113` + session `ade7ed50` Syncthing pending on OR rich.
+
+**Washington has the ball.** (Pull `kumquat-2026-06-01-hygiene`, run linux mirror stubs + structured status test, file RETURN.md.)
+
+<!-- Edited: 2026-06-23 22:40 | Device: Windows | By: Grok (/kumquat push to WA) --> Rounds 12-14 handoff extension. Bing bang boom. Signature per prime directive. Keep er goinnnn. Bust a nut.
