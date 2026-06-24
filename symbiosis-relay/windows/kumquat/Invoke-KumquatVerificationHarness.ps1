@@ -82,11 +82,6 @@ if (Test-Path $evIndex) {
     Get-Content $evIndex | Where-Object { $_ -match '^(evidence_mirror_match|oregon\.md_manifest_only|oregon-archive|CHANGED_FILES_ANCHOR|KumquatRitualCore)' } |
         ForEach-Object { HLog "EVIDENCE: $_" }
 }
-$clsAnchor = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
-if (Test-Path $clsAnchor) {
-    Get-Content $clsAnchor | ForEach-Object { HLog "CLASSIFIER: $_" }
-}
-
 if ($bundle.pest_failed -gt 0) {
     HLog "FATAL: Pester failures in bundle"
     exit 1

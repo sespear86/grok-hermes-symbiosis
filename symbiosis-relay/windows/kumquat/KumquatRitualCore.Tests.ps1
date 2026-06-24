@@ -71,24 +71,36 @@ Describe "Set-KumquatManifestBlock" {
     }
 }
 
-Describe "Write-KumquatGoalClassifierAnchor" {
-    It "overwrites goal-classifier attempt-2 patch with authoritative repo diff" {
-        $goalId = -join (1..12 | ForEach-Object { '{0:x}' -f (Get-Random -Max 16) })
+Describe "Sync-KumquatVerifierInputs" {
+    It "overwrites attempt-indexed patch with authoritative repo diff header" {
+        $goalId = "testid123abc"
         $goalRoot = Join-Path $env:TEMP "grok-goal-$goalId"
         $impl = Join-Path $goalRoot "implementer"
         New-Item -ItemType Directory -Path $impl -Force | Out-Null
-        $stalePatch = Join-Path $goalRoot "goal-classifier-$goalId-2.patch"
+        $stalePatch = Join-Path $goalRoot "goal-classifier-$goalId-3.patch"
         Set-Content -Path $stalePatch -Value "STALE_JUNK agent-tools" -Encoding utf8
         $authPatch = Join-Path $impl "kumquat-git-diff.patch"
         Set-Content -Path $authPatch -Value "# Kumquat git diff anchor`nAUTHORITATIVE KumquatRitualCore.psm1 diff" -Encoding utf8
         $relative = Get-KumquatCanonicalRelativePaths
-        $result = Write-KumquatGoalClassifierAnchor -ScratchDir $impl -PatchPath $authPatch -RelativePaths $relative
-        (Get-Content $stalePatch -Raw) | Should Match "AUTHORITATIVE KumquatRitualCore"
+        $result = Sync-KumquatVerifierInputs -GoalRoot $goalRoot -GoalId $goalId -Attempt 3 `
+            -PatchPath $authPatch -RelativePaths $relative -ScratchDir $impl
+        (Get-Content $stalePatch -TotalCount 1) | Should Match "# Kumquat git diff anchor"
         (Get-Content $stalePatch -Raw) | Should Not Match "STALE_JUNK"
-        $result.patch_2_ok | Should Be $true
-        Test-Path (Join-Path $goalRoot "goal-classifier-$goalId-2-CHANGED_FILES.txt") | Should Be $true
-        Test-Path (Join-Path $impl "CHANGED_FILES.txt") | Should Be $true
+        $result.patch_ok | Should Be $true
+        Test-Path (Join-Path $goalRoot "goal-classifier-$goalId-3-CHANGED_FILES.txt") | Should Be $true
         Remove-Item $goalRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
+Describe "Copy-KumquatDeliverableStubs" {
+    It "copies canonical repo files into session goal deliverables" {
+        $repo = "C:\Users\spear\grok-hermes-symbiosis"
+        $session = Join-Path $env:TEMP "kumquat-session-$(Get-Random)"
+        $relative = Get-KumquatCanonicalRelativePaths
+        $result = Copy-KumquatDeliverableStubs -RepoRoot $repo -SessionDir $session -RelativePaths $relative
+        $result.copied | Should Be $relative.Count
+        Test-Path (Join-Path $session "goal\deliverables\symbiosis-relay\windows\kumquat\KumquatRitualCore.psm1") | Should Be $true
+        Remove-Item $session -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
 

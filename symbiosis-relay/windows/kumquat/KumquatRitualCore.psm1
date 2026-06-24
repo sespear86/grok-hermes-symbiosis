@@ -323,7 +323,6 @@ function Write-KumquatHarnessEvidence {
     }
 
     Write-KumquatEvidenceVerification -RepoRoot $RepoRoot -ScratchDir $ScratchDir -RelativePaths $relative | Out-Null
-    Write-KumquatGoalClassifierAnchor -ScratchDir $ScratchDir -PatchPath $patchPath -RelativePaths $relative | Out-Null
 
     return @{
         changes_path  = Join-Path $ScratchDir "kumquat-changes.txt"
@@ -333,99 +332,109 @@ function Write-KumquatHarnessEvidence {
     }
 }
 
-function Write-KumquatGoalClassifierAnchor {
+function Get-KumquatGoalIdFromRoot {
+    param([string]$GoalRoot)
+    if ($GoalRoot -match 'grok-goal-([a-z0-9]+)$') { return $Matches[1] }
+    return ""
+}
+
+function Get-KumquatGoalAttempt {
     param(
-        [string]$ScratchDir,
-        [string]$PatchPath,
-        [string[]]$RelativePaths
+        [string]$GoalRoot,
+        [string]$GoalId
     )
-    if (-not $ScratchDir -or -not (Test-Path $PatchPath)) { return @{} }
+    if (-not $GoalRoot -or -not $GoalId) { return 0 }
+    $max = 0
+    $pattern = "^goal-classifier-$([regex]::Escape($GoalId))-(\d+)\.patch$"
+    Get-ChildItem -Path $GoalRoot -Filter "goal-classifier-$GoalId-*.patch" -ErrorAction SilentlyContinue |
+        ForEach-Object {
+            if ($_.Name -match $pattern) {
+                $n = [int]$Matches[1]
+                if ($n -gt $max) { $max = $n }
+            }
+        }
+    return $max
+}
 
-    $goalRoot = Split-Path $ScratchDir -Parent
-    if (-not $goalRoot -or $goalRoot -eq $ScratchDir) { return @{} }
-
-    $patchBytes = [System.IO.File]::ReadAllText($PatchPath)
-    $marker = "# Kumquat git diff anchor"
-    $changedHeader = @(
-        "# CHANGED_FILES (authoritative - replaces stale session workspace list)",
-        "# repo: C:\Users\spear\grok-hermes-symbiosis",
+function Format-KumquatChangedFilesList {
+    param([string[]]$RelativePaths)
+    @(
+        "# CHANGED_FILES (verifier sync - canonical grok-hermes-symbiosis paths)",
         "# path_count: $($RelativePaths.Count)",
         ""
     ) + $RelativePaths
-    $changedText = ($changedHeader -join "`n") + "`n"
+}
 
-    $changedOut = Join-Path $goalRoot "goal-classifier-CHANGED_FILES_ANCHOR.txt"
+function Sync-KumquatVerifierInputs {
+    param(
+        [Parameter(Mandatory)][string]$GoalRoot,
+        [Parameter(Mandatory)][string]$GoalId,
+        [Parameter(Mandatory)][int]$Attempt,
+        [Parameter(Mandatory)][string]$PatchPath,
+        [Parameter(Mandatory)][string[]]$RelativePaths,
+        [string]$ScratchDir = ""
+    )
+    if (-not (Test-Path $PatchPath)) { throw "PatchPath not found: $PatchPath" }
+
+    $marker = "# Kumquat git diff anchor"
+    $patchBytes = [System.IO.File]::ReadAllText($PatchPath)
+    $patchName = "goal-classifier-$GoalId-$Attempt.patch"
+    $changedName = "goal-classifier-$GoalId-$Attempt-CHANGED_FILES.txt"
+    $patchOut = Join-Path $GoalRoot $patchName
+    $changedOut = Join-Path $GoalRoot $changedName
+    $changedText = (Format-KumquatChangedFilesList -RelativePaths $RelativePaths) -join "`n"
+    $changedText += "`n"
+
+    [System.IO.File]::WriteAllText($patchOut, $patchBytes)
     [System.IO.File]::WriteAllText($changedOut, $changedText)
-    [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES.txt"), $changedText)
-    [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt"), ($RelativePaths -join "`n") + "`n")
 
-    $goalId = ""
-    if ($goalRoot -match 'grok-goal-([a-f0-9]+)$') { $goalId = $Matches[1] }
-    if ($goalId) {
-        $inputChanged = Join-Path $goalRoot "goal-classifier-$goalId-2-CHANGED_FILES.txt"
-        [System.IO.File]::WriteAllText($inputChanged, $changedText)
+    $first = (Get-Content $patchOut -TotalCount 1 -ErrorAction Stop)
+    $patchOk = ($first -like "$marker*")
+
+    if ($ScratchDir) {
+        [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES.txt"), $changedText)
+        [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt"), ($RelativePaths -join "`n") + "`n")
+        $summaryPath = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
+        @(
+            "goal_root: $GoalRoot",
+            "goal_id: $GoalId",
+            "verifier_attempt: $Attempt",
+            "classifier_patch_${Attempt}_ok: $(if ($patchOk) { 'YES' } else { 'NO' })",
+            "verifier_patch: $patchOut",
+            "verifier_changed: $changedOut"
+        ) | Set-Content -Path $summaryPath -Encoding utf8
     }
-
-    $anchorReadme = @(
-        "# Goal classifier authoritative anchors (replaces stale session workspace patch/CHANGED_FILES)",
-        "scratch: $ScratchDir",
-        "patch_source: $PatchPath",
-        "path_count: $($RelativePaths.Count)",
-        "input_patch: goal-classifier-$goalId-2.patch (classifier reads attempt-2 patch)",
-        ""
-    ) + $RelativePaths
-    [System.IO.File]::WriteAllText((Join-Path $goalRoot "goal-classifier-AUTHORITATIVE-README.txt"), ($anchorReadme -join "`n") + "`n")
-
-    $patched = @()
-    $failed = @()
-    $targets = @(Get-ChildItem -Path $goalRoot -Filter "goal-classifier-*.patch" -ErrorAction SilentlyContinue)
-    $targets += Get-Item -Path (Join-Path $goalRoot "goal-classifier-AUTHORITATIVE.patch") -ErrorAction SilentlyContinue
-    foreach ($target in ($targets | Where-Object { $_ } | Sort-Object FullName -Unique)) {
-        try {
-            [System.IO.File]::WriteAllText($target.FullName, $patchBytes)
-            $first = (Get-Content $target.FullName -TotalCount 1 -ErrorAction Stop)
-            if ($first -like "$marker*") { $patched += $target.Name } else { $failed += $target.Name }
-        } catch {
-            $failed += $target.Name
-        }
-    }
-    if ($goalId) {
-        $inputPatch = Join-Path $goalRoot "goal-classifier-$goalId-2.patch"
-        try {
-            [System.IO.File]::WriteAllText($inputPatch, $patchBytes)
-            $first = (Get-Content $inputPatch -TotalCount 1 -ErrorAction Stop)
-            if ($first -like "$marker*") {
-                if ($patched -notcontains (Split-Path $inputPatch -Leaf)) { $patched += (Split-Path $inputPatch -Leaf) }
-            } else {
-                $failed += (Split-Path $inputPatch -Leaf)
-            }
-        } catch {
-            $failed += (Split-Path $inputPatch -Leaf)
-        }
-    }
-
-    $patch2Name = "goal-classifier-$goalId-2.patch"
-    $patch2Ok = ($goalId -and ($failed -notcontains $patch2Name))
-    $summaryPath = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
-    @(
-        "goal_root: $goalRoot",
-        "goal_id: $goalId",
-        "classifier_patches_overwritten: $($patched.Count)",
-        "classifier_patches_failed: $($failed.Count)",
-        "classifier_patch_2_ok: $(if ($patch2Ok) { 'YES' } else { 'NO' })",
-        "classifier_changed_anchor: $changedOut",
-        "classifier_input_changed: goal-classifier-$goalId-2-CHANGED_FILES.txt",
-        "scratch_CHANGED_FILES: $(Join-Path $ScratchDir 'CHANGED_FILES.txt')",
-        "patched_files: $($patched -join ', ')",
-        "failed_files: $($failed -join ', ')"
-    ) | Set-Content -Path $summaryPath -Encoding utf8
 
     return @{
-        goal_root       = $goalRoot
-        patches_updated = $patched.Count
-        patches_failed  = $failed.Count
-        changed_anchor  = $changedOut
-        patch_2_ok      = $patch2Ok
+        attempt    = $Attempt
+        patch_path = $patchOut
+        changed_path = $changedOut
+        patch_ok   = $patchOk
+    }
+}
+
+function Copy-KumquatDeliverableStubs {
+    param(
+        [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
+        [Parameter(Mandatory)][string]$SessionDir,
+        [string[]]$RelativePaths
+    )
+    if (-not $RelativePaths) { $RelativePaths = Get-KumquatCanonicalRelativePaths }
+    $deliverablesRoot = Join-Path $SessionDir "goal\deliverables"
+    $copied = 0
+    foreach ($rel in $RelativePaths) {
+        $src = Join-Path $RepoRoot ($rel -replace '/', '\')
+        if (-not (Test-Path $src)) { continue }
+        $dst = Join-Path $deliverablesRoot ($rel -replace '/', '\')
+        $dstDir = Split-Path $dst -Parent
+        if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
+        Copy-Item $src $dst -Force
+        $copied++
+    }
+    return @{
+        deliverables_root = $deliverablesRoot
+        copied            = $copied
+        expected          = $RelativePaths.Count
     }
 }
 
@@ -699,7 +708,11 @@ Export-ModuleMember -Function @(
     'Get-KumquatChangedFiles',
     'Write-KumquatHarnessEvidence',
     'Write-KumquatEvidenceVerification',
-    'Write-KumquatGoalClassifierAnchor',
+    'Get-KumquatGoalIdFromRoot',
+    'Get-KumquatGoalAttempt',
+    'Format-KumquatChangedFilesList',
+    'Sync-KumquatVerifierInputs',
+    'Copy-KumquatDeliverableStubs',
     'Format-KumquatClosure',
     'Update-KumquatCoordinationReceipts',
     'Restore-KumquatCoordinationBaseline',
