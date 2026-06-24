@@ -42,6 +42,7 @@ pre_size=$(wc -c <"$patch_out")
   echo "pre_clobber_bytes: ${pre_size}"
 } >>"$out_path"
 
+chmod u+w "$patch_out" 2>/dev/null || true
 printf 'diff --git a/agent-tools/SIMULATED-CLOBBER\n' >"$patch_out"
 echo "clobber_written: $(date '+%Y-%m-%d %H:%M:%S')" >>"$out_path"
 

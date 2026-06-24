@@ -34,7 +34,6 @@ cp -f "${SRC_RELAY}/relay_status_core.py" "${RICH_ROOT}/"
   echo "=== VERIFICATION PLAN STEP 1 ==="
   echo "COMMAND: cd ~/grok-hermes-symbiosis && git fetch origin && git checkout kumquat-2026-06-01-hygiene && git pull"
   cd "$REPO_ROOT"
-  git checkout -- symbiosis-relay/linux/kumquat/*.sh 2>/dev/null || true
   BEFORE_HEAD=$(git rev-parse HEAD)
   REMOTE_URL=$(git remote get-url origin)
   echo "REMOTE_URL=${REMOTE_URL}"
@@ -83,9 +82,6 @@ if [[ -n "$HEAD_SHORT" && -f "$RETURN_FILE" ]]; then
   sed -i "s/\*\*Git receipt:\*\* \`[^\`]*\`/\*\*Git receipt:\*\* \`${HEAD_SHORT}\`/" "$RETURN_FILE"
   sed -i "s/<!-- Edited: [^|]* | Device: Linux | By: Grok (\/kumquat) -->/<!-- Edited: ${CAPTURE_TS} | Device: Linux | By: Grok (\/kumquat) -->/" "$RETURN_FILE"
 fi
-
-# Avoid mode-dirty M on kumquat/*.sh after chmod runs
-git -C "$REPO_ROOT" checkout -- symbiosis-relay/linux/kumquat/*.sh 2>/dev/null || true
 
 # --- Verification plan step 2: per-script logs (2 runs each) ---
 {
