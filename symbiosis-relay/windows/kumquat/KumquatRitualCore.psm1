@@ -12,8 +12,7 @@ function Set-KumquatManifestBlock {
     param(
         [Parameter(Mandatory)][string]$FilePath,
         [Parameter(Mandatory)][string]$BlockName,
-        [Parameter(Mandatory)][string]$NewContent,
-        [switch]$PrependIfMissing
+        [Parameter(Mandatory)][string]$NewContent
     )
     $m = Get-KumquatManifestBlockMarkers -BlockName $BlockName
     $block = ($m.Start + "`n" + $NewContent.TrimEnd() + "`n" + $m.End)
@@ -23,8 +22,6 @@ function Set-KumquatManifestBlock {
         $existing = Get-Content $FilePath -Raw
         if ($existing -match $pattern) {
             $updated = [regex]::Replace($existing, $pattern, $block, 1)
-        } elseif ($PrependIfMissing) {
-            $updated = $block + "`n`n" + $existing
         } else {
             $updated = $block + "`n`n" + $existing
         }
@@ -33,6 +30,35 @@ function Set-KumquatManifestBlock {
         Set-Content -Path $FilePath -Value $block -Encoding utf8 -NoNewline
     }
     return $FilePath
+}
+
+function Archive-KumquatOregonTail {
+    param([string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis")
+    $oregonPath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon.md"
+    $archivePath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon-archive-pre-manifest.md"
+    if (-not (Test-Path $oregonPath)) { return $archivePath }
+
+    $content = Get-Content $oregonPath -Raw
+    $m = Get-KumquatManifestBlockMarkers -BlockName "oregon-hb"
+    if ($content -notmatch [regex]::Escape($m.End)) { return $archivePath }
+
+    $idx = $content.IndexOf($m.End)
+    if ($idx -lt 0) { return $archivePath }
+    $headEnd = $idx + $m.End.Length
+    $head = $content.Substring(0, $headEnd).TrimEnd()
+    $tail = $content.Substring($headEnd).Trim()
+
+    if ($tail) {
+        $stamp = Get-Date -Format "yyyy-MM-dd HH:mm"
+        $chunk = "`n`n--- archived $stamp ---`n`n" + $tail
+        if (Test-Path $archivePath) {
+            Add-Content -Path $archivePath -Value $chunk -Encoding utf8
+        } else {
+            Set-Content -Path $archivePath -Value ("# Archived Oregon HB (below manifest block)`n" + $chunk) -Encoding utf8
+        }
+    }
+    Set-Content -Path $oregonPath -Value ($head + "`n") -Encoding utf8 -NoNewline
+    return $archivePath
 }
 
 function Format-KumquatStatusReceipt {
@@ -260,6 +286,19 @@ function Write-KumquatHarnessEvidence {
     }
     $manifestLines | Set-Content -Path (Join-Path $ScratchDir "kumquat-source-manifest.txt") -Encoding utf8
 
+    $evidenceDir = Join-Path $ScratchDir "evidence"
+    if (-not (Test-Path $evidenceDir)) { New-Item -ItemType Directory -Path $evidenceDir -Force | Out-Null }
+    foreach ($rel in $relative) {
+        $src = Join-Path $RepoRoot ($rel -replace '/', '\')
+        if (Test-Path $src) {
+            $dst = Join-Path $evidenceDir ($rel -replace '/', '\')
+            $dstDir = Split-Path $dst -Parent
+            if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
+            Copy-Item $src $dst -Force
+        }
+    }
+    $relative | Set-Content -Path (Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt") -Encoding utf8
+
     $patchPath = Join-Path $ScratchDir "kumquat-git-diff.patch"
     @(
         "# Kumquat git diff anchor (harness workspace cannot see grok-hermes-symbiosis edits)",
@@ -342,7 +381,8 @@ function Update-KumquatCoordinationReceipts {
         Set-Content -Path $statusPath -Value $statusBody -Encoding utf8 -NoNewline
     }
 
-    Set-KumquatManifestBlock -FilePath $oregonPath -BlockName "oregon-hb" -NewContent $hb -PrependIfMissing | Out-Null
+    Set-KumquatManifestBlock -FilePath $oregonPath -BlockName "oregon-hb" -NewContent $hb | Out-Null
+    Archive-KumquatOregonTail -RepoRoot $RepoRoot | Out-Null
 
     return @{
         status_path = $statusPath
@@ -360,9 +400,13 @@ function Restore-KumquatCoordinationBaseline {
     $oregonPath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon.md"
     $archiveNote = Get-KumquatStatusArchiveNote
 
-    $baselineStatus = (Get-KumquatManifestBlockMarkers -BlockName "status-receipt").Start + "`n" +
-        (Get-KumquatManifestBlockMarkers -BlockName "status-receipt").End + "`n`n" + $archiveNote + "`n"
+    $sm = Get-KumquatManifestBlockMarkers -BlockName "status-receipt"
+    $baselineStatus = $sm.Start + "`n(baseline: no manifest receipt yet)`n" + $sm.End + "`n`n" + $archiveNote + "`n"
     Set-Content -Path $statusPath -Value $baselineStatus -Encoding utf8 -NoNewline
+
+    $om = Get-KumquatManifestBlockMarkers -BlockName "oregon-hb"
+    $baselineOregon = $om.Start + "`n(baseline: manifest pending)`n" + $om.End + "`n"
+    Set-Content -Path $oregonPath -Value $baselineOregon -Encoding utf8 -NoNewline
 
     if ($ScratchDir) {
         Copy-Item $statusPath (Join-Path $ScratchDir "kumquat-baseline-status.md") -Force
@@ -382,21 +426,26 @@ function Write-KumquatVerificationBundle {
     )
     if (-not $ScratchDir) { throw "ScratchDir required" }
 
+    foreach ($stale in @("kumquat-core-pest-results.txt", "kumquat-smoke-pest-results.txt")) {
+        $p = Join-Path $ScratchDir $stale
+        if (Test-Path $p) { Remove-Item $p -Force }
+    }
+
     $coreTest = Join-Path $ModuleDir "KumquatRitualCore.Tests.ps1"
     $smokeTest = Join-Path $ModuleDir "Invoke-KumquatRitualCapture.Tests.ps1"
+    $pestPath = Join-Path $ScratchDir "kumquat-pest-results.txt"
+
     $coreResult = Invoke-Pester -Path $coreTest -PassThru -Quiet
     $smokeResult = Invoke-Pester -Path $smokeTest -PassThru -Quiet
-
-    $pestOut = @(
-        "KUMQUAT PESTER BUNDLE (Core + Smoke)",
+    @(
+        'KUMQUAT PESTER BUNDLE (Core + Smoke - single file only)',
         "CORE: Passed=$($coreResult.PassedCount) Failed=$($coreResult.FailedCount)",
         "SMOKE: Passed=$($smokeResult.PassedCount) Failed=$($smokeResult.FailedCount)",
         "TOTAL: Passed=$($coreResult.PassedCount + $smokeResult.PassedCount) Failed=$($coreResult.FailedCount + $smokeResult.FailedCount)",
-        ""
-    )
-    Invoke-Pester -Path $coreTest -PassThru | Out-String | ForEach-Object { $pestOut += $_ }
-    Invoke-Pester -Path $smokeTest -PassThru | Out-String | ForEach-Object { $pestOut += $_ }
-    $pestOut | Set-Content -Path (Join-Path $ScratchDir "kumquat-pest-results.txt") -Encoding utf8
+        ''
+    ) | Set-Content -Path $pestPath -Encoding utf8
+    $coreResult | Out-String | Add-Content -Path $pestPath -Encoding utf8
+    $smokeResult | Out-String | Add-Content -Path $pestPath -Encoding utf8
 
     Write-KumquatHarnessEvidence -RepoRoot $RepoRoot -ScratchDir $ScratchDir -RunLabel "harness" | Out-Null
 
@@ -416,10 +465,13 @@ function Write-KumquatVerificationBundle {
     $phrases = @(
         "Linux Turn Status", "Keep er goinnnn", "Oregon has the ball",
         "Be funny, you depraved little shit", "Cross-Implement", "Mirrorability",
-        "ACTUAL_SCORE", "ACTUAL_OVERALL_OK", "ENSURE_PERSONAL_SHELL", "HARNESS_EVIDENCE"
+        "Edited:", "ACTUAL_SCORE", "ACTUAL_OVERALL_OK",
+        "ENSURE_PERSONAL_SHELL", "ENSURE_SCRIPT_INVOKED", "ENSURE_OREGON_ENSURE_INVOKED",
+        "ENSURE_SKILL_COMPLIANT", "MEMPALACE_STEP_3", "MODE_DECLARED",
+        "SURROGATE_GAP", "CROSS_ARTIFACT_OK", "HARNESS_EVIDENCE", "MANIFEST_WRITTEN"
     )
     $grepOut = @()
-    foreach ($logName in @("kumquat-run-1.log", "kumquat-run-2.log")) {
+    foreach ($logName in @("kumquat-run-1.log", "kumquat-run-2.log", "kumquat-harness.log")) {
         $logPath = Join-Path $ScratchDir $logName
         if (-not (Test-Path $logPath)) { continue }
         $content = Get-Content $logPath -Raw
@@ -439,6 +491,7 @@ function Write-KumquatVerificationBundle {
 Export-ModuleMember -Function @(
     'Get-KumquatManifestBlockMarkers',
     'Set-KumquatManifestBlock',
+    'Archive-KumquatOregonTail',
     'Format-KumquatStatusReceipt',
     'Format-KumquatOregonHB',
     'Get-KumquatStatusArchiveNote',

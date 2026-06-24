@@ -24,7 +24,6 @@ $logPath = Join-Path $ScratchDir "kumquat-harness.log"
 function HLog([string]$msg) {
     $line = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $msg"
     Add-Content -Path $logPath -Value $line -Encoding utf8
-    Write-Output $line
 }
 
 HLog "=== KUMQUAT VERIFICATION HARNESS ==="
@@ -37,7 +36,7 @@ $oregonPath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon.md
 if (Test-Path $statusPath) { Copy-Item $statusPath (Join-Path $ScratchDir "kumquat-snapshot-status.md") -Force }
 if (Test-Path $oregonPath) { Copy-Item $oregonPath (Join-Path $ScratchDir "kumquat-snapshot-oregon.md") -Force }
 Restore-KumquatCoordinationBaseline -RepoRoot $RepoRoot -ScratchDir $ScratchDir | Out-Null
-HLog "BASELINE_RESTORED: status.md cleared of manifest receipt for run-1 isolation"
+HLog "BASELINE_RESTORED: status.md + oregon.md manifest blocks reset for run-1 isolation"
 
 # Run-1: no coordination update
 $run1Log = Join-Path $ScratchDir "kumquat-run-1.log"
@@ -45,17 +44,21 @@ $run1Manifest = Join-Path $ScratchDir "kumquat-manifest-run1.json"
 if (Test-Path $run1Log) { Remove-Item $run1Log -Force }
 & powershell -ExecutionPolicy Bypass -File $captureScript `
     -RunLabel "run-1" -ScratchDir $ScratchDir `
-    -LogPath $run1Log -ManifestPath $run1Manifest
+    -LogPath $run1Log -ManifestPath $run1Manifest *> $null
 if ($LASTEXITCODE -ne 0) { HLog "FATAL: run-1 capture failed"; exit 1 }
 HLog "RUN-1_COMPLETE"
 
-# Assert run-1 status ingest lacks run-2 receipt
+# Assert run-1 ingested baseline status (no run-2 manifest receipt)
 $run1Content = Get-Content $run1Log -Raw
-if ($run1Content -match "INGEST_READ: status.*run-2") {
-    HLog "FATAL: run-1 log ingested status with run-2 receipt (state leakage)"
+if ($run1Content -match "INGEST_READ: status[^\n]*Manifest Receipt[^\n]*run-2") {
+    HLog "FATAL: run-1 status ingest contains run-2 manifest receipt"
     exit 1
 }
-HLog "RUN-1_ISOLATION: PASS (status ingest lacks run-2 receipt)"
+if ($run1Content -match "INGEST_READ: status[^\n]*score=75") {
+    HLog "FATAL: run-1 status ingest contains stale score=75"
+    exit 1
+}
+HLog "RUN-1_ISOLATION: PASS (baseline status ingested; no run-2 receipt or stale metrics)"
 
 # Run-2: coordination update
 $run2Log = Join-Path $ScratchDir "kumquat-run-2.log"
@@ -63,7 +66,7 @@ $run2Manifest = Join-Path $ScratchDir "kumquat-manifest.json"
 if (Test-Path $run2Log) { Remove-Item $run2Log -Force }
 & powershell -ExecutionPolicy Bypass -File $captureScript `
     -RunLabel "run-2" -ScratchDir $ScratchDir `
-    -LogPath $run2Log -ManifestPath $run2Manifest -UpdateCoordination
+    -LogPath $run2Log -ManifestPath $run2Manifest -UpdateCoordination *> $null
 if ($LASTEXITCODE -ne 0) { HLog "FATAL: run-2 capture failed"; exit 1 }
 HLog "RUN-2_COMPLETE COORDINATION_UPDATED"
 

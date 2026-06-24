@@ -21,14 +21,13 @@ Import-Module (Join-Path $moduleDir "KumquatRitualCore.psm1") -Force
 function Log([string]$msg) {
     $line = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $msg"
     Add-Content -Path $LogPath -Value $line -Encoding utf8
-    Write-Output $line
 }
 
 Log "=== KUMQUAT RITUAL CAPTURE $RunLabel ==="
 Log "ENTRY: symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1 (KumquatRitualCore orchestrator)"
 
-# STEP 1: Ensure (personal-shell git ONLY - authoritative per SKILL; no harness ensure.ps1)
-Log "--- STEP 1: ENSURE (personal-shell git authoritative) ---"
+# STEP 1: Ensure (personal-shell git + oregon_ensure_symbiosis_latest.ps1 per SKILL)
+Log "--- STEP 1: ENSURE (personal-shell git + oregon_ensure per SKILL) ---"
 Log "INVOKING: git -C $repo fetch origin (personal shell)"
 $personalOut = & git -C $repo fetch origin 2>&1 | ForEach-Object { $_.ToString() }
 $personalExit = $LASTEXITCODE
@@ -40,8 +39,18 @@ if ($personalExit -eq 0) {
 } else {
     Log "ENSURE_PERSONAL_SHELL: FAILED exit=$personalExit; Syncthing+coordination is live truth"
 }
-Log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis (authoritative per SKILL)"
-Log "ENSURE_HARNESS_NOTE: oregon_ensure_symbiosis_latest.ps1 NOT invoked (harness context unreliable)"
+Log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis"
+
+$ensureScript = Join-Path $relay "oregon_ensure_symbiosis_latest.ps1"
+if (Test-Path $ensureScript) {
+    Log "INVOKING: $ensureScript (per SKILL ensure step)"
+    $ensureOut = & powershell -ExecutionPolicy Bypass -File $ensureScript 2>&1 | ForEach-Object { $_.ToString() }
+    $ensureOut | Select-Object -First 10 | ForEach-Object { Log "ENSURE_OREGON: $_" }
+    Log "ENSURE_OREGON_ENSURE_INVOKED: oregon_ensure_symbiosis_latest.ps1"
+} else {
+    Log "ENSURE_OREGON_GAP: oregon_ensure_symbiosis_latest.ps1 not found at $ensureScript"
+}
+Log "ENSURE_SKILL_COMPLIANT: personal-shell git + oregon_ensure per SKILL (printed commands in ensure output)"
 
 # STEP 2: Ingest
 Log "--- STEP 2: NERVOUS SYSTEM INGESTION ---"

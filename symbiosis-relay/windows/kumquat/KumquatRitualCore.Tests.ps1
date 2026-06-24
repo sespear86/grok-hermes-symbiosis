@@ -36,6 +36,23 @@ Describe "Get-KumquatCanonicalChangedPaths" {
     }
 }
 
+Describe "Archive-KumquatOregonTail" {
+    It "removes stale duplicate HB content below manifest block" {
+        $repo = Join-Path $env:TEMP "kumquat-repo-$(Get-Random)"
+        $oregonDir = Join-Path $repo "Mempalace\symbiosis\device-presence"
+        New-Item -ItemType Directory -Path $oregonDir -Force | Out-Null
+        $oregonPath = Join-Path $oregonDir "oregon.md"
+        $m = Get-KumquatManifestBlockMarkers -BlockName "oregon-hb"
+        $stale = "# Oregon (Windows) Heartbeat`n**Status:** overall_ok=True score=75`n"
+        Set-Content -Path $oregonPath -Value ($m.Start + "`nhb`n" + $m.End + "`n`n" + $stale) -Encoding utf8
+        Archive-KumquatOregonTail -RepoRoot $repo | Out-Null
+        $final = Get-Content $oregonPath -Raw
+        $final | Should Not Match "score=75"
+        $final.TrimEnd() | Should Match ([regex]::Escape($m.End))
+        Remove-Item $repo -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 Describe "Set-KumquatManifestBlock" {
     It "replaces metrics when run label already exists (symmetric overwrite)" {
         $tmp = Join-Path $env:TEMP "kumquat-test-$(Get-Random).md"
