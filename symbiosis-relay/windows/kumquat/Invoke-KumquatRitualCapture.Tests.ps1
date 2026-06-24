@@ -1,22 +1,21 @@
-# Pester 3.x tests - drives SHIPPED symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1
-Describe "Invoke-KumquatRitualCapture (shipped)" {
+# Pester 3.x - thin smoke test for shipped capture wrapper (core logic tested in KumquatRitualCore.Tests.ps1)
+Describe "Invoke-KumquatRitualCapture (smoke)" {
     $CaptureScript = Join-Path $PSScriptRoot "Invoke-KumquatRitualCapture.ps1"
-    $ScratchLog = Join-Path $env:TEMP "kumquat-pest-shipped.log"
+    $ScratchLog = Join-Path $env:TEMP "kumquat-smoke.log"
+    $Manifest = Join-Path $env:TEMP "kumquat-smoke-manifest.json"
 
-    It "invokes oregon_ensure_symbiosis_latest.ps1 with full ingest/presence/surrogate/cross logging" {
+    It "runs shipped wrapper and writes manifest with ACTUAL_* metrics" {
         if (Test-Path $ScratchLog) { Remove-Item $ScratchLog -Force }
-        & powershell -ExecutionPolicy Bypass -File $CaptureScript -RunLabel "pest-shipped" -LogPath $ScratchLog
+        if (Test-Path $Manifest) { Remove-Item $Manifest -Force }
+        & powershell -ExecutionPolicy Bypass -File $CaptureScript -RunLabel "smoke" -LogPath $ScratchLog -ManifestPath $Manifest -ScratchDir $env:TEMP
         $LASTEXITCODE | Should Be 0
+        Test-Path $Manifest | Should Be $true
         $log = Get-Content $ScratchLog -Raw
         $log | Should Match "oregon_ensure_symbiosis_latest\.ps1"
-        $log | Should Match "ENSURE_SCRIPT_INVOKED"
-        $log | Should Match "ENSURE_HARNESS_NOTE"
-        $log | Should Match "INGEST_READ:.*mtime="
-        $log | Should Match "WA_BEACON:"
-        $log | Should Match "SURROGATE_GAP|SURROGATE_FOUND"
-        $log | Should Match "CROSS_ARTIFACT_OK:"
-        $log | Should Match "PASS - structured Oregon relay status"
-        $log | Should Match "Linux Turn Status"
-        $log | Should Match "Keep er goinnnn\. Bust a nut\."
+        $log | Should Match "ACTUAL_OVERALL_OK:"
+        $log | Should Match "ACTUAL_SCORE:"
+        $log | Should Match "MANIFEST_WRITTEN:"
+        $m = Get-Content $Manifest -Raw | ConvertFrom-Json
+        $m.health.score | Should Not BeNullOrEmpty
     }
 }
