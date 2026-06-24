@@ -59,6 +59,9 @@ scratch_deliverables="${SCRATCH_DIR}/deliverables"
 copied_session=$(copy_deliverables "$session_deliverables")
 copied_scratch=$(copy_deliverables "$scratch_deliverables")
 
+pkill -f "invoke-kumquat-verifier-patch-guard.sh.*${GOAL_ID}" 2>/dev/null || true
+sleep 0.2
+
 bash "${SCRIPT_DIR}/sync-kumquat-verifier-inputs.sh" \
   "$GOAL_ROOT" "$GOAL_ID" "$ATTEMPT" "$PATCH_PATH" "$SCRATCH_DIR"
 
@@ -72,8 +75,9 @@ LOG_PATH="${SCRATCH_DIR}/kumquat-precompletion-sync.log"
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] PRECOMPLETION_SYNC"
   echo "goal_root: $GOAL_ROOT"
   echo "goal_id: $GOAL_ID"
-  echo "classifier_round: $CLASSIFIER_ROUND"
+  echo "classifier_round: $CLASSIFIER_ROUND (verifier uses attempt=$((CLASSIFIER_ROUND + 1)))"
   echo "verifier_attempt: $ATTEMPT"
+  echo "changed_files_anchor: ${GOAL_ROOT}/goal-classifier-CHANGED_FILES_ANCHOR.txt"
   echo "patch: ${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}.patch"
   echo "patch_bytes: $(wc -c <"${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}.patch")"
   echo "changed: ${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}-CHANGED_FILES.txt"

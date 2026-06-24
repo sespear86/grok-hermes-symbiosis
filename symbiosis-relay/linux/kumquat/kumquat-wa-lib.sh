@@ -6,6 +6,11 @@ KUMQUAT_PATCH_MARKER="# Kumquat git diff anchor"
 
 kumquat_wa_deliverable_paths() {
   cat <<'PATHS'
+symbiosis-relay/linux/kumquat/kumquat-wa-lib.sh
+symbiosis-relay/linux/kumquat/sync-kumquat-verifier-inputs.sh
+symbiosis-relay/linux/kumquat/invoke-kumquat-pre-completion-sync.sh
+symbiosis-relay/linux/kumquat/invoke-kumquat-verifier-patch-guard.sh
+symbiosis-relay/linux/kumquat/capture-kumquat-wa-goal-evidence.sh
 cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/RETURN.md
 cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/README.md
 cross-device/coordination/status.md

@@ -41,7 +41,8 @@ chmod u+w "$patch_out" 2>/dev/null || true
 chmod u+w "$changed_out" 2>/dev/null || true
 cp -f "$PATCH_PATH" "$patch_out"
 printf '%s' "$changed_text" >"$changed_out"
-chmod a-w "$patch_out" "$changed_out"
+# Patch only read-only; CHANGED must stay writable for guard repair retries.
+chmod a-w "$patch_out" 2>/dev/null || true
 
 patch_ok=NO
 if [[ "$(head -1 "$patch_out")" == "${KUMQUAT_PATCH_MARKER}"* ]]; then
@@ -52,6 +53,7 @@ if [[ -n "$SCRATCH_DIR" ]]; then
   printf '%s' "$changed_text" >"${SCRATCH_DIR}/CHANGED_FILES.txt"
   printf '%s\n' "${paths[@]}" >"${SCRATCH_DIR}/CHANGED_FILES_ANCHOR.txt"
 fi
+printf '%s\n' "${paths[@]}" >"${GOAL_ROOT}/goal-classifier-CHANGED_FILES_ANCHOR.txt"
 
 echo "SYNC_OK attempt=${ATTEMPT} patch=${patch_out} bytes=$(wc -c <"$patch_out") patch_ok=${patch_ok}"
 [[ "$patch_ok" == YES ]] || exit 1
