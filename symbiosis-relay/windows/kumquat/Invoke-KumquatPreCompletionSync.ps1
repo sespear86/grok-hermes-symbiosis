@@ -33,10 +33,13 @@ if ($Attempt -le 0) {
     $Attempt = Get-KumquatVerifierAttempt -GoalRoot $goalRoot -GoalId $goalId
 }
 
+$workspace = Publish-KumquatWorkspaceDeliverables -RepoRoot $RepoRoot -RelativePaths $relative
 $sync = Sync-KumquatVerifierInputs -GoalRoot $goalRoot -GoalId $goalId -Attempt $Attempt `
     -PatchPath $patchPath -RelativePaths $relative -ScratchDir $ScratchDir
 $stubs = Copy-KumquatDeliverableStubs -RepoRoot $RepoRoot -SessionDir $SessionDir `
     -ScratchDir $ScratchDir -RelativePaths $relative
+$guard = Start-KumquatVerifierPatchGuard -GoalRoot $goalRoot -GoalId $goalId -Attempt $Attempt `
+    -AuthoritativePatchPath $patchPath -ScratchDir $ScratchDir -DurationSeconds 120
 
 $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
 @(
@@ -48,10 +51,13 @@ $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
     "patch_ok: $($sync.patch_ok)",
     "patch: $($sync.patch_path)",
     "changed: $($sync.changed_path)",
+    "patch_guard_pid: $($guard.pid)",
+    "workspace_published: $($workspace.copied)/$($workspace.expected)",
     "deliverables: $($stubs.deliverables_root)",
     "stubs_copied: $($stubs.copied)/$($stubs.expected)"
 ) | Set-Content -Path $logPath -Encoding utf8
 
 if (-not $sync.patch_ok) { exit 1 }
 if ($stubs.copied -lt $relative.Count) { exit 1 }
+if ($workspace.copied -lt $relative.Count) { exit 1 }
 exit 0

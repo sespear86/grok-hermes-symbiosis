@@ -236,6 +236,7 @@ function Get-KumquatCanonicalRelativePaths {
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatVerificationHarness.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatPreCompletionSync.ps1",
+        "symbiosis-relay/windows/kumquat/Invoke-KumquatVerifierPatchGuard.ps1",
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1",
         "symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh",
@@ -423,8 +424,16 @@ function Sync-KumquatVerifierInputs {
     $changedText = (Format-KumquatChangedFilesList -RelativePaths $RelativePaths) -join "`n"
     $changedText += "`n"
 
+    if (Test-Path $patchOut) {
+        $item = Get-Item $patchOut -Force
+        if ($item.IsReadOnly) { $item.IsReadOnly = $false }
+    }
     [System.IO.File]::WriteAllText($patchOut, $patchBytes)
     [System.IO.File]::WriteAllText($changedOut, $changedText)
+    try {
+        (Get-Item $patchOut -Force).IsReadOnly = $true
+        (Get-Item $changedOut -Force).IsReadOnly = $true
+    } catch { }
 
     $first = (Get-Content $patchOut -TotalCount 1 -ErrorAction Stop)
     $patchOk = ($first -like "$marker*")
@@ -448,6 +457,90 @@ function Sync-KumquatVerifierInputs {
         patch_path = $patchOut
         changed_path = $changedOut
         patch_ok   = $patchOk
+    }
+}
+
+function Test-KumquatVerifierPatchNeedsRepair {
+    param(
+        [Parameter(Mandatory)][string]$PatchPath,
+        [string]$Marker = "# Kumquat git diff anchor"
+    )
+    if (-not (Test-Path $PatchPath)) { return $true }
+    $first = Get-Content $PatchPath -TotalCount 1 -ErrorAction SilentlyContinue
+    return ($first -notlike "$Marker*")
+}
+
+function Repair-KumquatVerifierPatch {
+    param(
+        [Parameter(Mandatory)][string]$GoalRoot,
+        [Parameter(Mandatory)][string]$GoalId,
+        [Parameter(Mandatory)][int]$Attempt,
+        [Parameter(Mandatory)][string]$PatchPath,
+        [Parameter(Mandatory)][string[]]$RelativePaths,
+        [string]$ScratchDir = ""
+    )
+    return Sync-KumquatVerifierInputs -GoalRoot $GoalRoot -GoalId $GoalId -Attempt $Attempt `
+        -PatchPath $PatchPath -RelativePaths $RelativePaths -ScratchDir $ScratchDir
+}
+
+function Publish-KumquatWorkspaceDeliverables {
+    param(
+        [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
+        [string]$WorkspaceRoot = "C:\WINDOWS\system32",
+        [string[]]$RelativePaths
+    )
+    if (-not $RelativePaths) { $RelativePaths = Get-KumquatCanonicalRelativePaths }
+    $publishedRoot = Join-Path $WorkspaceRoot "kumquat-deliverables"
+    $copied = 0
+    foreach ($rel in $RelativePaths) {
+        $src = Join-Path $RepoRoot ($rel -replace '/', '\')
+        if (-not (Test-Path $src)) { continue }
+        $dst = Join-Path $WorkspaceRoot ($rel -replace '/', '\')
+        $dstDir = Split-Path $dst -Parent
+        if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
+        Copy-Item $src $dst -Force
+        $mirror = Join-Path $publishedRoot ($rel -replace '/', '\')
+        $mirrorDir = Split-Path $mirror -Parent
+        if (-not (Test-Path $mirrorDir)) { New-Item -ItemType Directory -Path $mirrorDir -Force | Out-Null }
+        Copy-Item $src $mirror -Force
+        $copied++
+    }
+    return @{
+        workspace_root   = $WorkspaceRoot
+        published_root   = $publishedRoot
+        copied           = $copied
+        expected         = $RelativePaths.Count
+    }
+}
+
+function Start-KumquatVerifierPatchGuard {
+    param(
+        [Parameter(Mandatory)][string]$GoalRoot,
+        [Parameter(Mandatory)][string]$GoalId,
+        [Parameter(Mandatory)][int]$Attempt,
+        [Parameter(Mandatory)][string]$AuthoritativePatchPath,
+        [string]$ScratchDir = "",
+        [int]$DurationSeconds = 120,
+        [int]$PollMilliseconds = 150
+    )
+    $guardScript = Join-Path $PSScriptRoot "Invoke-KumquatVerifierPatchGuard.ps1"
+    if (-not (Test-Path $guardScript)) { throw "Guard script missing: $guardScript" }
+    $logPath = if ($ScratchDir) { Join-Path $ScratchDir "kumquat-patch-guard.log" } else { "" }
+    $args = @(
+        "-ExecutionPolicy", "Bypass", "-NoProfile", "-WindowStyle", "Hidden", "-File", $guardScript,
+        "-GoalRoot", $GoalRoot,
+        "-GoalId", $GoalId,
+        "-Attempt", $Attempt,
+        "-AuthoritativePatchPath", $AuthoritativePatchPath,
+        "-DurationSeconds", $DurationSeconds,
+        "-PollMilliseconds", $PollMilliseconds
+    )
+    if ($ScratchDir) { $args += @("-ScratchDir", $ScratchDir) }
+    $proc = Start-Process -FilePath "powershell.exe" -ArgumentList $args -PassThru -WindowStyle Hidden
+    return @{
+        pid      = $proc.Id
+        log_path = $logPath
+        script   = $guardScript
     }
 }
 
@@ -759,6 +852,10 @@ Export-ModuleMember -Function @(
     'Get-KumquatVerifierAttempt',
     'Format-KumquatChangedFilesList',
     'Sync-KumquatVerifierInputs',
+    'Test-KumquatVerifierPatchNeedsRepair',
+    'Repair-KumquatVerifierPatch',
+    'Publish-KumquatWorkspaceDeliverables',
+    'Start-KumquatVerifierPatchGuard',
     'Copy-KumquatDeliverableStubs',
     'Format-KumquatClosure',
     'Update-KumquatCoordinationReceipts',

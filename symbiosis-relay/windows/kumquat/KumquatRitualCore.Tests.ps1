@@ -87,6 +87,26 @@ Describe "Get-KumquatVerifierAttempt" {
     }
 }
 
+Describe "Repair-KumquatVerifierPatch" {
+    It "restores authoritative header after harness clobber simulation" {
+        $goalId = "testrepair$(Get-Random)"
+        $goalRoot = Join-Path $env:TEMP "grok-goal-$goalId"
+        $impl = Join-Path $goalRoot "implementer"
+        New-Item -ItemType Directory -Path $impl -Force | Out-Null
+        $patchOut = Join-Path $goalRoot "goal-classifier-$goalId-6.patch"
+        $authPatch = Join-Path $impl "kumquat-git-diff.patch"
+        Set-Content -Path $authPatch -Value "# Kumquat git diff anchor`nAUTHORITATIVE" -Encoding utf8
+        Set-Content -Path $patchOut -Value "diff --git a/agent-tools junk" -Encoding utf8
+        Test-KumquatVerifierPatchNeedsRepair -PatchPath $patchOut | Should Be $true
+        $relative = Get-KumquatCanonicalRelativePaths
+        Repair-KumquatVerifierPatch -GoalRoot $goalRoot -GoalId $goalId -Attempt 6 `
+            -PatchPath $authPatch -RelativePaths $relative -ScratchDir $impl
+        (Get-Content $patchOut -TotalCount 1) | Should Match "# Kumquat git diff anchor"
+        Test-KumquatVerifierPatchNeedsRepair -PatchPath $patchOut | Should Be $false
+        Remove-Item $goalRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 Describe "Sync-KumquatVerifierInputs" {
     It "overwrites attempt-indexed patch with authoritative repo diff header" {
         $goalId = "testid123abc"
