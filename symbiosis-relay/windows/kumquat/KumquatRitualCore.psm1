@@ -300,13 +300,29 @@ function Write-KumquatHarnessEvidence {
     $relative | Set-Content -Path (Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt") -Encoding utf8
 
     $patchPath = Join-Path $ScratchDir "kumquat-git-diff.patch"
+    $head = git -C $RepoRoot rev-parse HEAD 2>$null
     @(
-        "# Kumquat git diff anchor (harness workspace cannot see grok-hermes-symbiosis edits)",
-        "# Generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') run=$RunLabel",
+        "# Kumquat git diff anchor (repo-scoped; goal-classifier CHANGED_FILES cannot see grok-hermes-symbiosis)",
+        "# Generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') run=$RunLabel repo=$RepoRoot",
+        "# HEAD: $head",
+        "# Canonical paths: $($relative.Count) (see CHANGED_FILES_ANCHOR.txt + evidence/ mirrors)",
+        ""
+        "## SECTION A: latest commit diff (HEAD~1..HEAD, all canonical paths)",
         ""
     ) | Set-Content -Path $patchPath -Encoding utf8
-    git -C $RepoRoot diff HEAD~3..HEAD -- symbiosis-relay/windows/kumquat/ cross-device/coordination/status.md 2>$null |
-        Add-Content -Path $patchPath -Encoding utf8
+    git -C $RepoRoot diff HEAD~1..HEAD -- @relative 2>$null | Add-Content -Path $patchPath -Encoding utf8
+    @(
+        "",
+        "## SECTION B: kumquat module cumulative (symbiosis-relay/windows/kumquat/ since branch hygiene)",
+        ""
+    ) | Add-Content -Path $patchPath -Encoding utf8
+    $branchBase = git -C $RepoRoot merge-base HEAD kumquat-2026-06-01-hygiene 2>$null
+    if ($branchBase) {
+        git -C $RepoRoot diff "$branchBase..HEAD" -- symbiosis-relay/windows/kumquat/ symbiosis-relay/linux/kumquat/ 2>$null |
+            Add-Content -Path $patchPath -Encoding utf8
+    }
+
+    Write-KumquatEvidenceVerification -RepoRoot $RepoRoot -ScratchDir $ScratchDir -RelativePaths $relative | Out-Null
 
     return @{
         changes_path  = Join-Path $ScratchDir "kumquat-changes.txt"
@@ -314,6 +330,86 @@ function Write-KumquatHarnessEvidence {
         patch_path    = $patchPath
         path_count    = $relative.Count
     }
+}
+
+function Write-KumquatEvidenceVerification {
+    param(
+        [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
+        [string]$ScratchDir,
+        [string[]]$RelativePaths
+    )
+    if (-not $ScratchDir) { return @{} }
+
+    $evidenceDir = Join-Path $ScratchDir "evidence"
+    $oregonPath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon.md"
+    $archivePath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon-archive-pre-manifest.md"
+    $lines = @(
+        "# Kumquat Evidence Verification Index",
+        "generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')",
+        "",
+        "NOTE: goal-classifier CHANGED_FILES / session patch reflect C:\WINDOWS\system32 workspace only.",
+        "Authoritative cross-implement proof (plan step 3):",
+        "  - CHANGED_FILES_ANCHOR.txt",
+        "  - kumquat-changes.txt",
+        "  - kumquat-source-manifest.txt",
+        "  - kumquat-git-diff.patch (repo-scoped, canonical paths only)",
+        "  - evidence/ byte mirrors from $RepoRoot",
+        ""
+    )
+
+    $mirrorOk = 0
+    $mirrorMissing = @()
+    foreach ($rel in $RelativePaths) {
+        $src = Join-Path $RepoRoot ($rel -replace '/', '\')
+        $dst = Join-Path $evidenceDir ($rel -replace '/', '\')
+        if ((Test-Path $src) -and (Test-Path $dst)) {
+            $srcHash = (Get-FileHash $src -Algorithm SHA256).Hash
+            $dstHash = (Get-FileHash $dst -Algorithm SHA256).Hash
+            if ($srcHash -eq $dstHash) { $mirrorOk++ } else { $mirrorMissing += "$rel (HASH_MISMATCH)" }
+        } else {
+            $mirrorMissing += "$rel (MISSING)"
+        }
+    }
+    $lines += "evidence_mirror_match: $mirrorOk/$($RelativePaths.Count)"
+    if ($mirrorMissing.Count -gt 0) {
+        $lines += "evidence_mirror_gaps:"
+        $lines += $mirrorMissing
+    }
+
+    $oregonClean = $false
+    if (Test-Path $oregonPath) {
+        $oregonRaw = Get-Content $oregonPath -Raw
+        $m = Get-KumquatManifestBlockMarkers -BlockName "oregon-hb"
+        $tail = ""
+        if ($oregonRaw -match [regex]::Escape($m.End)) {
+            $idx = $oregonRaw.IndexOf($m.End)
+            $tail = $oregonRaw.Substring($idx + $m.End.Length).Trim()
+        }
+        $oregonClean = (-not $tail) -and ($oregonRaw -notmatch "score=75")
+        $lines += "oregon.md_manifest_only: $(if ($oregonClean) { 'PASS' } else { 'FAIL' })"
+        $lines += "oregon.md_tail_bytes: $($tail.Length)"
+    }
+
+    if (Test-Path $archivePath) {
+        $archiveBytes = (Get-Item $archivePath).Length
+        $archiveHasStale = (Get-Content $archivePath -Raw) -match "score=75"
+        $lines += "oregon-archive-pre-manifest.md: EXISTS ($archiveBytes bytes, stale_score=75_archived=$archiveHasStale)"
+    } else {
+        $lines += "oregon-archive-pre-manifest.md: MISSING"
+    }
+
+    $anchorPath = Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt"
+    if (Test-Path $anchorPath) {
+        $anchorCount = @(Get-Content $anchorPath | Where-Object { $_.Trim() }).Count
+        $lines += "CHANGED_FILES_ANCHOR.txt: $anchorCount paths"
+    }
+
+    $coreInEvidence = Test-Path (Join-Path $evidenceDir "symbiosis-relay\windows\kumquat\KumquatRitualCore.psm1")
+    $lines += "KumquatRitualCore.psm1_in_evidence: $(if ($coreInEvidence) { 'YES' } else { 'NO' })"
+
+    $indexPath = Join-Path $ScratchDir "kumquat-evidence-index.txt"
+    $lines | Set-Content -Path $indexPath -Encoding utf8
+    return @{ index_path = $indexPath; mirror_ok = $mirrorOk; oregon_clean = $oregonClean }
 }
 
 function Format-KumquatClosure {
@@ -505,6 +601,7 @@ Export-ModuleMember -Function @(
     'Get-KumquatCanonicalChangedPaths',
     'Get-KumquatChangedFiles',
     'Write-KumquatHarnessEvidence',
+    'Write-KumquatEvidenceVerification',
     'Format-KumquatClosure',
     'Update-KumquatCoordinationReceipts',
     'Restore-KumquatCoordinationBaseline',

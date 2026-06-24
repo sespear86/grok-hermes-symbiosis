@@ -21,6 +21,12 @@ if (-not (Test-Path $ScratchDir)) {
 Import-Module (Join-Path $moduleDir "KumquatRitualCore.psm1") -Force
 
 $logPath = Join-Path $ScratchDir "kumquat-harness.log"
+if (Test-Path $logPath) {
+    $archivePath = Join-Path $ScratchDir "kumquat-harness-archive.log"
+    Add-Content -Path $archivePath -Value "`n--- archived $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ---" -Encoding utf8
+    Get-Content $logPath | Add-Content -Path $archivePath -Encoding utf8
+    Remove-Item $logPath -Force
+}
 function HLog([string]$msg) {
     $line = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $msg"
     Add-Content -Path $logPath -Value $line -Encoding utf8
@@ -74,6 +80,11 @@ HLog "RUN-2_COMPLETE COORDINATION_UPDATED"
 $bundle = Write-KumquatVerificationBundle -RepoRoot $RepoRoot -ScratchDir $ScratchDir `
     -ModuleDir $moduleDir -ManifestPath $run2Manifest
 HLog ("BUNDLE: pest Passed=$($bundle.pest_passed) Failed=$($bundle.pest_failed)")
+$evIndex = Join-Path $ScratchDir "kumquat-evidence-index.txt"
+if (Test-Path $evIndex) {
+    Get-Content $evIndex | Where-Object { $_ -match '^(evidence_mirror_match|oregon\.md_manifest_only|oregon-archive|CHANGED_FILES_ANCHOR|KumquatRitualCore)' } |
+        ForEach-Object { HLog "EVIDENCE: $_" }
+}
 
 if ($bundle.pest_failed -gt 0) {
     HLog "FATAL: Pester failures in bundle"
