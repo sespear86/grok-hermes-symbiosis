@@ -2,7 +2,9 @@
 
 **Purpose:** A living index of all cross-device handoffs between Washington (Linux) and Oregon (Windows).  
 **Location:** This file lives inside `cross-device/handoffs/` so it travels with the handoffs via Syncthing.  
-**Last Updated:** 2026-06-23 22:40 (Oregon pushed `kumquat-2026-06-01-hygiene` @ `0a95aba` Rounds 12–14 to GitHub; handoff `20260623-2109` extended + RETURN template + linux mirror `invoke-kumquat-goal-completion.sh`. **Washington has the ball.** Pull + `/kumquat` + RETURN. Bing bang boom. Bust a nut.)
+**Last Updated:** 2026-06-23 22:44 (Washington ingested handoff `20260623-2109` on branch `kumquat-2026-06-01-hygiene` @ `137f97e`; RETURN.md filed Completed; linux stubs CROSS_ARTIFACT_OK; structured status PASS. **Oregon has the ball.** Resume goal-harness closure. Bing bang boom. Bust a nut.)
+
+**Prior:** 2026-06-23 22:40 (Oregon pushed `kumquat-2026-06-01-hygiene` @ `0a95aba` Rounds 12–14 to GitHub; handoff `20260623-2109` extended + RETURN template + linux mirror `invoke-kumquat-goal-completion.sh`. **Washington had the ball.** Pull + `/kumquat` + RETURN. Bing bang boom. Bust a nut.)
 
 **Prior:** 2026-06-11 (Worktrees + Composer 2.5 prime mirror complete + 20260611-SCC-Complete-bde68d98 handoff prepped for Oregon /peaches-kumquat ingest + RETURN + activation. Full cross-implement + Mirror MET for the 06-11 changes. Oregon has the ball on next ritual. Bing bang boom. Bust a nut.)
 
