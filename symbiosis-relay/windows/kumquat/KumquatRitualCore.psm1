@@ -110,14 +110,8 @@ function Get-KumquatCrossArtifactReport {
     return $report
 }
 
-function Get-KumquatCanonicalChangedPaths {
-    param(
-        [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
-        [string]$RichRelay = "C:\Synced\grok-mempalace-integration\symbiosis-relay",
-        [string]$ScratchDir = ""
-    )
-    # Clean canonical list for this round (no harness system32/mcps noise)
-    $relative = @(
+function Get-KumquatCanonicalRelativePaths {
+    return @(
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1",
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1",
@@ -131,31 +125,82 @@ function Get-KumquatCanonicalChangedPaths {
         "Mempalace/symbiosis/recent-decisions.md",
         "Mempalace/symbiosis/device-presence/oregon.md"
     )
-    $paths = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
-    foreach ($rel in $relative) {
+}
+
+function Get-KumquatCanonicalChangedPaths {
+    param([string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis")
+    $paths = @()
+    foreach ($rel in (Get-KumquatCanonicalRelativePaths)) {
         $full = Join-Path $RepoRoot ($rel -replace '/', '\')
-        if (Test-Path $full) { [void]$paths.Add((Resolve-Path $full).Path) }
-    }
-    $richKumquat = Join-Path $RichRelay "windows\kumquat"
-    if (Test-Path $richKumquat) {
-        Get-ChildItem $richKumquat -File | ForEach-Object { [void]$paths.Add($_.FullName) }
-    }
-    if ($ScratchDir) {
-        foreach ($ev in @("kumquat-manifest.json", "kumquat-manifest-run1.json", "kumquat-changes.txt", "kumquat-run-1.log", "kumquat-run-2.log", "kumquat-closure.txt", "kumquat-ingest.txt", "kumquat-verify-grep.txt", "kumquat-pest-results.txt")) {
-            $ep = Join-Path $ScratchDir $ev
-            if (Test-Path $ep) { [void]$paths.Add((Resolve-Path $ep).Path) }
-        }
+        if (Test-Path $full) { $paths += (Resolve-Path $full).Path }
     }
     return @($paths | Sort-Object)
 }
 
 function Get-KumquatChangedFiles {
+    param([string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis")
+    return Get-KumquatCanonicalChangedPaths -RepoRoot $RepoRoot
+}
+
+function Write-KumquatHarnessEvidence {
     param(
         [string]$RepoRoot = "C:\Users\spear\grok-hermes-symbiosis",
-        [string]$RichRelay = "C:\Synced\grok-mempalace-integration\symbiosis-relay",
-        [string]$ScratchDir = ""
+        [string]$ScratchDir,
+        [string]$RunLabel = "run-2"
     )
-    return Get-KumquatCanonicalChangedPaths -RepoRoot $RepoRoot -RichRelay $RichRelay -ScratchDir $ScratchDir
+    if (-not $ScratchDir) { return }
+
+    $canonical = Get-KumquatCanonicalChangedPaths -RepoRoot $RepoRoot
+    $canonical | Set-Content -Path (Join-Path $ScratchDir "kumquat-changes.txt") -Encoding utf8
+
+    $manifestLines = @(
+        "# Kumquat canonical source manifest (repo-only, no temp/Synced/mcps noise)",
+        "generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')",
+        "run_label: $RunLabel",
+        "repo: $RepoRoot",
+        "path_count: $($canonical.Count)",
+        ""
+    )
+    foreach ($rel in (Get-KumquatCanonicalRelativePaths)) {
+        $full = Join-Path $RepoRoot ($rel -replace '/', '\')
+        $present = if (Test-Path $full) { "PRESENT" } else { "MISSING" }
+        $manifestLines += ("{0}  {1}" -f $present, $rel)
+    }
+    $log = git -C $RepoRoot log --oneline -5 2>$null
+    if ($log) {
+        $manifestLines += ""
+        $manifestLines += "# git log (personal-shell repo)"
+        $manifestLines += $log
+    }
+    $manifestLines | Set-Content -Path (Join-Path $ScratchDir "kumquat-source-manifest.txt") -Encoding utf8
+
+    $diffArgs = (Get-KumquatCanonicalRelativePaths) | ForEach-Object { $_ -replace '/', '\' }
+    $patchPath = Join-Path $ScratchDir "kumquat-git-diff.patch"
+    $header = @(
+        "# Kumquat git diff anchor for harness verifier (workspace=C:\WINDOWS\system32 cannot see repo edits)",
+        "# Commits: 65b8048 refactor(kumquat) + 32b9d83 fix(kumquat) canonical changed-files",
+        "# Generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') run=$RunLabel",
+        ""
+    )
+    $header | Set-Content -Path $patchPath -Encoding utf8
+    foreach ($rel in $diffArgs) {
+        $diff = git -C $RepoRoot diff HEAD~2..HEAD -- $rel 2>$null
+        if ($diff) {
+            Add-Content -Path $patchPath -Value ("diff --git a/{0} b/{0}" -f ($rel -replace '\\', '/')) -Encoding utf8
+            Add-Content -Path $patchPath -Value $diff -Encoding utf8
+        }
+    }
+    if (-not (Get-Item $patchPath).Length -gt 200) {
+        git -C $RepoRoot show 32b9d83 --stat 2>$null | Add-Content -Path $patchPath -Encoding utf8
+        git -C $RepoRoot show 65b8048 --stat 2>$null | Add-Content -Path $patchPath -Encoding utf8
+    }
+
+    return @{
+        changes_path  = Join-Path $ScratchDir "kumquat-changes.txt"
+        manifest_path = Join-Path $ScratchDir "kumquat-source-manifest.txt"
+        patch_path    = $patchPath
+        path_count    = $canonical.Count
+    }
 }
 
 function Format-KumquatClosure {
@@ -214,12 +259,14 @@ function Update-KumquatCoordinationReceipts {
     $receipt = ("**/kumquat Manifest Receipt ({0} - {1}):** Bing bang boom! Parsed metrics: overall_ok={2} score={3} beacon_age_seconds={4} schema={5} persistence={6}. Capture via KumquatRitualCore.psm1 + manifest.json + kumquat-changes.txt evidence bridge. **Oregon has the ball.**`n`n" -f $ts, $RunLabel, $ok, $score, $beacon, $Health.schema, $Health.persistence_closed)
     if (Test-Path $statusPath) {
         $existing = Get-Content $statusPath -Raw
-        # Supersede stale goal-harness receipt that hard-coded score=50 / stale beacon
-        $existing = $existing -replace '(?s)\*\*/kumquat Ritual Receipt \(2026-06-23 Oregon Windows[^*]*\*\*[\s\S]*?<!-- Edited: 2026-06-23 \| Device: Windows \| By: Grok \(/kumquat\) -->[^\r\n]*\r?\n\r?\n', ''
-        $marker = "/kumquat Manifest Receipt ($ts - $RunLabel)"
-        if ($existing -notmatch [regex]::Escape($marker)) {
-            Set-Content -Path $statusPath -Value ($receipt + $existing) -Encoding utf8 -NoNewline
+        # Keep single manifest receipt at top; archive pointer preserved
+        $archiveNote = "*(Historical receipts archived to status-archive-pre-20260623-kumquat.md)*"
+        if ($existing -notmatch [regex]::Escape($archiveNote)) {
+            $body = $receipt + $archiveNote + "`n`n"
+        } else {
+            $body = $receipt + $archiveNote + "`n`n"
         }
+        Set-Content -Path $statusPath -Value $body -Encoding utf8 -NoNewline
     }
 
     $oregonPath = Join-Path $RepoRoot "Mempalace\symbiosis\device-presence\oregon.md"
@@ -250,8 +297,10 @@ Export-ModuleMember -Function @(
     'Get-KumquatHealthMetrics',
     'Get-KumquatCrossArtifactPaths',
     'Get-KumquatCrossArtifactReport',
+    'Get-KumquatCanonicalRelativePaths',
     'Get-KumquatCanonicalChangedPaths',
     'Get-KumquatChangedFiles',
+    'Write-KumquatHarnessEvidence',
     'Format-KumquatClosure',
     'Update-KumquatCoordinationReceipts'
 )

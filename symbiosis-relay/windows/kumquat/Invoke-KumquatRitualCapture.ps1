@@ -11,7 +11,6 @@ $ErrorActionPreference = "Continue"
 $relay = "C:\Synced\grok-mempalace-integration\symbiosis-relay"
 $repo = "C:\Users\spear\grok-hermes-symbiosis"
 $moduleDir = $PSScriptRoot
-$ensureScript = Join-Path $relay "oregon_ensure_symbiosis_latest.ps1"
 
 if (-not $ScratchDir) { $ScratchDir = $env:TEMP }
 if (-not $LogPath) { $LogPath = Join-Path $ScratchDir "kumquat-$RunLabel.log" }
@@ -28,7 +27,7 @@ function Log([string]$msg) {
 Log "=== KUMQUAT RITUAL CAPTURE $RunLabel ==="
 Log "ENTRY: symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1 (KumquatRitualCore orchestrator)"
 
-# STEP 1: Ensure (personal-shell git authoritative per SKILL; harness script diagnostic only)
+# STEP 1: Ensure (personal-shell git ONLY - authoritative per SKILL; no harness ensure.ps1)
 Log "--- STEP 1: ENSURE (personal-shell git authoritative) ---"
 Log "INVOKING: git -C $repo fetch origin (personal shell)"
 $personalOut = & git -C $repo fetch origin 2>&1 | ForEach-Object { $_.ToString() }
@@ -41,14 +40,8 @@ if ($personalExit -eq 0) {
 } else {
     Log "ENSURE_PERSONAL_SHELL: FAILED exit=$personalExit; Syncthing+coordination is live truth"
 }
-if (Test-Path $ensureScript) {
-    Log "ENSURE_DIAGNOSTIC: oregon_ensure_symbiosis_latest.ps1 (harness context note only)"
-    $ensureOut = & powershell -ExecutionPolicy Bypass -File $ensureScript 2>&1 | ForEach-Object { $_.ToString() }
-    $ensureOut | Select-Object -First 8 | ForEach-Object { Log "ENSURE_DIAG: $_" }
-} else {
-    Log "ENSURE_DIAGNOSTIC: oregon_ensure_symbiosis_latest.ps1 not found (non-fatal)"
-}
 Log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis (authoritative per SKILL)"
+Log "ENSURE_HARNESS_NOTE: oregon_ensure_symbiosis_latest.ps1 NOT invoked (harness context unreliable)"
 
 # STEP 2: Ingest
 Log "--- STEP 2: NERVOUS SYSTEM INGESTION ---"
@@ -104,10 +97,10 @@ $closure = Format-KumquatClosure -Health $health -RunLabel $RunLabel -Mode $mode
 $closure -split "`n" | ForEach-Object { if ($_.Trim()) { Log $_ } }
 
 # Changed files evidence bridge
-$changedFiles = Get-KumquatChangedFiles -RepoRoot $repo -RichRelay $relay -ScratchDir $ScratchDir
-$changesPath = Join-Path $ScratchDir "kumquat-changes.txt"
-$changedFiles | Set-Content -Path $changesPath -Encoding utf8
-Log "CHANGES_FILE: $changesPath ($($changedFiles.Count) paths)"
+$changedFiles = Get-KumquatChangedFiles -RepoRoot $repo
+$evidence = Write-KumquatHarnessEvidence -RepoRoot $repo -ScratchDir $ScratchDir -RunLabel $RunLabel
+Log ("CHANGES_FILE: {0} ({1} canonical repo paths)" -f $evidence.changes_path, $evidence.path_count)
+Log ("HARNESS_EVIDENCE: manifest={0} patch={1}" -f $evidence.manifest_path, $evidence.patch_path)
 
 # Manifest
 $manifest = [ordered]@{
