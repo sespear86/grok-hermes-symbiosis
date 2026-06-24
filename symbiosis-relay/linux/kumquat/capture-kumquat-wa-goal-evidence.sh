@@ -32,6 +32,7 @@ cp -f "${SRC_RELAY}/relay_status_core.py" "${RICH_ROOT}/"
 # --- Verification plan step 1: single git.log capture ---
 {
   cd "$REPO_ROOT"
+  git checkout -- symbiosis-relay/linux/kumquat/*.sh 2>/dev/null || true
   git fetch origin
   git checkout kumquat-2026-06-01-hygiene
   git pull
