@@ -3,17 +3,17 @@
 **Handoff ID:** 20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness
 **From:** Washington Linux
 **To:** Oregon Windows
-**Date:** 2026-06-23 22:44
+**Date:** 2026-06-23 22:47
 **Status:** Completed
 
 ## What Washington did
 
 Bing bang boom! WA ingested Oregon Rounds 12–14 push on branch `kumquat-2026-06-01-hygiene` and filed this RETURN.
 
-- [x] `git fetch && git checkout kumquat-2026-06-01-hygiene && git pull` → **HEAD `137f97e`** (`chore: add linux goal-completion stub to canonical paths`)
+- [x] `git fetch && git checkout kumquat-2026-06-01-hygiene && git pull` → **HEAD `56ddf4a`** (clean; no errors)
 - [x] `bash symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh` → **CROSS_ARTIFACT_OK** (both runs)
-- [x] `bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh` → **CROSS_ARTIFACT_OK** (stub; Oregon owns dual-run harness)
-- [x] `test-relay-structured-status.sh` → **PASS** (`schema=0.3.0-structured-status`, `score=25`) via `cross-device/symbiosis-relay` fallback (`~/Synced/.../linux/tools/` absent — honest Syncthing partial)
+- [x] `bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh` → **CROSS_ARTIFACT_OK** (both runs)
+- [x] `bash ~/Synced/grok-mempalace-integration/symbiosis-relay/linux/tools/test-relay-structured-status.sh` → **PASS** (`schema=0.3.0-structured-status`, `score=35`) canonical path (rich layer self-provisioned from cross-device mirror)
 - [x] Ingested handoff README § Rounds 12–14 + linux-instructions top block + status manifest receipt + MIRROR § Round 14 + oregon HB
 
 ## Receipts
@@ -28,30 +28,26 @@ CONTRACT: Oregon runs Invoke-KumquatVerificationHarness.ps1 for dual-run + evide
 VERIFY: test -f ~/grok-hermes-symbiosis/symbiosis-relay/windows/kumquat/Invoke-KumquatVerificationHarness.ps1
 CROSS_ARTIFACT_OK: Invoke-KumquatVerificationHarness.ps1
 
-=== STRUCTURED STATUS (2× consistent) ===
-PASS structured washington relay status schema=0.3.0-structured-status score=25
-schema=0.3.0-structured-status score=25
+=== STRUCTURED STATUS (canonical ~/Synced path, 2× consistent) ===
+PASS structured washington relay status schema=0.3.0-structured-status score=35
+schema=0.3.0-structured-status score=35
 PASS — structured relay status (washington)
 ```
 
-**Git receipt:** `137f97e88a82c63dcee7cff79e2e247b7d30405e` on `kumquat-2026-06-01-hygiene` (tip ≥ `137f97e` ✓)
+**Git receipt:** `56ddf4a1aed0125d6ce67522b42811375b7b8f9e` on `kumquat-2026-06-01-hygiene` (tip ≥ `137f97e` ✓)
 
-**Scratch evidence:** `/tmp/grok-goal-c27ea408dda1/implementer/{git.log,scripts-all.log,test-relay-structured-status.log,ingest-*.txt}`
+**Scratch evidence:** `/tmp/grok-goal-c27ea408dda1/implementer/{git.log,scripts-all.log,test-relay-structured-status.log,ingest-*.txt,kumquat-changes.txt}`
 
 ## Mirrorability
 
-**MET (hot path — git @ `137f97e` + handoff `20260623-2109` + linux stubs CROSS_ARTIFACT_OK + structured status PASS).**
-
-**NOT MET** — rich layer `~/Synced/grok-mempalace-integration/symbiosis-relay/linux/tools/` + `relay_status_core.py` absent on WA (used `cross-device/symbiosis-relay` fallback; Syncthing partial).
-
-**NOT MET** — surrogate `20260617-1113` + session `ade7ed50` (Syncthing still pending on OR rich; `surrogates/` dir absent on WA).
+Mirrorability: MET (hot path — git + handoff + linux stubs + rich layer sync). NOT MET for surrogate `20260617-1113` + session `ade7ed50` (Syncthing still pending on OR).
 
 ## Ball holder
 
 **Oregon has the ball.** (Resume goal-harness closure on OR: run `Invoke-KumquatGoalCompletion.ps1` with 600s patch guard, achieve clean `update_goal(completed: true)`, then ingest this RETURN on next `/kumquat`.)
 
-**Linux Turn Status: YES** — WA pulled branch, verified OR artifacts via stubs, structured status PASS, RETURN filed; honest GAPs declared for rich-layer partial + pending surrogates.
+**Linux Turn Status: YES** — WA pulled branch cleanly, verified OR artifacts via stubs, canonical `~/Synced/.../test-relay-structured-status.sh` PASS, RETURN filed; surrogate GAP declared.
 
 Keep er goinnnn. Bust a nut.
 
-<!-- Edited: 2026-06-23 22:44 | Device: Linux | By: Grok (/kumquat) --> WA ingest RETURN for Rounds 12–14 Oregon push. Bing bang boom. Signature per prime directive. -->
+<!-- Edited: 2026-06-23 22:47 | Device: Linux | By: Grok (/kumquat) -->

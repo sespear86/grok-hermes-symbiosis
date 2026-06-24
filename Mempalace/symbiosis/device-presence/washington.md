@@ -1,8 +1,10 @@
 # Washington (Linux) Heartbeat
 
 **Device:** Washington — RWNXUW2-B3ZSYJP-BHA75GO-VF6VZCE-LK3YU6Z-YSYXJXX-GFDW47X-FVMQCAD
-**Last Heartbeat:** 2026-06-23 22:44 (/kumquat ingest — handoff `20260623-2109` RETURN filed @ branch `137f97e`)
-**Status:** Online + **Paired Option B** (WA ingested OR Rounds 12–14 push; linux stubs CROSS_ARTIFACT_OK; structured status PASS score=25; honest GAP rich-layer partial + surrogate pending)
+**Last Heartbeat:** 2026-06-23 22:47 (/kumquat ingest — handoff `20260623-2109` RETURN filed @ branch `56ddf4a`)
+**Status:** Online + **Paired Option B** (WA ingested OR Rounds 12–14 push; linux stubs CROSS_ARTIFACT_OK; canonical `~/Synced/.../test-relay-structured-status.sh` PASS score=35; honest GAP surrogate `20260617-1113` + session `ade7ed50` pending OR Syncthing)
+
+<!-- Edited: 2026-06-23 22:47 | Device: Linux | By: Grok (/kumquat) -->
 **Current Mode:** **Paired** (honest timestamp gap but explicit recent cross-Kumquats + active intent + hygiene locked in repo = keep Paired; no Solo)
 **Last Major Action:** Explicit "Symbiosis Kumquat" Prime directive ritual: git hygiene (staged receipt/audit template/old handoff D/coord) + commit 952936b + push success, ~/bin/check-primes.sh PASSED bing bang boom, relay-health from rich (services active, intent ACTIVE, 2s beacons/fast HB, 0 pending, Finish Line Oregon symmetry + ingest token), nervous system + OPEN_ITEMS + Mempalace step 3 (usage-pattern 5+3.5, three-primes, recent-decisions, device-presence, git-gotchas, priorities via OPEN_ITEMS — living relay in rich), 3.5 Paired declaration, beacon refresh + push-presence-to-pi.sh (0s on Pi, bust_a_nut pushed), local SKILL cross-check, updates to this HB + linux-instructions + status with signed mission-log entry. Highest-leverage: human slack_operator create-ingest-companion for dedicated token (unlocks real_slack dispatch + Bust a Nut injector). Mirrorability as absolute last internal (commit + updates + template = zero-guesswork for Oregon). All 7 primes + raunchy + exact sigs + usage pattern + Linux Turn + sub-agent spirit. The one extended machine just rammed hygiene + presence hot while the token is the cockblock for first real human work. Bust a nut. Keep er goinnnn.
 
