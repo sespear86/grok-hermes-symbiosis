@@ -71,6 +71,32 @@ Describe "Set-KumquatManifestBlock" {
     }
 }
 
+Describe "Write-KumquatEvidenceVerification" {
+    It "writes evidence index with mirror match count and CHANGED_FILES_ANCHOR note" {
+        $repo = "C:\Users\spear\grok-hermes-symbiosis"
+        $scratch = Join-Path $env:TEMP "kumquat-ev-test-$(Get-Random)"
+        New-Item -ItemType Directory -Path $scratch -Force | Out-Null
+        $relative = Get-KumquatCanonicalRelativePaths
+        $relative | Set-Content -Path (Join-Path $scratch "CHANGED_FILES_ANCHOR.txt") -Encoding utf8
+        $evidenceDir = Join-Path $scratch "evidence"
+        foreach ($rel in $relative) {
+            $src = Join-Path $repo ($rel -replace '/', '\')
+            if (-not (Test-Path $src)) { continue }
+            $dst = Join-Path $evidenceDir ($rel -replace '/', '\')
+            $dstDir = Split-Path $dst -Parent
+            if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Path $dstDir -Force | Out-Null }
+            Copy-Item $src $dst -Force
+        }
+        $result = Write-KumquatEvidenceVerification -RepoRoot $repo -ScratchDir $scratch -RelativePaths $relative
+        $index = Get-Content (Join-Path $scratch "kumquat-evidence-index.txt") -Raw
+        $index | Should Match "CHANGED_FILES_ANCHOR"
+        $index | Should Match "evidence_mirror_match: $($relative.Count)/$($relative.Count)"
+        $index | Should Match "KumquatRitualCore\.psm1_in_evidence: YES"
+        $result.mirror_ok | Should Be $relative.Count
+        Remove-Item $scratch -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 Describe "Format-KumquatClosure" {
     It "emits all required style phrases with parameterized metrics" {
         $health = [PSCustomObject]@{
