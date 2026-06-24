@@ -11,7 +11,8 @@ Describe "Invoke-KumquatRitualCapture (smoke)" {
         $LASTEXITCODE | Should Be 0
         Test-Path $Manifest | Should Be $true
         $log = Get-Content $ScratchLog -Raw
-        $log | Should Match "oregon_ensure_symbiosis_latest\.ps1"
+        $log | Should Match "ENSURE_PERSONAL_SHELL"
+        $log | Should Match "KumquatRitualCore"
         $log | Should Match "ACTUAL_OVERALL_OK:"
         $log | Should Match "ACTUAL_SCORE:"
         $log | Should Match "MANIFEST_WRITTEN:"

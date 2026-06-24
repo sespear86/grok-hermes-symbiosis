@@ -3,6 +3,36 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
+### KumquatRitualCore.psm1 + manifest-driven capture (Round 3 restructure, 2026-06-23)
+
+**What shipped:** Structural restructure per goal harness strategy.md. Pure testable module + thin orchestrator + manifest.json + kumquat-changes.txt evidence bridge (clean canonical paths only - no harness system32/mcps noise).
+
+| Artifact | Oregon path | Purpose |
+|----------|-------------|---------|
+| Core module | `symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1` | Pure helpers: ingest reads, health parse, cross-artifact report, canonical changed-files, closure format, coordination receipts |
+| Orchestrator | `symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1` | Thin wrapper: personal-shell git ensure, health stack, writes manifest + kumquat-changes.txt |
+| Unit tests | `symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1` | Pester 2/2 PASS (health parse + closure phrases) |
+| Smoke test | `symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1` | Pester 1/1 PASS (shipped wrapper + manifest ACTUAL_* metrics) |
+| Linux mirror | `symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh` | OS-transposed capture (personal-shell git, cross-artifact verify incl. Core.psm1 path) |
+| Evidence | `{SCRATCH}/kumquat-manifest.json`, `kumquat-changes.txt` | Manifest-driven closure only; changes file lists canonical kumquat paths |
+
+**Exact Mirror Instructions for Washington Linux (brother):**
+1. Pull repo; verify `symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1` exists (OR-only runtime; WA verifies path + runs linux mirror).
+2. `chmod +x symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh`
+3. On `/kumquat`: run linux mirror; confirm log has `ENSURE_PERSONAL_SHELL`, `CROSS_ARTIFACT_OK: symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1`, manifest phrases.
+4. Ingest handoff `20260623-2109` README section "KumquatRitualCore + Manifest Bridge".
+5. File RETURN.md citing manifest metrics (do not hard-code score).
+
+**Exact Mirror Instructions for Oregon Windows (this device):**
+1. Shipped at `symbiosis-relay/windows/kumquat/` (rich mirror: `C:\Synced\...\symbiosis-relay\windows\kumquat\`).
+2. STEP 1 ensure: **personal-shell** `git -C C:\Users\spear\grok-hermes-symbiosis fetch origin` (authoritative); `oregon_ensure_symbiosis_latest.ps1` diagnostic only.
+3. Run: `powershell -ExecutionPolicy Bypass -File Invoke-KumquatRitualCapture.ps1 -RunLabel run-2 -UpdateCoordination`
+4. Verify: `Invoke-Pester` on both test files; manifest `health.score` from live parse only.
+
+**Mirror MET** for Core.psm1 restructure + manifest bridge + linux mirror + handoff/MIRROR docs.
+
+<!-- Edited: 2026-06-23 | Device: Windows | By: Grok (/kumquat) --> Round 3 KumquatRitualCore + manifest cross-implement block. Signature per prime directive. Keep er goinnnn. Bust a nut. -->
+
 ### Invoke-KumquatRitualCapture wrapper (2026-06-23, cross-implement for verification)
 
 **What shipped:** Headless `/kumquat` ritual capture wrappers for honest verification (invoke real ensure + health stack, log full ingest with mtime/first_line, presence 3.5, surrogate check, cross-artifact list).

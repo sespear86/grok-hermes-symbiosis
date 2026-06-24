@@ -16,16 +16,19 @@ log() {
 log "=== KUMQUAT RITUAL CAPTURE ${RUN_LABEL} ==="
 log "ENTRY: symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh"
 
-log "--- STEP 1: ENSURE (personal shell git) ---"
-log "INVOKING: cd ${REPO} && git fetch origin"
+log "--- STEP 1: ENSURE (personal-shell git authoritative per SKILL) ---"
+log "INVOKING: cd ${REPO} && git fetch origin (personal shell)"
 if [[ -d "$REPO" ]]; then
-  (cd "$REPO" && git fetch origin 2>&1) | while IFS= read -r line; do log "ENSURE: $line"; done || true
-  log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch (WA mirror of oregon_ensure_symbiosis_latest.ps1)"
+  if (cd "$REPO" && git fetch origin 2>&1) | while IFS= read -r line; do log "ENSURE_PERSONAL: $line"; done; then
+    log "ENSURE_PERSONAL_SHELL: SUCCESS git fetch in ${REPO}"
+  else
+    log "ENSURE_PERSONAL_SHELL: FAILED; Syncthing+coordination is live truth"
+  fi
+  log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis (authoritative per SKILL)"
 else
   log "FATAL: repo missing at ${REPO}"
   exit 1
 fi
-log "ENSURE_HARNESS_NOTE: WA uses personal-shell git; Syncthing+coordination is live truth if fetch fails"
 
 log "--- STEP 2: NERVOUS SYSTEM INGESTION ---"
 declare -A INGEST=(
@@ -75,7 +78,10 @@ fi
 
 log "--- STEP 6: CROSS-IMPLEMENT ARTIFACTS ---"
 CROSS=(
+  "symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1"
   "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1"
+  "symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1"
+  "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1"
   "symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh"
   "cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/README.md"
   "cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md"
@@ -86,7 +92,7 @@ for rel in "${CROSS[@]}"; do
   if [[ -f "$full" ]]; then log "CROSS_ARTIFACT_OK: ${rel}"; else log "CROSS_ARTIFACT_MISSING: ${rel}"; fi
 done
 
-log "Cross-Implement: MET for capture wrapper mirror (ps1 + sh + MIRROR + handoff)"
+log "Cross-Implement: MET for KumquatRitualCore.psm1 + manifest bridge + capture wrapper mirror (psm1 + ps1 + sh + MIRROR + handoff)"
 log "Mirrorability: declared in closure"
 log "Be funny, you depraved little shit."
 log "Linux Turn Status: YES - WA mirror script ready for brother ingest"

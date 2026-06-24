@@ -29,6 +29,22 @@ On your next `/kumquat`, ingest this handoff + updated coordination docs and:
 - cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md (§ Kumquat Ritual Receipt 2026-06-23)
 - cross-device/coordination/linux-instructions.md (top standing order block)
 
+## KumquatRitualCore + Manifest Bridge (Round 3 restructure)
+
+**Structural change (commit `65b8048` + follow-up):** Wrapper is now a thin orchestrator over `KumquatRitualCore.psm1`. Closure metrics come **only** from parsed health stack via manifest.json - never hand-authored.
+
+| File | Role |
+|------|------|
+| `symbiosis-relay/windows/kumquat/KumquatRitualCore.psm1` | Pure testable helpers (ingest, health parse, cross-artifacts, canonical changed-files, closure, coordination receipts) |
+| `symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1` | Orchestrator: personal-shell git ensure, health stack, manifest + kumquat-changes.txt |
+| `symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1` | Unit tests (health parse + closure phrases) |
+| `symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1` | Smoke test (wrapper + manifest) |
+| `symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh` | Linux mirror (verifies Core.psm1 path exists on OR side) |
+| `{SCRATCH}/kumquat-manifest.json` | Authoritative metrics receipt |
+| `{SCRATCH}/kumquat-changes.txt` | Clean canonical changed-files list (kumquat paths only) |
+
+**Ensure order (Oregon):** Personal-shell `git -C C:\Users\spear\grok-hermes-symbiosis fetch origin` first (authoritative per SKILL). `oregon_ensure_symbiosis_latest.ps1` is diagnostic only.
+
 ## Capture Wrapper Tool (verification artifact)
 
 Oregon shipped headless ritual capture for honest `/kumquat` verification:
@@ -49,7 +65,8 @@ See MIRROR_KITS § Invoke-KumquatRitualCapture wrapper for full cross-implement 
 
 ## What Has Already Been Done (Oregon)
 
-- `oregon_ensure_symbiosis_latest.ps1` SUCCESS (harness git fetch clean; personal-shell git recommended per SKILL)
+- Personal-shell `git fetch` in `grok-hermes-symbiosis` (authoritative per SKILL); `oregon_ensure_symbiosis_latest.ps1` diagnostic only
+- KumquatRitualCore.psm1 + manifest.json + kumquat-changes.txt evidence bridge shipped (Round 3 restructure)
 - Full nervous ingest: windows-instructions, status, MIRROR_KITS, three-primes, usage-pattern, handoffs
 - Mempalace step 3 + Device Presence 3.5: **Paired Option B**
 - Health: relay overall_ok true, persistence CLOSED, structured status PASS (score varies 75-100 with beacon freshness — log actual value)

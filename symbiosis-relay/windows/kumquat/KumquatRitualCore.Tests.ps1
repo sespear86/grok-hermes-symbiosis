@@ -26,6 +26,19 @@ Describe "Get-KumquatHealthMetrics" {
     }
 }
 
+Describe "Get-KumquatCanonicalChangedPaths" {
+    It "returns only canonical kumquat paths (no system32/mcps noise)" {
+        $repo = "C:\Users\spear\grok-hermes-symbiosis"
+        $paths = Get-KumquatCanonicalChangedPaths -RepoRoot $repo
+        $paths.Count | Should BeGreaterThan 5
+        ($paths -join "`n") | Should Match "KumquatRitualCore\.psm1"
+        ($paths -join "`n") | Should Match "Invoke-KumquatRitualCapture\.ps1"
+        ($paths -join "`n") | Should Match "invoke-kumquat-ritual-capture\.sh"
+        ($paths -join "`n") | Should Not Match "mcps"
+        ($paths -join "`n") | Should Not Match "system32"
+    }
+}
+
 Describe "Format-KumquatClosure" {
     It "emits all required style phrases with parameterized metrics" {
         $health = [PSCustomObject]@{

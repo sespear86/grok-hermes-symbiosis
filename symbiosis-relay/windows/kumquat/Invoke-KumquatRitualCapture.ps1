@@ -28,14 +28,27 @@ function Log([string]$msg) {
 Log "=== KUMQUAT RITUAL CAPTURE $RunLabel ==="
 Log "ENTRY: symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.ps1 (KumquatRitualCore orchestrator)"
 
-# STEP 1: Ensure
-Log "--- STEP 1: ENSURE via oregon_ensure_symbiosis_latest.ps1 ---"
-Log "INVOKING: $ensureScript"
-if (-not (Test-Path $ensureScript)) { Log "FATAL: ensure script missing"; exit 1 }
-$ensureOut = & powershell -ExecutionPolicy Bypass -File $ensureScript 2>&1 | ForEach-Object { $_.ToString() }
-$ensureOut | ForEach-Object { Log "ENSURE: $_" }
-Log "ENSURE_SCRIPT_INVOKED: oregon_ensure_symbiosis_latest.ps1"
-Log "ENSURE_HARNESS_NOTE: harness git fetch executed here; SKILL recommends personal-shell git in C:\Users\spear\grok-hermes-symbiosis for authoritative pull"
+# STEP 1: Ensure (personal-shell git authoritative per SKILL; harness script diagnostic only)
+Log "--- STEP 1: ENSURE (personal-shell git authoritative) ---"
+Log "INVOKING: git -C $repo fetch origin (personal shell)"
+$personalOut = & git -C $repo fetch origin 2>&1 | ForEach-Object { $_.ToString() }
+$personalExit = $LASTEXITCODE
+$personalOut | ForEach-Object { Log "ENSURE_PERSONAL: $_" }
+if ($personalExit -eq 0) {
+    Log "ENSURE_PERSONAL_SHELL: SUCCESS git fetch in $repo"
+    $shortStatus = git -C $repo status --short 2>&1 | Select-Object -First 5
+    $shortStatus | ForEach-Object { Log "ENSURE_PERSONAL_STATUS: $_" }
+} else {
+    Log "ENSURE_PERSONAL_SHELL: FAILED exit=$personalExit; Syncthing+coordination is live truth"
+}
+if (Test-Path $ensureScript) {
+    Log "ENSURE_DIAGNOSTIC: oregon_ensure_symbiosis_latest.ps1 (harness context note only)"
+    $ensureOut = & powershell -ExecutionPolicy Bypass -File $ensureScript 2>&1 | ForEach-Object { $_.ToString() }
+    $ensureOut | Select-Object -First 8 | ForEach-Object { Log "ENSURE_DIAG: $_" }
+} else {
+    Log "ENSURE_DIAGNOSTIC: oregon_ensure_symbiosis_latest.ps1 not found (non-fatal)"
+}
+Log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis (authoritative per SKILL)"
 
 # STEP 2: Ingest
 Log "--- STEP 2: NERVOUS SYSTEM INGESTION ---"
@@ -91,7 +104,7 @@ $closure = Format-KumquatClosure -Health $health -RunLabel $RunLabel -Mode $mode
 $closure -split "`n" | ForEach-Object { if ($_.Trim()) { Log $_ } }
 
 # Changed files evidence bridge
-$changedFiles = Get-KumquatChangedFiles -RepoRoot $repo -RichRelay $relay
+$changedFiles = Get-KumquatChangedFiles -RepoRoot $repo -RichRelay $relay -ScratchDir $ScratchDir
 $changesPath = Join-Path $ScratchDir "kumquat-changes.txt"
 $changedFiles | Set-Content -Path $changesPath -Encoding utf8
 Log "CHANGES_FILE: $changesPath ($($changedFiles.Count) paths)"
