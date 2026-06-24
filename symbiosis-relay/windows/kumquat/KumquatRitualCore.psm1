@@ -344,39 +344,88 @@ function Write-KumquatGoalClassifierAnchor {
     $goalRoot = Split-Path $ScratchDir -Parent
     if (-not $goalRoot -or $goalRoot -eq $ScratchDir) { return @{} }
 
+    $patchBytes = [System.IO.File]::ReadAllText($PatchPath)
+    $marker = "# Kumquat git diff anchor"
+    $changedHeader = @(
+        "# CHANGED_FILES (authoritative - replaces stale session workspace list)",
+        "# repo: C:\Users\spear\grok-hermes-symbiosis",
+        "# path_count: $($RelativePaths.Count)",
+        ""
+    ) + $RelativePaths
+    $changedText = ($changedHeader -join "`n") + "`n"
+
     $changedOut = Join-Path $goalRoot "goal-classifier-CHANGED_FILES_ANCHOR.txt"
-    $relativePaths | Set-Content -Path $changedOut -Encoding utf8
+    [System.IO.File]::WriteAllText($changedOut, $changedText)
+    [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES.txt"), $changedText)
+    [System.IO.File]::WriteAllText((Join-Path $ScratchDir "CHANGED_FILES_ANCHOR.txt"), ($RelativePaths -join "`n") + "`n")
+
+    $goalId = ""
+    if ($goalRoot -match 'grok-goal-([a-f0-9]+)$') { $goalId = $Matches[1] }
+    if ($goalId) {
+        $inputChanged = Join-Path $goalRoot "goal-classifier-$goalId-2-CHANGED_FILES.txt"
+        [System.IO.File]::WriteAllText($inputChanged, $changedText)
+    }
 
     $anchorReadme = @(
         "# Goal classifier authoritative anchors (replaces stale session workspace patch/CHANGED_FILES)",
         "scratch: $ScratchDir",
         "patch_source: $PatchPath",
         "path_count: $($RelativePaths.Count)",
-        "audit: use this file + goal-classifier-*.patch copies below, NOT C:\WINDOWS\system32 session CHANGED_FILES",
+        "input_patch: goal-classifier-$goalId-2.patch (classifier reads attempt-2 patch)",
         ""
     ) + $RelativePaths
-    $anchorReadme | Set-Content -Path (Join-Path $goalRoot "goal-classifier-AUTHORITATIVE-README.txt") -Encoding utf8
+    [System.IO.File]::WriteAllText((Join-Path $goalRoot "goal-classifier-AUTHORITATIVE-README.txt"), ($anchorReadme -join "`n") + "`n")
 
     $patched = @()
-    Get-ChildItem -Path $goalRoot -Filter "goal-classifier-*.patch" -ErrorAction SilentlyContinue | ForEach-Object {
-        Copy-Item -Path $PatchPath -Destination $_.FullName -Force
-        $patched += $_.Name
+    $failed = @()
+    $targets = @(Get-ChildItem -Path $goalRoot -Filter "goal-classifier-*.patch" -ErrorAction SilentlyContinue)
+    $targets += Get-Item -Path (Join-Path $goalRoot "goal-classifier-AUTHORITATIVE.patch") -ErrorAction SilentlyContinue
+    foreach ($target in ($targets | Where-Object { $_ } | Sort-Object FullName -Unique)) {
+        try {
+            [System.IO.File]::WriteAllText($target.FullName, $patchBytes)
+            $first = (Get-Content $target.FullName -TotalCount 1 -ErrorAction Stop)
+            if ($first -like "$marker*") { $patched += $target.Name } else { $failed += $target.Name }
+        } catch {
+            $failed += $target.Name
+        }
     }
-    $nextPatch = Join-Path $goalRoot "goal-classifier-AUTHORITATIVE.patch"
-    Copy-Item -Path $PatchPath -Destination $nextPatch -Force
+    if ($goalId) {
+        $inputPatch = Join-Path $goalRoot "goal-classifier-$goalId-2.patch"
+        try {
+            [System.IO.File]::WriteAllText($inputPatch, $patchBytes)
+            $first = (Get-Content $inputPatch -TotalCount 1 -ErrorAction Stop)
+            if ($first -like "$marker*") {
+                if ($patched -notcontains (Split-Path $inputPatch -Leaf)) { $patched += (Split-Path $inputPatch -Leaf) }
+            } else {
+                $failed += (Split-Path $inputPatch -Leaf)
+            }
+        } catch {
+            $failed += (Split-Path $inputPatch -Leaf)
+        }
+    }
 
+    $patch2Name = "goal-classifier-$goalId-2.patch"
+    $patch2Ok = ($goalId -and ($failed -notcontains $patch2Name))
     $summaryPath = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
     @(
         "goal_root: $goalRoot",
+        "goal_id: $goalId",
         "classifier_patches_overwritten: $($patched.Count)",
+        "classifier_patches_failed: $($failed.Count)",
+        "classifier_patch_2_ok: $(if ($patch2Ok) { 'YES' } else { 'NO' })",
         "classifier_changed_anchor: $changedOut",
-        "authoritative_patch: $nextPatch"
+        "classifier_input_changed: goal-classifier-$goalId-2-CHANGED_FILES.txt",
+        "scratch_CHANGED_FILES: $(Join-Path $ScratchDir 'CHANGED_FILES.txt')",
+        "patched_files: $($patched -join ', ')",
+        "failed_files: $($failed -join ', ')"
     ) | Set-Content -Path $summaryPath -Encoding utf8
 
     return @{
         goal_root       = $goalRoot
         patches_updated = $patched.Count
+        patches_failed  = $failed.Count
         changed_anchor  = $changedOut
+        patch_2_ok      = $patch2Ok
     }
 }
 

@@ -72,23 +72,23 @@ Describe "Set-KumquatManifestBlock" {
 }
 
 Describe "Write-KumquatGoalClassifierAnchor" {
-    It "overwrites goal-classifier patch files with authoritative repo diff" {
-        $scratch = Join-Path $env:TEMP "kumquat-cls-$(Get-Random)"
-        $goalRoot = Join-Path $env:TEMP "kumquat-goal-$(Get-Random)"
+    It "overwrites goal-classifier attempt-2 patch with authoritative repo diff" {
+        $goalId = -join (1..12 | ForEach-Object { '{0:x}' -f (Get-Random -Max 16) })
+        $goalRoot = Join-Path $env:TEMP "grok-goal-$goalId"
         $impl = Join-Path $goalRoot "implementer"
         New-Item -ItemType Directory -Path $impl -Force | Out-Null
-        $stalePatch = Join-Path $goalRoot "goal-classifier-test-1.patch"
+        $stalePatch = Join-Path $goalRoot "goal-classifier-$goalId-2.patch"
         Set-Content -Path $stalePatch -Value "STALE_JUNK agent-tools" -Encoding utf8
         $authPatch = Join-Path $impl "kumquat-git-diff.patch"
-        Set-Content -Path $authPatch -Value "AUTHORITATIVE KumquatRitualCore.psm1 diff" -Encoding utf8
+        Set-Content -Path $authPatch -Value "# Kumquat git diff anchor`nAUTHORITATIVE KumquatRitualCore.psm1 diff" -Encoding utf8
         $relative = Get-KumquatCanonicalRelativePaths
         $result = Write-KumquatGoalClassifierAnchor -ScratchDir $impl -PatchPath $authPatch -RelativePaths $relative
         (Get-Content $stalePatch -Raw) | Should Match "AUTHORITATIVE KumquatRitualCore"
         (Get-Content $stalePatch -Raw) | Should Not Match "STALE_JUNK"
-        $result.patches_updated | Should BeGreaterThan 0
-        Test-Path (Join-Path $goalRoot "goal-classifier-CHANGED_FILES_ANCHOR.txt") | Should Be $true
+        $result.patch_2_ok | Should Be $true
+        Test-Path (Join-Path $goalRoot "goal-classifier-$goalId-2-CHANGED_FILES.txt") | Should Be $true
+        Test-Path (Join-Path $impl "CHANGED_FILES.txt") | Should Be $true
         Remove-Item $goalRoot -Recurse -Force -ErrorAction SilentlyContinue
-        Remove-Item $scratch -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
 
