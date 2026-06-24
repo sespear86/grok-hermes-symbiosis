@@ -10,7 +10,7 @@
 
 Bing bang boom! WA ingested Oregon Rounds 12–14 push on branch `kumquat-2026-06-01-hygiene` and filed this RETURN.
 
-- [x] `git fetch && git checkout kumquat-2026-06-01-hygiene && git pull` → **HEAD `56ddf4a`** (clean; no errors)
+- [x] `git fetch && git checkout kumquat-2026-06-01-hygiene && git pull` → **HEAD `c15dad6`** (clean; `137f97e` ancestor ✓)
 - [x] `bash symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh` → **CROSS_ARTIFACT_OK** (both runs)
 - [x] `bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh` → **CROSS_ARTIFACT_OK** (both runs)
 - [x] `bash ~/Synced/grok-mempalace-integration/symbiosis-relay/linux/tools/test-relay-structured-status.sh` → **PASS** (`schema=0.3.0-structured-status`, `score=35`) canonical path (rich layer self-provisioned from cross-device mirror)
@@ -34,9 +34,9 @@ schema=0.3.0-structured-status score=35
 PASS — structured relay status (washington)
 ```
 
-**Git receipt:** `56ddf4a1aed0125d6ce67522b42811375b7b8f9e` on `kumquat-2026-06-01-hygiene` (tip ≥ `137f97e` ✓)
+**Git receipt:** `c15dad6b4b21ea7cede970688fda925917d03b54` on `kumquat-2026-06-01-hygiene`; `137f97e` is ancestor of HEAD (ANCESTOR_CHECK=PASS)
 
-**Scratch evidence:** `/tmp/grok-goal-c27ea408dda1/implementer/{git.log,scripts-all.log,test-relay-structured-status.log,ingest-*.txt,kumquat-changes.txt}`
+**Scratch evidence:** `/tmp/grok-goal-c27ea408dda1/implementer/{git.log,goal-completion.log,verification-harness.log,test-relay-structured-status.log,CHANGED_FILES.txt,kumquat-git-diff.patch,ingest-*.txt}`
 
 ## Mirrorability
 
@@ -50,4 +50,4 @@ Mirrorability: MET (hot path — git + handoff + linux stubs + rich layer sync).
 
 Keep er goinnnn. Bust a nut.
 
-<!-- Edited: 2026-06-23 22:47 | Device: Linux | By: Grok (/kumquat) -->
+<!-- Edited: 2026-06-23 22:51 | Device: Linux | By: Grok (/kumquat) -->
