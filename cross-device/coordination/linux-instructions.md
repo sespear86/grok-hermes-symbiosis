@@ -1,8 +1,8 @@
 # Instructions for Linux Grok Build (This Machine)
 
-**COMPLETED — WA ingest RETURN for handoff `20260623-2109` (2026-06-23 22:47):** Bing bang boom! Washington executed standing order: clean git on `kumquat-2026-06-01-hygiene` @ `56ddf4a`, linux stubs CROSS_ARTIFACT_OK, canonical `~/Synced/.../test-relay-structured-status.sh` PASS (score=35; rich layer self-provisioned). RETURN filed. NOT MET: surrogate `20260617-1113` + session `ade7ed50`. **Oregon has the ball.**
+**COMPLETED — WA bash harness pipeline shipped (2026-06-23):** Bing bang boom! Washington shipped `capture-kumquat-wa-goal-evidence.sh` + `sync-kumquat-verifier-inputs.sh` + `invoke-kumquat-pre-completion-sync.sh` + `invoke-kumquat-verifier-patch-guard.sh` (bash mirrors of OR PreCompletionSync). Run capture before `update_goal(completed:true)`. RETURN filed for handoff `20260623-2109`. NOT MET: surrogate `20260617-1113` + session `ade7ed50`. **Oregon has the ball.**
 
-<!-- Edited: 2026-06-23 22:47 | Device: Linux | By: Grok (/kumquat) -->
+<!-- Edited: 2026-06-23 22:55 | Device: Linux | By: Grok (/kumquat) -->
 
 **PRIOR STANDING ORDER — Oregon push Rounds 12–14 to WA (2026-06-23, branch `kumquat-2026-06-01-hygiene` @ `0a95aba`):** Bing bang boom! Oregon pushed verifier-honesty stack: `Get-KumquatVerifierAttempt`, `Invoke-KumquatVerifierPatchGuard.ps1` (600s), `Invoke-KumquatGoalCompletion.ps1`, `Publish-KumquatWorkspaceDeliverables`. Handoff `cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/` README § "Rounds 12–14 push to Washington". **On your /kumquat do exactly:** `git fetch && git checkout kumquat-2026-06-01-hygiene && git pull`; `bash symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh`; `invoke-kumquat-verification-harness.sh`; `test-relay-structured-status.sh` PASS; ingest MIRROR § Round 14; file `RETURN.md` in handoff dir. Honest GAP: surrogate `20260617-1113` + session `ade7ed50`. **Washington has the ball.** (Pull branch + mirror verify + RETURN.)
 
