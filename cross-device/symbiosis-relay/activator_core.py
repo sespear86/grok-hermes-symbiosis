@@ -37,7 +37,7 @@ sys.path.insert(0, str(_RELAY_ROOT))
 sys.path.insert(0, str(_RELAY_ROOT / "tools"))
 import task_schema  # noqa: E402
 import control  # noqa: E402
-import send_to_slack  # noqa: E402
+import send_to_telegram as send_to_relay  # noqa: E402
 
 # --- 19557e65 + oregon-support for cross-device receiver ---
 # Small back-compatible generalization: SYMBIOSIS_DEVICE env var (or --device CLI flag on the thin
@@ -49,6 +49,9 @@ import send_to_slack  # noqa: E402
 # Oregon receiver launcher will: $env:SYMBIOSIS_DEVICE="oregon"; python -u washington_activator.py ...
 # Default behavior 100% unchanged for existing washington service + tests. Packaging change only.
 DEVICE = (os.environ.get("SYMBIOSIS_DEVICE", "washington") or "washington").strip().lower()
+PROCESSING_STALE_SECS = int(os.environ.get("SYMBIOSIS_PROCESSING_STALE_SECS", "360"))
+PROCESSING_STARTUP_MIN_AGE = int(os.environ.get("SYMBIOSIS_PROCESSING_STARTUP_MIN_AGE", "600"))
+_startup_recovery_done = False
 
 # --- Config (env overridable, same spirit as device_selector/relay_listener) ---
 SHARED_BASE = Path(os.environ.get("SYMBIOSIS_SHARED", "/home/Irikash/Synced/grok-mempalace-integration"))
@@ -157,6 +160,33 @@ def read_status() -> dict[str, Any]:
 
 # --- Status + Beacon (enriched, retried) ---
 def write_status(state: str, task_id: str = "", message: str = "", **extra: Any) -> None:
+    """Structured cross-device status (selector_score, signals, JSONL events)."""
+    try:
+        import relay_status_core as rsc  # noqa: WPS433 — sibling module, stdlib-only
+
+        lightweight = bool(extra.get("lightweight", False))
+        extra_for_core = {k: v for k, v in extra.items() if k != "lightweight"}
+        rsc.write_structured_status(
+            DEVICE,
+            state,
+            task_id,
+            message,
+            source="activator_core",
+            lightweight=lightweight,
+            extra=extra_for_core or None,
+        )
+        _json_log(
+            "INFO",
+            "structured status written",
+            state=state,
+            task_id=task_id,
+            schema=rsc.SCHEMA_VERSION,
+            **{k: v for k, v in extra.items() if k in ("health_ok", "beacon_age_seconds_at_claim", "last_inject_rc", "last_hermes_rc")},
+        )
+        return
+    except Exception as e:
+        _json_log("WARNING", "structured status fallback", error=str(e))
+
     data = {
         "state": state,
         "current_task": task_id,
@@ -189,6 +219,7 @@ def fire_beacon(active: bool, task_id: str = "", bust: bool = False) -> bool:
     _json_log("ERROR", "beacon total failure", active=active, task_id=task_id)
     return False
 
+# <!-- Edited: 2026-06-04 | Device: Windows | By: Grok (19557e65 Oregon packaging + Kumquat verification) --> Self-provisioned tolerant beacon exists parser for Oregon launcher command strings + Set beacon script support. Exact primes + Mirror + self-prov followed. Keep er goinnnn. Bust a nut.
 
 def check_health() -> dict[str, Any]:
     """Return health dict. Used before claim + for --health CLI."""
@@ -247,6 +278,71 @@ def claim_task(task_file: Path) -> Path | None:
         return None
 
 
+def recover_orphaned_processing(*, force_all: bool = False) -> int:
+    """Requeue stale (or all startup) tasks left in processing/ after a crash/restart."""
+    global _startup_recovery_done
+    PROCESSING_DIR.mkdir(parents=True, exist_ok=True)
+    recovered = 0
+    now = time.time()
+    min_age = PROCESSING_STARTUP_MIN_AGE if force_all else PROCESSING_STALE_SECS
+    for proc_file in sorted(PROCESSING_DIR.glob("*.json")):
+        age = now - proc_file.stat().st_mtime
+        if age < min_age:
+            continue
+        try:
+            corr = json.loads(proc_file.read_text()).get("correlation_id", proc_file.stem)
+        except Exception:
+            corr = proc_file.stem.removeprefix("task-")
+        grok_log = LOG_DIR / f"grok-relay-{corr}.log"
+        if grok_log.exists() and (now - grok_log.stat().st_mtime) < 120:
+            _json_log("INFO", "skip recovery — grok still running", file=proc_file.name, corr=corr)
+            continue
+        inbox_path = COMMAND_INBOX / proc_file.name
+        try:
+            proc_file.rename(inbox_path)
+            recovered += 1
+            _json_log(
+                "WARNING",
+                "recovered orphaned processing task",
+                file=proc_file.name,
+                age_seconds=round(age, 1),
+                force_all=force_all,
+            )
+        except Exception as e:
+            _json_log("ERROR", "processing recovery failed", file=proc_file.name, error=str(e))
+    if force_all:
+        _startup_recovery_done = True
+    return recovered
+
+
+def _notify_telegram(task: dict[str, Any], *, success: bool, summary: str) -> None:
+    try:
+        out = send_to_relay.ack_task_completion(
+            task, success=success, summary=summary, device=DEVICE
+        )
+        _json_log(
+            "INFO",
+            "telegram_task_completion",
+            correlation=task.get("correlation_id"),
+            relay_ack_ok=out.get("ok"),
+            relay_ack_error=out.get("error"),
+        )
+        capture_text = (
+            f"{'Done' if success else 'Failed'}: {(task.get('original_message') or '')[:200]}\n"
+            f"{summary[:500]}"
+        )
+        cap_out = send_to_relay.post_task_capture(capture_text, device=DEVICE)
+        _json_log(
+            "INFO",
+            "telegram_task_capture",
+            correlation=task.get("correlation_id"),
+            relay_ack_ok=cap_out.get("ok"),
+            relay_ack_error=cap_out.get("error"),
+        )
+    except Exception as e:
+        _json_log("WARNING", "telegram completion notify failed", error=str(e))
+
+
 def archive_task(proc_or_orig: Path, success: bool) -> None:
     """Move from processing/ to processed/ or failed/ depending on success."""
     if success:
@@ -280,8 +376,8 @@ def _write_pending_artifact(correlation: str, task: dict, error: str, suggested:
     return p
 
 
-def prompt_grok_build(task: dict[str, Any]) -> bool:
-    """Core handoff. Returns True only on clean success path."""
+def prompt_grok_build(task: dict[str, Any]) -> tuple[bool, str]:
+    """Core handoff. Returns (success, output_summary)."""
     correlation = task.get("correlation_id", "unknown")
     task_type = task.get("type", "")
     _json_log("INFO", "prompt_grok_build start", correlation=correlation, type=task_type)
@@ -304,7 +400,7 @@ def prompt_grok_build(task: dict[str, Any]) -> bool:
             _json_log("INFO", "live inject rc", correlation=correlation, rc=res.returncode, stdout=res.stdout[:300])
             if res.returncode == 0:
                 write_status("bust_a_nut_injected_live", correlation, "Re-initiated into existing Grok Build TUI via live inject", last_inject_rc=0, health_ok=True)
-                return True
+                return True, res.stdout[:2000] or "Injected into live Grok Build TUI."
             else:
                 _json_log("WARNING", "live inject failed rc", correlation=correlation, rc=res.returncode, stderr=res.stderr[:300])
         except Exception as e:
@@ -317,7 +413,7 @@ def prompt_grok_build(task: dict[str, Any]) -> bool:
                 res2 = subprocess.run(py_cmd, capture_output=True, text=True, timeout=20)
                 if res2.returncode == 0:
                     write_status("bust_a_nut_injected_live", correlation, "Re-initiated via pts-inject fallback", last_inject_rc=0)
-                    return True
+                    return True, res2.stdout[:2000] or "Injected via pts-inject fallback."
             except Exception as e:
                 _json_log("WARNING", "pts fallback exception", error=str(e))
 
@@ -341,16 +437,27 @@ Then immediately resume the loop. Use the bust-a-nut-continue.sh driver and rela
 All 7 primes + anti-stop discipline apply. Do not stop.
 """
     else:
+        hints = task.get("context_hints") or {}
+        mem_block = hints.get("jarvis_mempalace_context") or ""
+        jarvis_note = ""
+        if hints.get("jarvis_dispatch") or hints.get("jarvis_ask"):
+            preview = hints.get("jarvis_routing_preview") or {}
+            jarvis_note = (
+                "\nThis task was dispatched by Cross-Device Jarvis. "
+                f"Routing preview: {preview.get('chosen', 'washington')} ({preview.get('path', '?')}). "
+                "Reply with concise completion summary suitable for Telegram ('Done, sir' tone).\n"
+            )
+        mem_section = f"\n{mem_block}\n" if mem_block else ""
         prompt = f"""SYMBIOSIS RELAY TASK (from central listening post on the Pi)
 
 Correlation: {correlation}
 Source: {task.get('source', 'relay')}
-Slack channel: {task.get('slack_channel', 'unknown')}
-
+Relay channel: {task.get('relay_channel') or task.get('slack_channel', 'unknown')}
+{jarvis_note}
 {task.get('original_message', '')}
-
+{mem_section}
 Context from Relay:
-{json.dumps(task.get('context_hints', {}), indent=2)}
+{json.dumps(hints, indent=2)}
 
 You are being activated by the Symbiosis Relay because you are the current highest-priority target (Washington was chosen based on healthy heartbeat + priority rules).
 
@@ -358,13 +465,92 @@ Use the grok-build skill for any deep design, implementation, review, or verific
 All 7 primes apply. Keep er goinnnn.
 """
 
+    # Real Telegram tasks need full execution (hermes -z only returns shallow acks).
+    is_real_telegram = (
+        task.get("source") == "telegram"
+        or task.get("task_reality") == "real_telegram"
+    )
+    if is_real_telegram:
+        grok_bin = os.environ.get("GROK_BIN", "grok")
+        grok_timeout = int(os.environ.get("SYMBIOSIS_GROK_TASK_TIMEOUT", "1800"))
+        log_path = LOG_DIR / f"grok-relay-{correlation}.log"
+        _json_log("INFO", "launching grok headless for telegram task", correlation=correlation)
+        try:
+            with open(log_path, "ab") as logf:
+                proc = subprocess.run(
+                    [grok_bin, "-p", prompt, "--yolo"],
+                    stdout=logf,
+                    stderr=subprocess.STDOUT,
+                    cwd=str(Path.home()),
+                    timeout=grok_timeout,
+                )
+            tail = ""
+            if log_path.exists():
+                tail = log_path.read_text(errors="replace")[-2000:]
+            if proc.returncode == 0:
+                write_status(
+                    "grok_build_completed",
+                    correlation,
+                    "Task completed via headless grok --yolo",
+                    last_hermes_rc=0,
+                )
+                return True, tail or "Task completed via headless grok."
+            _json_log(
+                "WARNING",
+                "grok headless non-zero, trying TUI inject",
+                correlation=correlation,
+                rc=proc.returncode,
+            )
+        except Exception as e:
+            _json_log("WARNING", "grok headless failed, trying TUI inject", correlation=correlation, error=str(e))
+
+        pts = control.discover_grok_pts(SHARED_BASE)
+        tui_prompt = (
+            f"[Symbiosis Relay {correlation}] "
+            f"{task.get('original_message', '').strip()}"
+        )
+        if pts and INJECT_BUST_PYTHON.exists() and tui_prompt.strip():
+            try:
+                res = subprocess.run(
+                    ["python3", str(INJECT_BUST_PYTHON), pts, tui_prompt],
+                    capture_output=True,
+                    text=True,
+                    timeout=45,
+                )
+                out = (res.stdout or "") + (res.stderr or "")
+                live_ok = res.returncode == 0 and "All live input methods failed" not in out
+                _json_log(
+                    "INFO",
+                    "grok tui inject",
+                    correlation=correlation,
+                    rc=res.returncode,
+                    pts=pts,
+                    live_ok=live_ok,
+                    stdout=out[:300],
+                )
+                if live_ok:
+                    write_status(
+                        "grok_build_tui_injected",
+                        correlation,
+                        f"Relay task injected into live Grok Build TUI ({pts})",
+                        last_inject_rc=0,
+                    )
+                    return (
+                        True,
+                        f"Task injected into live Grok Build TUI ({pts}). "
+                        f"Correlation: {correlation}. Work executing in TUI.",
+                    )
+            except Exception as e:
+                _json_log("WARNING", "grok tui inject failed", correlation=correlation, error=str(e))
+
     _json_log("INFO", "prompting hermes + grok-build", correlation=correlation)
+    hermes_timeout = int(os.environ.get("SYMBIOSIS_HERMES_TASK_TIMEOUT", "900"))
     try:
         result = subprocess.run(
             ["hermes", "-z", prompt, "--skills", "grok-build"],
             capture_output=True,
             text=True,
-            timeout=300
+            timeout=hermes_timeout
         )
         out = (result.stdout or "") + "\n" + (result.stderr or "")
         _json_log("INFO", "hermes output truncated", correlation=correlation, rc=result.returncode, out=out[:1200])
@@ -373,19 +559,28 @@ All 7 primes apply. Keep er goinnnn.
             suggested = f'hermes -z "{prompt[:200]}..." --skills grok-build'
             _write_pending_artifact(correlation, task, f"hermes rc={result.returncode}", suggested)
             write_status("error_prompting_grok", correlation, f"hermes rc={result.returncode}", last_hermes_rc=result.returncode)
-            return False
+            return False, out[:2000] or f"hermes rc={result.returncode}"
         write_status("grok_build_completed", correlation, "Task handed to Grok Build via hermes + grok-build skill", last_hermes_rc=0)
-        return True
+        return True, out[:2000] or "Task completed."
     except Exception as e:
         _json_log("ERROR", "error prompting Grok Build", correlation=correlation, error=str(e))
         _write_pending_artifact(correlation, task, str(e))
         write_status("error_prompting_grok", correlation, str(e))
-        return False
+        return False, str(e)
 
 
 # --- Main processing (health + claim + prompt + archive rules) ---
 def process_inbox_once() -> int:
     """Process one batch. Return count processed. Never swallows; uses explicit paths."""
+    global _startup_recovery_done
+    if not _startup_recovery_done:
+        n_rec = recover_orphaned_processing(force_all=True)
+        if n_rec:
+            _json_log("INFO", "startup processing recovery", count=n_rec)
+        _startup_recovery_done = True
+    else:
+        recover_orphaned_processing(force_all=False)
+
     processed = 0
     for cmd_file in sorted(COMMAND_INBOX.glob("*.json")):
         if cmd_file.parent != COMMAND_INBOX:  # safety
@@ -420,7 +615,11 @@ def process_inbox_once() -> int:
 
         write_status("processing", correlation, "Received task from Relay, activating Grok Build", health_ok=True, beacon_age_seconds_at_claim=h.get("beacon_age_seconds"))
 
-        action = control.parse_control(task)
+        try:
+            action = control.parse_control(task)
+        except Exception as e:
+            _json_log("ERROR", "control parse failed", correlation=correlation, error=str(e))
+            action = None
         if action is not None:
             ok_auth, auth_reason = control.authorize(task)
             if not ok_auth:
@@ -430,15 +629,15 @@ def process_inbox_once() -> int:
                     correlation=correlation,
                     control_action=action.command,
                     control_rejected_reason=auth_reason,
-                    slack_user=task.get("slack_user"),
+                    relay_user=task.get("user_id") or task.get("slack_user"),
                 )
-                slack_out = send_to_slack.nack_control_unauthorized(task, auth_reason, device=DEVICE)
+                relay_out = send_to_relay.nack_control_unauthorized(task, auth_reason, device=DEVICE)
                 _json_log(
                     "INFO",
-                    "control_slack_nack",
+                    "control_relay_nack",
                     correlation=correlation,
-                    slack_ack_ok=slack_out.get("ok"),
-                    slack_ack_rc=0 if slack_out.get("ok") else 1,
+                    relay_ack_ok=relay_out.get("ok"),
+                    relay_ack_rc=0 if relay_out.get("ok") else 1,
                 )
                 write_status("control_rejected", correlation, auth_reason, control_rejected_reason=auth_reason)
                 archive_task(proc_path, success=True)
@@ -446,7 +645,22 @@ def process_inbox_once() -> int:
                 continue
 
             result = control.execute(action, device=DEVICE, shared_base=SHARED_BASE)
-            slack_out = send_to_slack.ack_control_result(task, result, device=DEVICE)
+            relay_out = send_to_relay.ack_control_result(
+                task, result, device=DEVICE, action=action
+            )
+            if result.ok and task.get("telegram_chat_id"):
+                _json_log(
+                    "INFO",
+                    "control_telegram_ack",
+                    correlation=correlation,
+                    relay_ack_ok=relay_out.get("ok"),
+                )
+            raw_cmd = (
+                task.get("original_message")
+                or (task.get("context_hints") or {}).get("original_user_command")
+                or action.raw_line
+                or ""
+            )
             _json_log(
                 "INFO",
                 f"control_{action.command}",
@@ -454,11 +668,17 @@ def process_inbox_once() -> int:
                 control_action=action.command,
                 control_ok=result.ok,
                 control_detail=result.detail,
-                slack_ack_ok=slack_out.get("ok"),
-                slack_ack_rc=0 if slack_out.get("ok") else 1,
+                relay_ack_ok=relay_out.get("ok"),
+                relay_ack_rc=0 if relay_out.get("ok") else 1,
+                last_control_command=str(raw_cmd)[:200],
+                last_control_device=DEVICE,
+                last_control_detail=result.detail,
+                control_trust_note=action.trust_note or task.get("task_reality"),
             )
             state = "control_completed" if result.ok else "control_failed"
             write_status(state, correlation, result.detail, control_action=action.command, control_ok=result.ok)
+            if not result.ok:
+                _notify_telegram(task, success=False, summary=result.detail)
             archive_task(proc_path, success=True)
             processed += 1
             continue
@@ -469,13 +689,14 @@ def process_inbox_once() -> int:
             archive_task(proc_path, success=False)
             continue
 
-        success = prompt_grok_build(task)
+        success, summary = prompt_grok_build(task)
 
         if success:
             write_status("completed", correlation, "Grok Build task finished (or handed off)")
         else:
             write_status("error", correlation, "Task failed — see pending-prompts or failed/ dir")
 
+        _notify_telegram(task, success=success, summary=summary)
         archive_task(proc_path, success=success)
         # Always turn beacon off after (prevents holding slot)
         fire_beacon(False)

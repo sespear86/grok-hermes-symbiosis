@@ -242,6 +242,7 @@ function Get-KumquatCanonicalRelativePaths {
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1",
         "symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh",
         "symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh",
+        "symbiosis-relay/linux/kumquat/invoke-kumquat-goal-completion.sh",
         "cross-device/MIRROR_KITS_AND_INFRASTRUCTURE.md",
         "cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/README.md",
         "cross-device/handoffs/HANDOFF_LOG.md",

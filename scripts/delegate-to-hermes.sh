@@ -47,6 +47,19 @@ Instructions for Hermes:
 
 Please begin and report session ID or key outcomes."
 
+# B5 / DESIGN § delegate: optional auto memory push before handoff (best-effort, non-fatal)
+# Set SYMBIOSIS_MEMORY_AUTO_PUSH=1 (or device) to enable; uses symbiosis-memory-sync if present.
+if [ "${SYMBIOSIS_MEMORY_AUTO_PUSH:-0}" != "0" ]; then
+  DEV="${SYMBIOSIS_MEMORY_DEVICE:-Washington Linux}"
+  PROJ="${SYMBIOSIS_MEMORY_PROJECT:-grok-hermes-symbiosis}"
+  if command -v symbiosis-memory-sync >/dev/null 2>&1; then
+    symbiosis-memory-sync push --agent grok --device "$DEV" --project "$PROJ" --dry-run >/dev/null 2>&1 || true
+    symbiosis-memory-sync push --agent grok --device "$DEV" --project "$PROJ" 2>/dev/null || echo "[memory-sync] push best-effort (may be dry or palace unavailable)"
+  elif [ -x "$(dirname "$0")/../cross-device/scripts/symbiosis-memory-sync" ]; then
+    "$(dirname "$0")/../cross-device/scripts/symbiosis-memory-sync" push --agent grok --device "$DEV" --project "$PROJ" 2>/dev/null || true
+  fi
+fi
+
 echo ">>> Launching Hermes with symbiosis context..."
 echo ">>> Task: $TASK"
 echo
@@ -57,4 +70,7 @@ if [ "${HERMES_ONESHOT:-0}" = "1" ]; then
 else
   # Interactive TUI with preloaded symbiosis + useful skills
   exec hermes --skills grok-build,github,devops -z "$PROMPT" || exec hermes --skills grok-build
+
+# <!-- Edited: 2026-06-06 | Device: Washington Linux | By: Grok (AUTON c7d73093 reviewer-fix H6 B5) --> Added optional SYMBIOSIS_MEMORY_AUTO_PUSH block (per DESIGN delegate spec) before exec. Non-fatal best-effort. Bing: paste tax reduced. Bang: pre-handoff brain share. Boom: H6 closed. Sig per prime.
+
 fi

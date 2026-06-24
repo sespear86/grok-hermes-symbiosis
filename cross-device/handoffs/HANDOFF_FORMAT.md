@@ -38,6 +38,20 @@ This is the main handoff document. **Must include the `## Relevant Memory (Mempa
 ## Task / Request
 [Clear description of what needs to be done]
 
+## Harness Context (Multi-Agent Handoff)
+**Source harness:** grok | claude | codex
+**Sibling harnesses:** (optional — other agents that touched this work)
+
+Resume on receiving side:
+- Grok Build: `grok --resume <session-id>`
+- Claude Code: `claude --resume <session-id>`
+- Codex: `codex resume <session-id>`
+
+Session artifacts to ingest before Kumquat:
+- Grok: `~/.grok/sessions/<id>/`
+- Claude: `~/.claude/projects/` + `CLAUDE.md` deltas
+- Codex: Codex session log + `AGENTS.md` / plan files
+
 ## Relevant Information / Artifacts
 - Files/folders:
 - Links:

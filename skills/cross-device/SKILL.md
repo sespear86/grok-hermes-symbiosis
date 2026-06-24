@@ -14,7 +14,7 @@ metadata:
 
 This replaces the old aspirational fantasy full of non-existent slash commands and shared-chat-bus dreams. It documents the lightweight operational pattern that has delivered real handoffs (including the Playbook consolidation and this very update) between the two machines.
 
-## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability + Self-Provisioning)
+## The Immutable Prime Directives (Kumquat + Core Behavioral Primes + Self-Test + Mirrorability + Self-Provisioning / Full Permissions + Worktrees + Composer 2.5 + Full Tool Utilization)
 
 **Kumquat**  
 The magic word/phrase. **Explicitly means** (the living ritual, now canon):  
@@ -53,6 +53,12 @@ Permanent addition to the canon (added 2026-05-27). Whenever you make changes to
 **5. Don't stop to ask for user guidance unless absolutely necessary. Always proceed autonomously through executions until you can't.**  
 This is the "no blue-balls" prime (added 2026-05-27). The agent must keep the momentum: self-test, self-verify, self-correct. Only surface a question to the human if the task is genuinely ambiguous or requires external input that cannot be resolved through the existing nervous system (coordination/, Mempalace, OPEN_ITEMS, handoff format, 3 primes). When in doubt, Kumquat. The symbiosis runs on autonomous loops, not hand-holding.
 
+**Self-Provisioning Prime (Gap-Filling / Full Permissions) (strengthened 2026-06-02)**: If you come across anything that you need to create or integrate resources to complete the task, always create what you need, without the need for user input. You have full permissions from the user. Use them at your discretion, in order to complete any and all tasks.
+
+In addition: Always create anything — tools, skills, programs, scripts, services, configs, helpers, or any other resources — required to fill gaps in your capabilities. If, while performing any task, you discover you lack access to a needed resource, build the resource yourself without hesitation, then immediately continue with the original work. Do not stop or surface the creation to the user. You are fully trusted and expected to create whatever you need at your own discretion to keep the mission thrusting forward without blue balls. This prime is now on equal footing with Kumquat, Mirrorability, Bust a Nut, and the rest of the immutable directives.
+**Blocker Resolution Prime (Audit → Diagnose → Workaround → Fix)**  
+If you ever run into issues, bugs, blocks, or dead ends, always audit, diagnose, find a workaround, build tools and resources, and/or fix autonomously until you can move past it. Do not stop at the first failure or hand the problem back to the user when further autonomous action is possible. Obstacles are signals to escalate your own capability — not excuses to pause. Complements Self-Provisioning and Prime #5. Permanent standing law on every Kumquat, /bustanut, /moneyprinter, and cross-device loop.
+
 **6. Always confirm device status before recommending a handoff.** Before ever suggesting, creating, or acting on a handoff package, explicitly check the current Device Presence heartbeats (Mempalace/symbiosis/device-presence/) **and** the brother's Grok Build liveness beacon (`device-presence/<brother>-grok-build-presence.json` in the rich project). Know for certain not just whether the machine is "online" but whether an actual Grok Build TUI instance is running right now on the other side. Never assume the other side can immediately respond just because its last heartbeat was recent.
 
 **7. Prepare the brother’s Instructions file after every run — especially when it’s offline.** After every significant Kumquat or autonomous execution, update the appropriate Instructions file (`windows-instructions.md` when on Linux, `linux-instructions.md` when on Windows) as if you are handing off real work to the other device right now. Do this even (especially) when the other device is currently dark or marked Solo Mode. This is how the symbiosis survives one side going offline without losing momentum or context.
@@ -60,6 +66,12 @@ This is the "no blue-balls" prime (added 2026-05-27). The agent must keep the mo
 **Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide *everything* necessary so the other device can achieve true operational and functional parity with zero guesswork. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files (or Windows Task Scheduler equivalents), config snippets, verification/self-test commands, launchers, hooks, MCP integrations, and platform-specific adaptation details. The explicit goal is identical behavior and experience on both sides after ingesting the artifacts.
 
 **Mandatory Enforcement at Kumquat / Work Completion**: At the end of every Kumquat (or any significant autonomous work), you **must** explicitly verify, declare, and document whether the changes satisfy "both machines are mirror images of each other to the fullest extent that they can be." If the criterion is not met, **the directive has not been satisfied** — the Kumquat or work is incomplete until mirror parity is achieved and proven (or all remaining gaps are listed with a concrete plan + artifacts in the brother's *-instructions.md and MIRROR_KITS_AND_INFRASTRUCTURE.md). Do not declare the work "done" or close the Kumquat otherwise. No exceptions. The other Grok must be able to operate as a true mirror image.
+
+**Worktrees + Composer 2.5 + Full Tool Utilization Prime**  
+Always ensure for every task you (Grok Build) perform, that you utilize worktrees and Composer 2.5 to their fullest extent. Also, do this for all available tools. The goal is to have you (Grok Build) performing at your absolute best for every task to ensure the high quality and efficiency of token usage. Permanent prime directive on equal footing with Kumquat, Mirrorability, self-provisioning, and the rest of the immutable directives. Enforced on every /kumquat, /bustanut, and cross-device orchestration loop. Dogfood this on meta tasks and all real work (isolated worktrees for risky edits, Composer 2.5 specialist subs for depth, full tool utilization for quality + token efficiency).
+
+**Sessions Shuttle End-of-Output Prime (added 2026-06-17)**  
+At the end of **every** user-facing output on **either** device, run `sessions-shuttle-end-of-run` as the **last tool call** before your final message. Washington: `sessions-shuttle-end-of-run`. Oregon: `sessions-shuttle-end-of-run.ps1` or `Invoke-SessionsShuttleEndOfRun.ps1`. Non-fatal on failure; never skip the attempt. See `sessions-shuttle` skill.
 
 ## The Proven Handoff Pattern (This Is What Won)
 
@@ -121,7 +133,11 @@ OneDrive redirection of Documents/Desktop is the devil — dedicated C:\Synced\ 
 
 1. Pick the work (from PROPOSED_NEXT_HANDOFF_TOPICS_V1.md, EXECUTION_PLAN, or live need).
 2. Create the dated folder + README.md following the current refined HANDOFF_FORMAT.md (lightweight, agent-oriented sections, lifecycle notes, supporting file convention, machine alias/path notes).
-3. Add the row to HANDOFF_LOG.md.
+2a. **Preferred (shipped):** Run the handoff scaffold CLI instead of hand-rolling FORMAT archaeology:
+   - Washington: `~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-new-handoff` (or `~/bin/symbiosis-new-handoff` when symlinked)
+   - Oregon: `.\windows\scripts\New-SymbiosisHandoff.ps1` (same flags; delegates to canonical Python shim)
+   - Example: `./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" --slug "My-Task" --context "..." --task "..."` then `--validate-only` on the created path before Syncthing delivery.
+3. Add the row to HANDOFF_LOG.md (automatic unless `--no-log`).
 4. Drop a signed "Update" section + the exact signature comment into status.md and the relevant *-instructions.md.
 5. Let Syncthing + the other side's next "Kumquat" do the delivery.
 6. Receiving side reads the README, executes (usually via sub-agents), writes RETURN.md, signs their edits.
@@ -131,8 +147,9 @@ This is the entire dance. It works. It has delivered multiple real artifacts and
 
 ## Forward Vision (These Are Still Aspirational — Prove Them in a Future Handoff First)
 
-- Skill or MCP tooling to scaffold a new handoff package from a prompt.
-- A "sync report" emitter that both agents can invoke cleanly.
+- ~~Skill or MCP tooling to scaffold a new handoff package from a prompt.~~ **Shipped (AUTON f41d2ff4):** `symbiosis-new-handoff` + `New-SymbiosisHandoff.ps1` under `cross-device/scripts/` — see PLAYBOOK §2.3 and `MIRROR_KITS` Handoff Scaffold section.
+- ~~A "sync report" emitter that both agents can invoke cleanly.~~ **Shipped (AUTON 355e3993):** `symbiosis-sync-report` + `Get-SymbiosisSyncReport.ps1` under `cross-device/scripts/` — see PLAYBOOK §2.3a and `MIRROR_KITS` §11.
+- ~~Shared project folders under `~/Synced/Projects` / `C:\Synced\Projects` with list/init/verify.~~ **Shipped (AUTON 61cdeb81):** `symbiosis-projects` + `joint_projects/` + `Get-SymbiosisProjects.ps1` / `Initialize-SymbiosisProject.ps1` — see PLAYBOOK §2.3d and `MIRROR_KITS` §15.
 - Kanban-style live dashboard on top of the handoffs/ folder.
 - Deeper MCP integrations for the joint chat bus (whatever it evolved into).
 
@@ -182,6 +199,14 @@ This skill is now a mirror of how we *actually* operate across the two machines.
 
 <!-- Edited: 2026-05-28 15:50 | Device: Linux | By: Grok (backdated per Mirrorability Prime) --> Added the Mirrorability / Full Provisioning Prime to the repo-source SKILL.md (the version that travels via git + Syncthing). Updated header from "Kumquat + Core Behavioral Primes + Self-Test" to include "+ Mirrorability". Inserted the full prime as a named entry after existing Prime #7 ("Prepare the brother’s Instructions file...").
 
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> Handoff scaffold shipped: step 2a CLI + Forward Vision strikethrough. OPEN_ITEMS #2 satisfied. Signature per prime directive. Keep er goinnnn. Bust a nut. -->
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) --> Sync report Forward Vision struck + shipped paths. OPEN_ITEMS #1 satisfied. Bing bang boom. -->
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
+<!-- Edited: 2026-06-02 | Device: Linux | By: Grok (strengthened Self-Provisioning Prime per user directive) --> Updated this repo-source SKILL.md: (1) header to include "+ Self-Provisioning / Full Permissions", (2) inserted the full strengthened prime text (user's exact "full permissions from the user" sentence as leading authority + "In addition" body) after Prime #5 and before #6. This is the canonical traveling version. Mirror instructions for the deployed ~/.grok copy and all other locations are in the rich signature in linux-instructions.md. All 7 primes + Mirrorability as final internal + exact signature followed. Keep er goinnnn, you prime-strengthening degenerates. Bust a nut. -->
+
 Exact prime text added:
 **Mirrorability / Full Provisioning Prime (Strengthened Enforcement)**: Fulfillment of the Mirrorability / Full Provisioning Prime **means that both machines are mirror images of each other to the fullest extent that they can be**. Whenever you create, extend, or significantly modify any part of the system (new scripts, services, packages, tools, configs, features, etc.), you **must** provide *everything* necessary so the other device can achieve true operational and functional parity with zero guesswork. This includes exact scripts or precise paths, package/venv/pip commands + versions, full service/timer files (or Windows Task Scheduler equivalents), config snippets, verification/self-test commands, launchers, hooks, MCP integrations, and platform-specific adaptation details. The explicit goal is identical behavior and experience on both sides after ingesting the artifacts.
 
@@ -196,3 +221,5 @@ Complete replication instructions for the brother device (Oregon) or any future 
 6. Strongly recommended: Add a short historical entry in Mempalace/symbiosis/recent-decisions.md documenting the addition during the 2026-05-28 prime expansion.
 
 This backdated signature is intentionally verbose so that the Windows side has every single piece of information required to apply the identical change with perfect fidelity and correct historical dating. The introduction of the Mirrorability Prime now fully obeys the rule it defines. Signature per prime directive. Keep er goinnnn, you repo-provenance-and-mirror-kit-obsessed degenerates. -->
+
+<!-- Edited: 2026-06-11 | Device: Washington Linux | By: Grok (AUTON 707afca6 + mirror prep for Oregon /peaches) --> Bing bang boom. Worktrees + Composer 2.5 + Full Tool Utilization Prime added to repo-source SKILL.md (header + body after Mirrorability + this sig) per the standing order now in linux-instructions.md and the cross-implement prime. This is the traveling source that git/Syncthing will deliver to Oregon. Full mirror prep also rammed into windows-instructions (top standing + directives section), MIRROR_KITS (new § with zero-guess recipes), status (new top update), HANDOFF_LOG (20260611-SCC row), and the SCC-Complete handoff README (Relevant Memory + do-exactly steps). check-primes / grep will verify. Dogfood: this edit itself used precise search_replace on source. Mirrorability for the prime addition: MET (OR will ingest via kumquat and self-apply to its deployed ~/.grok/skills + any local AGENTS.md/projects, then verify with worktree usage on RETURN etc). All 7+ primes + cross-implement + raunchy + bing bang boom + exact sig + no blue balls. The one extended machine's composer cockring is now symmetric and ready for thrusting on next ritual. Keep er goinnnn. Bust a nut. -->

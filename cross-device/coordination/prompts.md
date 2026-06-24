@@ -2,31 +2,30 @@
 
 Copy and paste these exactly when you want your local Grok to check the repo for new instructions from the other side.
 
-## Prime Directive Trigger (Both Sides)
+## Prime Directive Trigger (Both Sides) — /kumquat is now canonical (2026-06-09 bootstrap)
 
-"Kumquat" is now the official catchphrase / prime directive trigger for "check the repo for the next set of instructions".
+** /kumquat ** (the slash command) is the official, clean, guesswork-free canonical trigger for the full Kumquat ritual + Cross-Implement Everything prime (permanent law). 
 
-Use this on **either machine**:
+Use this on **either machine** (TUI user-invocable skill):
 
-- "Kumquat"
+- /kumquat
+- "run /kumquat"
+- "execute /kumquat"
 
-This is the preferred and canonical way to trigger your local Grok to pull latest and read the relevant instructions file.
+The skill at ~/.grok/skills/kumquat/SKILL.md (or mirrored in rich/repo) is the single source of truth: full ritual steps, unbreakable cross-implement-every-change prime, efficient seamless system (auto-apply brother's latest output with full agency via instructions top + handoff), style/hygiene (sigs, bing/bang/boom, raunchy "Be funny you depraved little shit", Linux Turn Status, ball holder, "Keep er goinnnn. Bust a nut."), all 7+ primes + self-prov + Mirror last.
 
-## Legacy / Alternative Prompts
+Bare-word "kumquat" (or "symbiosis kumquat") is deprecated to avoid fruit confusion or casual talk — still supported for back-compat but /kumquat is the one true trigger going forward. All living sources (skills, instructions, three-primes, usage, MIRROR, handoffs) updated.
 
-These older prompts are still supported but "Kumquat" should be the default going forward.
+This formalization + cross prime was installed during the 2026-06-09 Oregon bootstrap /kumquat with full cross-implement (skill on active + rich/repo mirrors + doc updates + handoff with zero-ramp WA contract) + Mirror MET for the regime.
 
-### For the Linux Machine (Oregon)
+## Legacy / Alternative Prompts (still supported, but /kumquat is now the clean default)
 
+- "Kumquat" (bare word, deprecated but works for back-compat)
 - "Check the repo for the next step"
-- "Pull latest from the repo and read linux-instructions.md"
+- "Pull latest from the repo and read *-instructions.md"
 - "Check coordination and give me the next action"
 
-### For the Windows Machine
-
-- "Check the repo for the next step"
-- "Pull latest from the repo and read windows-instructions.md"
-- "Check coordination and give me the next action"
+Prefer /kumquat for the full codified ritual + cross prime + auto-apply brother's output with agency. See the /kumquat skill and this bootstrap handoff for the contract.
 
 ## Recommended Usage
 

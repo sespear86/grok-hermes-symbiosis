@@ -47,6 +47,24 @@ This skill allows Hermes to intelligently delegate to the local **Grok Build TUI
 
 **Do NOT use** for simple commands, long-running monitoring, or gateway delivery — those are Hermes strengths.
 
+## MCP-first (when Hermes lists `grok__*` tools)
+
+If `hermes mcp list` shows server **`grok`** (package `cross-device/grok-mcp/`, AUTON b045169b), **prefer MCP** over shell scripts:
+
+| Tool | Use for |
+|------|---------|
+| `grok__grok_implement` | Features/refactors with implement + reviewers |
+| `grok__grok_design` | Architecture / design docs |
+| `grok__grok_check` | Verification (`VERDICT: PASS/FAIL`) |
+| `grok__grok_review` | Code review |
+| `grok__grok_best_of_n` | 2–5 parallel approaches |
+
+Setup: `configs/hermes-mcp-recommendations.md` + `cross-device/grok-mcp/README.md`. Structured output: `SYMBIOSIS_RESULT` JSON block in Grok stdout.
+
+Fallback when MCP not registered: bridge script or `grok -z` below.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR8) -->
+
 ## Delegation Patterns (Windows)
 
 ### Preferred: Use the bridge script
@@ -91,7 +109,7 @@ Coordinate status in the joint Slack channel.
 
 ## Recommended Grok Build Capabilities
 
-- `implement` (with reviewers) for new features/refactors
+- `implement` (with reviewers) for new features/refactors — now autonomously uses worktree isolation + Composer 2.5 model for the implementer subagent, with automatic merge on clean review
 - `design` for architecture and design docs
 - `check` for independent verification
 - `best-of-n` for exploring multiple approaches

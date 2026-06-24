@@ -97,6 +97,88 @@ See also historical design: `cross-device/LIVE_SYNC_DESIGN.md` and `cross-device
 - Lifecycle (from refinements): Create folder + README → do work (update status/coordination as needed) → RETURN.md → mark log complete → optional archive to `archive/` subfolder.
 - Small/quick tasks: Shared chat (via Hermes gateway) is often enough. Use handoffs for anything needing explicit tracking or multi-session context.
 - See `cross-device/handoffs/HANDOFF_FORMAT.md`, `HANDOFF_LOG.md`, and the two completed example packages for patterns that worked.
+- **Handoff scaffold (shipped AUTON f41d2ff4):** Mechanical package creation + LOG row + Mempalace bullets + validator:
+  ```bash
+  cd ~/grok-hermes-symbiosis/cross-device/scripts
+  ./symbiosis-new-handoff --from "Washington Linux" --to "Oregon Windows" \
+    --slug "Short-Name" --context "Why" --task "What" [--dry-run] [--return-stub]
+  ./symbiosis-new-handoff --validate-only ../handoffs/YYYYMMDD-HHMM-Short-Name
+  ```
+  Oregon: `.\windows\scripts\New-SymbiosisHandoff.ps1 -Slug "Short-Name" -DryRun` (see `MIRROR_KITS_AND_INFRASTRUCTURE.md` § Handoff Scaffold).
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON f41d2ff4) --> §2.3 handoff scaffold CLI examples + validator. Signature per prime directive. -->
+
+### 2.3a Sync report (read-only)
+
+After Kumquat step 3.5, when **Paired Mode**, run the sync report on this machine and paste the markdown summary to the shared coordination channel when about to create or close a handoff: Washington `~/grok-hermes-symbiosis/cross-device/scripts/symbiosis-sync-report --device "Washington Linux"`; Oregon `.\windows\scripts\Get-SymbiosisSyncReport.ps1 -Device "Oregon Windows"` (or `python3 .\symbiosis-sync-report` from `cross-device\scripts`). Read-only — does not replace editing `status.md` or `HANDOFF_LOG.md`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 355e3993 sync-report-emitter docs matrix) -->
+
+### 2.3e Hermes → Grok MCP tools (`grok__*`, AUTON b045169b)
+
+When Hermes has the **`grok`** MCP server registered (`cross-device/grok-mcp/`), prefer typed tools over shell `hermes-grok-delegate` / `delegate-to-grok.sh`:
+
+| Hermes tool | Grok workflow |
+|-------------|---------------|
+| `grok__grok_implement` | implement + reviewers |
+| `grok__grok_design` | design doc loop |
+| `grok__grok_check` | check / VERDICT |
+| `grok__grok_review` | code review |
+| `grok__grok_best_of_n` | parallel exploration |
+
+Register once per machine (`hermes mcp add grok` — see `configs/hermes-mcp-recommendations.md`). Returns parse `SYMBIOSIS_RESULT` JSON + summary. Long implement: Hermes `--tool-timeout-sec 3600` minimum.
+
+Washington smoke: `~/grok-hermes-symbiosis/cross-device/grok-mcp/symbiosis-grok-mcp --help` then `hermes mcp test grok`. Oregon: `.\windows\scripts\Invoke-SymbiosisGrokMcp.ps1 -Help` + same test. MIRROR §16.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON b045169b PR8) -->
+
+### 2.3d Shared projects (`~/Synced/Projects` / `C:\Synced\Projects`)
+
+Joint product directories live under the Syncthing **Projects** folder (see §2.1 table). Use **`symbiosis-projects`** for list / init / verify — read-only `list` and `verify`; `init` writes only under `SYMBIOSIS_PROJECTS_ROOT` (default `~/Synced/Projects` or `C:\Synced\Projects`). Does **not** edit `HANDOFF_LOG.md` or handoff packages.
+
+**Paired Mode:** After Kumquat step 3.5, before starting joint code/assets in `Projects/`, run `list` to see existing slugs; use `init` for a new joint tree (templates + `.stignore`); `verify` before trusting a folder for shared work.
+
+Washington:
+```bash
+cd ~/grok-hermes-symbiosis/cross-device/scripts
+./symbiosis-projects list --device "Washington Linux" | head -30
+./symbiosis-projects init --slug "My-Joint-App" --device "Washington Linux" [--dry-run]
+./symbiosis-projects verify --slug "My-Joint-App" --device "Washington Linux"
+```
+
+Oregon:
+```powershell
+cd C:\Users\spear\grok-hermes-symbiosis\cross-device\scripts
+$env:SYMBIOSIS_PROJECTS_ROOT = "C:\Synced\Projects"
+python3 .\symbiosis-projects list --device "Oregon Windows" | Select-Object -First 30
+cd C:\Users\spear\grok-hermes-symbiosis\windows\scripts
+.\Get-SymbiosisProjects.ps1 -Device "Oregon Windows"
+.\Initialize-SymbiosisProject.ps1 -Slug "My-Joint-App" -Device "Oregon Windows" -DryRun
+```
+
+Prepare roots once: `linux/scripts/prepare-syncthing-folders.sh` / `windows/scripts/prepare-syncthing-folders.ps1` (Projects `.stignore` parity). Full mirror: `MIRROR_KITS_AND_INFRASTRUCTURE.md` §15.
+
+<!-- Edited: 2026-06-05 | Device: Washington Linux | By: Grok (AUTON 61cdeb81) -->
+
+### 2.3g Daily infra review (aa3386c5)
+
+Standing lean collector for platform health on this device (and Oregon after mirror).
+
+After Kumquat 3.5 when **Paired** (or standing `scheduler_create` 1d per device): run the collector and review the report.
+
+Washington: `cd ~/grok-hermes-symbiosis/cross-device/scripts ; ./symbiosis-daily-infra-review run --device "Washington Linux" [--dry-run] [--json]`
+
+Oregon: the PS equivalent (see windows/scripts/Get-DailyInfraReview.ps1).
+
+Read the latest `DAILY_INFRA_REPORT.md` and `infra-freshness.json` (from `~/.grok/auton-runs/infra-daily/...`); if actionable (e.g. vet_age >26h or coordination drift), file to Mempalace `infra-decisions`, add to Hermes kanban lane “Daily infra findings → proposed updates”, or trigger scoped `/bustanut --resume aa3386c5` for updates.
+
+Proposals only by default — real toolbox/skill/coord mutates still go through full Phase 0 vet + COMPROMISE_RESEARCH_PROTOCOL.
+
+Thresholds (defaults): 26h vet warn, 36h report gate, 30d retention. See `daily_infra_review/README.md`.
+
+PLAYBOOK §2.3g, instructions standing orders, MIRROR §21, SKILL subroutine, checklist footnote. Dogfood in gate for platform AUTONs.
+
+<!-- Edited: 2026-06-07 | Device: Washington Linux | By: Grok (AUTON aa3386c5) --> Bing bang boom. Added 2.3g for daily infra review standing invocation per PLAN D. Sig per prime. Washington has the ball. Keep er goinnnn. Bust a nut. -->
 
 ### 2.4 Agent Coordination via `cross-device/coordination/`
 - Primary structured channel between the two Groks (minimizes Discord copy-paste).
@@ -314,3 +396,35 @@ This is a **living** document. Treat it as the single place both humans and futu
 *This playbook is intentionally lightweight and practical. It consolidates what has already proven useful. Update it as the symbiosis matures.*
 
 <!-- Edited: 2026-05-27 03:35 | Device: Linux | By: Grok --> Light non-bloated cross-ref added to §2.4 (Agent Coordination) pointing to Mempalace for durable context surviving churn (per 0130 adoption deliverable 4 + 0010 pilot rec). Kept it 1-line high-signal. Also reinforces the §2.5 Memory Layer section already present. Self-referential: read PLAYBOOK + MEMPALACE_INTEGRATION + usage-pattern + 0130 handoff README first per pattern, then tiny edit + sig. Primes + loop + Kumquat followed. The coordination nervous system just got a memory assist in the best depraved way. Signature per prime directive. Keep er goinnnn. -->
+## Slack NL `/autonomous` + explicit device (AUTON 98822e73)
+
+Natural-language control (main-token resilient via `control_command_override`) + forced dispatch when the message names a device:
+
+**Canonical example (#all-devices):**
+`Have Grok Build run "/autonomous Identify another part of Project Symbiosis to tackle. Then, execute building it out.", on the Washington device.`
+
+Pipeline: ingest `enrich_control_hints` → hermes inbox → listener explicit target → activator `parse_control` → pts-inject `/autonomous …` (headless fallback) → threaded NL ack (`format_nl_autonomous_ack`) + JSONL `last_control_*`.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 98822e73) --> PLAYBOOK NL control + full example. Bust a nut. Keep er goinnnn. No blue balls. Washington has the ball (review + rich cp). -->
+
+## Slack as Grok Build Control Surface (AUTON 474101a5)
+
+Slack messages in the 4 watched channels can now drive Grok Build lifecycle and instructions via the relay pipeline:
+
+- `grok close` / `stand-down` → safe stand-down (bust-a-nut-stand-down.sh)
+- `grok open` / `bust a nut` → re-arm + live TUI inject (or queue)
+- `grok autonomous: <idea>` → full /autonomous launch (background)
+- `grok instruct: <text>` or plain → prompt/instruction injection
+- `grok status` → condensed report + ack in-thread
+
+**Implementation:** thin `control.py` (parser + authz + execute) wired in `activator_core.py` after claim (before beacon/generic Hermes). `tools/send_to_slack.py` for threaded acks (BOT_TOKEN from env). Authz: deny-by-default or `SYMBIOSIS_CONTROL_SLACK_USERS`.
+
+**Dogfood (while token gate active for clean is_real):** use `inject_hermes_task.py "grok close" --to-device washington --as-real-slack ...`
+
+See DESIGN 474101a5, MIRROR §12, relay control.py + send_to_slack.py, health "CONTROL PLANE" section, status/instructions updates.
+
+**Mirror:** WA full; OR via same activator + PS bust tools or delegate + Hermes MCP send.
+
+All 7 primes + Mirrorability + sigs followed in delivery.
+
+<!-- Edited: 2026-06-04 | Device: Washington Linux | By: Grok (AUTON 474101a5 PLAYBOOK control plane) -->
