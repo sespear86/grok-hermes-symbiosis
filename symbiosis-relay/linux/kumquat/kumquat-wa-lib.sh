@@ -11,6 +11,8 @@ symbiosis-relay/linux/kumquat/sync-kumquat-verifier-inputs.sh
 symbiosis-relay/linux/kumquat/invoke-kumquat-pre-completion-sync.sh
 symbiosis-relay/linux/kumquat/invoke-kumquat-verifier-patch-guard.sh
 symbiosis-relay/linux/kumquat/capture-kumquat-wa-goal-evidence.sh
+symbiosis-relay/linux/kumquat/publish-kumquat-workspace-deliverables.sh
+symbiosis-relay/linux/kumquat/write-kumquat-clobber-simulation.sh
 cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/RETURN.md
 cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness/README.md
 cross-device/coordination/status.md

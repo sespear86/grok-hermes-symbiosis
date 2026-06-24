@@ -43,7 +43,15 @@ while [[ $SECONDS -lt $deadline ]]; do
     fi
     bash "$sync_script" "$GOAL_ROOT" "$GOAL_ID" "$ATTEMPT" "$AUTHORITATIVE_PATCH" "$SCRATCH_DIR" >>"$log_path" 2>&1 || true
     repairs=$((repairs + 1))
-    glog "GUARD_REPAIR #${repairs} clobber_detected bytes=${size} mtime=${mtime} snippet=${snippet}"
+    post_size=0
+    post_ok=NO
+    if [[ -f "$patch_out" ]]; then
+      post_size=$(wc -c <"$patch_out")
+      if ! kumquat_patch_needs_repair "$patch_out"; then
+        post_ok=YES
+      fi
+    fi
+    glog "GUARD_REPAIR #${repairs} clobber_detected bytes=${size} repaired_bytes=${post_size} repair_ok=${post_ok}"
   fi
   sleep "$(awk "BEGIN {printf \"%.3f\", ${POLL_MS}/1000}")"
 done

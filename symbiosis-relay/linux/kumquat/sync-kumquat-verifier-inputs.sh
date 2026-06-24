@@ -52,8 +52,19 @@ fi
 if [[ -n "$SCRATCH_DIR" ]]; then
   printf '%s' "$changed_text" >"${SCRATCH_DIR}/CHANGED_FILES.txt"
   printf '%s\n' "${paths[@]}" >"${SCRATCH_DIR}/CHANGED_FILES_ANCHOR.txt"
+  {
+    echo "goal_root: ${GOAL_ROOT}"
+    echo "goal_id: ${GOAL_ID}"
+    echo "verifier_attempt: ${ATTEMPT}"
+    echo "classifier_patch_${ATTEMPT}_ok: ${patch_ok}"
+    echo "verifier_patch: ${patch_out}"
+    echo "verifier_changed: ${changed_out}"
+    echo "changed_files_count: ${#paths[@]}"
+  } >"${SCRATCH_DIR}/kumquat-classifier-anchor.txt"
+  workspace_root=${KUMQUAT_WORKSPACE_ROOT:-${HOME}/agentforge_incomeos}
+  printf '%s' "$changed_text" >"${workspace_root}/kumquat-CHANGED_FILES.txt"
 fi
 printf '%s\n' "${paths[@]}" >"${GOAL_ROOT}/goal-classifier-CHANGED_FILES_ANCHOR.txt"
 
-echo "SYNC_OK attempt=${ATTEMPT} patch=${patch_out} bytes=$(wc -c <"$patch_out") patch_ok=${patch_ok}"
+echo "SYNC_OK attempt=${ATTEMPT} patch=${patch_out} bytes=$(wc -c <"$patch_out") patch_ok=${patch_ok} changed=${changed_out}"
 [[ "$patch_ok" == YES ]] || exit 1

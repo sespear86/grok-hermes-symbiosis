@@ -62,6 +62,14 @@ copied_scratch=$(copy_deliverables "$scratch_deliverables")
 pkill -f "invoke-kumquat-verifier-patch-guard.sh.*${GOAL_ID}" 2>/dev/null || true
 sleep 0.2
 
+: >"${SCRATCH_DIR}/kumquat-patch-guard.log"
+
+WORKSPACE_ROOT=${KUMQUAT_WORKSPACE_ROOT:-${HOME}/agentforge_incomeos}
+export KUMQUAT_WORKSPACE_ROOT="$WORKSPACE_ROOT"
+workspace_publish_out=$(bash "${SCRIPT_DIR}/publish-kumquat-workspace-deliverables.sh" "$REPO_ROOT" "$WORKSPACE_ROOT" 2>&1)
+workspace_copied=$(printf '%s' "$workspace_publish_out" | sed -n 's/.*copied=\([0-9]*\/[0-9]*\).*/\1/p')
+printf '%s\n' "$workspace_publish_out" >>"${SCRATCH_DIR}/kumquat-workspace-publish.log"
+
 bash "${SCRIPT_DIR}/sync-kumquat-verifier-inputs.sh" \
   "$GOAL_ROOT" "$GOAL_ID" "$ATTEMPT" "$PATCH_PATH" "$SCRATCH_DIR"
 
@@ -70,19 +78,42 @@ nohup bash "${SCRIPT_DIR}/invoke-kumquat-verifier-patch-guard.sh" \
   >/dev/null 2>&1 &
 guard_pid=$!
 
+clobber_ok=false
+if bash "${SCRIPT_DIR}/write-kumquat-clobber-simulation.sh" \
+  "$GOAL_ROOT" "$GOAL_ID" "$ATTEMPT" "$SCRATCH_DIR" 5; then
+  clobber_ok=true
+fi
+
+handoff_dir="${session_deliverables}/cross-device/handoffs/20260623-2109-Kumquat-Ritual-Receipt-Goal-Harness"
+manifest_path="${SCRATCH_DIR}/deliverables-manifest.txt"
+{
+  echo "# deliverables manifest"
+  echo "generated: $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "wa_deliverable_paths: ${#paths[@]}"
+  echo "stubs_copied_session: ${copied_session}/${#paths[@]}"
+  echo "stubs_copied_scratch: ${copied_scratch}/${#paths[@]}"
+  echo "workspace_published: ${workspace_copied:-unknown}"
+  echo "session_total_files: $(find "$session_deliverables" -type f 2>/dev/null | wc -l)"
+  echo "handoff_subdir_files: $(find "$handoff_dir" -maxdepth 1 -type f 2>/dev/null | wc -l) (README+RETURN only; full tree under session/deliverables/)"
+  echo "workspace_changed_files: ${WORKSPACE_ROOT}/kumquat-CHANGED_FILES.txt"
+} >"$manifest_path"
+
 LOG_PATH="${SCRATCH_DIR}/kumquat-precompletion-sync.log"
 {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] PRECOMPLETION_SYNC"
   echo "goal_root: $GOAL_ROOT"
   echo "goal_id: $GOAL_ID"
-  echo "classifier_round: $CLASSIFIER_ROUND (verifier uses attempt=$((CLASSIFIER_ROUND + 1)))"
+  echo "rejected_classifier_round: $CLASSIFIER_ROUND"
   echo "verifier_attempt: $ATTEMPT"
+  echo "patch_ok: $(grep -q 'classifier_patch_.*_ok: YES' "${SCRATCH_DIR}/kumquat-classifier-anchor.txt" 2>/dev/null && echo YES || echo NO)"
   echo "changed_files_anchor: ${GOAL_ROOT}/goal-classifier-CHANGED_FILES_ANCHOR.txt"
   echo "patch: ${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}.patch"
   echo "patch_bytes: $(wc -c <"${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}.patch")"
   echo "changed: ${GOAL_ROOT}/goal-classifier-${GOAL_ID}-${ATTEMPT}-CHANGED_FILES.txt"
   echo "patch_guard_pid: ${guard_pid}"
   echo "patch_guard_duration_seconds: 600"
+  echo "clobber_simulation_pass: ${clobber_ok}"
+  echo "workspace_published: ${workspace_copied:-unknown}"
   echo "deliverables_session: ${session_deliverables}"
   echo "deliverables_scratch: ${scratch_deliverables}"
   echo "stubs_copied_session: ${copied_session}/${#paths[@]}"
@@ -91,6 +122,10 @@ LOG_PATH="${SCRATCH_DIR}/kumquat-precompletion-sync.log"
 
 if [[ "$copied_session" -lt ${#paths[@]} ]]; then
   echo "deliverable copy incomplete session=${copied_session}" >&2
+  exit 1
+fi
+if [[ "$clobber_ok" != true ]]; then
+  echo "clobber simulation failed" >&2
   exit 1
 fi
 
