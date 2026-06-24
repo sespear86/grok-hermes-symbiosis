@@ -87,6 +87,28 @@ Describe "Get-KumquatVerifierAttempt" {
     }
 }
 
+Describe "Write-KumquatClobberSimulationEvidence" {
+    It "records guard repair after simulated harness clobber" {
+        $goalId = "testclob$(Get-Random)"
+        $goalRoot = Join-Path $env:TEMP "grok-goal-$goalId"
+        $impl = Join-Path $goalRoot "implementer"
+        New-Item -ItemType Directory -Path $impl -Force | Out-Null
+        $authPatch = Join-Path $impl "kumquat-git-diff.patch"
+        Set-Content -Path $authPatch -Value "# Kumquat git diff anchor`nAUTHORITATIVE" -Encoding utf8
+        $relative = Get-KumquatCanonicalRelativePaths
+        Sync-KumquatVerifierInputs -GoalRoot $goalRoot -GoalId $goalId -Attempt 7 `
+            -PatchPath $authPatch -RelativePaths $relative -ScratchDir $impl | Out-Null
+        $guard = Start-KumquatVerifierPatchGuard -GoalRoot $goalRoot -GoalId $goalId -Attempt 7 `
+            -AuthoritativePatchPath $authPatch -ScratchDir $impl -DurationSeconds 30 -PollMilliseconds 50
+        $result = Write-KumquatClobberSimulationEvidence -GoalRoot $goalRoot -GoalId $goalId -Attempt 7 `
+            -ScratchDir $impl -WaitSeconds 5
+        $result.ok | Should Be $true
+        Test-Path (Join-Path $impl "kumquat-clobber-simulation.txt") | Should Be $true
+        Stop-Process -Id $guard.pid -Force -ErrorAction SilentlyContinue
+        Remove-Item $goalRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
 Describe "Repair-KumquatVerifierPatch" {
     It "restores authoritative header after harness clobber simulation" {
         $goalId = "testrepair$(Get-Random)"

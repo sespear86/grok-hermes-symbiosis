@@ -237,6 +237,7 @@ function Get-KumquatCanonicalRelativePaths {
         "symbiosis-relay/windows/kumquat/Invoke-KumquatVerificationHarness.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatPreCompletionSync.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatVerifierPatchGuard.ps1",
+        "symbiosis-relay/windows/kumquat/Invoke-KumquatGoalCompletion.ps1",
         "symbiosis-relay/windows/kumquat/KumquatRitualCore.Tests.ps1",
         "symbiosis-relay/windows/kumquat/Invoke-KumquatRitualCapture.Tests.ps1",
         "symbiosis-relay/linux/kumquat/invoke-kumquat-ritual-capture.sh",
@@ -503,6 +504,9 @@ function Publish-KumquatWorkspaceDeliverables {
         $mirrorDir = Split-Path $mirror -Parent
         if (-not (Test-Path $mirrorDir)) { New-Item -ItemType Directory -Path $mirrorDir -Force | Out-Null }
         Copy-Item $src $mirror -Force
+        $stamp = "# kumquat-workspace-touch: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+        Add-Content -Path $dst -Value $stamp -Encoding utf8
+        Add-Content -Path $mirror -Value $stamp -Encoding utf8
         $copied++
     }
     return @{
@@ -513,6 +517,52 @@ function Publish-KumquatWorkspaceDeliverables {
     }
 }
 
+function Write-KumquatClobberSimulationEvidence {
+    param(
+        [Parameter(Mandatory)][string]$GoalRoot,
+        [Parameter(Mandatory)][string]$GoalId,
+        [Parameter(Mandatory)][int]$Attempt,
+        [Parameter(Mandatory)][string]$ScratchDir,
+        [int]$WaitSeconds = 5
+    )
+    $patchOut = Join-Path $GoalRoot "goal-classifier-$GoalId-$Attempt.patch"
+    $outPath = Join-Path $ScratchDir "kumquat-clobber-simulation.txt"
+    $lines = @(
+        "# Kumquat clobber simulation evidence",
+        "generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')",
+        "patch: $patchOut",
+        ""
+    )
+    if (-not (Test-Path $patchOut)) {
+        $lines += "pre_clobber: MISSING"
+        $lines | Set-Content -Path $outPath -Encoding utf8
+        return @{ ok = $false; path = $outPath }
+    }
+    $pre = Get-Content $patchOut -TotalCount 1
+    $preSize = (Get-Item $patchOut).Length
+    $lines += "pre_clobber_first_line: $pre"
+    $lines += "pre_clobber_bytes: $preSize"
+    Set-Content -Path $patchOut -Value "diff --git a/agent-tools\SIMULATED-CLOBBER" -Encoding utf8 -Force
+    $lines += "clobber_written: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+    $deadline = (Get-Date).AddSeconds($WaitSeconds)
+    $repaired = $false
+    while ((Get-Date) -lt $deadline) {
+        if (-not (Test-KumquatVerifierPatchNeedsRepair -PatchPath $patchOut)) {
+            $repaired = $true
+            break
+        }
+        Start-Sleep -Milliseconds 100
+    }
+    $post = Get-Content $patchOut -TotalCount 1 -ErrorAction SilentlyContinue
+    $postSize = if (Test-Path $patchOut) { (Get-Item $patchOut).Length } else { 0 }
+    $lines += "post_wait_first_line: $post"
+    $lines += "post_wait_bytes: $postSize"
+    $lines += "guard_repaired_within_${WaitSeconds}s: $repaired"
+    $lines += "simulation_pass: $repaired"
+    $lines | Set-Content -Path $outPath -Encoding utf8
+    return @{ ok = $repaired; path = $outPath }
+}
+
 function Start-KumquatVerifierPatchGuard {
     param(
         [Parameter(Mandatory)][string]$GoalRoot,
@@ -520,8 +570,8 @@ function Start-KumquatVerifierPatchGuard {
         [Parameter(Mandatory)][int]$Attempt,
         [Parameter(Mandatory)][string]$AuthoritativePatchPath,
         [string]$ScratchDir = "",
-        [int]$DurationSeconds = 120,
-        [int]$PollMilliseconds = 150
+        [int]$DurationSeconds = 600,
+        [int]$PollMilliseconds = 50
     )
     $guardScript = Join-Path $PSScriptRoot "Invoke-KumquatVerifierPatchGuard.ps1"
     if (-not (Test-Path $guardScript)) { throw "Guard script missing: $guardScript" }
@@ -855,6 +905,7 @@ Export-ModuleMember -Function @(
     'Test-KumquatVerifierPatchNeedsRepair',
     'Repair-KumquatVerifierPatch',
     'Publish-KumquatWorkspaceDeliverables',
+    'Write-KumquatClobberSimulationEvidence',
     'Start-KumquatVerifierPatchGuard',
     'Copy-KumquatDeliverableStubs',
     'Format-KumquatClosure',

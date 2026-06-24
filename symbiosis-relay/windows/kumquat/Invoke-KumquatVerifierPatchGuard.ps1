@@ -5,8 +5,8 @@ param(
     [Parameter(Mandatory)][int]$Attempt,
     [Parameter(Mandatory)][string]$AuthoritativePatchPath,
     [string]$ScratchDir = "",
-    [int]$DurationSeconds = 120,
-    [int]$PollMilliseconds = 150
+    [int]$DurationSeconds = 600,
+    [int]$PollMilliseconds = 50
 )
 
 $ErrorActionPreference = "SilentlyContinue"
@@ -28,12 +28,17 @@ GLog "GUARD_START pid=$PID attempt=$Attempt patch=$patchOut duration=${DurationS
 $deadline = (Get-Date).AddSeconds($DurationSeconds)
 $repairs = 0
 
+$lastSize = -1
 while ((Get-Date) -lt $deadline) {
     if (Test-KumquatVerifierPatchNeedsRepair -PatchPath $patchOut) {
+        $size = if (Test-Path $patchOut) { (Get-Item $patchOut -Force).Length } else { 0 }
+        $mtime = if (Test-Path $patchOut) { (Get-Item $patchOut -Force).LastWriteTime.ToString('yyyy-MM-dd HH:mm:ss') } else { 'missing' }
+        $snippet = if (Test-Path $patchOut) { (Get-Content $patchOut -TotalCount 1 -ErrorAction SilentlyContinue) } else { '' }
         Repair-KumquatVerifierPatch -GoalRoot $GoalRoot -GoalId $GoalId -Attempt $Attempt `
             -PatchPath $AuthoritativePatchPath -RelativePaths $relative -ScratchDir $ScratchDir | Out-Null
         $repairs++
-        GLog "GUARD_REPAIR #$repairs restored authoritative patch header"
+        GLog "GUARD_REPAIR #$repairs clobber_detected bytes=$size mtime=$mtime snippet=$snippet"
+        $lastSize = $size
     }
     Start-Sleep -Milliseconds $PollMilliseconds
 }

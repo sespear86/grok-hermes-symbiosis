@@ -39,7 +39,9 @@ $sync = Sync-KumquatVerifierInputs -GoalRoot $goalRoot -GoalId $goalId -Attempt 
 $stubs = Copy-KumquatDeliverableStubs -RepoRoot $RepoRoot -SessionDir $SessionDir `
     -ScratchDir $ScratchDir -RelativePaths $relative
 $guard = Start-KumquatVerifierPatchGuard -GoalRoot $goalRoot -GoalId $goalId -Attempt $Attempt `
-    -AuthoritativePatchPath $patchPath -ScratchDir $ScratchDir -DurationSeconds 120
+    -AuthoritativePatchPath $patchPath -ScratchDir $ScratchDir -DurationSeconds 600 -PollMilliseconds 50
+$clobber = Write-KumquatClobberSimulationEvidence -GoalRoot $goalRoot -GoalId $goalId -Attempt $Attempt `
+    -ScratchDir $ScratchDir -WaitSeconds 5
 
 $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
 @(
@@ -52,6 +54,8 @@ $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
     "patch: $($sync.patch_path)",
     "changed: $($sync.changed_path)",
     "patch_guard_pid: $($guard.pid)",
+    "patch_guard_duration_seconds: 600",
+    "clobber_simulation_pass: $($clobber.ok)",
     "workspace_published: $($workspace.copied)/$($workspace.expected)",
     "deliverables: $($stubs.deliverables_root)",
     "stubs_copied: $($stubs.copied)/$($stubs.expected)"
@@ -60,4 +64,5 @@ $logPath = Join-Path $ScratchDir "kumquat-precompletion-sync.log"
 if (-not $sync.patch_ok) { exit 1 }
 if ($stubs.copied -lt $relative.Count) { exit 1 }
 if ($workspace.copied -lt $relative.Count) { exit 1 }
+if (-not $clobber.ok) { exit 1 }
 exit 0
