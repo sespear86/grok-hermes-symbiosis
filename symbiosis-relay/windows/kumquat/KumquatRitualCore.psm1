@@ -323,12 +323,60 @@ function Write-KumquatHarnessEvidence {
     }
 
     Write-KumquatEvidenceVerification -RepoRoot $RepoRoot -ScratchDir $ScratchDir -RelativePaths $relative | Out-Null
+    Write-KumquatGoalClassifierAnchor -ScratchDir $ScratchDir -PatchPath $patchPath -RelativePaths $relative | Out-Null
 
     return @{
         changes_path  = Join-Path $ScratchDir "kumquat-changes.txt"
         manifest_path = Join-Path $ScratchDir "kumquat-source-manifest.txt"
         patch_path    = $patchPath
         path_count    = $relative.Count
+    }
+}
+
+function Write-KumquatGoalClassifierAnchor {
+    param(
+        [string]$ScratchDir,
+        [string]$PatchPath,
+        [string[]]$RelativePaths
+    )
+    if (-not $ScratchDir -or -not (Test-Path $PatchPath)) { return @{} }
+
+    $goalRoot = Split-Path $ScratchDir -Parent
+    if (-not $goalRoot -or $goalRoot -eq $ScratchDir) { return @{} }
+
+    $changedOut = Join-Path $goalRoot "goal-classifier-CHANGED_FILES_ANCHOR.txt"
+    $relativePaths | Set-Content -Path $changedOut -Encoding utf8
+
+    $anchorReadme = @(
+        "# Goal classifier authoritative anchors (replaces stale session workspace patch/CHANGED_FILES)",
+        "scratch: $ScratchDir",
+        "patch_source: $PatchPath",
+        "path_count: $($RelativePaths.Count)",
+        "audit: use this file + goal-classifier-*.patch copies below, NOT C:\WINDOWS\system32 session CHANGED_FILES",
+        ""
+    ) + $RelativePaths
+    $anchorReadme | Set-Content -Path (Join-Path $goalRoot "goal-classifier-AUTHORITATIVE-README.txt") -Encoding utf8
+
+    $patched = @()
+    Get-ChildItem -Path $goalRoot -Filter "goal-classifier-*.patch" -ErrorAction SilentlyContinue | ForEach-Object {
+        Copy-Item -Path $PatchPath -Destination $_.FullName -Force
+        $patched += $_.Name
+    }
+    $nextPatch = Join-Path $goalRoot "goal-classifier-AUTHORITATIVE.patch"
+    Copy-Item -Path $PatchPath -Destination $nextPatch -Force
+
+    $summaryPath = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
+    @(
+        "goal_root: $goalRoot",
+        "classifier_patches_overwritten: $($patched.Count)",
+        "classifier_changed_anchor: $changedOut",
+        "authoritative_patch: $nextPatch"
+    ) | Set-Content -Path $summaryPath -Encoding utf8
+
+    return @{
+        goal_root       = $goalRoot
+        patches_updated = $patched.Count
+        changed_anchor  = $changedOut
     }
 }
 
@@ -563,7 +611,7 @@ function Write-KumquatVerificationBundle {
         "Be funny, you depraved little shit", "Cross-Implement", "Mirrorability",
         "Edited:", "ACTUAL_SCORE", "ACTUAL_OVERALL_OK",
         "ENSURE_PERSONAL_SHELL", "ENSURE_SCRIPT_INVOKED", "ENSURE_OREGON_ENSURE_INVOKED",
-        "ENSURE_SKILL_COMPLIANT", "MEMPALACE_STEP_3", "MODE_DECLARED",
+        "ENSURE_OREGON_SKIP_REDUNDANT_FETCH", "ENSURE_SKILL_COMPLIANT", "MEMPALACE_STEP_3", "MODE_DECLARED",
         "SURROGATE_GAP", "CROSS_ARTIFACT_OK", "HARNESS_EVIDENCE", "MANIFEST_WRITTEN"
     )
     $grepOut = @()
@@ -602,6 +650,7 @@ Export-ModuleMember -Function @(
     'Get-KumquatChangedFiles',
     'Write-KumquatHarnessEvidence',
     'Write-KumquatEvidenceVerification',
+    'Write-KumquatGoalClassifierAnchor',
     'Format-KumquatClosure',
     'Update-KumquatCoordinationReceipts',
     'Restore-KumquatCoordinationBaseline',

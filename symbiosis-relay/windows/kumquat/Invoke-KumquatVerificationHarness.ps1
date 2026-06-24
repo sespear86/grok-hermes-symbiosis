@@ -21,12 +21,9 @@ if (-not (Test-Path $ScratchDir)) {
 Import-Module (Join-Path $moduleDir "KumquatRitualCore.psm1") -Force
 
 $logPath = Join-Path $ScratchDir "kumquat-harness.log"
-if (Test-Path $logPath) {
-    $archivePath = Join-Path $ScratchDir "kumquat-harness-archive.log"
-    Add-Content -Path $archivePath -Value "`n--- archived $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ---" -Encoding utf8
-    Get-Content $logPath | Add-Content -Path $archivePath -Encoding utf8
-    Remove-Item $logPath -Force
-}
+if (Test-Path $logPath) { Remove-Item $logPath -Force }
+$staleArchive = Join-Path $ScratchDir "kumquat-harness-archive.log"
+if (Test-Path $staleArchive) { Remove-Item $staleArchive -Force }
 function HLog([string]$msg) {
     $line = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $msg"
     Add-Content -Path $logPath -Value $line -Encoding utf8
@@ -84,6 +81,10 @@ $evIndex = Join-Path $ScratchDir "kumquat-evidence-index.txt"
 if (Test-Path $evIndex) {
     Get-Content $evIndex | Where-Object { $_ -match '^(evidence_mirror_match|oregon\.md_manifest_only|oregon-archive|CHANGED_FILES_ANCHOR|KumquatRitualCore)' } |
         ForEach-Object { HLog "EVIDENCE: $_" }
+}
+$clsAnchor = Join-Path $ScratchDir "kumquat-classifier-anchor.txt"
+if (Test-Path $clsAnchor) {
+    Get-Content $clsAnchor | ForEach-Object { HLog "CLASSIFIER: $_" }
 }
 
 if ($bundle.pest_failed -gt 0) {

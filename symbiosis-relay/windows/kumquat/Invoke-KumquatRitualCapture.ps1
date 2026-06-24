@@ -43,14 +43,17 @@ Log "ENSURE_SCRIPT_INVOKED: personal-shell git fetch in grok-hermes-symbiosis"
 
 $ensureScript = Join-Path $relay "oregon_ensure_symbiosis_latest.ps1"
 if (Test-Path $ensureScript) {
-    Log "INVOKING: $ensureScript (per SKILL ensure step)"
-    $ensureOut = & powershell -ExecutionPolicy Bypass -File $ensureScript 2>&1 | ForEach-Object { $_.ToString() }
+    Log "INVOKING: $ensureScript (per SKILL ensure step; personal-shell fetch already authoritative)"
+    $ensureArgs = @("-ExecutionPolicy", "Bypass", "-File", $ensureScript)
+    if ($personalExit -eq 0) { $ensureArgs += "-SkipFetch" }
+    $ensureOut = & powershell @ensureArgs 2>&1 | ForEach-Object { $_.ToString() }
     $ensureOut | Select-Object -First 10 | ForEach-Object { Log "ENSURE_OREGON: $_" }
     Log "ENSURE_OREGON_ENSURE_INVOKED: oregon_ensure_symbiosis_latest.ps1"
+    if ($personalExit -eq 0) { Log "ENSURE_OREGON_SKIP_REDUNDANT_FETCH: personal-shell git fetch succeeded first per SKILL" }
 } else {
     Log "ENSURE_OREGON_GAP: oregon_ensure_symbiosis_latest.ps1 not found at $ensureScript"
 }
-Log "ENSURE_SKILL_COMPLIANT: personal-shell git + oregon_ensure per SKILL (printed commands in ensure output)"
+Log "ENSURE_SKILL_COMPLIANT: personal-shell git first + oregon_ensure script invoked per SKILL"
 
 # STEP 2: Ingest
 Log "--- STEP 2: NERVOUS SYSTEM INGESTION ---"
