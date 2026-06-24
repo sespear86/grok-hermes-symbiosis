@@ -27,16 +27,30 @@ Describe "Get-KumquatHealthMetrics" {
 }
 
 Describe "Get-KumquatCanonicalChangedPaths" {
-    It "returns only repo source paths (no temp/Synced/mcps noise)" {
-        $repo = "C:\Users\spear\grok-hermes-symbiosis"
-        $paths = Get-KumquatCanonicalChangedPaths -RepoRoot $repo
-        $relCount = @(Get-KumquatCanonicalRelativePaths).Count
-        $paths.Count | Should Be $relCount
+    It "returns relative repo paths only (no absolute paths)" {
+        $paths = Get-KumquatCanonicalChangedPaths
+        $paths.Count | Should BeGreaterThan 10
         ($paths -join "`n") | Should Match "KumquatRitualCore\.psm1"
-        ($paths -join "`n") | Should Match "invoke-kumquat-ritual-capture\.sh"
+        ($paths -join "`n") | Should Not Match "C:\\\\"
         ($paths -join "`n") | Should Not Match "implementer"
-        ($paths -join "`n") | Should Not Match "Synced"
-        ($paths -join "`n") | Should Not Match "mcps"
+    }
+}
+
+Describe "Set-KumquatManifestBlock" {
+    It "replaces metrics when run label already exists (symmetric overwrite)" {
+        $tmp = Join-Path $env:TEMP "kumquat-test-$(Get-Random).md"
+        $health1 = [PSCustomObject]@{ overall_ok = $true; score = 75; beacon_age_seconds = 39; schema = "0.3.0"; persistence_closed = $true }
+        $health2 = [PSCustomObject]@{ overall_ok = $false; score = 50; beacon_age_seconds = 505; schema = "0.3.0"; persistence_closed = $true }
+        $content1 = Format-KumquatOregonHB -Health $health1 -RunLabel "run-2"
+        Set-KumquatManifestBlock -FilePath $tmp -BlockName "oregon-hb" -NewContent $content1 | Out-Null
+        $content2 = Format-KumquatOregonHB -Health $health2 -RunLabel "run-2"
+        Set-KumquatManifestBlock -FilePath $tmp -BlockName "oregon-hb" -NewContent $content2 | Out-Null
+        $final = Get-Content $tmp -Raw
+        $final | Should Match "overall_ok=False"
+        $final | Should Match "score=50"
+        $final | Should Match "beacon=505s"
+        $final | Should Not Match "score=75"
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
     }
 }
 

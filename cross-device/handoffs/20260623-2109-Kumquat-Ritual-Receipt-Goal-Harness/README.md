@@ -45,6 +45,17 @@ On your next `/kumquat`, ingest this handoff + updated coordination docs and:
 
 **Ensure order (Oregon):** Personal-shell `git -C C:\Users\spear\grok-hermes-symbiosis fetch origin` first (authoritative per SKILL). `oregon_ensure_symbiosis_latest.ps1` is diagnostic only.
 
+## Verification Harness (canonical verifier contract)
+
+Oregon shipped `Invoke-KumquatVerificationHarness.ps1` as the **only** verification entry: baseline restore, dual-run capture (run-1 no coordination, run-2 with coordination), Pester bundle (4/4), relative `kumquat-changes.txt`, closure from manifest.
+
+```powershell
+$env:KUMQUAT_SCRATCH = "C:\path\to\scratch"
+powershell -ExecutionPolicy Bypass -File symbiosis-relay\windows\kumquat\Invoke-KumquatVerificationHarness.ps1 -ScratchDir $env:KUMQUAT_SCRATCH
+```
+
+Linux stub: `symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh`
+
 ## Capture Wrapper Tool (verification artifact)
 
 Oregon shipped headless ritual capture for honest `/kumquat` verification:

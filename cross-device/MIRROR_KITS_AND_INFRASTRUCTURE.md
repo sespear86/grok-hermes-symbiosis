@@ -3,6 +3,19 @@
 **Purpose (per Mirrorability / Full Provisioning Prime):**  
 This is the single authoritative document that allows either device (Washington/Linux or Oregon/Windows) to fully replicate the entire current symbiosis stack — Cross-device coordination, Symbiosis Relay (including Pi), Bust a Nut autonomous recovery, Mempalace rich capture + MCP, Device Presence, and all supporting tooling — with zero guesswork.
 
+### Invoke-KumquatVerificationHarness.ps1 (Round 6 verifier contract, 2026-06-23)
+
+**What shipped:** Single verification entry owning dual-run ordering, coordination baseline restore, Pester bundle (4/4 Core + 1/1 Smoke in `kumquat-pest-results.txt`), relative `kumquat-changes.txt`, closure from manifest.
+
+| Device | Entry |
+|--------|-------|
+| Oregon | `powershell -ExecutionPolicy Bypass -File symbiosis-relay/windows/kumquat/Invoke-KumquatVerificationHarness.ps1 -ScratchDir {SCRATCH}` |
+| Washington | `bash symbiosis-relay/linux/kumquat/invoke-kumquat-verification-harness.sh` (stub verifies harness exists) |
+
+**Mirror MET** for harness + bundle contract.
+
+<!-- Edited: 2026-06-23 | Device: Windows | By: Grok (/kumquat) --> Verification harness cross-implement. Signature per prime directive. -->
+
 ### KumquatRitualCore.psm1 + manifest-driven capture (Round 3 restructure, 2026-06-23)
 
 **What shipped:** Structural restructure per goal harness strategy.md. Pure testable module + thin orchestrator + manifest.json + kumquat-changes.txt evidence bridge (clean canonical paths only - no harness system32/mcps noise).

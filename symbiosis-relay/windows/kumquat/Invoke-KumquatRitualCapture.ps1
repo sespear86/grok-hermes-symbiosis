@@ -99,7 +99,7 @@ $closure -split "`n" | ForEach-Object { if ($_.Trim()) { Log $_ } }
 # Changed files evidence bridge
 $changedFiles = Get-KumquatChangedFiles -RepoRoot $repo
 $evidence = Write-KumquatHarnessEvidence -RepoRoot $repo -ScratchDir $ScratchDir -RunLabel $RunLabel
-Log ("CHANGES_FILE: {0} ({1} canonical repo paths)" -f $evidence.changes_path, $evidence.path_count)
+Log ("CHANGES_FILE: {0} ({1} canonical relative paths)" -f $evidence.changes_path, $evidence.path_count)
 Log ("HARNESS_EVIDENCE: manifest={0} patch={1}" -f $evidence.manifest_path, $evidence.patch_path)
 
 # Manifest
